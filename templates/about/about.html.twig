@@ -1,0 +1,441 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello AboutController!{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('lib/owlcarousel/assets/owl.carousel.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('lib/animate/animate.min.css') }}">
+
+    <style>
+    :root {
+        --primary: #e67e22 !important;  /* Orange chaleureux */
+        --primary-hover: #d35400 !important; /* Orange foncé */
+        --secondary: #3498db !important; /* Bleu clair */
+        --secondary-hover: #2980b9 !important; /* Bleu foncé */
+        --light: #f5f7fa !important;    /* Gris très clair */
+        --dark: #091E3E !important;     /* Bleu marine */
+    }
+    
+    /* Text Colors */
+    .text-primary {
+        color: var(--primary) !important;
+    }
+    .text-secondary {
+        color: var(--secondary) !important;
+    }
+
+    /* Background Colors */
+    .bg-primary {
+        background-color: var(--primary) !important;
+    }
+    .bg-secondary {
+        background-color: var(--secondary) !important;
+    }
+
+    /* Border Colors */
+    .border-primary {
+        border-color: var(--primary) !important;
+    }
+    .border-secondary {
+        border-color: var(--secondary) !important;
+    }
+
+    /* Buttons */
+    .btn-primary {
+        background-color: var(--primary) !important;
+        border-color: var(--primary) !important;
+        color: #fff !important;
+    }
+    .btn-primary:hover {
+        background-color: var(--primary-hover) !important;
+        border-color: var(--primary-hover) !important;
+    }
+
+    .btn-secondary {
+        background-color: var(--secondary) !important;
+        border-color: var(--secondary) !important;
+        color: #fff !important;
+    }
+    .btn-secondary:hover {
+        background-color: var(--secondary-hover) !important;
+        border-color: var(--secondary-hover) !important;
+    }
+
+    .btn-outline-primary {
+        color: var(--primary) !important;
+        border-color: var(--primary) !important;
+        background-color: transparent !important;
+    }
+    .btn-outline-primary:hover {
+        background-color: var(--primary) !important;
+        color: #fff !important;
+    }
+
+    .btn-outline-secondary {
+        color: var(--secondary) !important;
+        border-color: var(--secondary) !important;
+        background-color: transparent !important;
+    }
+    .btn-outline-secondary:hover {
+        background-color: var(--secondary) !important;
+        color: #fff !important;
+    }
+
+    /* Navbar */
+    .navbar-dark .navbar-nav .nav-link:hover,
+    .navbar-dark .navbar-nav .nav-link.active {
+        color: var(--primary) !important;
+    }
+    .navbar-dark .navbar-toggler {
+        color: var(--primary) !important;
+        border-color: var(--primary) !important;
+    }
+
+    /* Section Title */
+    .section-title::before {
+        background: var(--primary) !important;
+    }
+
+    /* Service Items */
+    .service-item .service-icon {
+        background: var(--primary) !important;
+    }
+
+    /* Testimonials */
+    .testimonial-carousel .owl-dot.active {
+        background: var(--primary) !important;
+    }
+
+    /* Team */
+    .team-social a.btn {
+        background: var(--primary) !important;
+        border-color: var(--primary) !important;
+        color: #fff !important;
+    }
+    .team-social a.btn:hover {
+        background: var(--primary-hover) !important;
+        border-color: var(--primary-hover) !important;
+    }
+
+    /* Back to Top */
+    .back-to-top {
+        background: var(--primary) !important;
+        color: #fff !important;
+    }
+    .back-to-top:hover {
+        background: var(--primary-hover) !important;
+    }
+
+    /* Carousel Controls */
+    .carousel-control-prev-icon,
+    .carousel-control-next-icon {
+        background-color: var(--primary) !important;
+    }
+
+    /* Pricing Plan */
+    .pricing-plan .bg-primary {
+        background-color: var(--primary) !important;
+    }
+</style>
+    <link rel="stylesheet" href="{{ asset('lib/owlcarousel/assets/owl.carousel.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('lib/animate/animate.min.css') }}">
+    <!-- Autres styles si nécessaire -->
+{% endblock %}
+
+
+
+
+{% block body %}
+ <div id="spinner" class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
+        <div class="spinner"></div>
+    </div>
+    <!-- Spinner End -->
+
+
+    <!-- Topbar Start -->
+    <div class="container-fluid bg-dark px-5 d-none d-lg-block">
+        <div class="row gx-0">
+            <div class="col-lg-8 text-center text-lg-start mb-2 mb-lg-0">
+                <div class="d-inline-flex align-items-center" style="height: 45px;">
+                    <small class="me-3 text-light"><i class="fa fa-map-marker-alt me-2"></i>123 Street, New York, USA</small>
+                    <small class="me-3 text-light"><i class="fa fa-phone-alt me-2"></i>+012 345 6789</small>
+                    <small class="text-light"><i class="fa fa-envelope-open me-2"></i>info@example.com</small>
+                </div>
+            </div>
+            <div class="col-lg-4 text-center text-lg-end">
+                <div class="d-inline-flex align-items-center" style="height: 45px;">
+                    <a class="btn btn-sm btn-outline-light btn-sm-square rounded-circle me-2" href=""><i class="fab fa-twitter fw-normal"></i></a>
+                    <a class="btn btn-sm btn-outline-light btn-sm-square rounded-circle me-2" href=""><i class="fab fa-facebook-f fw-normal"></i></a>
+                    <a class="btn btn-sm btn-outline-light btn-sm-square rounded-circle me-2" href=""><i class="fab fa-linkedin-in fw-normal"></i></a>
+                    <a class="btn btn-sm btn-outline-light btn-sm-square rounded-circle me-2" href=""><i class="fab fa-instagram fw-normal"></i></a>
+                    <a class="btn btn-sm btn-outline-light btn-sm-square rounded-circle" href=""><i class="fab fa-youtube fw-normal"></i></a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Topbar End -->
+
+
+   {# ============================================= #}
+    {# NAVBAR (PRINCIPAL NAVIGATION) - UNE SEULE FOIS #}
+    {# ============================================= #}
+   <nav class="navbar navbar-expand-lg navbar-dark px-5 py-3 py-lg-0 bg-dark">
+    <div class="container-fluid">
+        <a href="index.html" class="navbar-brand p-0">
+            <h1 class="m-0"><i class="fa fa-user-tie me-2"></i>Startup</h1>
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
+            <span class="fa fa-bars"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarCollapse">
+            <div class="navbar-nav ms-auto py-0">
+                <a href="index.html" class="nav-item nav-link active hover-orange">Home</a>
+                <a href="{{ path('app_about') }}" class="nav-item nav-link hover-orange">About</a>
+                <a href="{{ path('app_services') }}" class="nav-item nav-link hover-orange">Services</a>
+                
+                <div class="nav-item dropdown">
+                    <a href="#" class="nav-link dropdown-toggle hover-orange" data-bs-toggle="dropdown">Blog</a>
+                    <div class="dropdown-menu m-0 bg-dark">
+                        <a href="{{ path('app_blog') }}" class="dropdown-item text-white hover-orange">Blog Grid</a>
+                        <a href="{{ path('app_blog_detail') }}" class="dropdown-item text-white hover-orange">Blog Detail</a>
+                    </div>
+                </div>
+                
+                <div class="nav-item dropdown">
+                    <a href="#" class="nav-link dropdown-toggle hover-orange" data-bs-toggle="dropdown">Pages</a>
+                    <div class="dropdown-menu m-0 bg-dark">
+                        <a href="{{ path('app_pricing') }}" class="dropdown-item text-white hover-orange">Pricing Plan</a>
+                        <a href="{{ path('app_features') }}" class="dropdown-item text-white hover-orange">Our Features</a>
+                        <a href="{{ path('app_team') }}" class="dropdown-item text-white hover-orange">Team Members</a>
+                        <a href="{{ path('app_testimonials') }}" class="dropdown-item text-white hover-orange">Testimonial</a>
+                        <a href="{{ path('app_quote') }}" class="dropdown-item text-white hover-orange">Free Quote</a>
+                    </div>
+                </div>
+                
+                <a href="{{ path('app_contact') }}" class="nav-item nav-link hover-orange">Contact</a>
+            </div>
+            
+            <div class="d-flex ms-3">
+                <button type="button" class="btn text-primary hover-orange-btn" data-bs-toggle="modal" data-bs-target="#searchModal">
+                    <i class="fa fa-search"></i>
+                </button>
+                <a href="https://htmlcodex.com/startup-company-website-template" class="btn btn-primary py-2 px-4 ms-3 hover-orange-btn">Download Pro Version</a>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<style>
+    /* Style pour les liens de navigation */
+    
+    
+    /* Style spécifique pour les éléments dropdown */
+    .dropdown-item.hover-orange:hover {
+        background-color: #ff8c00 !important;
+        color: white !important;
+    }
+</style>
+    <!-- Full Screen Search Start -->
+    <div class="modal fade" id="searchModal" tabindex="-1">
+        <div class="modal-dialog modal-fullscreen">
+            <div class="modal-content" style="background: rgba(9, 30, 62, .7);">
+                <div class="modal-header border-0">
+                    <button type="button" class="btn bg-white btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body d-flex align-items-center justify-content-center">
+                    <div class="input-group" style="max-width: 600px;">
+                        <input type="text" class="form-control bg-transparent border-primary p-3" placeholder="Type search keyword">
+                        <button class="btn btn-primary px-4"><i class="bi bi-search"></i></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Full Screen Search End -->
+
+
+    <!-- About Start -->
+    <div class="container-fluid py-5 wow fadeInUp" data-wow-delay="0.1s">
+        <div class="container py-5">
+            <div class="row g-5">
+                <div class="col-lg-7">
+                    <div class="section-title position-relative pb-3 mb-5">
+                        <h5 class="fw-bold text-primary text-uppercase">About Us</h5>
+                        <h1 class="mb-0">The Best IT Solution With 10 Years of Experience</h1>
+                    </div>
+                    <p class="mb-4">Tempor erat elitr rebum at clita. Diam dolor diam ipsum et tempor sit. Aliqu diam amet diam et eos labore. Clita erat ipsum et lorem et sit, sed stet no labore lorem sit. Sanctus clita duo justo et tempor eirmod magna dolore erat amet</p>
+                    <div class="row g-0 mb-3">
+                        <div class="col-sm-6 wow zoomIn" data-wow-delay="0.2s">
+                            <h5 class="mb-3"><i class="fa fa-check text-primary me-3"></i>Award Winning</h5>
+                            <h5 class="mb-3"><i class="fa fa-check text-primary me-3"></i>Professional Staff</h5>
+                        </div>
+                        <div class="col-sm-6 wow zoomIn" data-wow-delay="0.4s">
+                            <h5 class="mb-3"><i class="fa fa-check text-primary me-3"></i>24/7 Support</h5>
+                            <h5 class="mb-3"><i class="fa fa-check text-primary me-3"></i>Fair Prices</h5>
+                        </div>
+                    </div>
+                    <div class="d-flex align-items-center mb-4 wow fadeIn" data-wow-delay="0.6s">
+                        <div class="bg-primary d-flex align-items-center justify-content-center rounded" style="width: 60px; height: 60px;">
+                            <i class="fa fa-phone-alt text-white"></i>
+                        </div>
+                        <div class="ps-4">
+                            <h5 class="mb-2">Call to ask any question</h5>
+                            <h4 class="text-primary mb-0">+012 345 6789</h4>
+                        </div>
+                    </div>
+                    <a href="quote.html" class="btn btn-primary py-3 px-5 mt-3 wow zoomIn" data-wow-delay="0.9s">Request A Quote</a>
+                </div>
+                <div class="col-lg-5" style="min-height: 500px;">
+                    <div class="position-relative h-100">
+                        <img class="position-absolute w-100 h-100 rounded wow zoomIn" data-wow-delay="0.9s" src="img/about.jpg" style="object-fit: cover;">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- About End -->
+
+
+    <!-- Team Start -->
+    <div class="container-fluid py-5 wow fadeInUp" data-wow-delay="0.1s">
+        <div class="container py-5">
+            <div class="section-title text-center position-relative pb-3 mb-5 mx-auto" style="max-width: 600px;">
+                <h5 class="fw-bold text-primary text-uppercase">Team Members</h5>
+                <h1 class="mb-0">Professional Stuffs Ready to Help Your Business</h1>
+            </div>
+            <div class="row g-5">
+                <div class="col-lg-4 wow slideInUp" data-wow-delay="0.3s">
+                    <div class="team-item bg-light rounded overflow-hidden">
+                        <div class="team-img position-relative overflow-hidden">
+                            <img class="img-fluid w-100" src="img/team-1.jpg" alt="">
+                            <div class="team-social">
+                                <a class="btn btn-lg btn-primary btn-lg-square rounded" href=""><i class="fab fa-twitter fw-normal"></i></a>
+                                <a class="btn btn-lg btn-primary btn-lg-square rounded" href=""><i class="fab fa-facebook-f fw-normal"></i></a>
+                                <a class="btn btn-lg btn-primary btn-lg-square rounded" href=""><i class="fab fa-instagram fw-normal"></i></a>
+                                <a class="btn btn-lg btn-primary btn-lg-square rounded" href=""><i class="fab fa-linkedin-in fw-normal"></i></a>
+                            </div>
+                        </div>
+                        <div class="text-center py-4">
+                            <h4 class="text-primary">Full Name</h4>
+                            <p class="text-uppercase m-0">Designation</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 wow slideInUp" data-wow-delay="0.6s">
+                    <div class="team-item bg-light rounded overflow-hidden">
+                        <div class="team-img position-relative overflow-hidden">
+                            <img class="img-fluid w-100" src="img/team-2.jpg" alt="">
+                            <div class="team-social">
+                                <a class="btn btn-lg btn-primary btn-lg-square rounded" href=""><i class="fab fa-twitter fw-normal"></i></a>
+                                <a class="btn btn-lg btn-primary btn-lg-square rounded" href=""><i class="fab fa-facebook-f fw-normal"></i></a>
+                                <a class="btn btn-lg btn-primary btn-lg-square rounded" href=""><i class="fab fa-instagram fw-normal"></i></a>
+                                <a class="btn btn-lg btn-primary btn-lg-square rounded" href=""><i class="fab fa-linkedin-in fw-normal"></i></a>
+                            </div>
+                        </div>
+                        <div class="text-center py-4">
+                            <h4 class="text-primary">Full Name</h4>
+                            <p class="text-uppercase m-0">Designation</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 wow slideInUp" data-wow-delay="0.9s">
+                    <div class="team-item bg-light rounded overflow-hidden">
+                        <div class="team-img position-relative overflow-hidden">
+                            <img class="img-fluid w-100" src="img/team-3.jpg" alt="">
+                            <div class="team-social">
+                                <a class="btn btn-lg btn-primary btn-lg-square rounded" href=""><i class="fab fa-twitter fw-normal"></i></a>
+                                <a class="btn btn-lg btn-primary btn-lg-square rounded" href=""><i class="fab fa-facebook-f fw-normal"></i></a>
+                                <a class="btn btn-lg btn-primary btn-lg-square rounded" href=""><i class="fab fa-instagram fw-normal"></i></a>
+                                <a class="btn btn-lg btn-primary btn-lg-square rounded" href=""><i class="fab fa-linkedin-in fw-normal"></i></a>
+                            </div>
+                        </div>
+                        <div class="text-center py-4">
+                            <h4 class="text-primary">Full Name</h4>
+                            <p class="text-uppercase m-0">Designation</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Team End -->
+
+
+    <!-- Vendor Start -->
+    <div class="container-fluid py-5 wow fadeInUp" data-wow-delay="0.1s">
+        <div class="container py-5 mb-5">
+            <div class="bg-white">
+                <div class="owl-carousel vendor-carousel">
+                    <img src="img/vendor-1.jpg" alt="">
+                    <img src="img/vendor-2.jpg" alt="">
+                    <img src="img/vendor-3.jpg" alt="">
+                    <img src="img/vendor-4.jpg" alt="">
+                    <img src="img/vendor-5.jpg" alt="">
+                    <img src="img/vendor-6.jpg" alt="">
+                    <img src="img/vendor-7.jpg" alt="">
+                    <img src="img/vendor-8.jpg" alt="">
+                    <img src="img/vendor-9.jpg" alt="">
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Vendor End -->
+    
+
+    {# FOOTER #}
+    {# ============================================= #}
+    <footer class="bg-dark text-white p-4 mt-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4">
+                    <h5>About Us</h5>
+                    <p>Brief description of your company and what you offer.</p>
+                </div>
+                <div class="col-md-4">
+                    <h5>Quick Links</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="#" class="text-white">Home</a></li>
+                        <li><a href="#" class="text-white">Services</a></li>
+                        <li><a href="#" class="text-white">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-4">
+                    <h5>Contact Info</h5>
+                    <address>
+                        123 Street, New York, USA<br>
+                        <i class="fa fa-phone"></i> +012 345 6789<br>
+                        <i class="fa fa-envelope"></i> info@example.com
+                    </address>
+                </div>
+            </div>
+            <hr>
+            <div class="text-center">
+                <p class="mb-0">&copy; 2023 Your Company. All rights reserved.</p>
+            </div>
+        </div>
+ 
+    <!-- Back to Top -->
+    <a href="#" class="btn btn-lg btn-primary btn-lg-square rounded back-to-top"><i class="bi bi-arrow-up"></i></a>
+{% endblock %}
+
+
+{% block javascripts %}
+    {{ parent() }} {# Ceci inclut les scripts du parent #}
+  
+        <!-- JavaScript Libraries -->
+
+           <script src="{{ asset('public/js/bootstrap.bundle.min.js') }}"></script>
+           <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    
+        <script src="{{ asset('lib/wow/wow.min.js') }}"></script>
+        <script src="{{ asset('lib/easing/easing.min.js') }}"></script>
+        <script src="{{ asset('lib/waypoints/waypoints.min.js') }}"></script>
+        <script src="{{ asset('lib/counterup/counterup.min.js') }}"></script>
+        <script src="{{ asset('lib/owlcarousel/owl.carousel.min.js') }}"></script>
+
+        <!-- Template Javascript -->
+        <script src="{{ asset('js/main.js') }}"></script>
+    
+{% endblock %} 
+
