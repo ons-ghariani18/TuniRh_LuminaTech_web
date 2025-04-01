@@ -179,34 +179,36 @@
     {# ============================================= #}
 <nav class="navbar navbar-expand-lg navbar-dark px-5 py-3 py-lg-0 bg-dark">
     <div class="container-fluid">
-        <a href="index.html" class="navbar-brand p-0">
-            <h1 class="m-0"><i class="fa fa-user-tie me-2"></i>Startup</h1>
+        <a href="{{ path('app_home') }}" class="navbar-brand p-0">
+            <h1 class="m-0"><i class="fa fa-building me-2"></i>TuniRH Company</h1>
         </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
             <span class="fa fa-bars"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarCollapse">
             <div class="navbar-nav ms-auto py-0">
-                <a href="index.html" class="nav-item nav-link active hover-orange">Home</a>
+                <a href="{{ path('app_home') }}" class="nav-item nav-link hover-orange">Home</a>
                 <a href="{{ path('app_about') }}" class="nav-item nav-link hover-orange">About</a>
-                <a href="{{ path('app_services') }}" class="nav-item nav-link hover-orange">Services</a>
                 
                 <div class="nav-item dropdown">
-                    <a href="#" class="nav-link dropdown-toggle hover-orange" data-bs-toggle="dropdown">Blog</a>
+                    <a href="#" class="nav-link dropdown-toggle hover-orange" data-bs-toggle="dropdown">Services</a>
                     <div class="dropdown-menu m-0 bg-dark">
-                        <a href="{{ path('app_blog') }}" class="dropdown-item text-white hover-orange">Blog Grid</a>
-                        <a href="{{ path('app_blog_detail') }}" class="dropdown-item text-white hover-orange">Blog Detail</a>
+                        <a href="{{ path('app_recrutement') }}" class="dropdown-item text-white hover-orange">Recrutement</a>
+                        <a href="{{ path('app_formation') }}" class="dropdown-item text-white hover-orange">Formation</a>
+                         <a href="{{ path('app_reclamation') }}" class="dropdown-item text-white hover-orange">Reclammation</a>
                     </div>
                 </div>
                 
+       
                 <div class="nav-item dropdown">
-                    <a href="#" class="nav-link dropdown-toggle hover-orange" data-bs-toggle="dropdown">Pages</a>
+                    <a href="#" class="nav-link dropdown-toggle hover-orange" data-bs-toggle="dropdown">Resources</a>
                     <div class="dropdown-menu m-0 bg-dark">
-                        <a href="{{ path('app_pricing') }}" class="dropdown-item text-white hover-orange">Pricing Plan</a>
-                        <a href="{{ path('app_features') }}" class="dropdown-item text-white hover-orange">Our Features</a>
-                        <a href="{{ path('app_team') }}" class="dropdown-item text-white hover-orange">Team Members</a>
-                        <a href="{{ path('app_testimonials') }}" class="dropdown-item text-white hover-orange">Testimonial</a>
-                        <a href="{{ path('app_quote') }}" class="dropdown-item text-white hover-orange">Free Quote</a>
+                        <a href="{{ path('app_team') }}" class="dropdown-item text-white hover-orange">Our Team</a>
+                        <a href="{{ path('app_testimonials') }}" class="dropdown-item text-white hover-orange">Testimonials</a>
+                         <a href="{{ path('app_evenement') }}" class="dropdown-item text-white hover-orange"> Our Events</a>
+                           <a href="{{ path('app_sponsor') }}" class="dropdown-item text-white hover-orange">Our Sponsors</a>
+                            
+                            
                     </div>
                 </div>
                 
@@ -217,7 +219,7 @@
                 <button type="button" class="btn text-primary hover-orange-btn" data-bs-toggle="modal" data-bs-target="#searchModal">
                     <i class="fa fa-search"></i>
                 </button>
-                <a href="https://htmlcodex.com/startup-company-website-template" class="btn btn-primary py-2 px-4 ms-3 hover-orange-btn">Download Pro Version</a>
+                <a href="{{ path('app_login') }}" class="btn btn-primary py-2 px-4 ms-3 hover-orange-btn">Login</a>
             </div>
         </div>
     </div>
@@ -754,69 +756,133 @@
     <!-- Testimonial End -->
 
     
-     <!-- Blog Start -->
-    <div class="container-fluid py-5 wow fadeInUp" data-wow-delay="0.1s">
-        <div class="container py-5">
-            <div class="section-title text-center position-relative pb-3 mb-5 mx-auto" style="max-width: 600px;">
-                <h5 class="fw-bold text-primary text-uppercase">Latest Blog</h5>
-                <h1 class="mb-0">Read The Latest Articles from Our Blog Post</h1>
+  <!-- Événements Start -->
+<div class="container-fluid py-5 wow fadeInUp" data-wow-delay="0.1s">
+    <div class="container py-5">
+        <div class="section-title text-center position-relative pb-3 mb-5 mx-auto" style="max-width: 800px;">
+            <h5 class="fw-bold text-primary text-uppercase">Nos Événements</h5>
+            <h1 class="mb-0">Découvrez Nos Prochains Événements Professionnels</h1>
+        </div>
+        <div class="row g-4">
+            <!-- Événement 1 -->
+            <div class="col-lg-4 col-md-6 wow zoomIn" data-wow-delay="0.3s">
+                <div class="event-item bg-light rounded overflow-hidden h-100">
+                    <div class="event-img position-relative overflow-hidden">
+                        <img class="img-fluid w-100" src="{{ asset('img/about.jpg') }}" alt="Salon de recrutement tech" style="height: 220px; object-fit: cover;">
+                        <div class="event-overlay d-flex align-items-center justify-content-center">
+                            <div class="event-category bg-primary text-white rounded px-3 py-1">
+                                Recrutement
+                            </div>
+                        </div>
+                    </div>
+                    <div class="p-4 d-flex flex-column" style="height: calc(100% - 220px);">
+                        <div class="d-flex mb-2">
+                            <small class="me-3"><i class="far fa-calendar-alt text-primary me-2"></i>15 Mai 2023</small>
+                            <small><i class="far fa-clock text-primary me-2"></i>09:00-17:00</small>
+                        </div>
+                        <h4 class="mb-3">Salon de Recrutement Tech</h4>
+                        <p class="flex-grow-1">Rencontrez les meilleurs talents du secteur technologique lors de notre salon annuel.</p>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <a href="{{ path('app_evenement_detail', {'id': 1}) }}" class="btn btn-sm btn-primary">
+                                Détails <i class="fas fa-arrow-right ms-1"></i>
+                            </a>
+                      
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="row g-5">
-                <div class="col-lg-4 wow slideInUp" data-wow-delay="0.3s">
-                    <div class="blog-item bg-light rounded overflow-hidden">
-                        <div class="blog-img position-relative overflow-hidden">
-                            <img class="img-fluid" src="img/blog-1.jpg" alt="">
-                            <a class="position-absolute top-0 start-0 bg-primary text-white rounded-end mt-5 py-2 px-4" href="">Web Design</a>
-                        </div>
-                        <div class="p-4">
-                            <div class="d-flex mb-3">
-                                <small class="me-3"><i class="far fa-user text-primary me-2"></i>John Doe</small>
-                                <small><i class="far fa-calendar-alt text-primary me-2"></i>01 Jan, 2045</small>
+
+            <!-- Événement 2 -->
+            <div class="col-lg-4 col-md-6 wow zoomIn" data-wow-delay="0.6s">
+                <div class="event-item bg-light rounded overflow-hidden h-100">
+                    <div class="event-img position-relative overflow-hidden">
+                        <img class="img-fluid w-100" src="{{ asset('img/about.jpg') }}" alt="Atelier leadership" style="height: 220px; object-fit: cover;">
+                        <div class="event-overlay d-flex align-items-center justify-content-center">
+                            <div class="event-category bg-primary text-white rounded px-3 py-1">
+                                Formation
                             </div>
-                            <h4 class="mb-3">How to build a website</h4>
-                            <p>Dolor et eos labore stet justo sed est sed sed sed dolor stet amet</p>
-                            <a class="text-uppercase" href="">Read More <i class="bi bi-arrow-right"></i></a>
+                        </div>
+                    </div>
+                    <div class="p-4 d-flex flex-column" style="height: calc(100% - 220px);">
+                        <div class="d-flex mb-2">
+                            <small class="me-3"><i class="far fa-calendar-alt text-primary me-2"></i>22 Juin 2023</small>
+                            <small><i class="far fa-clock text-primary me-2"></i>13:30-18:00</small>
+                        </div>
+                        <h4 class="mb-3">Atelier Leadership</h4>
+                        <p class="flex-grow-1">Formation intensive pour développer vos compétences en management et leadership.</p>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <a href="{{ path('app_evenement_detail', {'id': 2}) }}" class="btn btn-sm btn-primary">
+                                Détails <i class="fas fa-arrow-right ms-1"></i>
+                            </a>
+                     
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-4 wow slideInUp" data-wow-delay="0.6s">
-                    <div class="blog-item bg-light rounded overflow-hidden">
-                        <div class="blog-img position-relative overflow-hidden">
-                            <img class="img-fluid" src="img/blog-2.jpg" alt="">
-                            <a class="position-absolute top-0 start-0 bg-primary text-white rounded-end mt-5 py-2 px-4" href="">Web Design</a>
-                        </div>
-                        <div class="p-4">
-                            <div class="d-flex mb-3">
-                                <small class="me-3"><i class="far fa-user text-primary me-2"></i>John Doe</small>
-                                <small><i class="far fa-calendar-alt text-primary me-2"></i>01 Jan, 2045</small>
+            </div>
+
+            <!-- Événement 3 -->
+            <div class="col-lg-4 col-md-6 wow zoomIn" data-wow-delay="0.9s">
+                <div class="event-item bg-light rounded overflow-hidden h-100">
+                    <div class="event-img position-relative overflow-hidden">
+                        <img class="img-fluid w-100" src="{{ asset('img/about.jpg') }}" alt="Conférence RH" style="height: 220px; object-fit: cover;">
+                        <div class="event-overlay d-flex align-items-center justify-content-center">
+                            <div class="event-category bg-primary text-white rounded px-3 py-1">
+                                Conférence
                             </div>
-                            <h4 class="mb-3">How to build a website</h4>
-                            <p>Dolor et eos labore stet justo sed est sed sed sed dolor stet amet</p>
-                            <a class="text-uppercase" href="">Read More <i class="bi bi-arrow-right"></i></a>
                         </div>
                     </div>
-                </div>
-                <div class="col-lg-4 wow slideInUp" data-wow-delay="0.9s">
-                    <div class="blog-item bg-light rounded overflow-hidden">
-                        <div class="blog-img position-relative overflow-hidden">
-                            <img class="img-fluid" src="img/blog-3.jpg" alt="">
-                            <a class="position-absolute top-0 start-0 bg-primary text-white rounded-end mt-5 py-2 px-4" href="">Web Design</a>
+                    <div class="p-4 d-flex flex-column" style="height: calc(100% - 220px);">
+                        <div class="d-flex mb-2">
+                            <small class="me-3"><i class="far fa-calendar-alt text-primary me-2"></i>10 Juillet 2023</small>
+                            <small><i class="far fa-clock text-primary me-2"></i>10:00-16:00</small>
                         </div>
-                        <div class="p-4">
-                            <div class="d-flex mb-3">
-                                <small class="me-3"><i class="far fa-user text-primary me-2"></i>John Doe</small>
-                                <small><i class="far fa-calendar-alt text-primary me-2"></i>01 Jan, 2045</small>
-                            </div>
-                            <h4 class="mb-3">How to build a website</h4>
-                            <p>Dolor et eos labore stet justo sed est sed sed sed dolor stet amet</p>
-                            <a class="text-uppercase" href="">Read More <i class="bi bi-arrow-right"></i></a>
+                        <h4 class="mb-3">Tendances RH 2023</h4>
+                        <p class="flex-grow-1">Découvrez les nouvelles pratiques et technologies en ressources humaines.</p>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <a href="{{ path('app_evenement_detail', {'id': 3}) }}" class="btn btn-sm btn-primary">
+                                Détails <i class="fas fa-arrow-right ms-1"></i>
+                            </a>
+                            
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+        <div class="text-center mt-5">
+            <a href="{{ path('app_evenements') }}" class="btn btn-primary py-3 px-5 mt-3 wow zoomIn" data-wow-delay="0.6s">
+                <i class="fas fa-calendar-alt me-2"></i> Voir tous les événements
+            </a>
+        </div>
     </div>
-    <!-- Blog Start -->
+</div>
+<!-- Événements End -->
+
+<style>
+    .event-item {
+        transition: transform 0.3s, box-shadow 0.3s;
+        border: 1px solid rgba(0,0,0,0.1);
+    }
+    .event-item:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+    }
+    .event-img {
+        position: relative;
+    }
+    .event-overlay {
+        position: absolute;
+        top: 10px;
+        left: 10px;
+        z-index: 1;
+    }
+    .event-category {
+        font-size: 0.8rem;
+        font-weight: 600;
+    }
+    .event-item h4 {
+        min-height: 60px;
+    }
+</style>
 
 
 

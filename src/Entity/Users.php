@@ -116,36 +116,6 @@ class Users
         $this->role = $value;
     }
 
-    #[ORM\OneToMany(mappedBy: "idUser", targetEntity: Reclamation::class)]
-    private Collection $reclamations;
-
-        public function getReclamations(): Collection
-        {
-            return $this->reclamations;
-        }
-    
-        public function addReclamation(Reclamation $reclamation): self
-        {
-            if (!$this->reclamations->contains($reclamation)) {
-                $this->reclamations[] = $reclamation;
-                $reclamation->setIdUser($this);
-            }
-    
-            return $this;
-        }
-    
-        public function removeReclamation(Reclamation $reclamation): self
-        {
-            if ($this->reclamations->removeElement($reclamation)) {
-                // set the owning side to null (unless already changed)
-                if ($reclamation->getIdUser() === $this) {
-                    $reclamation->setIdUser(null);
-                }
-            }
-    
-            return $this;
-        }
-
     #[ORM\OneToMany(mappedBy: "id_user", targetEntity: Participation::class)]
     private Collection $participations;
 
