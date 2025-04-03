@@ -19,35 +19,22 @@ class RegistrationFormType extends AbstractType
     {
         $builder
             ->add('username')
-            ->add('agreeTerms', CheckboxType::class, [
-                'mapped' => false,
-                'constraints' => [
-                    new IsTrue([
-                        'message' => 'You should agree to our terms.',
-                    ]),
-                ],
-            ])
             ->add('plainPassword', PasswordType::class, [
                 'mapped' => false,
                 'attr' => ['autocomplete' => 'new-password'],
-                'constraints' => [
-                    new NotBlank([
-                        'message' => 'Please enter a password',
-                    ]),
-                    new Length([
-                        'min' => 6,
-                        'minMessage' => 'Your password should be at least {{ limit }} characters',
-                        'max' => 4096,
-                    ]),
-                ],
             ])
-            ->add('type', ChoiceType::class, [
+            ->add('accountType', ChoiceType::class, [
                 'choices' => [
-                    'RH' => User::TYPE_RH, 
-                    'Employé' => User::TYPE_EMPLOYEE,
+                    'Rh' => 'ROLE_RH',
+                    'Employee' => 'ROLE_EMPLOYEE',
+                    'Candidat ' => 'ROLE_Candidat',
                 ],
-                'label' => 'Type de compte',
-                'required' => true,
+                'label' => 'Account Type',
+                'mapped' => false, // If you're not storing this directly on the User entity
+                'attr' => ['class' => 'form-control']
+            ])
+            ->add('agreeTerms', CheckboxType::class, [
+                'mapped' => false,
             ]);
     }
 
