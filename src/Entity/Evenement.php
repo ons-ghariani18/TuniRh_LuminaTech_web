@@ -12,11 +12,14 @@ use App\Entity\Participation;
 class Evenement
 {
 
+   
     #[ORM\Id]
-    #[ORM\Column(type: "integer")]
-    private int $id_ev;
+    #[ORM\GeneratedValue]
+    #[ORM\Column(name: "id_ev", type: "integer")]
+    private ?int $id_ev = null;
 
-        #[ORM\ManyToOne(targetEntity: Sponsor::class, inversedBy: "evenements")]
+
+    #[ORM\ManyToOne(targetEntity: Sponsor::class, inversedBy: "evenements")]
     #[ORM\JoinColumn(name: 'id_sp', referencedColumnName: 'id_sp', onDelete: 'CASCADE')]
     private Sponsor $id_sp;
 
@@ -44,6 +47,9 @@ class Evenement
     #[ORM\Column(type: "string", length: 255)]
     private string $google_calendar_event_id;
 
+
+ 
+
     public function getId_ev()
     {
         return $this->id_ev;
@@ -54,14 +60,15 @@ class Evenement
         $this->id_ev = $value;
     }
 
-    public function getId_sp()
+    public function getIdSp(): Sponsor
     {
         return $this->id_sp;
     }
-
-    public function setId_sp($value)
+    
+    public function setIdSp(Sponsor $idSp): self
     {
-        $this->id_sp = $value;
+        $this->id_sp = $id_sp;
+        return $this;
     }
 
     public function getNom()
@@ -84,25 +91,27 @@ class Evenement
         $this->type = $value;
     }
 
-    public function getDate_debut()
-    {
-        return $this->date_debut;
-    }
+    public function getDateDebut(): \DateTimeInterface
+{
+    return $this->date_debut;
+}
 
-    public function setDate_debut($value)
-    {
-        $this->date_debut = $value;
-    }
+public function setDateDebut(\DateTimeInterface $dateDebut): self
+{
+    $this->date_debut = $dateDebut;
+    return $this;
+}
 
-    public function getDate_fin()
-    {
-        return $this->date_fin;
-    }
+public function getDateFin(): \DateTimeInterface
+{
+    return $this->date_fin;
+}
 
-    public function setDate_fin($value)
-    {
-        $this->date_fin = $value;
-    }
+public function setDateFin(\DateTimeInterface $dateFin): self
+{
+    $this->date_fin = $dateFin;
+    return $this;
+}
 
     public function getLieu()
     {
@@ -134,15 +143,17 @@ class Evenement
         $this->description = $value;
     }
 
-    public function getGoogle_calendar_event_id()
-    {
-        return $this->google_calendar_event_id;
-    }
+    public function getGoogleCalendarEventId(): string
+{
+    return $this->google_calendar_event_id;
+}
 
-    public function setGoogle_calendar_event_id($value)
-    {
-        $this->google_calendar_event_id = $value;
-    }
+public function setGoogleCalendarEventId(string $googleCalendarEventId): self
+{
+    $this->google_calendar_event_id = $googleCalendarEventId;
+    return $this;
+}
+
 
     #[ORM\OneToMany(mappedBy: "id_ev", targetEntity: Participation::class)]
     private Collection $participations;
