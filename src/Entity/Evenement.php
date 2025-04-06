@@ -153,6 +153,15 @@ public function setGoogleCalendarEventId(string $googleCalendarEventId): self
     $this->google_calendar_event_id = $googleCalendarEventId;
     return $this;
 }
+public function getNombreParticipants(ParticipationRepository $participationRepo): int
+{
+    return $participationRepo->count(['id_ev' => $this]);
+}
+
+public function getPlacesDisponibles(ParticipationRepository $participationRepo): int
+{
+    return $this->nombrePlaces - $this->getNombreParticipants($participationRepo);
+}
 
 
     #[ORM\OneToMany(mappedBy: "id_ev", targetEntity: Participation::class)]
