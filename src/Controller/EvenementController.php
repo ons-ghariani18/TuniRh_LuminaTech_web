@@ -74,7 +74,7 @@ final class EvenementController extends AbstractController
     #[Route('/{id_ev}', name: 'app_evenement_delete', methods: ['POST'])]
     public function delete(Request $request, Evenement $evenement, EntityManagerInterface $entityManager): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$evenement->getId_ev(), $request->getPayload()->getString('_token'))) {
+        if ($this->isCsrfTokenValid('delete'.$evenement->getIdEv(), $request->getPayload()->getString('_token'))) {
             $entityManager->remove($evenement);
             $entityManager->flush();
         }

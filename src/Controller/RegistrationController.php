@@ -2,51 +2,56 @@
 
 namespace App\Controller;
 
-use App\Entity\User;
+use App\Entity\Users;
 use App\Form\RegistrationFormType;
-use App\Security\AppAuthenticator;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Security\Http\Authentication\UserAuthenticatorInterface;
+use App\Security\AppAuthenticator;
 
 class RegistrationController extends AbstractController
 {
     #[Route('/register', name: 'app_register')]
     public function register(
         Request $request,
-        UserPasswordHasherInterface $userPasswordHasher,
-        UserAuthenticatorInterface $userAuthenticator,
-        AppAuthenticator $authenticator,
-        EntityManagerInterface $entityManager
+        UserPasswordHasherInterface $passwordHasher,
+        EntityManagerInterface $entityManager,
+        ?UserAuthenticatorInterface $authenticator,
+        ?AppAuthenticator $appAuthenticator
     ): Response {
-        $user = new User();
+        $user = new Users();
         $form = $this->createForm(RegistrationFormType::class, $user);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            // Encode the plain password
+            // Encoder le mot de passe
             $user->setPassword(
-                $userPasswordHasher->hashPassword(
+                $passwordHasher->hashPassword(
                     $user,
                     $form->get('plainPassword')->getData()
                 )
             );
 
-            // Persist and flush using the injected EntityManager
+            // Définir le rôle par défaut
+            $user->setRoles(['ROLE_USER']);
+
             $entityManager->persist($user);
             $entityManager->flush();
 
-            // Use UserAuthenticatorInterface instead of Security
-            return $userAuthenticator->authenticateUser(
-                $user,
-                $authenticator,
-                $request
-            );
+            // Connecter automatiquement l'utilisateur si les services sont disponibles
+            if ($authenticator && $appAuthenticator) {
+                return $authenticator->authenticateUser(
+                    $user,
+                    $appAuthenticator,
+                    $request
+                );
+            }
+
+            return $this->redirectToRoute('app_home');
         }
 
         return $this->render('registration/register.html.twig', [
@@ -57,6 +62,6 @@ class RegistrationController extends AbstractController
     #[Route('/logout', name: 'app_logout')]
     public function logout(): void
     {
-        throw new \LogicException('This method will be intercepted by the logout key on your firewall.');
+        throw new \LogicException('Cette méthode sera interceptée par la clé de déconnexion dans le firewall.');
     }
 }

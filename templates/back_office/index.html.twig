@@ -5,6 +5,7 @@
 {% block stylesheets %}
     {{ parent() }}
     <link href="https://cdn.materialdesignicons.com/5.4.55/css/materialdesignicons.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
             --primary-color: #e67e22;
@@ -14,33 +15,115 @@
             --sidebar-bg: #091E3E;
             --sidebar-text: #a3adcc;
             --sidebar-hover: #ffffff;
-            --body-bg: #f9fafb;
+            --body-bg: #f5f7fa;
             --card-bg: #ffffff;
             --text-color: #333333;
             --muted-text: #6b7280;
             --border-color: #e5e7eb;
+            --danger-color: #ef4444;
+            --success-color: #10b981;
+            --transition-speed: 0.3s;
         }
         
         body {
-            font-family: 'Nunito', 'Segoe UI', sans-serif;
+            font-family: 'Nunito', sans-serif;
             background-color: var(--body-bg);
             margin: 0;
             padding: 0;
             color: var(--text-color);
+            min-height: 100vh;
         }
         
-        /* Navbar Styles */
-        .navbar {
+        /* Layout Structure */
+        .app-container {
+            display: flex;
+            min-height: 100vh;
+            position: relative;
+        }
+        
+        /* Sidebar Styles */
+        .aside {
+            width: 240px;
+            background-color: var(--sidebar-bg);
+            color: var(--sidebar-text);
+            height: 100vh;
+            position: fixed;
+            left: 0;
+            top: 0;
+            overflow-y: auto;
+            transition: transform var(--transition-speed) ease;
+            z-index: 100;
+        }
+        
+        .aside-brand {
             height: 60px;
-            background: white;
-            box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
             display: flex;
             align-items: center;
             padding: 0 1.5rem;
-            justify-content: space-between;
+            font-weight: 700;
+            font-size: 1.2rem;
+            color: white;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
             position: sticky;
             top: 0;
-            z-index: 10;
+            z-index: 101;
+        }
+        
+        .aside-menu {
+            padding: 1rem 0;
+        }
+        
+        .menu-label {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: rgba(255, 255, 255, 0.5);
+            margin: 1rem 1.5rem 0.25rem;
+        }
+        
+        .menu-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        
+        .menu-item {
+            display: flex;
+            align-items: center;
+            padding: 0.75rem 1.5rem;
+            color: var(--sidebar-text);
+            text-decoration: none;
+            gap: 0.75rem;
+            transition: all 0.3s ease;
+        }
+        
+        .menu-item:hover, .menu-item.is-active {
+            color: var(--sidebar-hover);
+            background-color: var(--primary-color);
+        }
+        
+        /* Main Content Styles */
+        .main-content {
+            margin-left: 240px;
+            flex: 1;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            transition: margin-left var(--transition-speed) ease;
+        }
+        
+        /* Navbar */
+        .navbar {
+            position: sticky;
+            top: 0;
+            background: white;
+            height: 60px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            display: flex;
+            align-items: center;
+            padding: 0 2rem;
+            justify-content: space-between;
+            z-index: 99;
         }
         
         .navbar-brand {
@@ -82,68 +165,29 @@
             width: 300px;
         }
         
-        /* Sidebar Styles */
-        .aside {
-            width: 250px;
-            background-color: var(--sidebar-bg);
-            color: var(--sidebar-text);
-            height: 100vh;
-            position: fixed;
-            left: 0;
-            top: 0;
-            overflow-y: auto;
-            transition: all 0.3s ease;
-        }
-        
-        .aside-brand {
-            height: 60px;
-            display: flex;
+        .menu-toggle {
+            display: none;
             align-items: center;
-            padding: 0 1.5rem;
-            font-weight: 700;
-            font-size: 1.2rem;
-            color: white;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            justify-content: center;
+            width: 36px;
+            height: 36px;
+            border-radius: 6px;
+            background-color: transparent;
+            color: var(--text-color);
+            border: 1px solid var(--border-color);
+            cursor: pointer;
+            transition: background 0.2s;
+            margin-right: 1rem;
         }
         
-        .aside-menu {
-            padding: 1rem 0;
+        .menu-toggle:hover {
+            background-color: var(--body-bg);
         }
         
-        .menu-label {
-            font-size: 0.75rem;
-            text-transform: uppercase;
-            letter-spacing: 0.1em;
-            color: rgba(255, 255, 255, 0.5);
-            padding: 0.75rem 1.5rem;
-            margin-top: 1rem;
-        }
-        
-        .menu-list {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-        }
-        
-        .menu-item {
-            display: flex;
-            align-items: center;
-            padding: 0.75rem 1.5rem;
-            color: var(--sidebar-text);
-            text-decoration: none;
-            gap: 0.75rem;
-            transition: all 0.3s ease;
-        }
-        
-        .menu-item:hover, .menu-item.is-active {
-            color: var(--sidebar-hover);
-            background-color: var(--primary-color);
-        }
-        
-        /* Main Content Styles */
-        .main-content {
-            margin-left: 250px;
+        /* Content wrapper */
+        .content-wrapper {
             padding: 2rem;
+            flex: 1;
         }
         
         .breadcrumb {
@@ -177,19 +221,30 @@
             align-items: center;
         }
         
+        .btn {
+            padding: 0.75rem 1.5rem;
+            border-radius: 6px;
+            font-weight: 600;
+            font-family: 'Nunito', sans-serif;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            text-decoration: none;
+            border: none;
+        }
+        
         .btn-primary {
             background-color: var(--primary-color);
             color: white;
-            border: none;
-            border-radius: 4px;
-            padding: 0.5rem 1rem;
-            font-weight: 500;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
+            box-shadow: 0 2px 4px rgba(230, 126, 34, 0.2);
         }
         
         .btn-primary:hover {
             background-color: var(--primary-dark);
+            transform: translateY(-1px);
+            box-shadow: 0 4px 6px rgba(230, 126, 34, 0.3);
         }
         
         /* Cards Grid */
@@ -236,7 +291,6 @@
             justify-content: center;
             color: white;
             font-size: 1.5rem;
-            background-color: var(--primary-color);
         }
         
         /* Chart Card */
@@ -289,6 +343,9 @@
             font-size: 1rem;
             font-weight: 600;
             color: var(--secondary-color);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
         }
 
         .data-table {
@@ -351,6 +408,25 @@
             color: white;
         }
         
+        /* Sidebar Overlay */
+        .sidebar-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 90;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity var(--transition-speed), visibility var(--transition-speed);
+        }
+
+        .sidebar-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        
         /* Responsive Adjustments */
         @media (max-width: 1280px) {
             .cards-grid {
@@ -366,16 +442,26 @@
         
         @media (max-width: 768px) {
             .aside {
-                transform: translateX(-100%);
-                z-index: 20;
+                transform: translateX(-240px);
             }
             
-            .aside.is-expanded {
+            .aside.expanded {
                 transform: translateX(0);
             }
             
             .main-content {
                 margin-left: 0;
+            }
+            
+            .menu-toggle {
+                display: flex;
+            }
+            
+            .navbar {
+                padding: 0 1rem;
+            }
+            
+            .content-wrapper {
                 padding: 1rem;
             }
             
@@ -386,14 +472,20 @@
             .search-input {
                 width: 150px;
             }
+            
+            .detail-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 1rem;
+            }
         }
     </style>
 {% endblock %}
 
 {% block body %}
-<div class="flex h-screen">
+<div class="app-container">
     {# Sidebar #}
-    <aside class="aside">
+    <aside class="aside" id="sidebar">
         <div class="aside-brand">
             <i class="mdi mdi-account-tie mr-2"></i>
             Dashboard RH
@@ -403,7 +495,7 @@
             <p class="menu-label">GÉNÉRAL</p>
             <ul class="menu-list">
                 <li>
-                    <a href="#" class="menu-item is-active">
+                    <a href="{{ path('app_back_office') }}" class="menu-item is-active">
                         <i class="mdi mdi-view-dashboard"></i>
                         <span>Tableau de bord</span>
                     </a>
@@ -441,13 +533,13 @@
             <p class="menu-label">ÉVÉNEMENTS</p>
             <ul class="menu-list">
                 <li>
-                    <a href="#" class="menu-item">
+                    <a href="{{ path('app_evenement_index') }}" class="menu-item">
                         <i class="mdi mdi-calendar"></i>
                         <span>Événements</span>
                     </a>
                 </li>
                 <li>
-                    <a href="#" class="menu-item">
+                    <a href="{{ path('app_sponsor_index') }}" class="menu-item">
                         <i class="mdi mdi-handshake"></i>
                         <span>Sponsors</span>
                     </a>
@@ -472,12 +564,14 @@
         </div>
     </aside>
 
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
     {# Main Content Area #}
-    <div class="flex-1">
+    <div class="main-content" id="mainContent">
         {# Navbar #}
         <header class="navbar">
             <div class="flex items-center">
-                <button class="md:hidden mr-4" id="sidebar-toggle">
+                <button id="menuToggle" class="menu-toggle" aria-label="Toggle Menu">
                     <i class="mdi mdi-menu"></i>
                 </button>
                 <input type="text" placeholder="Rechercher..." class="search-input">
@@ -498,7 +592,7 @@
         </header>
 
         {# Main Content #}
-        <main class="main-content">
+        <main class="content-wrapper">
             <div class="breadcrumb">
                 <span class="breadcrumb-item">RH</span>
                 <span class="breadcrumb-item">Tableau de bord</span>
@@ -506,8 +600,8 @@
             
             <div class="page-title">
                 <h1>Tableau de bord RH</h1>
-                <button class="btn-primary">
-                    <i class="mdi mdi-plus-circle mr-1"></i>
+                <button class="btn btn-primary">
+                    <i class="mdi mdi-plus-circle"></i>
                     Nouvelle action
                 </button>
             </div>
@@ -577,10 +671,10 @@
             <div class="table-container">
                 <div class="table-header">
                     <div class="table-title">
-                        <i class="mdi mdi-file-document-outline mr-2"></i>
+                        <i class="mdi mdi-file-document-outline"></i>
                         Candidatures récentes
                     </div>
-                    <button class="btn-primary">
+                    <button class="btn btn-primary">
                         Voir tout
                     </button>
                 </div>
@@ -741,9 +835,33 @@
             });
 
             // Sidebar toggle for mobile
-            document.getElementById('sidebar-toggle')?.addEventListener('click', function() {
-                document.querySelector('.aside').classList.toggle('is-expanded');
+            const sidebar = document.getElementById('sidebar');
+            const menuToggle = document.getElementById('menuToggle');
+            const sidebarOverlay = document.getElementById('sidebarOverlay');
+            const mainContent = document.getElementById('mainContent');
+
+            // Toggle sidebar
+            menuToggle?.addEventListener('click', function() {
+                sidebar.classList.toggle('expanded');
+                sidebarOverlay.classList.toggle('active');
             });
+
+            // Close sidebar when clicking overlay
+            sidebarOverlay?.addEventListener('click', function() {
+                sidebar.classList.remove('expanded');
+                sidebarOverlay.classList.remove('active');
+            });
+
+            // Handle window resize
+            function handleResize() {
+                if (window.innerWidth > 768) {
+                    sidebar.classList.remove('expanded');
+                    sidebarOverlay.classList.remove('active');
+                }
+            }
+
+            window.addEventListener('resize', handleResize);
+            handleResize(); // Initialize
         });
     </script>
 {% endblock %}

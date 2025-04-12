@@ -386,7 +386,7 @@
 
         <div class="aside-menu">
             <p class="menu-label">GÉNÉRAL</p>
-            <a href="{{ path('app_dashboard') }}" class="menu-item">
+            <a href="{{ path('app_back_office') }}" class="menu-item">
                 <i class="mdi mdi-view-dashboard"></i> Tableau de bord
             </a>
 
@@ -469,7 +469,7 @@
                     <tbody>
                     {% for evenement in evenements %}
                         <tr>
-                            <td>{{ evenement.id_ev }}</td>
+                          <td>{{ evenement.idEv }}</td>
                             <td>{{ evenement.nom }}</td>
                             <td>{{ evenement.type }}</td>
                             <td class="date-cell">{{ evenement.dateDebut ? evenement.dateDebut|date('d/m/Y') : '' }}</td>
@@ -487,13 +487,13 @@
                             <td>{{ evenement.lieu }}</td>
                             <td>{{ evenement.budget }} €</td>
                             <td>
-                                <a href="{{ path('app_evenement_show', {'id_ev': evenement.id_ev}) }}" class="action-link">
+                                <a href="{{ path('app_evenement_show', {'id_ev': evenement.idEv}) }}" class="action-link">
                                     <i class="mdi mdi-eye"></i> Voir
                                 </a>
-                                <a href="{{ path('app_evenement_edit', {'id_ev': evenement.id_ev}) }}" class="action-link">
+                                <a href="{{ path('app_evenement_edit', {'id_ev': evenement.idEv}) }}" class="action-link">
                                     <i class="mdi mdi-pencil"></i> Modifier
                                 </a>
-                                <a href="#" class="action-link delete-event" data-event-name="{{ evenement.nom }}" data-delete-url="{{ path('app_evenement_delete', {'id_ev': evenement.id_ev}) }}">
+                                <a href="#" class="action-link delete-event" data-event-name="{{ evenement.nom }}" data-delete-url="{{ path('app_evenement_delete', {'id_ev': evenement.idEv}) }}">
                                     <i class="mdi mdi-delete"></i> Supprimer
                                 </a>
                             </td>

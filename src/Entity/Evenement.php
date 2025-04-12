@@ -3,25 +3,19 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-
 use App\Entity\Sponsor;
-use Doctrine\Common\Collections\Collection;
-use App\Entity\Participation;
 
 #[ORM\Entity]
 class Evenement
 {
-
-   
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(name: "id_ev", type: "integer")]
     private ?int $id_ev = null;
 
-
     #[ORM\ManyToOne(targetEntity: Sponsor::class, inversedBy: "evenements")]
-    #[ORM\JoinColumn(name: 'id_sp', referencedColumnName: 'id_sp', onDelete: 'CASCADE')]
-    private Sponsor $id_sp;
+    #[ORM\JoinColumn(name: "id_sp", referencedColumnName: "id_sp", onDelete: "CASCADE")]
+    private ?Sponsor $sponsor = null;
 
     #[ORM\Column(type: "string", length: 255)]
     private string $nom;
@@ -47,150 +41,113 @@ class Evenement
     #[ORM\Column(type: "string", length: 255)]
     private string $google_calendar_event_id;
 
-
- 
-
-    public function getId_ev()
+    public function getIdEv(): ?int
     {
         return $this->id_ev;
     }
-
-    public function setId_ev($value)
-    {
-        $this->id_ev = $value;
-    }
-
-    public function getIdSp(): Sponsor
-    {
-        return $this->id_sp;
-    }
     
-    public function setIdSp(Sponsor $idSp): self
+    public function setIdEv(int $idEv): self
     {
-        $this->id_sp = $id_sp;
+        $this->id_ev = $idEv;
         return $this;
     }
 
-    public function getNom()
+    public function getSponsor(): ?Sponsor
+    {
+        return $this->sponsor;
+    }
+
+    public function setSponsor(?Sponsor $sponsor): self
+    {
+        $this->sponsor = $sponsor;
+        return $this;
+    }
+
+    public function getNom(): string
     {
         return $this->nom;
     }
 
-    public function setNom($value)
+    public function setNom(string $nom): self
     {
-        $this->nom = $value;
+        $this->nom = $nom;
+        return $this;
     }
 
-    public function getType()
+    public function getType(): string
     {
         return $this->type;
     }
 
-    public function setType($value)
+    public function setType(string $type): self
     {
-        $this->type = $value;
+        $this->type = $type;
+        return $this;
     }
 
     public function getDateDebut(): \DateTimeInterface
-{
-    return $this->date_debut;
-}
+    {
+        return $this->date_debut;
+    }
 
-public function setDateDebut(\DateTimeInterface $dateDebut): self
-{
-    $this->date_debut = $dateDebut;
-    return $this;
-}
+    public function setDateDebut(\DateTimeInterface $dateDebut): self
+    {
+        $this->date_debut = $dateDebut;
+        return $this;
+    }
 
-public function getDateFin(): \DateTimeInterface
-{
-    return $this->date_fin;
-}
+    public function getDateFin(): \DateTimeInterface
+    {
+        return $this->date_fin;
+    }
 
-public function setDateFin(\DateTimeInterface $dateFin): self
-{
-    $this->date_fin = $dateFin;
-    return $this;
-}
+    public function setDateFin(\DateTimeInterface $dateFin): self
+    {
+        $this->date_fin = $dateFin;
+        return $this;
+    }
 
-    public function getLieu()
+    public function getLieu(): string
     {
         return $this->lieu;
     }
 
-    public function setLieu($value)
+    public function setLieu(string $lieu): self
     {
-        $this->lieu = $value;
+        $this->lieu = $lieu;
+        return $this;
     }
 
-    public function getBudget()
+    public function getBudget(): float
     {
         return $this->budget;
     }
 
-    public function setBudget($value)
+    public function setBudget(float $budget): self
     {
-        $this->budget = $value;
+        $this->budget = $budget;
+        return $this;
     }
 
-    public function getDescription()
+    public function getDescription(): string
     {
         return $this->description;
     }
 
-    public function setDescription($value)
+    public function setDescription(string $description): self
     {
-        $this->description = $value;
+        $this->description = $description;
+        return $this;
     }
 
     public function getGoogleCalendarEventId(): string
-{
-    return $this->google_calendar_event_id;
-}
+    {
+        return $this->google_calendar_event_id;
+    }
 
-public function setGoogleCalendarEventId(string $googleCalendarEventId): self
-{
-    $this->google_calendar_event_id = $googleCalendarEventId;
-    return $this;
-}
-public function getNombreParticipants(ParticipationRepository $participationRepo): int
-{
-    return $participationRepo->count(['id_ev' => $this]);
-}
-
-public function getPlacesDisponibles(ParticipationRepository $participationRepo): int
-{
-    return $this->nombrePlaces - $this->getNombreParticipants($participationRepo);
-}
-
-
-    #[ORM\OneToMany(mappedBy: "id_ev", targetEntity: Participation::class)]
-    private Collection $participations;
-
-        public function getParticipations(): Collection
-        {
-            return $this->participations;
-        }
-    
-        public function addParticipation(Participation $participation): self
-        {
-            if (!$this->participations->contains($participation)) {
-                $this->participations[] = $participation;
-                $participation->setId_ev($this);
-            }
-    
-            return $this;
-        }
-    
-        public function removeParticipation(Participation $participation): self
-        {
-            if ($this->participations->removeElement($participation)) {
-                // set the owning side to null (unless already changed)
-                if ($participation->getId_ev() === $this) {
-                    $participation->setId_ev(null);
-                }
-            }
-    
-            return $this;
-        }
+    public function setGoogleCalendarEventId(string $googleCalendarEventId): self
+    {
+        $this->google_calendar_event_id = $googleCalendarEventId;
+        return $this;
+    }
 }

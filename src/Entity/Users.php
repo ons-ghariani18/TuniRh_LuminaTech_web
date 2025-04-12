@@ -3,176 +3,157 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-
+use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use App\Entity\Reservations;
 
-#[ORM\Entity]
-class Users
+#[ORM\Entity(repositoryClass: 'App\Repository\UsersRepository')]
+class Users implements UserInterface, PasswordAuthenticatedUserInterface
 {
-
     #[ORM\Id]
-    #[ORM\Column(type: "integer")]
-    private int $id_user;
+    #[ORM\GeneratedValue(strategy: 'AUTO')]
+    #[ORM\Column(type: 'integer')]
+    private ?int $id = null;
 
-    #[ORM\Column(type: "string", length: 100)]
-    private string $nom;
-
-    #[ORM\Column(type: "string", length: 100)]
-    private string $prenom;
-
-    #[ORM\Column(type: "string", length: 255)]
+    #[ORM\Column(type: 'string', length: 180, unique: true)]
     private string $email;
 
-    #[ORM\Column(type: "string", length: 15)]
-    private string $tel;
-
-    #[ORM\Column(type: "string", length: 255)]
-    private string $address;
-
-    #[ORM\Column(type: "string", length: 255)]
+    #[ORM\Column(type: 'string')]
     private string $password;
 
-    #[ORM\Column(type: "string", length: 50)]
-    private string $role;
+    private ?string $plainPassword = null;
 
-    public function getId_user()
+    #[ORM\Column(type: 'json')]
+    private array $roles = [];
+
+    #[ORM\Column(type: 'string', length: 50, nullable: true)]
+    private ?string $accountType = null;
+
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: Reservations::class, orphanRemoval: true)]
+    private Collection $reservations;
+
+    public function __construct()
     {
-        return $this->id_user;
+        $this->reservations = new ArrayCollection();
+        $this->roles = ['ROLE_USER']; // Rôle par défaut
     }
 
-    public function setId_user($value)
+    public function getId(): ?int
     {
-        $this->id_user = $value;
+        return $this->id;
     }
 
-    public function getNom()
-    {
-        return $this->nom;
-    }
-
-    public function setNom($value)
-    {
-        $this->nom = $value;
-    }
-
-    public function getPrenom()
-    {
-        return $this->prenom;
-    }
-
-    public function setPrenom($value)
-    {
-        $this->prenom = $value;
-    }
-
-    public function getEmail()
+    public function getEmail(): string
     {
         return $this->email;
     }
 
-    public function setEmail($value)
+    public function setEmail(string $email): self
     {
-        $this->email = $value;
+        $this->email = $email;
+        return $this;
     }
 
-    public function getTel()
+    public function getPlainPassword(): ?string
     {
-        return $this->tel;
+        return $this->plainPassword;
     }
 
-    public function setTel($value)
+    public function setPlainPassword(?string $plainPassword): self
     {
-        $this->tel = $value;
+        $this->plainPassword = $plainPassword;
+        return $this;
     }
 
-    public function getAddress()
-    {
-        return $this->address;
-    }
-
-    public function setAddress($value)
-    {
-        $this->address = $value;
-    }
-
-    public function getPassword()
+    public function getPassword(): string
     {
         return $this->password;
     }
 
-    public function setPassword($value)
+    public function setPassword(string $password): self
     {
-        $this->password = $value;
+        $this->password = $password;
+        return $this;
     }
 
-    public function getRole()
+    public function getRoles(): array
     {
-        return $this->role;
+        $roles = $this->roles;
+        // Garantit que chaque utilisateur a ROLE_USER
+        if (!in_array('ROLE_USER', $roles)) {
+            $roles[] = 'ROLE_USER';
+        }
+        
+        return array_unique($roles);
     }
 
-    public function setRole($value)
+    public function setRoles(array $roles): self
     {
-        $this->role = $value;
+        $this->roles = $roles;
+        return $this;
     }
 
-    #[ORM\OneToMany(mappedBy: "id_user", targetEntity: Participation::class)]
-    private Collection $participations;
+    public function getSalt(): ?string
+    {
+        return null; // Pas nécessaire quand on utilise bcrypt/argon
+    }
 
-        public function getParticipations(): Collection
-        {
-            return $this->participations;
-        }
-    
-        public function addParticipation(Participation $participation): self
-        {
-            if (!$this->participations->contains($participation)) {
-                $this->participations[] = $participation;
-                $participation->setId_user($this);
-            }
-    
-            return $this;
-        }
-    
-        public function removeParticipation(Participation $participation): self
-        {
-            if ($this->participations->removeElement($participation)) {
-                // set the owning side to null (unless already changed)
-                if ($participation->getId_user() === $this) {
-                    $participation->setId_user(null);
-                }
-            }
-    
-            return $this;
-        }
+    public function eraseCredentials(): void
+    {
+        $this->plainPassword = null;
+    }
 
-    #[ORM\OneToMany(mappedBy: "user_id", targetEntity: Reservations::class)]
-    private Collection $reservationss;
+    public function getUserIdentifier(): string
+    {
+        return $this->email;
+    }
 
-        public function getReservationss(): Collection
-        {
-            return $this->reservationss;
+    // Méthode pour compatibilité avec anciennes versions Symfony
+    public function getUsername(): string
+    {
+        return $this->getUserIdentifier();
+    }
+
+    public function getAccountType(): ?string
+    {
+        return $this->accountType;
+    }
+
+    public function setAccountType(?string $accountType): self
+    {
+        $this->accountType = $accountType;
+        return $this;
+    }
+
+    public function getReservations(): Collection
+    {
+        return $this->reservations;
+    }
+
+    public function addReservation(Reservations $reservation): self
+    {
+        if (!$this->reservations->contains($reservation)) {
+            $this->reservations[] = $reservation;
+            $reservation->setUser($this);
         }
-    
-        public function addReservations(Reservations $reservations): self
-        {
-            if (!$this->reservationss->contains($reservations)) {
-                $this->reservationss[] = $reservations;
-                $reservations->setUser_id($this);
+        return $this;
+    }
+
+    public function removeReservation(Reservations $reservation): self
+    {
+        if ($this->reservations->removeElement($reservation)) {
+            // set the owning side to null (unless already changed)
+            if ($reservation->getUser() === $this) {
+                $reservation->setUser(null);
             }
-    
-            return $this;
         }
-    
-        public function removeReservations(Reservations $reservations): self
-        {
-            if ($this->reservationss->removeElement($reservations)) {
-                // set the owning side to null (unless already changed)
-                if ($reservations->getUser_id() === $this) {
-                    $reservations->setUser_id(null);
-                }
-            }
-    
-            return $this;
-        }
+        return $this;
+    }
+
+    public function hasRole(string $role): bool
+    {
+        return in_array($role, $this->getRoles(), true);
+    }
 }

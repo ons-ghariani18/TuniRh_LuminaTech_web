@@ -12,7 +12,6 @@
             padding: 0;
         }
 
-        /* Registration Section */
         .registration-section {
             display: flex;
             justify-content: center;
@@ -23,7 +22,6 @@
             padding: 20px;
         }
 
-        /* Improved Registration Container */
         .registration-container {
             background: rgba(255, 255, 255, 0.96);
             padding: 2.5rem;
@@ -41,33 +39,10 @@
             animation: fadeIn 0.8s ease-out forwards;
         }
 
-        .registration-container::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: linear-gradient(
-                to bottom right,
-                rgba(255, 123, 0, 0.08) 0%,
-                rgba(255, 123, 0, 0) 50%
-            );
-            transform: rotate(30deg);
-            z-index: -1;
-        }
-
-        /* Animations */
         @keyframes fadeIn {
             to { opacity: 1; transform: translateY(0); }
         }
 
-        @keyframes float {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-8px); }
-        }
-
-        /* Header */
         .registration-container h1 {
             font-size: 2.2rem;
             margin-bottom: 2rem;
@@ -89,7 +64,6 @@
             border-radius: 4px;
         }
 
-        /* Form Elements */
         .form-group {
             margin-bottom: 1.75rem;
             text-align: left;
@@ -120,7 +94,16 @@
             background-color: #fff;
         }
 
-        /* Checkbox */
+        /* Custom select styling */
+        .form-control.select {
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%234a5568' viewBox='0 0 16 16'%3E%3Cpath d='M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 1rem center;
+            background-size: 1em;
+            padding-right: 2.5rem;
+        }
+
         .form-check {
             margin: 1.75rem 0;
             text-align: left;
@@ -141,16 +124,6 @@
             border-color: #ff7b00;
         }
 
-        .form-check-input:focus {
-            box-shadow: 0 0 0 3px rgba(255, 123, 0, 0.15);
-        }
-
-        .form-check-label {
-            color: #4a5568;
-            font-size: 0.95rem;
-        }
-
-        /* Button */
         .btn-register {
             background: linear-gradient(135deg, #ff7b00, #ff9500);
             border: none;
@@ -165,8 +138,6 @@
             box-shadow: 0 4px 15px rgba(255, 123, 0, 0.3);
             width: 100%;
             margin-top: 0.5rem;
-            position: relative;
-            overflow: hidden;
         }
 
         .btn-register:hover {
@@ -175,27 +146,6 @@
             box-shadow: 0 6px 20px rgba(255, 123, 0, 0.4);
         }
 
-        .btn-register:active {
-            transform: translateY(0);
-        }
-
-        .btn-register::after {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -60%;
-            width: 200%;
-            height: 200%;
-            background: rgba(255, 255, 255, 0.2);
-            transform: rotate(30deg);
-            transition: all 0.3s ease;
-        }
-
-        .btn-register:hover::after {
-            left: 100%;
-        }
-
-        /* Login Link */
         .login-link {
             display: block;
             margin-top: 1.75rem;
@@ -207,31 +157,20 @@
             color: #ff7b00;
             font-weight: 500;
             text-decoration: none;
-            transition: all 0.2s ease;
-            position: relative;
-            padding-bottom: 2px;
         }
 
-        .login-link a:hover {
-            color: #e66a00;
+        /* Error messages */
+        .invalid-feedback {
+            color: #e53e3e;
+            font-size: 0.85rem;
+            margin-top: 0.25rem;
+            display: block;
         }
 
-        .login-link a::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background: #ff7b00;
-            transition: width 0.3s ease;
+        .is-invalid {
+            border-color: #e53e3e;
         }
 
-        .login-link a:hover::after {
-            width: 100%;
-        }
-
-        /* Responsive Design */
         @media (max-width: 576px) {
             .registration-container {
                 padding: 1.75rem;
@@ -247,30 +186,13 @@
                 height: 48px;
                 padding: 0.65rem 1rem;
             }
-
-            /* Style pour le sélecteur de type de compte */
-          .form-control.select {
-                appearance: none;
-              
-                 background-repeat: no-repeat;
-                 background-position: right 1rem center;
-               background-size: 1em;
-               padding-right: 2.5rem;
-}
-
-    /* Style pour les options */
-              .form-control.select option {
-               padding: 0.5rem;
-               background: #fff;
-              color: #2d3748;
-}     
         }
     </style>
 {% endblock %}
 
 {% block body %}
-    <!-- Top Bar -->
-    <div class="container-fluid bg-dark px-5 d-none d-lg-block">
+
+ <div class="container-fluid bg-dark px-5 d-none d-lg-block">
         <div class="row gx-0">
             <div class="col-lg-8 text-center text-lg-start mb-2 mb-lg-0">
                 <div class="d-inline-flex align-items-center" style="height: 45px;">
@@ -350,58 +272,70 @@
         </div>
     </nav>
 
-    <!-- Section de registration -->
-   <section class="registration-section">
-    <div class="registration-container">
-        <h1 class="text-center">Create Your Account</h1>
 
-        {{ form_errors(registrationForm) }}
+    <section class="registration-section">
+        <div class="registration-container">
+            <h1 class="text-center">Create Your Account</h1>
 
-        {{ form_start(registrationForm, {'attr': {'class': 'registration-form'}}) }}
-            <div class="form-group">
-                {{ form_label(registrationForm.username, 'Username', {'label_attr': {'class': 'form-label'}}) }}
-                {{ form_widget(registrationForm.username, {'attr': {'class': 'form-control', 'placeholder': 'Enter your username'}}) }}
-            </div>
-            
-            <div class="form-group">
-                {{ form_label(registrationForm.plainPassword, 'Password', {'label_attr': {'class': 'form-label'}}) }}
-                {{ form_widget(registrationForm.plainPassword, {'attr': {'class': 'form-control', 'placeholder': 'Create a password'}}) }}
-            </div>
+            {{ form_start(registrationForm, {'attr': {'class': 'registration-form'}}) }}
+                <div class="form-group">
+                    {{ form_label(registrationForm.email, 'Email Address', {'label_attr': {'class': 'form-label'}}) }}
+                    {{ form_widget(registrationForm.email, {'attr': {
+                        'class': 'form-control' ~ (registrationForm.email.vars.valid ? '' : ' is-invalid'),
+                        'placeholder': 'your.email@example.com'
+                    }}) }}
+                    {{ form_errors(registrationForm.email) }}
+                </div>
+                
+                <div class="form-group">
+                    {{ form_label(registrationForm.plainPassword.first, 'Password', {'label_attr': {'class': 'form-label'}}) }}
+                    {{ form_widget(registrationForm.plainPassword.first, {'attr': {
+                        'class': 'form-control' ~ (registrationForm.plainPassword.first.vars.valid ? '' : ' is-invalid'),
+                        'placeholder': 'At least 8 characters'
+                    }}) }}
+                    {{ form_errors(registrationForm.plainPassword.first) }}
+                </div>
 
-            <!-- Ajout du type de compte avant le bouton -->
-            <div class="form-group">
-                {{ form_label(registrationForm.accountType, 'Account Type', {'label_attr': {'class': 'form-label'}}) }}
-                {{ form_widget(registrationForm.accountType, {'attr': {'class': 'form-control'}}) }}
-            </div>
-            
-            <div class="form-check">
-                {{ form_widget(registrationForm.agreeTerms, {'attr': {'class': 'form-check-input'}}) }}
-                {{ form_label(registrationForm.agreeTerms, 'I agree to the terms and conditions', {'label_attr': {'class': 'form-check-label'}}) }}
-            </div>
+                <div class="form-group">
+                    {{ form_label(registrationForm.plainPassword.second, 'Repeat Password', {'label_attr': {'class': 'form-label'}}) }}
+                    {{ form_widget(registrationForm.plainPassword.second, {'attr': {
+                        'class': 'form-control' ~ (registrationForm.plainPassword.second.vars.valid ? '' : ' is-invalid'),
+                        'placeholder': 'Confirm your password'
+                    }}) }}
+                </div>
 
-            <button type="submit" class="btn btn-register">Get Started</button>
-            
-            <div class="login-link">
-                Already have an account? <a href="{{ path('app_login') }}">Sign in here</a>
-            </div>
-        {{ form_end(registrationForm) }}
-    </div>
-</section>
+                <div class="form-group">
+                    {{ form_label(registrationForm.accountType, 'Account Type', {'label_attr': {'class': 'form-label'}}) }}
+                    {{ form_widget(registrationForm.accountType, {'attr': {
+                        'class': 'form-control select' ~ (registrationForm.accountType.vars.valid ? '' : ' is-invalid')
+                    }}) }}
+                    {{ form_errors(registrationForm.accountType) }}
+                </div>
+                
+                <div class="form-check">
+                    {{ form_widget(registrationForm.agreeTerms, {'attr': {
+                        'class': 'form-check-input' ~ (registrationForm.agreeTerms.vars.valid ? '' : ' is-invalid')
+                    }}) }}
+                    {{ form_label(registrationForm.agreeTerms, 'I agree to the terms and conditions', {
+                        'label_attr': {'class': 'form-check-label'}
+                    }) }}
+                    {{ form_errors(registrationForm.agreeTerms) }}
+                </div>
+
+                <button type="submit" class="btn btn-register">Register Now</button>
+                
+                <div class="login-link">
+                    Already have an account? <a href="{{ path('app_login') }}">Sign in here</a>
+                </div>
+            {{ form_end(registrationForm) }}
+        </div>
+    </section>
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             const registrationContainer = document.querySelector('.registration-container');
             registrationContainer.style.opacity = '1';
             registrationContainer.style.transform = 'translateY(0)';
-            
-            // Add floating animation to the container on hover
-            registrationContainer.addEventListener('mouseenter', function() {
-                this.style.animation = 'float 3s ease-in-out infinite';
-            });
-            
-            registrationContainer.addEventListener('mouseleave', function() {
-                this.style.animation = 'none';
-            });
         });
     </script>
 {% endblock %}

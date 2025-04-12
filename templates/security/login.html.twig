@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Connexion{% endblock %}
+{% block title %}Log in{% endblock %}
 
 {% block stylesheets %}
     {{ parent() }}
@@ -12,7 +12,6 @@
             padding: 0;
         }
 
-        /* Login Section */
         .login-section {
             display: flex;
             justify-content: center;
@@ -23,7 +22,6 @@
             padding: 20px;
         }
 
-        /* Improved Login Container */
         .login-container {
             background: rgba(255, 255, 255, 0.96);
             padding: 2.5rem;
@@ -41,33 +39,10 @@
             animation: fadeIn 0.8s ease-out forwards;
         }
 
-        .login-container::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: linear-gradient(
-                to bottom right,
-                rgba(255, 123, 0, 0.08) 0%,
-                rgba(255, 123, 0, 0) 50%
-            );
-            transform: rotate(30deg);
-            z-index: -1;
-        }
-
-        /* Animations */
         @keyframes fadeIn {
             to { opacity: 1; transform: translateY(0); }
         }
 
-        @keyframes float {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-8px); }
-        }
-
-        /* Header */
         .login-container h1 {
             font-size: 2.2rem;
             margin-bottom: 2rem;
@@ -89,7 +64,6 @@
             border-radius: 4px;
         }
 
-        /* Form Elements */
         .form-group {
             margin-bottom: 1.75rem;
             text-align: left;
@@ -120,37 +94,6 @@
             background-color: #fff;
         }
 
-        /* Checkbox */
-        .form-check {
-            margin: 1.75rem 0;
-            text-align: left;
-            display: flex;
-            align-items: center;
-        }
-
-        .form-check-input {
-            width: 1.2em;
-            height: 1.2em;
-            margin-right: 0.75rem;
-            border: 2px solid #cbd5e0;
-            transition: all 0.2s ease;
-        }
-
-        .form-check-input:checked {
-            background-color: #ff7b00;
-            border-color: #ff7b00;
-        }
-
-        .form-check-input:focus {
-            box-shadow: 0 0 0 3px rgba(255, 123, 0, 0.15);
-        }
-
-        .form-check-label {
-            color: #4a5568;
-            font-size: 0.95rem;
-        }
-
-        /* Button */
         .btn-login {
             background: linear-gradient(135deg, #ff7b00, #ff9500);
             border: none;
@@ -161,11 +104,10 @@
             transition: all 0.3s ease;
             font-size: 1.05rem;
             letter-spacing: 0.5px;
+            text-transform: uppercase;
             box-shadow: 0 4px 15px rgba(255, 123, 0, 0.3);
             width: 100%;
             margin-top: 0.5rem;
-            position: relative;
-            overflow: hidden;
         }
 
         .btn-login:hover {
@@ -174,76 +116,31 @@
             box-shadow: 0 6px 20px rgba(255, 123, 0, 0.4);
         }
 
-        .btn-login:active {
-            transform: translateY(0);
-        }
-
-        .btn-login::after {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -60%;
-            width: 200%;
-            height: 200%;
-            background: rgba(255, 255, 255, 0.2);
-            transform: rotate(30deg);
-            transition: all 0.3s ease;
-        }
-
-        .btn-login:hover::after {
-            left: 100%;
-        }
-
-        /* Links */
-        .auth-links {
-            display: flex;
-            justify-content: center;
-            gap: 1rem;
+        .register-link {
+            display: block;
             margin-top: 1.75rem;
             color: #718096;
             font-size: 0.95rem;
         }
 
-        .auth-links a {
+        .register-link a {
             color: #ff7b00;
             font-weight: 500;
             text-decoration: none;
-            transition: all 0.2s ease;
-            position: relative;
-            padding-bottom: 2px;
         }
 
-        .auth-links a:hover {
-            color: #e66a00;
-        }
-
-        .auth-links a::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background: #ff7b00;
-            transition: width 0.3s ease;
-        }
-
-        .auth-links a:hover::after {
-            width: 100%;
-        }
-
-        /* Alert */
-        .alert-danger {
-            background-color: #fff5f5;
+        /* Error messages */
+        .invalid-feedback {
             color: #e53e3e;
-            border: 1px solid #fed7d7;
-            border-radius: 8px;
-            padding: 1rem;
-            margin-bottom: 1.5rem;
-            text-align: left;
+            font-size: 0.85rem;
+            margin-top: 0.25rem;
+            display: block;
         }
 
-        /* Responsive Design */
+        .is-invalid {
+            border-color: #e53e3e;
+        }
+
         @media (max-width: 576px) {
             .login-container {
                 padding: 1.75rem;
@@ -259,17 +156,12 @@
                 height: 48px;
                 padding: 0.65rem 1rem;
             }
-            
-            .auth-links {
-                flex-direction: column;
-                gap: 0.5rem;
-            }
         }
     </style>
 {% endblock %}
 
 {% block body %}
-    <!-- Top Bar -->
+    <!-- Même en-tête que pour le sign up -->
     <div class="container-fluid bg-dark px-5 d-none d-lg-block">
         <div class="row gx-0">
             <div class="col-lg-8 text-center text-lg-start mb-2 mb-lg-0">
@@ -334,7 +226,7 @@
                     {% if app.user %}
                         <div class="dropdown ms-3">
                             <button class="btn btn-primary dropdown-toggle" type="button" id="userDropdown" data-bs-toggle="dropdown">
-                                <i class="fa fa-user me-1"></i> {{ app.user.username }}
+                                <i class="fa fa-user me-1"></i> {{ app.user.email }}
                             </button>
                             <ul class="dropdown-menu dropdown-menu-end">
                                 <li><a class="dropdown-item" href="#">Mon profil</a></li>
@@ -350,51 +242,42 @@
         </div>
     </nav>
 
-    <!-- Login Section -->
     <section class="login-section">
         <div class="login-container">
-            <h1 class="text-center">Connectez-vous</h1>
+            <h1 class="text-center">Welcome Back</h1>
 
-            {% if error %}
-                <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
-            {% endif %}
+            <form method="post" class="login-form">
+                {% if error %}
+                    <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+                {% endif %}
 
-            {% if app.user %}
-                <div class="mb-4 text-center">
-                    Vous êtes connecté en tant que <strong>{{ app.user.username }}</strong>,
-                    <a href="{{ path('app_logout') }}" class="text-danger">Déconnexion</a>
-                </div>
-            {% endif %}
-
-            <form method="post">
                 <div class="form-group">
-                    <label for="inputUsername" class="form-label">Nom d'utilisateur</label>
-                    <input type="text" value="{{ last_username }}" name="username" id="inputUsername"
-                           class="form-control" autocomplete="username" required autofocus>
+                    <label for="inputEmail" class="form-label">Email Address</label>
+                    <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" autocomplete="email" required autofocus placeholder="your.email@example.com">
                 </div>
 
                 <div class="form-group">
-                    <label for="inputPassword" class="form-label">Mot de passe</label>
-                    <input type="password" name="password" id="inputPassword"
-                           class="form-control" autocomplete="current-password" required>
-                </div>
-
-                <div class="form-check">
-                    <input type="checkbox" class="form-check-input" id="rememberMe" name="_remember_me">
-                    <label class="form-check-label" for="rememberMe">Se souvenir de moi</label>
+                    <label for="inputPassword" class="form-label">Password</label>
+                    <input type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password" required placeholder="Enter your password">
                 </div>
 
                 <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
 
-                <button class="btn-login" type="submit">
-                    Se connecter
-                </button>
-            </form>
+                <div class="form-check mb-3">
+                    <input class="form-check-input" type="checkbox" name="_remember_me" id="rememberMe">
+                    <label class="form-check-label" for="rememberMe">Remember me</label>
+                </div>
 
-            <div class="auth-links">
-                <a href="{{ path('app_register') }}">Créer un compte</a>
-                <a href="#">Mot de passe oublié ?</a>
-            </div>
+                <button class="btn btn-login" type="submit">Sign In</button>
+                
+                <div class="register-link">
+                    Don't have an account? <a href="{{ path('app_register') }}">Sign up here</a>
+                </div>
+                
+                <div class="text-center mt-3">
+                    <a href="" class="text-muted">Forgot password?</a>
+                </div>
+            </form>
         </div>
     </section>
 
@@ -403,15 +286,6 @@
             const loginContainer = document.querySelector('.login-container');
             loginContainer.style.opacity = '1';
             loginContainer.style.transform = 'translateY(0)';
-            
-            // Add floating animation to the container on hover
-            loginContainer.addEventListener('mouseenter', function() {
-                this.style.animation = 'float 3s ease-in-out infinite';
-            });
-            
-            loginContainer.addEventListener('mouseleave', function() {
-                this.style.animation = 'none';
-            });
         });
     </script>
 {% endblock %}
