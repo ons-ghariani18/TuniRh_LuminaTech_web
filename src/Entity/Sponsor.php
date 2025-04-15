@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 use Doctrine\Common\Collections\Collection;
@@ -80,6 +81,11 @@ public function setIdSp(int $idSp): self
 
     #[ORM\OneToMany(mappedBy: "id_sp", targetEntity: Evenement::class)]
     private Collection $evenements;
+
+    public function __construct()
+    {
+        $this->evenements = new ArrayCollection();
+    }
 
         public function getEvenements(): Collection
         {

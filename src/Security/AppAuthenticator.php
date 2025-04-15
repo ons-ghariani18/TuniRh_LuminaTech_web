@@ -27,7 +27,7 @@ class AppAuthenticator extends AbstractAuthenticator
 
     public function authenticate(Request $request): Passport
     {
-        $username = $request->request->get('username', '');
+        $username = $request->request->get('email', '');
         $password = $request->request->get('password', '');
 
         return new Passport(
