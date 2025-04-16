@@ -203,8 +203,13 @@
                     <a href="#" class="nav-link dropdown-toggle hover-orange" data-bs-toggle="dropdown">Services</a>
                     <div class="dropdown-menu m-0 bg-dark">
                         <a href="{{ path('app_recrutement') }}" class="dropdown-item text-white hover-orange">Recrutement</a>
-                        <a href="{{ path('app_formation') }}" class="dropdown-item text-white hover-orange">Formation</a>
-                        
+                        {% if is_granted('ROLE_ADMIN') %}
+                            <a href="{{ path('app_formation') }}" class="dropdown-item text-white hover-orange">Formation</a>
+                        {% elseif is_granted('ROLE_USER') %}
+                            <a href="{{ path('app_blog') }}" class="dropdown-item text-white hover-orange">Formation</a>
+                        {% endif %}
+
+
                     </div>
                 </div>
                 

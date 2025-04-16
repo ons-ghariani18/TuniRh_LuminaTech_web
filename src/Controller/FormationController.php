@@ -14,7 +14,7 @@ use Symfony\Component\Routing\Attribute\Route;
 #[Route('/formation')]
 final class FormationController extends AbstractController
 {
-    #[Route(name: 'app_formation_index', methods: ['GET'])]
+    #[Route(name: 'app_formation', methods: ['GET'])]
     public function index(FormationRepository $formationRepository): Response
     {
         return $this->render('formation/index.html.twig', [
