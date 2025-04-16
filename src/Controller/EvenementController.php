@@ -35,19 +35,25 @@ final class EvenementController extends AbstractController
         $form = $this->createForm(EvenementType::class, $evenement);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $imageFile = $form->get('imageFile')->getData();
+        if ($form->isSubmitted()) {
+            if ($form->isValid()) {
+                $imageFile = $form->get('imageFile')->getData();
 
-            // Traitement de l'upload d'image si une image est fournie
-            if ($imageFile) {
-                $this->handleImageUpload($imageFile, $evenement, $slugger);
+                if ($imageFile) {
+                    $uploadResult = $this->handleImageUpload($imageFile, $evenement, $slugger);
+                    if (!$uploadResult) {
+                        return $this->redirectToRoute('app_evenement_new');
+                    }
+                }
+
+                $entityManager->persist($evenement);
+                $entityManager->flush();
+
+                $this->addFlash('success', 'L\'événement a été créé avec succès');
+                return $this->redirectToRoute('app_evenement_index', [], Response::HTTP_SEE_OTHER);
+            } else {
+                $this->addFlash('error', 'Veuillez corriger les erreurs dans le formulaire');
             }
-
-            $entityManager->persist($evenement);
-            $entityManager->flush();
-
-            $this->addFlash('success', 'L\'événement a été créé avec succès');
-            return $this->redirectToRoute('app_evenement_index', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->render('evenement/new.html.twig', [
@@ -70,23 +76,28 @@ final class EvenementController extends AbstractController
         $form = $this->createForm(EvenementType::class, $evenement);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $imageFile = $form->get('imageFile')->getData();
+        if ($form->isSubmitted()) {
+            if ($form->isValid()) {
+                $imageFile = $form->get('imageFile')->getData();
 
-            // Traitement de l'upload d'image si une nouvelle image est fournie
-            if ($imageFile) {
-                // Si l'événement a déjà une image, on la supprime avant d'en ajouter une nouvelle
-                if ($evenement->getImage()) {
-                    $this->removeExistingImage($evenement->getImage());
+                if ($imageFile) {
+                    if ($evenement->getImage()) {
+                        $this->removeExistingImage($evenement->getImage());
+                    }
+                    
+                    $uploadResult = $this->handleImageUpload($imageFile, $evenement, $slugger);
+                    if (!$uploadResult) {
+                        return $this->redirectToRoute('app_evenement_edit', ['id_ev' => $evenement->getIdEv()]);
+                    }
                 }
-                
-                $this->handleImageUpload($imageFile, $evenement, $slugger);
+
+                $entityManager->flush();
+
+                $this->addFlash('success', 'L\'événement a été modifié avec succès');
+                return $this->redirectToRoute('app_evenement_index', [], Response::HTTP_SEE_OTHER);
+            } else {
+                $this->addFlash('error', 'Veuillez corriger les erreurs dans le formulaire');
             }
-
-            $entityManager->flush();
-
-            $this->addFlash('success', 'L\'événement a été modifié avec succès');
-            return $this->redirectToRoute('app_evenement_index', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->render('evenement/edit.html.twig', [
@@ -98,8 +109,7 @@ final class EvenementController extends AbstractController
     #[Route('/{id_ev}', name: 'app_evenement_delete', methods: ['POST'])]
     public function delete(Request $request, Evenement $evenement, EntityManagerInterface $entityManager): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$evenement->getIdEv(), $request->getPayload()->getString('_token'))) {
-            // Suppression de l'image associée si elle existe
+        if ($this->isCsrfTokenValid('delete'.$evenement->getIdEv(), $request->getPayload()->get('_token'))) {
             if ($evenement->getImage()) {
                 $this->removeExistingImage($evenement->getImage());
             }
@@ -108,18 +118,16 @@ final class EvenementController extends AbstractController
             $entityManager->flush();
             
             $this->addFlash('success', 'L\'événement a été supprimé avec succès');
+        } else {
+            $this->addFlash('error', 'Token CSRF invalide');
         }
 
         return $this->redirectToRoute('app_evenement_index', [], Response::HTTP_SEE_OTHER);
     }
     
-    /**
-     * Gère l'upload d'une image pour un événement
-     */
-    private function handleImageUpload(UploadedFile $imageFile, Evenement $evenement, SluggerInterface $slugger): void
+    private function handleImageUpload(UploadedFile $imageFile, Evenement $evenement, SluggerInterface $slugger): bool
     {
         $originalFilename = pathinfo($imageFile->getClientOriginalName(), PATHINFO_FILENAME);
-        // Sécuriser le nom du fichier
         $safeFilename = $slugger->slug($originalFilename);
         $newFilename = $safeFilename.'-'.uniqid().'.'.$imageFile->guessExtension();
         
@@ -130,19 +138,22 @@ final class EvenementController extends AbstractController
             );
             
             $evenement->setImage($newFilename);
+            return true;
         } catch (FileException $e) {
             $this->addFlash('error', 'Une erreur est survenue lors de l\'upload de l\'image');
+            return false;
         }
     }
     
-    /**
-     * Supprime une image existante
-     */
     private function removeExistingImage(string $filename): void
     {
         $imagePath = $this->getParameter('evenements_images_directory').'/'.$filename;
         if (file_exists($imagePath)) {
-            unlink($imagePath);
+            try {
+                unlink($imagePath);
+            } catch (\Exception $e) {
+                $this->addFlash('warning', 'L\'image n\'a pas pu être supprimée');
+            }
         }
     }
 }

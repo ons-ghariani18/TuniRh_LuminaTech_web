@@ -48,10 +48,7 @@ class EvenementType extends AbstractType
                 'label' => 'Description',
                 'attr' => ['rows' => 5, 'placeholder' => 'Description détaillée de l\'événement']
             ])
-            ->add('google_calendar_event_id', TextType::class, [
-                'label' => 'ID Google Calendar',
-                'attr' => ['placeholder' => 'ID de l\'événement dans Google Calendar']
-            ])
+           
             ->add('imageFile', FileType::class, [
                 'label' => 'Image (JPEG, PNG)',
                 'mapped' => false,
@@ -72,7 +69,7 @@ class EvenementType extends AbstractType
                 'choice_label' => 'nom', // Supposons que votre entité Sponsor a un champ 'nom'
                 'label' => 'Sponsor',
                 'required' => false,
-                'placeholder' => 'Sélectionnez un sponsor (optionnel)',
+                'placeholder' => 'Sélectionnez un sponsor (obligatoire)',
             ])
         ;
     }
