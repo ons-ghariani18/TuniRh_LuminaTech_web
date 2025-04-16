@@ -27,6 +27,8 @@ class AuthController extends AbstractController
             $hashedPassword = $passwordHasher->hashPassword($user, $user->getPassword());
             $user->setPassword($hashedPassword);
 
+            $user->setRole("candidat");
+
             $entityManager->persist($user);
             $entityManager->flush();
 

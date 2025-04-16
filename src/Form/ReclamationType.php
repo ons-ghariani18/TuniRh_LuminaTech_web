@@ -53,16 +53,7 @@ class ReclamationType extends AbstractType
                     'class' => 'form-control'
                 ],
             ])
-            ->add('idUser', EntityType::class, [
-                'class' => Users::class,
-                'choice_label' => function (Users $user) {
-                    return $user->getNom() . ' ' . $user->getPrenom();
-                },
-                'label' => 'Utilisateur',
-                'attr' => [
-                    'class' => 'form-control'
-                ],
-            ])
+            
         ;
     }
 

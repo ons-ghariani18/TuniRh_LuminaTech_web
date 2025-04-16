@@ -413,12 +413,14 @@
             </a>
 
             <p class="menu-label">GESTION RH</p>
+            <a href="{{ path('app_users_index') }}" class="menu-item">
+                <i class="mdi mdi-account-group"></i> Profils Utilisateurs
+            </a>
+
             <a href="{{ path('app_offresemploi_index') }}" class="menu-item">
                 <i class="mdi mdi-briefcase"></i> Offres d'emploi
             </a>
-            <a href="#" class="menu-item">
-                <i class="mdi mdi-account-group"></i> Profils Utilisateurs
-            </a>
+            
             <a href="{{ path('app_reclamation_index') }}" class="menu-item is-active">
                 <i class="mdi mdi-message-alert"></i> Réclamations
             </a>

@@ -116,24 +116,7 @@ class SignUpType extends AbstractType
                     ]),
                 ],
             ])
-            ->add('role', ChoiceType::class, [
-                'label' => 'Rôle',
-                'choices' => [
-                    'Responsable RH' => 'Responsable RH',
-                    'Employé' => 'Employé',
-                    'Candidat' => 'candidat',
-                ],
-                'attr' => [
-                    'class' => 'form-select',
-                ],
-                'constraints' => [
-                    new Assert\NotBlank(['message' => 'Le rôle est obligatoire']),
-                    new Assert\Choice([
-                        'choices' => ['Responsable RH', 'Employé', 'candidat'],
-                        'message' => 'Veuillez sélectionner un rôle valide',
-                    ]),
-                ],
-            ]);
+            ;
     }
 
     public function configureOptions(OptionsResolver $resolver): void
