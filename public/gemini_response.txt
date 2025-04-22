@@ -1,0 +1,36 @@
+Here are 5 questions about the Java language, formatted as requested:
+
+**Question:** What is the primary data type in Java used to store whole numbers?
+a) int
+b) float
+c) String
+d) boolean
+**Correct: a**
+
+**Question:** Which keyword is used to declare a class in Java?
+a) class
+b) define
+c) new
+d) method
+**Correct: a**
+
+**Question:** What is the output of System.out.println("Hello World"); in Java?
+a) Hello World
+b) "Hello World"
+c) Error
+d) println("Hello World")
+**Correct: a**
+
+**Question:** Which of the following is NOT a valid access modifier in Java?
+a) public
+b) private
+c) friendly
+d) protected
+**Correct: c**
+
+**Question:** What is the name of the mechanism in Java that allows one class to inherit properties and methods from another class?
+a) Inheritance
+b) Polymorphism
+c) Encapsulation
+d) Abstraction
+**Correct: a** 

@@ -377,7 +377,9 @@
 {% endblock %}
 
 {% block body %}
-<div class="app-container">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+
+    <div class="app-container">
     <aside class="aside" id="sidebar">
         <div class="aside-brand">
             <i class="mdi mdi-account-tie mr-2"></i> RH Dashboard
@@ -404,7 +406,7 @@
             </a>
 
             <p class="menu-label">ÉVÉNEMENTS</p>
-            <a href="{{ path('app_evenement_index') }}" class="menu-item is-active">
+            <a href="{{ path('app_evenement_index') }}" class="menu-item ">
                 <i class="mdi mdi-calendar"></i> Événements
             </a>
             <a href="{{ path('app_sponsor_index') }}" class="menu-item">
@@ -412,11 +414,11 @@
             </a>
 
             <p class="menu-label">FORMATION</p>
-            <a href="#" class="menu-item">
+            <a href="{{ path('app_formation_index') }}" class="menu-item is-active" >
                 <i class="mdi mdi-school"></i> Formations
             </a>
-            <a href="#" class="menu-item">
-                <i class="mdi mdi-account-voice"></i> Entretiens
+            <a href="{{ path('app_reservations_index') }}" class="menu-item">
+                <i class="mdi mdi-account-voice"></i> Reservations
             </a>
         </div>
     </aside>
@@ -459,8 +461,9 @@
                 <th>Description</th>
                 <th>StartDate</th>
                 <th>EndDate</th>
-                <th>MaxParticipants</th>
+                <th>Max Participants</th>
                 <th>Cost</th>
+                <th>Quiz</th>
                 <th>actions</th>
             </tr>
         </thead>
@@ -475,9 +478,22 @@
                 <td>{{ formation.maxParticipants }}</td>
                 <td>{{ formation.cost }}</td>
                 <td>
-                    <a href="{{ path('app_formation_show', {'id': formation.id}) }}">show</a>
-                    <a href="{{ path('app_formation_edit', {'id': formation.id}) }}">edit</a>
+                    {% if formation.quiz %}
+{#                        href="{{ path('admin_quiz_view', { id: formation.quiz.id }) }}"#}
+                        <a >Voir</a>
+                    {% else %}
+                        Aucun
+                    {% endif %}
                 </td>
+                <td>
+                    <a href="{{ path('app_formation_show', {'id': formation.id}) }}" class="btn btn-sm btn-info" title="Afficher">
+                        <i class="bi bi-eye-fill"></i> Show
+                    </a>
+                    <a href="{{ path('app_formation_edit', {'id': formation.id}) }}" class="btn btn-sm btn-primary" title="Modifier">
+                        <i class="bi bi-pencil-fill"></i> Edit
+                    </a>
+                </td>
+
             </tr>
         {% else %}
             <tr>

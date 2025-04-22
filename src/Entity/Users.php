@@ -15,7 +15,7 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Id]
     #[ORM\GeneratedValue(strategy: 'AUTO')]
     #[ORM\Column(type: 'integer')]
-    private ?int $id = null;
+    private int $id;
 
     #[ORM\Column(type: 'string', length: 180, unique: true)]
     private string $email;
@@ -155,5 +155,13 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
     public function hasRole(string $role): bool
     {
         return in_array($role, $this->getRoles(), true);
+    }
+
+    /**
+     * Get the full name of the user or return email if no name is available
+     */
+    public function getFullName(): string
+    {
+        return $this->email; // Using email as fallback since there is no first/last name fields
     }
 }

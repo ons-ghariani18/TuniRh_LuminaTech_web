@@ -96,4 +96,5 @@ class BlogController extends AbstractController
 
         return $this->redirectToRoute('app_blog');
     }
+
 }

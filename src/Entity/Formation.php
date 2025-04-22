@@ -6,6 +6,7 @@ use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: 'App\Repository\FormationRepository')]
 class Formation
@@ -16,18 +17,40 @@ class Formation
     private ?int $id = null;
 
     #[ORM\Column(type: 'string', length: 255)]
+    #[Assert\Length(min: 5, minMessage: 'Le titre doit contenir au moins {{ limit }} caractères.')]
+    #[Assert\Regex(
+        pattern: '/^[a-zA-Z\s]+$/',
+        message: 'Le titre ne doit contenir que des lettres et des espaces.'
+    )]
     private string $title;
 
     #[ORM\Column(type: 'text', nullable: true)]
+    #[Assert\NotBlank]
+    #[Assert\Length(min: 20, minMessage: 'La description doit contenir au moins {{ limit }} caractères.')]
+    #[Assert\Regex(
+        pattern: '/^[^\d]*$/',
+        message: 'La description ne doit pas contenir de chiffres.'
+    )]
     private ?string $description = null;
 
     #[ORM\Column(type: 'datetime')]
+    #[Assert\NotBlank]
+    #[Assert\Type(\DateTimeInterface::class)]
+    #[Assert\GreaterThanOrEqual('today', message: 'La date de début doit être aujourd\'hui ou dans le futur.')]
     private \DateTimeInterface $startDate;
 
     #[ORM\Column(type: 'datetime')]
+    #[Assert\NotBlank]
+    #[Assert\Type(\DateTimeInterface::class)]
+    #[Assert\Expression(
+        "this.getEndDate() > this.getStartDate()",
+        message: "La date de fin doit être postérieure à la date de début."
+    )]
     private \DateTimeInterface $endDate;
 
     #[ORM\Column(type: 'integer')]
+    #[Assert\NotNull]
+    #[Assert\GreaterThan(value: 0, message: 'Le nombre de participants doit être supérieur à 0.')]
     private int $maxParticipants;
 
     #[ORM\OneToMany(mappedBy: 'formation', targetEntity: Reservations::class)]
@@ -36,9 +59,22 @@ class Formation
     #[ORM\Column]
     private ?float $cost = null;
 
+    #[ORM\OneToOne(mappedBy: 'formation', targetEntity: Quiz::class, cascade: ['persist', 'remove'])]
+    private ?Quiz $quiz = null;
+
     public function __construct()
     {
         $this->reservations = new ArrayCollection();
+    }
+    public function getQuiz(): ?Quiz
+    {
+        return $this->quiz;
+    }
+
+    public function setQuiz(?Quiz $quiz): self
+    {
+        $this->quiz = $quiz;
+        return $this;
     }
 
     // Getters and Setters

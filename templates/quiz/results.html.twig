@@ -1,0 +1,261 @@
+{# templates/quiz/results.html.twig #}
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ title }} Quiz Results{% endblock %}
+
+{% block body %}
+<div class="results-container">
+    <h1 class="mb-4 text-center">{{ title }} - Quiz Results</h1>
+
+    <div class="score-summary card mb-4">
+        <div class="card-body text-center">
+            <h2 class="fs-4">Your Score</h2>
+            <div class="score-value fs-1 fw-bold mb-2">{{ score.correct }}/{{ score.total }}</div>
+            <div class="progress mb-3" style="height: 30px;">
+                <div class="progress-bar {% if score.percentage < 50 %}bg-danger{% elseif score.percentage < 75 %}bg-warning{% else %}bg-success{% endif %}" 
+                     role="progressbar" 
+                     style="width: {{ score.percentage }}%;" 
+                     aria-valuenow="{{ score.percentage }}" 
+                     aria-valuemin="0" 
+                     aria-valuemax="100">
+                    {{ score.percentage }}%
+                </div>
+            </div>
+            <div class="score-message">
+                {% if score.passed %}
+                    <div class="alert alert-success">
+                        <h3 class="alert-heading">Congratulations, {{ userName }}!</h3>
+                        <p>You have successfully passed the quiz for <strong>{{ title }}</strong>.</p>
+                        <p>Your performance demonstrates a good understanding of this topic.</p>
+                        <hr>
+                        <p class="mb-0">You can now download your attestation certificate by clicking the button below.</p>
+                    </div>
+                    
+                    <div class="mt-4 mb-3">
+                        {% if isPaid %}
+                            <div class="alert alert-warning">
+                                <h5>Payment Required</h5>
+                                <p>This is a paid formation. You need to pay {{ formationCost }} € to download your attestation.</p>
+                            </div>
+                            
+                            <div class="d-flex justify-content-center gap-3">
+                                <!-- Stripe Payment Button -->
+                                <button id="checkout-button" class="btn btn-lg btn-primary">
+                                    <i class="bi bi-credit-card"></i> Pay {{ formationCost }} €
+                                </button>
+                                
+                                <!-- Disabled Attestation Button -->
+                                <a href="#" class="btn btn-lg btn-success disabled" id="attestation-button">
+                                    <i class="bi bi-file-earmark-pdf"></i> Download Attestation
+                                </a>
+                            </div>
+                        {% else %}
+                            <!-- Free Formation - Enable Attestation Button -->
+                            <a href="{{ path('generate_attestation', {'formationId': formationId}) }}" class="btn btn-lg btn-success">
+                                <i class="bi bi-file-earmark-pdf"></i> Download Attestation
+                            </a>
+                        {% endif %}
+                    </div>
+                {% elseif score.percentage >= 60 %}
+                    <div class="alert alert-info">Good job! You know the basics but might need to review some areas.</div>
+                {% else %}
+                    <div class="alert alert-warning">
+                        <h4 class="alert-heading">Keep Learning!</h4>
+                        <p>You might need additional study on this topic.</p>
+                        <p>Try reviewing the course material and taking the quiz again.</p>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+    <h3 class="fs-5 mb-3">Detailed Results</h3>
+
+    {% for id, result in results %}
+        <div class="question-result card mb-3 {% if result.isCorrect %}border-success{% else %}border-danger{% endif %}">
+            <div class="card-header d-flex justify-content-between align-items-center">
+                <span class="fw-bold">Question {{ id }}</span>
+                {% if result.isCorrect %}
+                    <span class="badge bg-success">Correct</span>
+                {% else %}
+                    <span class="badge bg-danger">Incorrect</span>
+                {% endif %}
+            </div>
+            <div class="card-body">
+                <p class="fw-bold">{{ result.question }}</p>
+                
+                <div class="row mb-3">
+                    <div class="col-12">
+                        <div class="options-list">
+                            {% for letter, option in result.options %}
+                                <div class="option-item mb-2 p-2 rounded 
+                                    {% if letter == result.correctAnswer %}bg-success text-white{% elseif letter == result.userAnswer and not result.isCorrect %}bg-danger text-white{% else %}bg-light{% endif %}">
+                                    <strong>{{ letter|upper }})</strong> {{ option }}
+                                    {% if letter == result.correctAnswer %}
+                                        <span class="ms-2 badge bg-light text-success">Correct Answer</span>
+                                    {% endif %}
+                                    {% if letter == result.userAnswer and not result.isCorrect %}
+                                        <span class="ms-2 badge bg-light text-danger">Your Answer</span>
+                                    {% endif %}
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="row">
+                    <div class="col-md-6">
+                        <p>Your answer: 
+                            <span class="{% if result.isCorrect %}text-success{% else %}text-danger{% endif %}">
+                                {% if result.userAnswer %}
+                                    {{ result.userAnswer|upper }}
+                                {% else %}
+                                    No answer provided
+                                {% endif %}
+                            </span>
+                        </p>
+                    </div>
+                    <div class="col-md-6">
+                        <p>Correct answer: <span class="text-success">{{ result.correctAnswer|upper }}</span></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+    
+    
+
+    <div class="d-flex justify-content-center mt-4 gap-3">
+        <a href="{{ path('generate_quiz_by_id', {'id': formationId}) }}" class="btn btn-primary">Retry Quiz</a>
+        <a href="{{ path('app_formation_index') }}" class="btn btn-secondary">Back to Formations</a>
+    </div>
+</div>
+{% endblock %}
+
+{% block stylesheets %}
+{{ parent() }}
+<style>
+    .results-container {
+        max-width: 900px;
+        margin: 30px auto;
+        background: #fff;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+    .score-value {
+        font-size: 3rem;
+        color: #343a40;
+    }
+    .question-result.border-success {
+        box-shadow: 0 0 5px rgba(40, 167, 69, 0.3);
+    }
+    .question-result.border-danger {
+        box-shadow: 0 0 5px rgba(220, 53, 69, 0.3);
+    }
+</style>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    
+    {% if isPaid and score.passed %}
+    <script src="https://js.stripe.com/v3/"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialize Stripe
+            const stripe = Stripe('pk_test_51QwwxI2cr5sURYQmCpM4IGbEFvoXTK5IsRG3fu5oLjGSwVi966sgY6xUruu7EClMxFUFRllVNwBP0vaT70E6WTGQ00CQCy9MBY');
+            const checkoutButton = document.getElementById('checkout-button');
+            const attestationButton = document.getElementById('attestation-button');
+            
+            {% if paymentSuccess is defined and paymentSuccess %}
+            // Payment was successful, enable attestation button
+            if (attestationButton) {
+                attestationButton.classList.remove('disabled');
+                attestationButton.href = "{{ path('generate_attestation', {'formationId': formationId}) }}";
+            }
+            
+            // Hide payment button
+            if (checkoutButton) {
+                checkoutButton.style.display = 'none';
+                
+                // Show success message
+                const successAlert = document.createElement('div');
+                successAlert.className = 'alert alert-success mt-3';
+                successAlert.innerHTML = '<h5>Payment Successful!</h5><p>You can now download your attestation.</p>';
+                checkoutButton.parentNode.prepend(successAlert);
+            }
+            {% else %}
+            checkoutButton.addEventListener('click', function() {
+                // Show loading state
+                checkoutButton.disabled = true;
+                checkoutButton.innerHTML = '<i class="bi bi-hourglass-split"></i> Processing...';
+                
+                // Create a checkout session on your server
+                fetch('/create-checkout-session', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        formationId: '{{ formationId }}',
+                        cost: {{ formationCost }},
+                        title: '{{ title }}'
+                    }),
+                })
+                .then(function(response) {
+                    return response.json();
+                })
+                .then(function(session) {
+                    if (session.error) {
+                        // Handle error
+                        alert('Payment error: ' + session.error);
+                        checkoutButton.disabled = false;
+                        checkoutButton.innerHTML = '<i class="bi bi-credit-card"></i> Pay {{ formationCost }} €';
+                        return;
+                    }
+                    
+                    // Redirect to Stripe Checkout
+                    return stripe.redirectToCheckout({ sessionId: session.id });
+                })
+                .catch(function(error) {
+                    console.error('Error:', error);
+                    alert('There was an error processing your payment. Please try again.');
+                    checkoutButton.disabled = false;
+                    checkoutButton.innerHTML = '<i class="bi bi-credit-card"></i> Pay {{ formationCost }} €';
+                });
+            });
+            
+            // Check if payment was successful (you would implement this based on your server response)
+            function checkPaymentStatus() {
+                // Check URL parameters first
+                const urlParams = new URLSearchParams(window.location.search);
+                const paymentStatus = urlParams.get('payment');
+                
+                fetch('/check-payment-status/' + {{ formationId }} + (paymentStatus ? '?payment=' + paymentStatus : ''))
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.paid) {
+                            // Enable attestation button
+                            attestationButton.classList.remove('disabled');
+                            attestationButton.href = "{{ path('generate_attestation', {'formationId': formationId}) }}";
+                            
+                            // Hide payment button
+                            checkoutButton.style.display = 'none';
+                            
+                            // Show success message
+                            const successAlert = document.createElement('div');
+                            successAlert.className = 'alert alert-success mt-3';
+                            successAlert.innerHTML = '<h5>Payment Successful!</h5><p>You can now download your attestation.</p>';
+                            checkoutButton.parentNode.prepend(successAlert);
+                        }
+                    });
+            }
+            
+            // Check payment status on page load
+            checkPaymentStatus();
+            {% endif %}
+        });
+    </script>
+    {% endif %}
+{% endblock %} 
