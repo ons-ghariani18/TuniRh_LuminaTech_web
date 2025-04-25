@@ -17,12 +17,15 @@ class RegistrationController extends AbstractController
 {
     #[Route('/register', name: 'app_register')]
     public function register(
+
         Request $request,
         UserPasswordHasherInterface $passwordHasher,
         EntityManagerInterface $entityManager,
         ?UserAuthenticatorInterface $authenticator,
         ?AppAuthenticator $appAuthenticator
     ): Response {
+
+
         $user = new Users();
         $form = $this->createForm(RegistrationFormType::class, $user);
         $form->handleRequest($request);

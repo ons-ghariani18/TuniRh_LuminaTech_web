@@ -1,36 +1,36 @@
 Here are 5 questions about the Java language, formatted as requested:
 
-**Question:** What is the primary data type in Java used to store whole numbers?
-a) int
-b) float
-c) String
-d) boolean
-**Correct: a**
+**Question:** What is the output of System.out.println(10 + 20 + "Hello");
+a) 30Hello
+b) 1020Hello
+c) Hello1020
+d) Error 
+**Correct:** a
 
-**Question:** Which keyword is used to declare a class in Java?
+**Question:** Which keyword is used to define a class in Java?
 a) class
-b) define
-c) new
-d) method
-**Correct: a**
+b) Class
+c) CLASS
+d) define
+**Correct:** a
 
-**Question:** What is the output of System.out.println("Hello World"); in Java?
-a) Hello World
-b) "Hello World"
-c) Error
-d) println("Hello World")
-**Correct: a**
+**Question:** What is the default value of an instance variable of type int?
+a) 0
+b) 1
+c) null
+d) undefined
+**Correct:** a
 
-**Question:** Which of the following is NOT a valid access modifier in Java?
-a) public
-b) private
-c) friendly
-d) protected
-**Correct: c**
+**Question:** Which of these is a valid method signature in Java?
+a) public void myMethod()
+b) void myMethod(int x, y)
+c) public myMethod(String s)
+d) static void (int x)
+**Correct:** a
 
-**Question:** What is the name of the mechanism in Java that allows one class to inherit properties and methods from another class?
-a) Inheritance
-b) Polymorphism
-c) Encapsulation
-d) Abstraction
-**Correct: a** 
+**Question:** What is the purpose of the 'finally' block in a try-catch-finally statement?
+a) Executes code only if an exception is thrown.
+b) Executes code regardless of whether an exception is thrown or caught.
+c) Executes code only if no exception is thrown.
+d) Used to define a new exception.
+**Correct:** b 

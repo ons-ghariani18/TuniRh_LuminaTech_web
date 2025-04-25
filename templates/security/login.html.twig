@@ -18,7 +18,7 @@
             align-items: center;
             min-height: 100vh;
             background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),
-                        url('../img/background-login.jpg') center/cover no-repeat fixed;
+            url('../img/background-login.jpg') center/cover no-repeat fixed;
             padding: 20px;
         }
 
@@ -146,12 +146,12 @@
                 padding: 1.75rem;
                 border-radius: 12px;
             }
-            
+
             .login-container h1 {
                 font-size: 1.8rem;
                 margin-bottom: 1.5rem;
             }
-            
+
             .form-control {
                 height: 48px;
                 padding: 0.65rem 1rem;
@@ -253,12 +253,12 @@
 
                 <div class="form-group">
                     <label for="inputEmail" class="form-label">Email Address</label>
-                    <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" autocomplete="email" required autofocus placeholder="your.email@example.com">
+                    <input type="email" value="{{ last_username }}" name="_username" id="inputEmail" class="form-control" autocomplete="email" required autofocus placeholder="your.email@example.com">
                 </div>
 
                 <div class="form-group">
                     <label for="inputPassword" class="form-label">Password</label>
-                    <input type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password" required placeholder="Enter your password">
+                    <input type="password" name="_password" id="inputPassword" class="form-control" autocomplete="current-password" required placeholder="Enter your password">
                 </div>
 
                 <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
@@ -269,13 +269,9 @@
                 </div>
 
                 <button class="btn btn-login" type="submit">Sign In</button>
-                
+
                 <div class="register-link">
                     Don't have an account? <a href="{{ path('app_register') }}">Sign up here</a>
-                </div>
-                
-                <div class="text-center mt-3">
-                    <a href="" class="text-muted">Forgot password?</a>
                 </div>
             </form>
         </div>

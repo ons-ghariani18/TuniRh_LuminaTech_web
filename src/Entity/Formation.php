@@ -16,7 +16,9 @@ class Formation
     #[ORM\Column(type: 'integer')]
     private ?int $id = null;
 
-    #[ORM\Column(type: 'string', length: 255)]
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
+    #[Assert\NotBlank]
+    #[Assert\NotNull]
     #[Assert\Length(min: 5, minMessage: 'Le titre doit contenir au moins {{ limit }} caractères.')]
     #[Assert\Regex(
         pattern: '/^[a-zA-Z\s]+$/',
@@ -26,27 +28,28 @@ class Formation
 
     #[ORM\Column(type: 'text', nullable: true)]
     #[Assert\NotBlank]
-    #[Assert\Length(min: 20, minMessage: 'La description doit contenir au moins {{ limit }} caractères.')]
+    #[Assert\NotNull]
+    #[Assert\Length(min: 10, minMessage: 'La description doit contenir au moins {{ limit }} caractères.')]
     #[Assert\Regex(
         pattern: '/^[^\d]*$/',
         message: 'La description ne doit pas contenir de chiffres.'
     )]
-    private ?string $description = null;
+    private ?string $description ;
 
-    #[ORM\Column(type: 'datetime')]
-    #[Assert\NotBlank]
-    #[Assert\Type(\DateTimeInterface::class)]
+    #[ORM\Column(type: 'datetime', nullable: false)]
+
     #[Assert\GreaterThanOrEqual('today', message: 'La date de début doit être aujourd\'hui ou dans le futur.')]
-    private \DateTimeInterface $startDate;
+    private ?\DateTimeInterface $startDate = null;
 
-    #[ORM\Column(type: 'datetime')]
-    #[Assert\NotBlank]
-    #[Assert\Type(\DateTimeInterface::class)]
+    #[ORM\Column(type: 'datetime', nullable: true)]
+
     #[Assert\Expression(
         "this.getEndDate() > this.getStartDate()",
         message: "La date de fin doit être postérieure à la date de début."
     )]
-    private \DateTimeInterface $endDate;
+    private ?\DateTimeInterface $endDate = null;
+
+
 
     #[ORM\Column(type: 'integer')]
     #[Assert\NotNull]
@@ -83,12 +86,12 @@ class Formation
         return $this->id;
     }
 
-    public function getTitle(): string
+    public function getTitle(): ?string
     {
         return $this->title;
     }
 
-    public function setTitle(string $title): self
+    public function setTitle(?string $title): self
     {
         $this->title = $title;
         return $this;
@@ -104,11 +107,17 @@ class Formation
         $this->description = $description;
         return $this;
     }
-
-    public function getStartDate(): \DateTimeInterface
+    public function getStartDate(): ?\DateTimeInterface
     {
         return $this->startDate;
     }
+
+    public function getEndDate(): ?\DateTimeInterface
+    {
+        return $this->endDate;
+    }
+
+
 
     public function setStartDate(\DateTimeInterface $startDate): self
     {
@@ -116,12 +125,9 @@ class Formation
         return $this;
     }
 
-    public function getEndDate(): \DateTimeInterface
-    {
-        return $this->endDate;
-    }
 
-    public function setEndDate(\DateTimeInterface $endDate): self
+
+    public function setEndDate(?\DateTimeInterface $endDate): self
     {
         $this->endDate = $endDate;
         return $this;

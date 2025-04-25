@@ -27,4 +27,11 @@ class HomeController extends AbstractController
             'evenements' => $evenements,
         ]);
     }
+    #[Route('/test', name: 'app_test')]
+    public function test(): Response
+    {
+        return new Response('Test OK ✅');
+    }
+
+
 }

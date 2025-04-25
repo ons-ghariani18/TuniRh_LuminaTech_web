@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -101,6 +101,10 @@
 <body>
     <div class="certificate">
         <div class="header">
+            <img
+                    src="{{ absolute_url(asset('img/OIP.jpg')) }}"
+
+                    style="max-height:150px;">
             <div class="title">Certificate of Completion</div>
             <div class="subtitle">This certificate is proudly presented to</div>
         </div>
@@ -115,6 +119,15 @@
         
         <div class="signature">
             <div class="signature-text">Authorized Signature</div>
+
+
+
+
+
+
+
+        </div>
+
         </div>
         
         <div class="date">
@@ -122,17 +135,26 @@
         </div>
         
         <div class="seal">
+            <img
+                    src="{{ absolute_url(asset('img/signature.png')) }}"
+                    alt="Signature"
+                    style="max-height:150px;">
             OFFICIAL<br>CERTIFICATION
+
+
+
+
+
         </div>
     </div>
     
-    <div class="actions" style="text-align: center; margin-top: 20px;">
-        <button onclick="window.print()" style="padding: 10px 20px; background-color: #4e73df; color: white; border: none; border-radius: 5px; cursor: pointer;">
-            Print Certificate
-        </button>
-        <a href="{{ path('app_formation_index') }}" style="display: inline-block; margin-left: 10px; padding: 10px 20px; background-color: #6c757d; color: white; text-decoration: none; border-radius: 5px;">
-            Back to Formations
-        </a>
-    </div>
+{#    <div class="actions" style="text-align: center; margin-top: 20px;">#}
+{#        <button onclick="window.print()" style="padding: 10px 20px; background-color: #4e73df; color: white; border: none; border-radius: 5px; cursor: pointer;">#}
+{#            Print Certificate#}
+{#        </button>#}
+{#        <a href="{{ path('app_formation_index') }}" style="display: inline-block; margin-left: 10px; padding: 10px 20px; background-color: #6c757d; color: white; text-decoration: none; border-radius: 5px;">#}
+{#            Back to Formations#}
+{#        </a>#}
+{#    </div>#}
 </body>
 </html> 

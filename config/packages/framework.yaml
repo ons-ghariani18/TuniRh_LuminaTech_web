@@ -1,16 +1,24 @@
 # see https://symfony.com/doc/current/reference/configuration/framework.html
 framework:
+    mailer:
+        dsn: '%env(MAILER_DSN)%'
     secret: '%env(APP_SECRET)%'
-    annotations: false
+    annotations: true
     http_method_override: false
     handle_all_throwables: true
+    trusted_proxies: '127.0.0.1,REMOTE_ADDR'
+    trusted_headers: ['x-forwarded-for', 'x-forwarded-host', 'x-forwarded-proto', 'x-forwarded-port']
 
     # Enables session support. Note that the session will ONLY be started if you read or write from it.
     # Remove or comment this section to explicitly disable session support.
     session:
-        handler_id: null
-        cookie_secure: auto
-        cookie_samesite: lax
+        handler_id: session.handler.native_file
+        save_path: '%kernel.project_dir%/var/sessions/%kernel.environment%'
+        cookie_secure: auto     # Changed from true to auto to work in both HTTP and HTTPS
+        cookie_samesite: lax    # Changed from strict to lax for better compatibility
+        cookie_lifetime: 86400
+        gc_maxlifetime: 86400
+        metadata_update_threshold: 0
 
     #esi: true
     #fragments: true

@@ -7,15 +7,18 @@ use Symfony\Component\Mime\Email;
 use Symfony\Component\Mime\Address;
 use App\Entity\Users;
 use App\Entity\Formation;
+use Psr\Log\LoggerInterface;
 
 class EmailService
 {
     private $mailer;
+    private $logger;
     private $sender;
 
-    public function __construct(MailerInterface $mailer, string $sender = 'contact@tunirh.com')
+    public function __construct(MailerInterface $mailer, LoggerInterface $logger, string $sender = 'contact@tunirh.com')
     {
         $this->mailer = $mailer;
+        $this->logger = $logger;
         $this->sender = $sender;
     }
 
@@ -26,11 +29,15 @@ class EmailService
     {
         $email = (new Email())
             ->from(new Address($this->sender, 'TuniRH Formation'))
-            ->to($user->getEmail())
+            ->to($user->getUserIdentifier())
             ->subject('Confirmation de paiement - ' . $formation->getTitle())
             ->html($this->renderPaymentSuccessTemplate($user, $formation, $amount));
 
-        $this->mailer->send($email);
+        try {
+            $this->mailer->send($email);
+        } catch (\Throwable $e) {
+            $this->logger->error('Payment success email failed: ' . $e->getMessage(), ['exception' => $e]);
+        }
     }
 
     /**
@@ -44,7 +51,11 @@ class EmailService
             ->subject('Échec de paiement - ' . $formation->getTitle())
             ->html($this->renderPaymentFailureTemplate($user, $formation, $amount, $reason));
 
-        $this->mailer->send($email);
+        try {
+            $this->mailer->send($email);
+        } catch (\Throwable $e) {
+            $this->logger->error('Payment failure email failed: ' . $e->getMessage(), ['exception' => $e]);
+        }
     }
 
     /**
@@ -71,18 +82,18 @@ class EmailService
                 </div>
                 <div class='content'>
                     <p>Bonjour " . $user->getFullName() . ",</p>
-                    
+
                     <p>Nous vous confirmons que votre paiement de <strong>" . number_format($amount, 2) . " €</strong> pour la formation <strong>" . $formation->getTitle() . "</strong> a été traité avec succès.</p>
-                    
+
                     <p>Détails de la transaction :</p>
                     <ul>
                         <li>Formation : " . $formation->getTitle() . "</li>
                         <li>Montant : " . number_format($amount, 2) . " €</li>
                         <li>Date : " . (new \DateTime())->format('d/m/Y H:i') . "</li>
                     </ul>
-                    
+
                     <p>Vous pouvez désormais télécharger votre attestation depuis votre espace personnel.</p>
-                    
+
                     <p>Merci pour votre confiance et bonne formation !</p>
                 </div>
                 <div class='footer'>
@@ -119,20 +130,20 @@ class EmailService
                 </div>
                 <div class='content'>
                     <p>Bonjour " . $user->getFullName() . ",</p>
-                    
+
                     <p>Nous sommes désolés de vous informer que votre paiement de <strong>" . number_format($amount, 2) . " €</strong> pour la formation <strong>" . $formation->getTitle() . "</strong> n'a pas pu être traité.</p>
-                    
+
                     " . ($reason ? "<p><strong>Raison de l'échec:</strong> " . $reason . "</p>" : "") . "
-                    
+
                     <p>Détails de la tentative de paiement :</p>
                     <ul>
                         <li>Formation : " . $formation->getTitle() . "</li>
                         <li>Montant : " . number_format($amount, 2) . " €</li>
                         <li>Date : " . (new \DateTime())->format('d/m/Y H:i') . "</li>
                     </ul>
-                    
+
                     <p>Vous pouvez réessayer de faire le paiement depuis votre espace personnel ou nous contacter si vous rencontrez des difficultés.</p>
-                    
+
                     <p>Nous vous prions de nous excuser pour tout inconvénient causé.</p>
                 </div>
                 <div class='footer'>
@@ -144,4 +155,4 @@ class EmailService
         </html>
         ";
     }
-} 
+}

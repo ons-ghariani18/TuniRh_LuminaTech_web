@@ -6,235 +6,68 @@
     {{ parent() }}
     <link rel="stylesheet" href="{{ asset('lib/owlcarousel/assets/owl.carousel.min.css') }}">
     <link rel="stylesheet" href="{{ asset('lib/animate/animate.min.css') }}">
-
     <style>
-    :root {
-        --primary: #e67e22 !important;  /* Orange chaleureux */
-        --primary-hover: #d35400 !important; /* Orange foncé */
-        --secondary: #3498db !important; /* Bleu clair */
-        --secondary-hover: #2980b9 !important; /* Bleu foncé */
-        --light: #f5f7fa !important;    /* Gris très clair */
-        --dark: #091E3E !important;     /* Bleu marine */
-    }
-    
-    /* Text Colors */
-    .text-primary {
-        color: var(--primary) !important;
-    }
-    .text-secondary {
-        color: var(--secondary) !important;
-    }
-
-    /* Background Colors */
-    .bg-primary {
-        background-color: var(--primary) !important;
-    }
-    .bg-secondary {
-        background-color: var(--secondary) !important;
-    }
-
-    /* Border Colors */
-    .border-primary {
-        border-color: var(--primary) !important;
-    }
-    .border-secondary {
-        border-color: var(--secondary) !important;
-    }
-
-    /* Buttons */
-    .btn-primary {
-        background-color: var(--primary) !important;
-        border-color: var(--primary) !important;
-        color: #fff !important;
-    }
-    .btn-primary:hover {
-        background-color: var(--primary-hover) !important;
-        border-color: var(--primary-hover) !important;
-    }
-
-    .btn-secondary {
-        background-color: var(--secondary) !important;
-        border-color: var(--secondary) !important;
-        color: #fff !important;
-    }
-    .btn-secondary:hover {
-        background-color: var(--secondary-hover) !important;
-        border-color: var(--secondary-hover) !important;
-    }
-
-    .btn-outline-primary {
-        color: var(--primary) !important;
-        border-color: var(--primary) !important;
-        background-color: transparent !important;
-    }
-    .btn-outline-primary:hover {
-        background-color: var(--primary) !important;
-        color: #fff !important;
-    }
-
-    .btn-outline-secondary {
-        color: var(--secondary) !important;
-        border-color: var(--secondary) !important;
-        background-color: transparent !important;
-    }
-    .btn-outline-secondary:hover {
-        background-color: var(--secondary) !important;
-        color: #fff !important;
-    }
-
-    /* Navbar */
-    .navbar-dark .navbar-nav .nav-link:hover,
-    .navbar-dark .navbar-nav .nav-link.active {
-        color: var(--primary) !important;
-    }
-    .navbar-dark .navbar-toggler {
-        color: var(--primary) !important;
-        border-color: var(--primary) !important;
-    }
-
-    /* Section Title */
-    .section-title::before {
-        background: var(--primary) !important;
-    }
-
-    /* Service Items */
-    .service-item .service-icon {
-        background: var(--primary) !important;
-    }
-
-    /* Testimonials */
-    .testimonial-carousel .owl-dot.active {
-        background: var(--primary) !important;
-    }
-
-    /* Team */
-    .team-social a.btn {
-        background: var(--primary) !important;
-        border-color: var(--primary) !important;
-        color: #fff !important;
-    }
-    .team-social a.btn:hover {
-        background: var(--primary-hover) !important;
-        border-color: var(--primary-hover) !important;
-    }
-
-    /* Back to Top */
-    .back-to-top {
-        background: var(--primary) !important;
-        color: #fff !important;
-    }
-    .back-to-top:hover {
-        background: var(--primary-hover) !important;
-    }
-
-    /* Carousel Controls */
-    .carousel-control-prev-icon,
-    .carousel-control-next-icon {
-        background-color: var(--primary) !important;
-    }
-
-    /* Pricing Plan */
-    .pricing-plan .bg-primary {
-        background-color: var(--primary) !important;
-    }
-
-
-    
-</style>
-    <link rel="stylesheet" href="{{ asset('lib/owlcarousel/assets/owl.carousel.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('lib/animate/animate.min.css') }}">
-    <!-- Autres styles si nécessaire -->
+        /* Vos variables et classes personnalisées ici... */
+    </style>
 {% endblock %}
 
-
 {% block body %}
+    <div class="login-section">
+        <div class="container py-5">
+            <div class="login-container">
+                <div class="login-header text-center mb-4">
+                    <h3>Connexion</h3>
+                </div>
 
-<div class="login-section">
-    <div class="container py-5">
-        <div class="login-container">
-            <div class="login-header">
-                <h3>Connexion</h3>
-            </div>
-            
-            <div class="login-body">
-                <form method="post">
-                    <div class="mb-3">
-                        <label class="form-label">Nom d'utilisateur</label>
-                        <input 
-                            type="text" 
-                            name="username" 
-                            class="form-control" 
-                            required 
-                            autofocus
-                        >
+                {# Affiche l'erreur d'authentification s'il y en a #}
+                {% if error %}
+                    <div class="alert alert-danger">
+                        {{ error.messageKey|trans(error.messageData, 'security') }}
                     </div>
-                    
-                    <div class="mb-3">
-                        <label class="form-label">Mot de passe</label>
-                        <input 
-                            type="password" 
-                            name="password" 
-                            class="form-control" 
-                            required
-                        >
-                    </div>
-                    
-                    <div class="d-grid gap-2 mt-4">
-                        <button class="btn btn-login" type="submit">
-                            Se 
-                        </button>
-                    </div>
-                </form>
+                {% endif %}
 
-                <div class="text-center mt-3">
-                    <a href="{{ path('app_register') }}" class="text-primary">Créer un compte</a>
+                <div class="login-body">
+                    <form action="{{ path('app_login') }}" method="post">
+                        {# Jeton CSRF #}
+                        <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+
+                        <div class="mb-3">
+                            <label for="email" class="form-label">Adresse email</label>
+                            <input
+                                    type="text"
+                                    id="email"
+                                    name="email"
+                                    class="form-control"
+                                    value="{{ last_username }}"
+                                    required autofocus
+                            >
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="password" class="form-label">Mot de passe</label>
+                            <input
+                                    type="password"
+                                    id="password"
+                                    name="password"
+                                    class="form-control"
+                                    required
+                            >
+                        </div>
+
+                        <div class="d-grid gap-2 mt-4">
+                            <button type="submit" class="btn btn-primary">
+                                Se connecter
+                            </button>
+                        </div>
+                    </form>
+
+                    <div class="text-center mt-3">
+                        <a href="{{ path('app_register') }}" class="text-primary">Créer un compte</a>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
 
-<!-- Footer sections comme dans la maquette -->
-<div class="container-fluid bg-dark text-light py-5">
-    <div class="container">
-        <div class="row g-5">
-            <div class="col-lg-4">
-                <h4>Startup</h4>
-                <p class="mb-4">Lorem diam at erat dolor atir et, diam lorem justo amet, efta stet eos at. Ettr dolor duo lorem, eftr efta ipsam sea. Diam amet erat lorem atet eos. Diam amet et tasdi eos duo.</p>
-                <a class="btn btn-primary" href="#">Sign Up</a>
-            </div>
-            
-            <div class="col-lg-4">
-                <h4>Get In Touch</h4>
-                <p class="mb-2"><i class="fa fa-map-marker-alt me-3"></i> 123 Street, New York, USA</p>
-                <p class="mb-2"><i class="fa fa-envelope me-3"></i> info@example.com</p>
-                <p class="mb-0"><i class="fa fa-phone-alt me-3"></i> +012 345 67890</p>
-            </div>
-            
-            <div class="col-lg-2">
-                <h4>Quick Links</h4>
-                <ul class="list-unstyled">
-                    <li><a href="#" class="text-light">Home</a></li>
-                    <li><a href="#" class="text-light">About Us</a></li>
-                    <li><a href="#" class="text-light">Our Services</a></li>
-                    <li><a href="#" class="text-light">Meet The Team</a></li>
-                    <li><a href="#" class="text-light">Latest Blog</a></li>
-                    <li><a href="#" class="text-light">Contact Us</a></li>
-                </ul>
-            </div>
-            
-            <div class="col-lg-2">
-                <h4>Popular Links</h4>
-                <ul class="list-unstyled">
-                    <li><a href="#" class="text-light">Home</a></li>
-                    <li><a href="#" class="text-light">About Us</a></li>
-                    <li><a href="#" class="text-light">Our Services</a></li>
-                    <li><a href="#" class="text-light">Meet The Team</a></li>
-                    <li><a href="#" class="text-light">Latest Blog</a></li>
-                    <li><a href="#" class="text-light">Contact Us</a></li>
-                </ul>
-            </div>
-        </div>
-    </div>
-</div>
+    {# Footer, si nécessaire, peut être dans base.html.twig #}
 {% endblock %}
