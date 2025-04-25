@@ -1,0 +1,562 @@
+{% extends 'base.html.twig' %}
+{% block title %}Statistiques Globales des Candidatures{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link href="https://cdn.materialdesignicons.com/5.4.55/css/materialdesignicons.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-blue: #1B263B;
+            --primary-orange: #E76F51;
+            --orange-light: #F28C38;
+            --background-dark: #0B1322;
+            --card-bg: #FFFFFF;
+            --text-dark: #2D3142;
+            --text-light: #F5F6F5;
+            --text-muted: #6c757d;
+            --shadow-sm: 0 4px 12px rgba(0, 0, 0, 0.15);
+            --shadow-lg: 0 12px 30px rgba(0, 0, 0, 0.2);
+            --transition: all 0.3s ease;
+            --sidebar-bg: var(--primary-blue);
+            --sidebar-text: var(--text-light);
+            --border-color: #E5E7EB;
+        }
+
+        body {
+            font-family: 'Nunito', sans-serif;
+            background: linear-gradient(45deg, var(--background-dark), var(--primary-blue));
+            color: var(--text-dark);
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        .flex { display: flex; }
+        .flex-1 { flex: 1; }
+        .h-screen { height: 100vh; }
+        .items-center { align-items: center; }
+        .justify-between { justify-content: space-between; }
+        .gap-2 { gap: 0.5rem; }
+        .gap-4 { gap: 1rem; }
+        .text-xl { font-size: 1.25rem; }
+        .text-2xl { font-size: 1.5rem; }
+        .font-bold { font-weight: 700; }
+        .rounded-full { border-radius: 9999px; }
+        .mb-6 { margin-bottom: 1.5rem; }
+        .mr-2 { margin-right: 0.5rem; }
+
+        /* Sidebar & Main Content */
+        .app-container {
+            position: relative;
+            display: flex;
+            min-height: 100vh;
+        }
+
+        .aside {
+            width: 240px;
+            background: linear-gradient(180deg, var(--primary-blue), var(--background-dark));
+            color: var(--sidebar-text);
+            position: fixed;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            overflow-y: auto;
+            padding-top: 60px;
+            z-index: 100;
+            transition: transform var(--transition) ease, box-shadow var(--transition) ease;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .aside.is-collapsed {
+            transform: translateX(-240px);
+            box-shadow: none;
+        }
+
+        body.sidebar-expanded .aside {
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .aside .aside-brand {
+            position: fixed;
+            top: 0;
+            height: 60px;
+            background: var(--primary-blue);
+            width: 240px;
+            display: flex;
+            align-items: center;
+            padding: 0 1.5rem;
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: var(--text-light);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            z-index: 101;
+            transition: transform var(--transition) ease;
+        }
+
+        .aside.is-collapsed .aside-brand {
+            transform: translateX(-240px);
+        }
+
+        .menu-label {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            margin: 1rem 1.5rem 0.25rem;
+            color: rgba(255, 255, 255, 0.4);
+        }
+
+        .menu-item {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.75rem 1.5rem;
+            color: var(--sidebar-text);
+            text-decoration: none;
+            transition: background 0.3s, color 0.3s;
+        }
+
+        .menu-item:hover, .menu-item.is-active {
+            background: var(--primary-orange);
+            color: var(--text-light);
+        }
+
+        .menu-item i {
+            transition: transform 0.3s ease;
+        }
+
+        .menu-item:hover i {
+            transform: scale(1.1);
+        }
+
+        .main-content {
+            margin-left: 240px;
+            flex: 1;
+            padding: 0;
+            transition: margin-left var(--transition) ease;
+        }
+
+        .main-content.sidebar-collapsed {
+            margin-left: 0;
+        }
+
+        .content-inner {
+            padding: 2rem;
+        }
+
+        /* Navbar */
+        .navbar {
+            position: sticky;
+            top: 0;
+            background: var(--card-bg);
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: var(--shadow-sm);
+            z-index: 99;
+        }
+
+        .navbar-menu {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .search-input {
+            padding: 0.5rem 1rem;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            width: 250px;
+            font-family: 'Nunito', sans-serif;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .search-input:focus {
+            border-color: var(--primary-orange);
+            box-shadow: 0 0 8px rgba(231, 111, 81, 0.3);
+            outline: none;
+        }
+
+        .menu-toggle {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 36px;
+            height: 36px;
+            border-radius: 8px;
+            background: transparent;
+            color: var(--text-dark);
+            border: 1px solid var(--border-color);
+            cursor: pointer;
+            transition: background 0.3s ease;
+            margin-right: 1rem;
+        }
+
+        .menu-toggle:hover {
+            background: #F1F5F9;
+        }
+
+        .menu-toggle i {
+            transition: transform 0.3s ease;
+        }
+
+        .menu-toggle.active i {
+            transform: rotate(180deg);
+        }
+
+        /* Button */
+        .btn-primary {
+            background: var(--primary-orange);
+            color: var(--text-light);
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            border: none;
+            cursor: pointer;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .btn-primary:hover {
+            background: var(--orange-light);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(231, 111, 81, 0.5);
+        }
+
+        /* Chart Container */
+        .chart-container {
+            margin-top: 2rem;
+            background: var(--card-bg);
+            padding: 1.5rem;
+            border-radius: 10px;
+            box-shadow: var(--shadow-lg);
+            max-width: 600px;
+            margin: 2rem auto;
+        }
+
+        .total-candidatures {
+            text-align: center;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary-orange);
+            margin-bottom: 1rem;
+        }
+
+        .no-records {
+            text-align: center;
+            color: var(--text-muted);
+            padding: 1rem;
+            font-size: 1.1rem;
+        }
+
+        /* Overlay for mobile */
+        .sidebar-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 90;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity var(--transition), visibility var(--transition);
+        }
+
+        .sidebar-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .aside {
+                transform: translateX(-240px);
+            }
+
+            .aside.is-expanded {
+                transform: translateX(0);
+            }
+
+            .main-content {
+                margin-left: 0;
+            }
+
+            .navbar {
+                padding: 1rem;
+            }
+
+            .search-input {
+                width: 100%;
+                max-width: 200px;
+            }
+        }
+    </style>
+{% endblock %}
+
+{% block body %}
+<div class="app-container">
+    <aside class="aside wow slideInLeft" id="sidebar" data-wow-delay="0.2s">
+        <div class="aside-brand">
+            <i class="mdi mdi-account-tie mr-2"></i> RH Dashboard
+        </div>
+
+        <div class="aside-menu">
+            <p class="menu-label">GÉNÉRAL</p>
+            <a href="{{ path('app_back_office') }}" class="menu-item">
+                <i class="mdi mdi-view-dashboard"></i> Tableau de bord
+            </a>
+            <a href="{{ path('app_dashboard_stats') }}" class="menu-item is-active">
+                <i class="mdi mdi-chart-bar"></i> Statistiques Globales
+            </a>
+            <p class="menu-label">GESTION RH</p>
+            <a href="{{ path('app_offresemploi_index') }}" class="menu-item">
+                <i class="mdi mdi-briefcase"></i> Offres d'emploi
+            </a>
+            <a href="#" class="menu-item">
+                <i class="mdi mdi-account-group"></i> Candidatures
+            </a>
+            <a href="{{ path('app_reponse_index') }}" class="menu-item">
+                <i class="mdi mdi-message-alert"></i> Réclamations
+            </a>
+            <p class="menu-label">ÉVÉNEMENTS</p>
+            <a href="{{ path('app_evenement_index') }}" class="menu-item">
+                <i class="mdi mdi-calendar"></i> Événements
+            </a>
+            <a href="{{ path('app_sponsor_index') }}" class="menu-item">
+                <i class="mdi mdi-handshake"></i> Sponsors
+            </a>
+            <p class="menu-label">FORMATION</p>
+            <a href="#" class="menu-item">
+                <i class="mdi mdi-school"></i> Formations
+            </a>
+            <a href="#" class="menu-item">
+                <i class="mdi mdi-account-voice"></i> Entretiens
+            </a>
+        </div>
+    </aside>
+
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+    <div class="main-content" id="mainContent">
+        <header class="navbar wow fadeInDown" data-wow-delay="0.2s">
+            <div class="flex items-center">
+                <button id="menuToggle" class="menu-toggle" aria-label="Toggle Menu">
+                    <i class="mdi mdi-menu"></i>
+                </button>
+                <input type="text" placeholder="Rechercher..." class="search-input">
+            </div>
+            <div class="navbar-menu">
+                <i class="mdi mdi-bell-outline text-xl"></i>
+                <div class="flex items-center gap-2">
+                    <img src="https://ui-avatars.com/api/?name=RH+Admin&background=091E3E&color=fff" class="rounded-full" width="36" alt="Admin Avatar">
+                    <span>Admin RH</span>
+                </div>
+            </div>
+        </header>
+
+        <div class="content-inner">
+            <h1 class="text-2xl font-bold mb-6 wow fadeInUp" data-wow-delay="0.3s" style="color: var(--primary-orange);">
+                Statistiques Globales des Candidatures
+            </h1>
+
+            {% if totalCandidatures == 0 %}
+                <div class="no-records wow fadeInUp" data-wow-delay="0.4s">
+                    Aucune candidature enregistrée
+                </div>
+            {% else %}
+                <div class="total-candidatures wow fadeInUp" data-wow-delay="0.4s">
+                    Total des candidatures : {{ totalCandidatures }}
+                </div>
+
+                <div class="chart-container wow fadeInUp" data-wow-delay="0.5s">
+                    <canvas id="candidaturesChart"></canvas>
+                </div>
+
+                {# Ajouter un débogage des données passées à Chart.js #}
+                <script>
+                    console.log('Chart Data:', {{ chartData|json_encode|raw }});
+                </script>
+            {% endif %}
+
+            <div class="pagination wow fadeInUp" data-wow-delay="0.6s">
+                <a href="{{ path('app_back_office') }}" class="btn-primary">
+                    <i class="mdi mdi-arrow-left"></i> Retour au tableau de bord
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    {# Charger les scripts manquants via CDN pour tester #}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/wow/1.1.2/wow.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/waypoints/4.0.1/jquery.waypoints.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    {# main.js n'a pas de CDN, on suppose qu'il est vide pour ce test #}
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Vérifier si Chart.js est chargé
+            if (typeof Chart === 'undefined') {
+                console.error('Chart.js is not loaded!');
+                return;
+            }
+
+            // Vérifier si WOW.js est chargé
+            if (typeof WOW !== 'undefined') {
+                new WOW().init();
+            } else {
+                console.warn('WOW.js is not loaded, skipping initialization.');
+            }
+
+            {% if totalCandidatures > 0 %}
+                try {
+                    const ctx = document.getElementById('candidaturesChart').getContext('2d');
+                    if (!ctx) {
+                        console.error('Canvas context not found for candidaturesChart');
+                        return;
+                    }
+
+                    const chartData = {{ chartData|json_encode|raw }};
+                    if (!chartData.labels || !chartData.data || chartData.labels.length === 0 || chartData.data.length === 0) {
+                        console.error('Chart data is empty or invalid:', chartData);
+                        return;
+                    }
+
+                    new Chart(ctx, {
+                        type: 'bar',
+                        data: {
+                            labels: chartData.labels,
+                            datasets: [{
+                                label: 'Nombre de candidatures',
+                                data: chartData.data,
+                                backgroundColor: chartData.backgroundColors,
+                                borderColor: '#FFFFFF',
+                                borderWidth: 1
+                            }]
+                        },
+                        options: {
+                            responsive: true,
+                            scales: {
+                                y: {
+                                    beginAtZero: true,
+                                    title: {
+                                        display: true,
+                                        text: 'Nombre de candidatures',
+                                        font: { family: 'Nunito', size: 14 },
+                                        color: '#2D3142'
+                                    },
+                                    ticks: {
+                                        stepSize: 1
+                                    }
+                                },
+                                x: {
+                                    title: {
+                                        display: true,
+                                        text: 'Type de contrat',
+                                        font: { family: 'Nunito', size: 14 },
+                                        color: '#2D3142'
+                                    }
+                                }
+                            },
+                            plugins: {
+                                legend: {
+                                    display: false
+                                },
+                                tooltip: {
+                                    backgroundColor: '#1B263B',
+                                    titleFont: { family: 'Nunito' },
+                                    bodyFont: { family: 'Nunito' }
+                                }
+                            }
+                        }
+                    });
+                } catch (error) {
+                    console.error('Error creating chart:', error);
+                }
+            {% endif %}
+
+            // Sidebar toggle with animation
+            const sidebar = document.getElementById('sidebar');
+            const mainContent = document.getElementById('mainContent');
+            const menuToggle = document.getElementById('menuToggle');
+            const sidebarOverlay = document.getElementById('sidebarOverlay');
+
+            function toggleSidebar() {
+                const isExpanded = !sidebar.classList.contains('is-collapsed');
+
+                if (isExpanded) {
+                    sidebar.classList.add('is-collapsed');
+                    mainContent.classList.add('sidebar-collapsed');
+                    menuToggle.classList.add('active');
+                    document.body.classList.remove('sidebar-expanded');
+                } else {
+                    sidebar.classList.remove('is-collapsed');
+                    mainContent.classList.remove('sidebar-collapsed');
+                    menuToggle.classList.remove('active');
+                    document.body.classList.add('sidebar-expanded');
+                }
+
+                if (window.innerWidth <= 768) {
+                    if (!isExpanded) {
+                        sidebarOverlay.classList.add('active');
+                    } else {
+                        sidebarOverlay.classList.remove('active');
+                    }
+                }
+            }
+
+            function initSidebar() {
+                if (window.innerWidth <= 768) {
+                    sidebar.classList.add('is-collapsed');
+                    mainContent.classList.add('sidebar-collapsed');
+                } else {
+                    sidebar.classList.remove('is-collapsed');
+                    mainContent.classList.remove('sidebar-collapsed');
+                }
+            }
+
+            menuToggle.addEventListener('click', toggleSidebar);
+            sidebarOverlay.addEventListener('click', () => {
+                if (window.innerWidth <= 768) {
+                    toggleSidebar();
+                }
+            });
+
+            initSidebar();
+
+            window.addEventListener('resize', () => {
+                initSidebar();
+                if (window.innerWidth > 768) {
+                    sidebarOverlay.classList.remove('active');
+                }
+            });
+
+            // Animation de clic sur les liens d'action
+            document.querySelectorAll('.btn-primary').forEach(link => {
+                link.addEventListener('click', function(e) {
+                    if (!this.classList.contains('disabled')) {
+                        e.preventDefault();
+                        const href = this.getAttribute('href');
+                        this.style.transition = 'transform 0.2s ease';
+                        this.style.transform = 'scale(0.95)';
+                        setTimeout(() => {
+                            this.style.transform = 'scale(1)';
+                            window.location.href = href;
+                        }, 100);
+                    }
+                });
+            });
+        });
+    </script>
+{% endblock %}

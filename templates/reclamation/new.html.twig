@@ -1,0 +1,611 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Créer une Nouvelle Réclamation{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link href="https://cdn.materialdesignicons.com/5.4.55/css/materialdesignicons.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-blue: #1B263B;
+            --primary-orange: #F57C00;
+            --orange-light: #F28C38;
+            --background-dark: #0B1322;
+            --card-bg: #FFFFFF;
+            --text-dark: #2D3142;
+            --text-light: #F5F6F5;
+            --text-muted: #6c757d;
+            --shadow-sm: 0 4px 12px rgba(0, 0, 0, 0.15);
+            --shadow-lg: 0 12px 30px rgba(0, 0, 0, 0.2);
+            --transition: all 0.3s ease;
+            --sidebar-bg: var(--primary-blue);
+            --sidebar-text: var(--text-light);
+            --border-color: #E5E7EB;
+            --success-green: #28a745;
+            --warning-yellow: #ffc107;
+            --danger-red: #dc3545;
+        }
+
+        body {
+            font-family: 'Nunito', sans-serif;
+            background: linear-gradient(45deg, var(--background-dark), var(--primary-blue));
+            color: var(--text-dark);
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        .flex { display: flex; }
+        .flex-1 { flex: 1; }
+        .h-screen { height: 100vh; }
+        .items-center { align-items: center; }
+        .justify-between { justify-content: space-between; }
+        .gap-2 { gap: 0.5rem; }
+        .gap-4 { gap: 1rem; }
+        .text-xl { font-size: 1.25rem; }
+        .text-2xl { font-size: 1.5rem; }
+        .font-bold { font-weight: 700; }
+        .rounded-full { border-radius: 9999px; }
+        .mb-6 { margin-bottom: 1.5rem; }
+        .mr-2 { margin-right: 0.5rem; }
+
+        .app-container {
+            position: relative;
+            display: flex;
+            min-height: 100vh;
+        }
+
+        .aside {
+            width: 240px;
+            background: linear-gradient(180deg, var(--primary-blue), var(--background-dark));
+            color: var(--sidebar-text);
+            position: fixed;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            overflow-y: auto;
+            padding-top: 60px;
+            z-index: 100;
+            transition: transform var(--transition) ease, box-shadow var(--transition) ease;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .aside.is-collapsed {
+            transform: translateX(-240px);
+            box-shadow: none;
+        }
+
+        body.sidebar-expanded .aside {
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .aside .aside-brand {
+            position: fixed;
+            top: 0;
+            height: 60px;
+            background: var(--primary-blue);
+            width: 240px;
+            display: flex;
+            align-items: center;
+            padding: 0 1.5rem;
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: var(--text-light);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            z-index: 101;
+            transition: transform var(--transition) ease;
+        }
+
+        .aside.is-collapsed .aside-brand {
+            transform: translateX(-240px);
+        }
+
+        .menu-label {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            margin: 1rem 1.5rem 0.25rem;
+            color: rgba(255, 255, 255, 0.4);
+        }
+
+        .menu-item {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.75rem 1.5rem;
+            color: var(--sidebar-text);
+            text-decoration: none;
+            transition: background 0.3s, color 0.3s;
+        }
+
+        .menu-item:hover, .menu-item.is-active {
+            background: var(--primary-orange);
+            color: var(--text-light);
+        }
+
+        .menu-item i {
+            transition: transform 0.3s ease;
+        }
+
+        .menu-item:hover i {
+            transform: scale(1.1);
+        }
+
+        .main-content {
+            margin-left: 240px;
+            flex: 1;
+            padding: 0;
+            transition: margin-left var(--transition) ease;
+        }
+
+        .main-content.sidebar-collapsed {
+            margin-left: 0;
+        }
+
+        .content-inner {
+            padding: 2rem;
+        }
+
+        .navbar {
+            position: sticky;
+            top: 0;
+            background: var(--card-bg);
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: var(--shadow-sm);
+            z-index: 99;
+        }
+
+        .navbar-menu {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .search-input {
+            padding: 0.5rem 1rem;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            width: 250px;
+            font-family: 'Nunito', sans-serif;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .search-input:focus {
+            border-color: var(--primary-orange);
+            box-shadow: 0 0 8px rgba(231, 111, 81, 0.3);
+            outline: none;
+        }
+
+        .menu-toggle {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 36px;
+            height: 36px;
+            border-radius: 8px;
+            background: transparent;
+            color: var(--text-dark);
+            border: 1px solid var(--border-color);
+            cursor: pointer;
+            transition: background 0.3s ease;
+            margin-right: 1rem;
+        }
+
+        .menu-toggle:hover {
+            background: #F1F5F9;
+        }
+
+        .menu-toggle i {
+            transition: transform 0.3s ease;
+        }
+
+        .menu-toggle.active i {
+            transform: rotate(180deg);
+        }
+
+        .btn-primary {
+            background: var(--primary-orange);
+            color: var(--text-light);
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            border: none;
+            cursor: pointer;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .btn-primary:hover {
+            background: var(--orange-light);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(231, 111, 81, 0.5);
+        }
+
+        .btn-secondary {
+            background: #6c757d;
+            color: var(--text-light);
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            border: none;
+            cursor: pointer;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .btn-secondary:hover {
+            background: #5a6268;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(108, 117, 125, 0.5);
+        }
+
+        .form-container {
+            max-width: 700px;
+            margin: 2rem auto;
+            padding: 2rem;
+            background: var(--card-bg);
+            border-radius: 10px;
+            box-shadow: var(--shadow-lg);
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .section-header h1 {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--primary-orange);
+            text-transform: uppercase;
+        }
+
+        .section-header .title-underline {
+            width: 100px;
+            height: 4px;
+            background: var(--primary-orange);
+            margin: 1rem auto;
+            border-radius: 2px;
+            transition: width 0.3s ease;
+        }
+
+        .section-header:hover .title-underline {
+            width: 140px;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: 600;
+            color: var(--text-dark);
+            margin-bottom: 0.5rem;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            font-family: 'Nunito', sans-serif;
+            font-size: 1rem;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            border-color: var(--primary-orange);
+            box-shadow: 0 0 8px rgba(231, 111, 81, 0.3);
+            outline: none;
+        }
+
+        .form-actions {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .form-actions .btn {
+            flex: 1;
+            text-align: center;
+        }
+
+        .flash-message {
+            padding: 1rem;
+            margin-bottom: 1rem;
+            border-radius: 8px;
+            text-align: center;
+            font-weight: 600;
+        }
+
+        .flash-message.success {
+            background: var(--success-green);
+            color: var(--text-light);
+        }
+
+        .form-errors {
+            color: var(--danger-red);
+            font-size: 0.9rem;
+            margin-top: 0.25rem;
+        }
+
+        .sidebar-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 90;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity var(--transition), visibility var(--transition);
+        }
+
+        .sidebar-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        @media (max-width: 768px) {
+            .aside {
+                transform: translateX(-240px);
+            }
+
+            .aside.is-expanded {
+                transform: translateX(0);
+            }
+
+            .main-content {
+                margin-left: 0;
+            }
+
+            .navbar {
+                padding: 1rem;
+            }
+
+            .search-input {
+                width: 100%;
+                max-width: 200px;
+            }
+
+            .form-container {
+                margin: 1rem;
+                padding: 1rem;
+            }
+
+            .section-header h1 {
+                font-size: 1.5rem;
+            }
+
+            .form-actions {
+                flex-direction: column;
+            }
+
+            .form-actions .btn {
+                width: 100%;
+                margin: 0.5rem 0;
+            }
+        }
+    </style>
+{% endblock %}
+
+{% block body %}
+<div class="app-container">
+    <aside class="aside wow slideInLeft" id="sidebar" data-wow-delay="0.2s">
+        <div class="aside-brand">
+            <i class="mdi mdi-account-tie mr-2"></i> RH Dashboard
+        </div>
+        <div class="aside-menu">
+            <p class="menu-label">GÉNÉRAL</p>
+            <a href="{{ path('app_back_office') }}" class="menu-item">
+                <i class="mdi mdi-view-dashboard"></i> Tableau de bord
+            </a>
+            <p class="menu-label">GESTION RH</p>
+            <a href="{{ path('app_offresemploi_index') }}" class="menu-item">
+                <i class="mdi mdi-briefcase"></i> Offres d'emploi
+            </a>
+            <a href="{{ path('app_users_index') }}" class="menu-item">
+                <i class="mdi mdi-account-group"></i> Profils Utilisateurs
+            </a>
+            <a href="{{ path('app_reponse_index') }}" class="menu-item is-active">
+                <i class="mdi mdi-message-alert"></i> Réclamations
+            </a>
+            <p class="menu-label">ÉVÉNEMENTS</p>
+            <a href="{{ path('app_evenement_index') }}" class="menu-item">
+                <i class="mdi mdi-calendar"></i> Événements
+            </a>
+            <a href="{{ path('app_sponsor_index') }}" class="menu-item">
+                <i class="mdi mdi-handshake"></i> Sponsors
+            </a>
+            <p class="menu-label">FORMATION</p>
+            <a href="#" class="menu-item">
+                <i class="mdi mdi-school"></i> Formations
+            </a>
+            <a href="#" class="menu-item">
+                <i class="mdi mdi-account-voice"></i> Entretiens
+            </a>
+        </div>
+    </aside>
+
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+    <div class="main-content" id="mainContent">
+        <header class="navbar wow fadeInDown" data-wow-delay="0.2s">
+            <div class="flex items-center">
+                <button id="menuToggle" class="menu-toggle" aria-label="Toggle Menu">
+                    <i class="mdi mdi-menu"></i>
+                </button>
+                <input type="text" placeholder="Rechercher..." class="search-input">
+            </div>
+            <div class="navbar-menu">
+                <i class="mdi mdi-bell-outline text-xl"></i>
+                <div class="flex items-center gap-2">
+                    <img src="https://ui-avatars.com/api/?name=RH+Admin&background=091E3E&color=fff" class="rounded-full" width="36" alt="Admin Avatar">
+                    <span>Admin RH</span>
+                </div>
+            </div>
+        </header>
+
+        <div class="content-inner">
+            <div class="form-container wow fadeInUp" data-wow-delay="0.3s">
+                <div class="section-header">
+                    <h1>Créer une Nouvelle Réclamation</h1>
+                    <div class="title-underline"></div>
+                </div>
+
+                {% for flash_message in app.flashes('success') %}
+                    <div class="flash-message success wow fadeIn" data-wow-delay="0.2s">
+                        {{ flash_message }}
+                    </div>
+                {% endfor %}
+
+                {{ form_start(form) }}
+                    <div class="form-group">
+                        {{ form_label(form.idUser) }}
+                        {{ form_widget(form.idUser) }}
+                        {{ form_errors(form.idUser) }}
+                    </div>
+
+                    <div class="form-group">
+                        {{ form_label(form.sujet) }}
+                        {{ form_widget(form.sujet) }}
+                        {{ form_errors(form.sujet) }}
+                    </div>
+
+                    <div class="form-group">
+                        {{ form_label(form.description) }}
+                        {{ form_widget(form.description) }}
+                        {{ form_errors(form.description) }}
+                    </div>
+
+                    <div class="form-group">
+                        {{ form_label(form.dateReclamation) }}
+                        {{ form_widget(form.dateReclamation) }}
+                        {{ form_errors(form.dateReclamation) }}
+                    </div>
+
+                    <div class="form-group">
+                        {{ form_label(form.statut) }}
+                        {{ form_widget(form.statut) }}
+                        {{ form_errors(form.statut) }}
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn-primary">
+                            <i class="mdi mdi-message-alert mr-2"></i> {{ button_label|default('Créer la réclamation') }}
+                        </button>
+                    </div>
+                {{ form_end(form) }}
+
+                <div class="form-actions wow fadeInUp" data-wow-delay="0.4s">
+                    <a href="{{ path('app_reclamation_index') }}" class="btn btn-secondary" title="Retour à la liste">
+                        <i class="mdi mdi-arrow-left mr-2"></i> Retour à la liste
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+        new WOW().init();
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const sidebar = document.getElementById('sidebar');
+            const mainContent = document.getElementById('mainContent');
+            const menuToggle = document.getElementById('menuToggle');
+            const sidebarOverlay = document.getElementById('sidebarOverlay');
+
+            function toggleSidebar() {
+                const isExpanded = !sidebar.classList.contains('is-collapsed');
+                if (isExpanded) {
+                    sidebar.classList.add('is-collapsed');
+                    mainContent.classList.add('sidebar-collapsed');
+                    menuToggle.classList.add('active');
+                    document.body.classList.remove('sidebar-expanded');
+                } else {
+                    sidebar.classList.remove('is-collapsed');
+                    mainContent.classList.remove('sidebar-collapsed');
+                    menuToggle.classList.remove('active');
+                    document.body.classList.add('sidebar-expanded');
+                }
+                if (window.innerWidth <= 768) {
+                    if (!isExpanded) {
+                        sidebarOverlay.classList.add('active');
+                    } else {
+                        sidebarOverlay.classList.remove('active');
+                    }
+                }
+            }
+
+            function initSidebar() {
+                if (window.innerWidth <= 768) {
+                    sidebar.classList.add('is-collapsed');
+                    mainContent.classList.add('sidebar-collapsed');
+                } else {
+                    sidebar.classList.remove('is-collapsed');
+                    mainContent.classList.remove('sidebar-collapsed');
+                }
+            }
+
+            menuToggle.addEventListener('click', toggleSidebar);
+            sidebarOverlay.addEventListener('click', () => {
+                if (window.innerWidth <= 768) {
+                    toggleSidebar();
+                }
+            });
+
+            initSidebar();
+
+            window.addEventListener('resize', () => {
+                initSidebar();
+                if (window.innerWidth > 768) {
+                    sidebarOverlay.classList.remove('active');
+                }
+            });
+
+            document.querySelectorAll('.btn-primary, .btn-secondary').forEach(button => {
+                button.addEventListener('click', function(e) {
+                    if (this.tagName === 'A') {
+                        e.preventDefault();
+                        const href = this.getAttribute('href');
+                        this.style.transition = 'transform 0.2s ease';
+                        this.style.transform = 'scale(0.95)';
+                        setTimeout(() => {
+                            this.style.transform = 'scale(1)';
+                            window.location.href = href;
+                        }, 100);
+                    }
+                });
+            });
+
+            document.querySelectorAll('[title]').forEach(element => {
+                new bootstrap.Tooltip(element);
+            });
+        });
+    </script>
+{% endblock %}

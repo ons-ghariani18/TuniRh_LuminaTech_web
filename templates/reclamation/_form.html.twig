@@ -1,0 +1,35 @@
+{{ form_start(form) }}
+    <div class="form-group">
+        {{ form_label(form.idUser, 'Utilisateur', {'label_attr': {'class': 'form-label'}}) }}
+        {{ form_widget(form.idUser, {'attr': {'class': 'form-control'}}) }}
+        {{ form_errors(form.idUser) }}
+    </div>
+
+    <div class="form-group">
+        {{ form_label(form.sujet, 'Sujet', {'label_attr': {'class': 'form-label'}}) }}
+        {{ form_widget(form.sujet, {'attr': {'class': 'form-control'}}) }}
+        {{ form_errors(form.sujet) }}
+    </div>
+
+    <div class="form-group">
+        {{ form_label(form.description, 'Description', {'label_attr': {'class': 'form-label'}}) }}
+        {{ form_widget(form.description, {'attr': {'class': 'form-control', 'rows': '4'}}) }}
+        {{ form_errors(form.description) }}
+    </div>
+
+    <div class="form-group">
+        {{ form_label(form.dateReclamation, 'Date de Réclamation', {'label_attr': {'class': 'form-label'}}) }}
+        {{ form_widget(form.dateReclamation, {'attr': {'class': 'form-control'}}) }}
+        {{ form_errors(form.dateReclamation) }}
+    </div>
+
+    <div class="form-group">
+        {{ form_label(form.statut, 'Statut', {'label_attr': {'class': 'form-label'}}) }}
+        {{ form_widget(form.statut, {'attr': {'class': 'form-control'}}) }}
+        {{ form_errors(form.statut) }}
+    </div>
+
+    <button type="submit" class="btn btn-orange">
+        <i class="bi bi-arrow-up-circle"></i> {{ button_label|default('AJOUTER') }}
+    </button>
+{{ form_end(form) }}

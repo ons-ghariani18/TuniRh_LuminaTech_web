@@ -1,0 +1,862 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Dashboard RH Admin{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link href="https://cdn.materialdesignicons.com/5.4.55/css/materialdesignicons.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #e67e22;
+            --primary-dark: #d35400;
+            --secondary-color: #091E3E;
+            --secondary-light: #1a3865;
+            --sidebar-bg: #091E3E;
+            --sidebar-text: #a3adcc;
+            --sidebar-hover: #ffffff;
+            --body-bg: #f5f7fa;
+            --card-bg: #ffffff;
+            --text-color: #333333;
+            --muted-text: #6b7280;
+            --border-color: #e5e7eb;
+            --danger-color: #ef4444;
+            --success-color: #10b981;
+            --transition-speed: 0.3s;
+        }
+        
+        body {
+            font-family: 'Nunito', sans-serif;
+            background-color: var(--body-bg);
+            margin: 0;
+            padding: 0;
+            color: var(--text-color);
+            min-height: 100vh;
+        }
+        
+        /* Layout Structure */
+        .app-container {
+            display: flex;
+            min-height: 100vh;
+            position: relative;
+        }
+        
+        /* Sidebar Styles */
+        .aside {
+            width: 240px;
+            background-color: var(--sidebar-bg);
+            color: var(--sidebar-text);
+            height: 100vh;
+            position: fixed;
+            left: 0;
+            top: 0;
+            overflow-y: auto;
+            transition: transform var(--transition-speed) ease;
+            z-index: 100;
+        }
+        
+        .aside-brand {
+            height: 60px;
+            display: flex;
+            align-items: center;
+            padding: 0 1.5rem;
+            font-weight: 700;
+            font-size: 1.2rem;
+            color: white;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 101;
+        }
+        
+        .aside-menu {
+            padding: 1rem 0;
+        }
+        
+        .menu-label {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: rgba(255, 255, 255, 0.5);
+            margin: 1rem 1.5rem 0.25rem;
+        }
+        
+        .menu-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        
+        .menu-item {
+            display: flex;
+            align-items: center;
+            padding: 0.75rem 1.5rem;
+            color: var(--sidebar-text);
+            text-decoration: none;
+            gap: 0.75rem;
+            transition: all 0.3s ease;
+        }
+        
+        .menu-item:hover, .menu-item.is-active {
+            color: var(--sidebar-hover);
+            background-color: var(--primary-color);
+        }
+        
+        /* Main Content Styles */
+        .main-content {
+            margin-left: 240px;
+            flex: 1;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            transition: margin-left var(--transition-speed) ease;
+        }
+        
+        /* Navbar */
+        .navbar {
+            position: sticky;
+            top: 0;
+            background: white;
+            height: 60px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            display: flex;
+            align-items: center;
+            padding: 0 2rem;
+            justify-content: space-between;
+            z-index: 99;
+        }
+        
+        .navbar-brand {
+            font-weight: 600;
+            font-size: 1.2rem;
+            color: var(--secondary-color);
+        }
+        
+        .navbar-menu {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+        }
+        
+        .navbar-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--muted-text);
+            font-weight: 500;
+            text-decoration: none;
+        }
+        
+        .navbar-item:hover {
+            color: var(--primary-color);
+        }
+        
+        .user-avatar {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+        
+        .search-input {
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            padding: 0.5rem 1rem;
+            width: 300px;
+        }
+        
+        .menu-toggle {
+            display: none;
+            align-items: center;
+            justify-content: center;
+            width: 36px;
+            height: 36px;
+            border-radius: 6px;
+            background-color: transparent;
+            color: var(--text-color);
+            border: 1px solid var(--border-color);
+            cursor: pointer;
+            transition: background 0.2s;
+            margin-right: 1rem;
+        }
+        
+        .menu-toggle:hover {
+            background-color: var(--body-bg);
+        }
+        
+        /* Content wrapper */
+        .content-wrapper {
+            padding: 2rem;
+            flex: 1;
+        }
+        
+        .breadcrumb {
+            display: flex;
+            align-items: center;
+            margin-bottom: 2rem;
+            font-size: 0.9rem;
+        }
+        
+        .breadcrumb-item {
+            color: var(--muted-text);
+        }
+        
+        .breadcrumb-item:not(:last-child)::after {
+            content: '/';
+            margin: 0 0.5rem;
+            color: var(--muted-text);
+        }
+        
+        .breadcrumb-item:last-child {
+            font-weight: 600;
+            color: var(--text-color);
+        }
+        
+        .page-title {
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            font-weight: 600;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .btn {
+            padding: 0.75rem 1.5rem;
+            border-radius: 6px;
+            font-weight: 600;
+            font-family: 'Nunito', sans-serif;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            text-decoration: none;
+            border: none;
+        }
+        
+        .btn-primary {
+            background-color: var(--primary-color);
+            color: white;
+            box-shadow: 0 2px 4px rgba(230, 126, 34, 0.2);
+        }
+        
+        .btn-primary:hover {
+            background-color: var(--primary-dark);
+            transform: translateY(-1px);
+            box-shadow: 0 4px 6px rgba(230, 126, 34, 0.3);
+        }
+        
+        /* Cards Grid */
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        
+        .stat-card {
+            background-color: var(--card-bg);
+            border-radius: 8px;
+            padding: 1.5rem;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        }
+        
+        .stat-title {
+            font-size: 0.9rem;
+            color: var(--muted-text);
+            margin-bottom: 0.5rem;
+        }
+        
+        .stat-value {
+            font-size: 2rem;
+            font-weight: 700;
+        }
+        
+        .stat-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+        }
+        
+        /* Chart Card */
+        .chart-card {
+            background-color: var(--card-bg);
+            border-radius: 8px;
+            padding: 1.5rem;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            margin-bottom: 2rem;
+        }
+        
+        .chart-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+        
+        .chart-title {
+            font-size: 1rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--secondary-color);
+        }
+        
+        .chart-container {
+            height: 300px;
+            position: relative;
+        }
+
+        /* Table styles */
+        .table-container {
+            background-color: var(--card-bg);
+            border-radius: 8px;
+            padding: 1.5rem;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            margin-bottom: 2rem;
+        }
+
+        .table-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .table-title {
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--secondary-color);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .data-table th {
+            background-color: #f8f9fa;
+            color: var(--secondary-color);
+            font-weight: 600;
+            text-align: left;
+            padding: 0.75rem 1rem;
+            border-bottom: 2px solid var(--border-color);
+        }
+
+        .data-table td {
+            padding: 0.75rem 1rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .data-table tr:hover {
+            background-color: rgba(230, 126, 34, 0.05);
+        }
+
+        .badge {
+            padding: 0.25rem 0.5rem;
+            border-radius: 9999px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+
+        .badge-success {
+            background-color: rgba(16, 185, 129, 0.1);
+            color: rgb(16, 185, 129);
+        }
+
+        .badge-warning {
+            background-color: rgba(245, 158, 11, 0.1);
+            color: rgb(245, 158, 11);
+        }
+
+        .badge-danger {
+            background-color: rgba(239, 68, 68, 0.1);
+            color: rgb(239, 68, 68);
+        }
+
+        .action-btn {
+            padding: 0.25rem 0.5rem;
+            border-radius: 4px;
+            background-color: #f3f4f6;
+            color: var(--muted-text);
+            border: none;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .action-btn:hover {
+            background-color: var(--primary-color);
+            color: white;
+        }
+        
+        /* Sidebar Overlay */
+        .sidebar-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 90;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity var(--transition-speed), visibility var(--transition-speed);
+        }
+
+        .sidebar-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        /* Responsive Adjustments */
+        @media (max-width: 1280px) {
+            .cards-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        
+        @media (max-width: 1024px) {
+            .cards-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .aside {
+                transform: translateX(-240px);
+            }
+            
+            .aside.expanded {
+                transform: translateX(0);
+            }
+            
+            .main-content {
+                margin-left: 0;
+            }
+            
+            .menu-toggle {
+                display: flex;
+            }
+            
+            .navbar {
+                padding: 0 1rem;
+            }
+            
+            .content-wrapper {
+                padding: 1rem;
+            }
+            
+            .cards-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .search-input {
+                width: 150px;
+            }
+            
+            .detail-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 1rem;
+            }
+        }
+    </style>
+{% endblock %}
+
+{% block body %}
+<div class="app-container">
+    {# Sidebar #}
+    <aside class="aside" id="sidebar">
+        <div class="aside-brand">
+            <i class="mdi mdi-account-tie mr-2"></i>
+            Dashboard RH
+        </div>
+        
+        <div class="aside-menu">
+            <p class="menu-label">GÉNÉRAL</p>
+            <ul class="menu-list">
+                <li>
+                    <a href="{{ path('app_back_office') }}" class="menu-item is-active">
+                        <i class="mdi mdi-view-dashboard"></i>
+                        <span>Tableau de bord</span>
+                    </a>
+                </li>
+            </ul>
+            
+            <p class="menu-label">GESTION RH</p>
+            <ul class="menu-list">
+                <li>
+                    <a href="#" class="menu-item">
+                        <i class="mdi mdi-account-group"></i>
+                        <span>Profils Utilisateurs</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ path('app_offresemploi_index') }}" class="menu-item">
+                        <i class="mdi mdi-briefcase"></i>
+                        <span>Offres d'emploi</span>
+                    </a>
+                </li>
+            
+                <li>
+                    <a href="{{ path('app_reponse_index') }}" class="menu-item">
+                        <i class="mdi mdi-message-alert"></i>
+                        <span>Réclamations</span>
+                    </a>
+                </li>
+            </ul>
+            
+            <p class="menu-label">ÉVÉNEMENTS</p>
+            <ul class="menu-list">
+                <li>
+                    <a href="{{ path('app_evenement_index') }}" class="menu-item">
+                        <i class="mdi mdi-calendar"></i>
+                        <span>Événements</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ path('app_sponsor_index') }}" class="menu-item">
+                        <i class="mdi mdi-handshake"></i>
+                        <span>Sponsors</span>
+                    </a>
+                </li>
+            </ul>
+            
+            <p class="menu-label">FORMATION</p>
+            <ul class="menu-list">
+                <li>
+                    <a href="#" class="menu-item">
+                        <i class="mdi mdi-school"></i>
+                        <span>Formations</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#" class="menu-item">
+                        <i class="mdi mdi-account-voice"></i>
+                        <span>Entretiens</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </aside>
+
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+    {# Main Content Area #}
+    <div class="main-content" id="mainContent">
+        {# Navbar #}
+        <header class="navbar">
+            <div class="flex items-center">
+                <button id="menuToggle" class="menu-toggle" aria-label="Toggle Menu">
+                    <i class="mdi mdi-menu"></i>
+                </button>
+                <input type="text" placeholder="Rechercher..." class="search-input">
+            </div>
+            
+            <div class="navbar-menu">
+                <div class="navbar-item">
+                    <i class="mdi mdi-bell-outline"></i>
+                    <span class="badge" style="background-color: var(--primary-color); color: white;">3</span>
+                </div>
+                
+                <div class="navbar-item">
+                    <img src="https://ui-avatars.com/api/?name=RH+Admin&background=091E3E&color=fff" alt="User" class="user-avatar">
+                    <span>Admin RH</span>
+                    <i class="mdi mdi-chevron-down"></i>
+                </div>
+            </div>
+        </header>
+
+        {# Main Content #}
+        <main class="content-wrapper">
+            <div class="breadcrumb">
+                <span class="breadcrumb-item">RH</span>
+                <span class="breadcrumb-item">Tableau de bord</span>
+            </div>
+            
+            <div class="page-title">
+                <h1>Tableau de bord RH</h1>
+                <button class="btn btn-primary">
+                    <i class="mdi mdi-plus-circle"></i>
+                    Nouvelle action
+                </button>
+            </div>
+            
+            <div class="cards-grid">
+                <div class="stat-card">
+                    <div>
+                        <div class="stat-title">Candidats</div>
+                        <div class="stat-value">124</div>
+                    </div>
+                    <div class="stat-icon" style="background-color: var(--primary-color);">
+                        <i class="mdi mdi-account-multiple"></i>
+                    </div>
+                </div>
+                
+                <div class="stat-card">
+                    <div>
+                        <div class="stat-title">Offres</div>
+                        <div class="stat-value">38</div>
+                    </div>
+                    <div class="stat-icon" style="background-color: var(--secondary-color);">
+                        <i class="mdi mdi-briefcase"></i>
+                    </div>
+                </div>
+                
+                <div class="stat-card">
+                    <div>
+                        <div class="stat-title">Formations</div>
+                        <div class="stat-value">12</div>
+                    </div>
+                    <div class="stat-icon" style="background-color: #10b981;">
+                        <i class="mdi mdi-school"></i>
+                    </div>
+                </div>
+                
+                <div class="stat-card">
+                    <div>
+                        <div class="stat-title">Réclamations</div>
+                        <div class="stat-value">7</div>
+                    </div>
+                    <div class="stat-icon" style="background-color: #f59e0b;">
+                        <i class="mdi mdi-message-alert"></i>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="chart-card">
+                <div class="chart-header">
+                    <div class="chart-title">
+                        <i class="mdi mdi-chart-line"></i>
+                        <span>Statistiques des recrutements</span>
+                    </div>
+                    <div>
+                        <button class="action-btn">
+                            <i class="mdi mdi-refresh"></i>
+                        </button>
+                        <button class="action-btn ml-2">
+                            <i class="mdi mdi-download"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="chart-container">
+                    <canvas id="recruitment-chart"></canvas>
+                </div>
+            </div>
+            
+            <div class="table-container">
+                <div class="table-header">
+                    <div class="table-title">
+                        <i class="mdi mdi-file-document-outline"></i>
+                        Candidatures récentes
+                    </div>
+                    <button class="btn btn-primary">
+                        Voir tout
+                    </button>
+                </div>
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Candidat</th>
+                            <th>Poste</th>
+                            <th>Date</th>
+                            <th>Statut</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <div style="display: flex; align-items: center; gap: 10px;">
+                                    <img src="https://ui-avatars.com/api/?name=Marie+Dupont" alt="Avatar" style="width: 32px; height: 32px; border-radius: 50%;">
+                                    <span>Marie Dupont</span>
+                                </div>
+                            </td>
+                            <td>Développeur Frontend</td>
+                            <td>03/04/2025</td>
+                            <td><span class="badge badge-success">Entretien planifié</span></td>
+                            <td>
+                                <button class="action-btn"><i class="mdi mdi-eye"></i></button>
+                                <button class="action-btn"><i class="mdi mdi-pencil"></i></button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div style="display: flex; align-items: center; gap: 10px;">
+                                    <img src="https://ui-avatars.com/api/?name=Jean+Martin" alt="Avatar" style="width: 32px; height: 32px; border-radius: 50%;">
+                                    <span>Jean Martin</span>
+                                </div>
+                            </td>
+                            <td>Designer UI/UX</td>
+                            <td>02/04/2025</td>
+                            <td><span class="badge badge-warning">En cours d'évaluation</span></td>
+                            <td>
+                                <button class="action-btn"><i class="mdi mdi-eye"></i></button>
+                                <button class="action-btn"><i class="mdi mdi-pencil"></i></button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div style="display: flex; align-items: center; gap: 10px;">
+                                    <img src="https://ui-avatars.com/api/?name=Sophie+Bernard" alt="Avatar" style="width: 32px; height: 32px; border-radius: 50%;">
+                                    <span>Sophie Bernard</span>
+                                </div>
+                            </td>
+                            <td>Chef de projet</td>
+                            <td>31/03/2025</td>
+                            <td><span class="badge badge-danger">Refusée</span></td>
+                            <td>
+                                <button class="action-btn"><i class="mdi mdi-eye"></i></button>
+                                <button class="action-btn"><i class="mdi mdi-pencil"></i></button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div style="display: flex; align-items: center; gap: 10px;">
+                                    <img src="https://ui-avatars.com/api/?name=Pierre+Dubois" alt="Avatar" style="width: 32px; height: 32px; border-radius: 50%;">
+                                    <span>Pierre Dubois</span>
+                                </div>
+                            </td>
+                            <td>Développeur Backend</td>
+                            <td>30/03/2025</td>
+                            <td><span class="badge badge-success">Entretien planifié</span></td>
+                            <td>
+                                <button class="action-btn"><i class="mdi mdi-eye"></i></button>
+                                <button class="action-btn"><i class="mdi mdi-pencil"></i></button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </main>
+    </div>
+</div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.1/dist/chart.min.js"></script>
+    <script>
+        // Initialize chart
+        document.addEventListener('DOMContentLoaded', function() {
+            const ctx = document.getElementById('recruitment-chart').getContext('2d');
+            
+            // Generate data
+            const months = ['Jan', 'Fév', 'Mar', 'Avr', 'Mai', 'Jun', 'Jul', 'Aoû', 'Sep'];
+            
+            new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: months,
+                    datasets: [
+                        {
+                            label: 'Candidatures reçues',
+                            data: [28, 45, 35, 50, 32, 65, 45, 60, 55],
+                            borderColor: '#e67e22',
+                            backgroundColor: 'rgba(230, 126, 34, 0.1)',
+                            borderWidth: 2,
+                            pointRadius: 4,
+                            tension: 0.4,
+                            fill: true
+                        },
+                        {
+                            label: 'Entretiens réalisés',
+                            data: [15, 22, 18, 25, 20, 32, 28, 35, 30],
+                            borderColor: '#091E3E',
+                            backgroundColor: 'rgba(9, 30, 62, 0.1)',
+                            borderWidth: 2,
+                            pointRadius: 4,
+                            tension: 0.4,
+                            fill: true
+                        },
+                        {
+                            label: 'Candidats recrutés',
+                            data: [5, 8, 6, 10, 8, 15, 12, 18, 14],
+                            borderColor: '#10b981',
+                            backgroundColor: 'rgba(16, 185, 129, 0.1)',
+                            borderWidth: 2,
+                            pointRadius: 4,
+                            tension: 0.4,
+                            fill: true
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'top',
+                            labels: {
+                                usePointStyle: true,
+                                boxWidth: 6
+                            }
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            grid: {
+                                drawBorder: false,
+                                color: 'rgba(0, 0, 0, 0.05)'
+                            }
+                        },
+                        x: {
+                            grid: {
+                                display: false
+                            }
+                        }
+                    }
+                }
+            });
+
+            // Sidebar toggle for mobile
+            const sidebar = document.getElementById('sidebar');
+            const menuToggle = document.getElementById('menuToggle');
+            const sidebarOverlay = document.getElementById('sidebarOverlay');
+            const mainContent = document.getElementById('mainContent');
+
+            // Toggle sidebar
+            menuToggle?.addEventListener('click', function() {
+                sidebar.classList.toggle('expanded');
+                sidebarOverlay.classList.toggle('active');
+            });
+
+            // Close sidebar when clicking overlay
+            sidebarOverlay?.addEventListener('click', function() {
+                sidebar.classList.remove('expanded');
+                sidebarOverlay.classList.remove('active');
+            });
+
+            // Handle window resize
+            function handleResize() {
+                if (window.innerWidth > 768) {
+                    sidebar.classList.remove('expanded');
+                    sidebarOverlay.classList.remove('active');
+                }
+            }
+
+            window.addEventListener('resize', handleResize);
+            handleResize(); // Initialize
+        });
+    </script>
+{% endblock %}
