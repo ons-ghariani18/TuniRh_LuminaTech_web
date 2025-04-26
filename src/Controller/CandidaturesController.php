@@ -6,13 +6,14 @@ use App\Entity\Candidatures;
 use App\Entity\Offresemploi;
 use App\Form\CandidaturesType;
 use App\Service\MailerService;
+use App\Service\SkillsMatchingService;
 use Doctrine\ORM\EntityManagerInterface;
 use Psr\Log\LoggerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
-use Knp\Component\Pager\PaginatorInterface; // Importer PaginatorInterface
+use Knp\Component\Pager\PaginatorInterface;
 
 #[Route('/candidatures')]
 final class CandidaturesController extends AbstractController
@@ -28,7 +29,7 @@ final class CandidaturesController extends AbstractController
     public function indexOffres(
         Request $request,
         EntityManagerInterface $em,
-        PaginatorInterface $paginator // Injecter PaginatorInterface
+        PaginatorInterface $paginator
     ): Response {
         $queryBuilder = $em->getRepository(Offresemploi::class)->createQueryBuilder('o');
 
@@ -52,11 +53,10 @@ final class CandidaturesController extends AbstractController
 
         $queryBuilder->orderBy('o.date_publication', 'DESC');
 
-        // Utiliser KnpPaginator pour paginer les résultats
         $pagination = $paginator->paginate(
-            $queryBuilder->getQuery(), // La requête à paginer
-            $request->query->getInt('page', 1), // Numéro de page, par défaut 1
-            6 // Nombre d'offres par page (ajustez selon vos besoins, ici 6 pour 2 lignes de 3 cartes)
+            $queryBuilder->getQuery(),
+            $request->query->getInt('page', 1),
+            6
         );
 
         $typesContrat = $em->getRepository(Offresemploi::class)
@@ -71,7 +71,7 @@ final class CandidaturesController extends AbstractController
             ->getResult();
 
         return $this->render('candidatures/index.html.twig', [
-            'pagination' => $pagination, // Passer l'objet de pagination au template
+            'pagination' => $pagination,
             'types_contrat' => array_column($typesContrat, 'type_contrat'),
             'lieux' => array_column($lieux, 'lieu'),
             'search' => $search,
@@ -93,12 +93,14 @@ final class CandidaturesController extends AbstractController
         Request $request,
         Offresemploi $offre,
         EntityManagerInterface $em,
-        MailerService $mailerService
+        MailerService $mailerService,
+        SkillsMatchingService $skillsMatchingService
     ): Response {
         $candidature = new Candidatures();
         $candidature
             ->setOffre($offre)
-            ->setDateCandidature(new \DateTime());
+            ->setDateCandidature(new \DateTime())
+            ->setStatut('En attente');
 
         $form = $this->createForm(CandidaturesType::class, $candidature);
         $form->handleRequest($request);
@@ -115,10 +117,13 @@ final class CandidaturesController extends AbstractController
                     $cvPath = $this->getParameter('cv_directory') . '/' . $fileName;
                 }
 
+                $jobSkillsText = $offre->getCompetencesRequises() ?? ($offre->getDescription() ?? '');
+                $score = $skillsMatchingService->calculateCandidateScore('', $cvPath, $jobSkillsText);
+                $candidature->setScore($score);
+
                 $em->persist($candidature);
                 $em->flush();
 
-                // Envoi de l'email de confirmation
                 $mailerService->sendConfirmationEmail(
                     $candidature->getEmail(),
                     $candidature->getNomCandidat(),
@@ -127,7 +132,7 @@ final class CandidaturesController extends AbstractController
                     $cvPath
                 );
 
-                $this->addFlash('success', 'Votre candidature a été envoyée avec succès ! Un email de confirmation vous a été envoyé.');
+                $this->addFlash('success', 'Votre candidature a été envoyée avec succès ! Score de correspondance : ' . ($candidature->getScore() ?? 'N/A') . '%');
                 return $this->redirectToRoute('app_offres_index', [], Response::HTTP_SEE_OTHER);
             } catch (\Exception $e) {
                 $this->logger->error('Error during candidature submission: ' . $e->getMessage());
@@ -152,7 +157,7 @@ final class CandidaturesController extends AbstractController
     public function listByOffre(Offresemploi $offre, EntityManagerInterface $em): Response
     {
         $candidatures = $em->getRepository(Candidatures::class)
-            ->findBy(['offre' => $offre], ['date_candidature' => 'DESC']);
+            ->findBy(['offre' => $offre], ['dateCandidature' => 'DESC']);
 
         return $this->render('candidatures/list_by_offre.html.twig', [
             'offre' => $offre,

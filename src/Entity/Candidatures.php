@@ -45,9 +45,9 @@ class Candidatures
     )]
     private ?string $lettre_motivation = null;
 
-    #[ORM\Column(type: "date")]
+    #[ORM\Column(name: "date_candidature", type: "date")]
     #[Assert\NotNull(message: "La date de candidature est obligatoire")]
-    private ?\DateTimeInterface $date_candidature = null;
+    private ?\DateTimeInterface $dateCandidature = null;
 
     #[ORM\Column(type: "string", length: 50)]
     #[Assert\NotBlank(message: "Le statut est obligatoire")]
@@ -56,6 +56,9 @@ class Candidatures
         message: "Le statut doit être En attente, Acceptée ou Rejetée"
     )]
     private ?string $statut = 'En attente';
+
+    #[ORM\Column(type: "float", nullable: true)]
+    private ?float $score = null;
 
     // Getters/Setters
     public function getIdCandidature(): ?int
@@ -126,12 +129,12 @@ class Candidatures
 
     public function getDateCandidature(): ?\DateTimeInterface
     {
-        return $this->date_candidature;
+        return $this->dateCandidature;
     }
 
     public function setDateCandidature(?\DateTimeInterface $value): self
     {
-        $this->date_candidature = $value;
+        $this->dateCandidature = $value;
         return $this;
     }
 
@@ -143,6 +146,17 @@ class Candidatures
     public function setStatut(?string $value): self
     {
         $this->statut = $value;
+        return $this;
+    }
+
+    public function getScore(): ?float
+    {
+        return $this->score;
+    }
+
+    public function setScore(?float $score): self
+    {
+        $this->score = $score;
         return $this;
     }
 }
