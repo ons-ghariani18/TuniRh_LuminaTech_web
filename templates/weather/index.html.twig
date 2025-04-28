@@ -1,0 +1,13 @@
+{# templates/weather/index.html.twig #}
+
+{% extends 'base.html.twig' %}
+
+{% block title %}Météo{% endblock %}
+
+{% block body %}
+    <h1>Météo à {{ weather.name }}</h1>
+
+    <p>Température : {{ weather.main.temp }}°C</p>
+    <p>Conditions : {{ weather.weather[0].description }}</p>
+    <p>Vent : {{ weather.wind.speed }} m/s</p>
+{% endblock %}

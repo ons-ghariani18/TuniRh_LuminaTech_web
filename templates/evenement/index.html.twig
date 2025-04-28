@@ -374,6 +374,112 @@
         .date-cell {
             white-space: nowrap;
         }
+
+         /* Style pour le formulaire de recherche */
+        .search-form {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .search-input {
+            padding: 0.5rem 1rem;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            width: 250px;
+            font-family: 'Nunito', sans-serif;
+        }
+        
+        .search-button {
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 6px;
+            padding: 0.5rem 1rem;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        
+        .search-button:hover {
+            background: var(--primary-dark);
+        }
+        
+        /* Style pour le conteneur du formulaire */
+        .filter-container {
+            background: var(--card-bg);
+            padding: 1.5rem;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            margin-bottom: 2rem;
+        }
+        
+        .filter-container h2 {
+            font-size: 1.25rem;
+            margin-top: 0;
+            margin-bottom: 1rem;
+        }
+        
+        .filter-form {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 1rem;
+        }
+        
+        .filter-form .form-group {
+            margin-bottom: 0.75rem;
+        }
+        
+        .filter-form label {
+            display: block;
+            margin-bottom: 0.25rem;
+            font-weight: 600;
+            font-size: 0.875rem;
+        }
+        
+        .filter-form input, .filter-form select {
+            width: 100%;
+            padding: 0.5rem;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            font-family: 'Nunito', sans-serif;
+        }
+        
+        .filter-form button {
+            grid-column: 1 / -1;
+            justify-self: end;
+        }
+
+        /* Style pour les en-têtes de tri */
+        .data-table th a {
+            color: var(--text-color);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .data-table th a:hover {
+            color: var(--primary-color);
+        }
+
+        .data-table th a i {
+            margin-left: 0.25rem;
+            font-size: 0.875rem;
+        }
+
+        /* Style pour les en-têtes de tri actifs */
+        .sort-active {
+            color: var(--primary-color) !important;
+        }
+
+        .sort-icon {
+            margin-left: 0.5rem;
+            transition: transform 0.2s;
+        }
+
+        .sort-desc .sort-icon {
+            transform: rotate(180deg);
+        }
     </style>
 {% endblock %}
 
@@ -438,8 +544,6 @@
                     <img src="https://ui-avatars.com/api/?name=RH+Admin&background=091E3E&color=fff" class="rounded-full" width="36" alt="Admin Avatar">
                     <span>Admin RH</span>
                 </div>
-
-                
             </div>
         </header>
 
@@ -451,25 +555,102 @@
                 </a>
             </div>
 
+            <div class="filter-container">
+                <h2><i class="mdi mdi-filter-variant"></i> Filtrer les événements</h2>
+                {{ form_start(searchForm, {'attr': {'class': 'filter-form'}}) }}
+                    <div class="form-group">
+                        {{ form_label(searchForm.nom) }}
+                        {{ form_widget(searchForm.nom) }}
+                    </div>
+                    <div class="form-group">
+                        {{ form_label(searchForm.type) }}
+                        {{ form_widget(searchForm.type) }}
+                    </div>
+                    <div class="form-group">
+                        {{ form_label(searchForm.lieu) }}
+                        {{ form_widget(searchForm.lieu) }}
+                    </div>
+                    <div class="form-group">
+                        {{ form_label(searchForm.date_debut) }}
+                        {{ form_widget(searchForm.date_debut) }}
+                    </div>
+                    <div class="form-group">
+                        {{ form_label(searchForm.date_fin) }}
+                        {{ form_widget(searchForm.date_fin) }}
+                    </div>
+                    {% if searchForm.sponsor is defined %}
+                    <div class="form-group">
+                        {{ form_label(searchForm.sponsor) }}
+                        {{ form_widget(searchForm.sponsor) }}
+                    </div>
+                    {% endif %}
+                    <button type="submit" class="btn-primary">
+                        <i class="mdi mdi-magnify"></i> Rechercher
+                    </button>
+                {{ form_end(searchForm) }}
+            </div>
+
             <div class="table-container">
                 <table class="data-table">
                     <thead>
                         <tr>
-                            <th>ID</th>
-                            <th>Nom</th>
-                            <th>Type</th>
-                            <th>Date Début</th>
-                            <th>Date Fin</th>
+                            <th>
+                                <a href="{{ path('app_evenement_index', app.request.query.all|merge({'sort': 'idEv', 'direction': (sortField == 'idEv' and sortDirection == 'asc') ? 'desc' : 'asc'})) }}" 
+                                   class="{{ sortField == 'idEv' ? 'sort-active' : '' }}">
+                                    ID
+                                    <i class="mdi mdi-arrow-{{ (sortField == 'idEv' and sortDirection == 'desc') ? 'down' : 'up' }} sort-icon {{ sortField == 'idEv' ? (sortDirection == 'desc' ? 'sort-desc' : 'sort-asc') : '' }}"></i>
+                                </a>
+                            </th>
+                            <th>
+                                <a href="{{ path('app_evenement_index', app.request.query.all|merge({'sort': 'nom', 'direction': (sortField == 'nom' and sortDirection == 'asc') ? 'desc' : 'asc'})) }}" 
+                                   class="{{ sortField == 'nom' ? 'sort-active' : '' }}">
+                                    Nom
+                                    <i class="mdi mdi-arrow-{{ (sortField == 'nom' and sortDirection == 'desc') ? 'down' : 'up' }} sort-icon {{ sortField == 'nom' ? (sortDirection == 'desc' ? 'sort-desc' : 'sort-asc') : '' }}"></i>
+                                </a>
+                            </th>
+                            <th>
+                                <a href="{{ path('app_evenement_index', app.request.query.all|merge({'sort': 'type', 'direction': (sortField == 'type' and sortDirection == 'asc') ? 'desc' : 'asc'})) }}" 
+                                   class="{{ sortField == 'type' ? 'sort-active' : '' }}">
+                                    Type
+                                    <i class="mdi mdi-arrow-{{ (sortField == 'type' and sortDirection == 'desc') ? 'down' : 'up' }} sort-icon {{ sortField == 'type' ? (sortDirection == 'desc' ? 'sort-desc' : 'sort-asc') : '' }}"></i>
+                                </a>
+                            </th>
+                            <th>
+                                <a href="{{ path('app_evenement_index', app.request.query.all|merge({'sort': 'dateDebut', 'direction': (sortField == 'dateDebut' and sortDirection == 'asc') ? 'desc' : 'asc'})) }}" 
+                                   class="{{ sortField == 'dateDebut' ? 'sort-active' : '' }}">
+                                    Date Début
+                                    <i class="mdi mdi-arrow-{{ (sortField == 'dateDebut' and sortDirection == 'desc') ? 'down' : 'up' }} sort-icon {{ sortField == 'dateDebut' ? (sortDirection == 'desc' ? 'sort-desc' : 'sort-asc') : '' }}"></i>
+                                </a>
+                            </th>
+                            <th>
+                                <a href="{{ path('app_evenement_index', app.request.query.all|merge({'sort': 'dateFin', 'direction': (sortField == 'dateFin' and sortDirection == 'asc') ? 'desc' : 'asc'})) }}" 
+                                   class="{{ sortField == 'dateFin' ? 'sort-active' : '' }}">
+                                    Date Fin
+                                    <i class="mdi mdi-arrow-{{ (sortField == 'dateFin' and sortDirection == 'desc') ? 'down' : 'up' }} sort-icon {{ sortField == 'dateFin' ? (sortDirection == 'desc' ? 'sort-desc' : 'sort-asc') : '' }}"></i>
+                                </a>
+                            </th>
                             <th>Statut</th>
-                            <th>Lieu</th>
-                            <th>Budget</th>
+                            <th>
+                                <a href="{{ path('app_evenement_index', app.request.query.all|merge({'sort': 'lieu', 'direction': (sortField == 'lieu' and sortDirection == 'asc') ? 'desc' : 'asc'})) }}" 
+                                   class="{{ sortField == 'lieu' ? 'sort-active' : '' }}">
+                                    Lieu
+                                    <i class="mdi mdi-arrow-{{ (sortField == 'lieu' and sortDirection == 'desc') ? 'down' : 'up' }} sort-icon {{ sortField == 'lieu' ? (sortDirection == 'desc' ? 'sort-desc' : 'sort-asc') : '' }}"></i>
+                                </a>
+                            </th>
+                            <th>
+                                <a href="{{ path('app_evenement_index', app.request.query.all|merge({'sort': 'budget', 'direction': (sortField == 'budget' and sortDirection == 'asc') ? 'desc' : 'asc'})) }}" 
+                                   class="{{ sortField == 'budget' ? 'sort-active' : '' }}">
+                                    Budget
+                                    <i class="mdi mdi-arrow-{{ (sortField == 'budget' and sortDirection == 'desc') ? 'down' : 'up' }} sort-icon {{ sortField == 'budget' ? (sortDirection == 'desc' ? 'sort-desc' : 'sort-asc') : '' }}"></i>
+                                </a>
+                            </th>
                             <th>Actions</th>
                         </tr>
                     </thead>
                     <tbody>
                     {% for evenement in evenements %}
                         <tr>
-                          <td>{{ evenement.idEv }}</td>
+                            <td>{{ evenement.idEv }}</td>
                             <td>{{ evenement.nom }}</td>
                             <td>{{ evenement.type }}</td>
                             <td class="date-cell">{{ evenement.dateDebut ? evenement.dateDebut|date('d/m/Y') : '' }}</td>

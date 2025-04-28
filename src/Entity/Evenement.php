@@ -75,6 +75,9 @@ class Evenement
     #[ORM\Column(type: Types::STRING, length: 255, nullable: true)]
     private ?string $image = null;
 
+    #[ORM\Column(type: Types::STRING, length: 255, nullable: false)]
+    private  $google_calendar_event_id;
+
     // Validation personnalisée des dates
     public function validateDates(ExecutionContextInterface $context): void
     {
@@ -205,6 +208,17 @@ class Evenement
     public function setImage(?string $image): self
     {
         $this->image = $image;
+        return $this;
+    }
+
+    public function getGoogleEventId(): ?string
+    {
+        return $this->google_calendar_event_id;
+    }
+
+    public function setGoogleEventId(?string $google_calendar_event_id): self
+    {
+        $this->google_calendar_event_id = $google_calendar_event_id;
         return $this;
     }
 }

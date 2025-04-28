@@ -666,6 +666,16 @@ function addSmoothScroll() {
                                 <p class="mb-0 fw-bold text-dark">{{ evenement.lieu }}</p>
                             </div>
                         </div>
+                                              <div class="d-flex mb-3 align-items-center">
+    <div class="icon-circle">
+        <i class="fas fa-handshake"></i>
+    </div>
+    <div class="ms-3">
+        <p class="mb-0 text-muted">Sponsor</p>
+        <p class="mb-0 fw-bold text-dark">{{ evenement.sponsor ? evenement.sponsor.nom : 'Aucun sponsor' }}</p>
+    </div>
+</div>
+
 
                         <div class="d-flex mb-3 align-items-center">
                             <div class="icon-circle">
@@ -677,6 +687,8 @@ function addSmoothScroll() {
                             </div>
                         </div>
 
+
+  
                         <!-- Bouton d'inscription -->
                         <div class="mt-4">
                             <a href="{{ path('app_login') }}" class="btn btn-lg w-100 rounded-pill py-3 register-btn">

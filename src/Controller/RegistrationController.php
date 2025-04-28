@@ -28,7 +28,7 @@ class RegistrationController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            // Encoder le mot de passe
+            // Hash the password
             $user->setPassword(
                 $passwordHasher->hashPassword(
                     $user,
@@ -36,21 +36,37 @@ class RegistrationController extends AbstractController
                 )
             );
 
-            // Définir le rôle par défaut
-            $user->setRoles(['ROLE_USER']);
+            // Set roles based on accountType
+            $accountType = $form->get('accountType')->getData();
+            if ($accountType === 'ROLE_ADMIN') {
+                $user->setRoles(['ROLE_ADMIN']);
+            } else {
+                $user->setRoles(['ROLE_USER']);
+            }
 
+            // Persist the user
             $entityManager->persist($user);
             $entityManager->flush();
 
-            // Connecter automatiquement l'utilisateur si les services sont disponibles
+            // Authenticate the user if authenticator is available
             if ($authenticator && $appAuthenticator) {
-                return $authenticator->authenticateUser(
+                $response = $authenticator->authenticateUser(
                     $user,
                     $appAuthenticator,
                     $request
                 );
+                
+                // After authentication, redirect based on account type
+                if ($accountType === 'ROLE_ADMIN') {
+                    return $this->redirectToRoute('app_back_office');
+                }
+                return $this->redirectToRoute('app_home');
             }
 
+            // If no authenticator, redirect based on account type
+            if ($accountType === 'ROLE_ADMIN') {
+                return $this->redirectToRoute('app_back_office');
+            }
             return $this->redirectToRoute('app_home');
         }
 

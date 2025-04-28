@@ -54,10 +54,6 @@
             transform: translateX(0);
         }
 
-        .aside-collapsed {
-            transform: translateX(-240px);
-        }
-
         .aside-brand {
             height: 60px;
             background-color: var(--sidebar-bg);
@@ -107,10 +103,6 @@
             display: flex;
             flex-direction: column;
             transition: margin-left var(--transition-speed) ease;
-        }
-
-        .main-content-full {
-            margin-left: 0;
         }
 
         /* Navbar */
@@ -242,6 +234,27 @@
             background: #dc2626;
         }
 
+        /* Form validation */
+        .form-error {
+            color: var(--danger-color);
+            font-size: 0.85rem;
+            margin-top: 0.5rem;
+        }
+
+        .form-control.is-invalid {
+            border-color: var(--danger-color);
+        }
+
+        .form-control.is-invalid:focus {
+            box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.1);
+        }
+
+        .form-hint {
+            font-size: 0.85rem;
+            color: var(--muted-text);
+            margin-top: 0.25rem;
+        }
+
         /* Overlay for mobile */
         .sidebar-overlay {
             position: fixed;
@@ -357,32 +370,60 @@
                     Modifier le Sponsor: {{ sponsor.nom }}
                 </h1>
 
-                {{ form_start(form, {'method': 'POST', 'action': path('app_sponsor_edit', {'id_sp': sponsor.idSp})}) }}
+                {{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
                     {{ form_widget(form._token) }}
 
                     <div class="form-group">
                         {{ form_label(form.nom, null, {'label_attr': {'class': 'form-label'}}) }}
-                        {{ form_widget(form.nom, {'attr': {'class': 'form-control'}}) }}
-                        {{ form_errors(form.nom) }}
+                        {{ form_widget(form.nom, {
+                            'attr': {
+                                'class': 'form-control' ~ (form.nom.vars.valid ? '' : ' is-invalid'),
+                                'minlength': 2,
+                                'maxlength': 10,
+                                'required': 'required'
+                            }
+                        }) }}
+                        <div class="form-error">{{ form_errors(form.nom) }}</div>
+                        <div class="form-hint">Entre 2 et 10 caractères</div>
                     </div>
 
                     <div class="form-group">
                         {{ form_label(form.type, null, {'label_attr': {'class': 'form-label'}}) }}
-                        {{ form_widget(form.type, {'attr': {'class': 'form-control'}}) }}
-                        {{ form_errors(form.type) }}
+                        {{ form_widget(form.type, {
+                            'attr': {
+                                'class': 'form-control' ~ (form.type.vars.valid ? '' : ' is-invalid'),
+                                'required': 'required'
+                            }
+                        }) }}
+                        <div class="form-error">{{ form_errors(form.type) }}</div>
+                        <div class="form-hint">Types valides: Financier, Matériel, Services, Médiatique</div>
                     </div>
 
                     <div class="form-group">
                         {{ form_label(form.telephone, null, {'label_attr': {'class': 'form-label'}}) }}
-                        {{ form_widget(form.telephone, {'attr': {'class': 'form-control', 'pattern': '[0-9]{10}'}}) }}
-                        <small class="text-muted">Format: 0612345678 (10 chiffres)</small>
-                        {{ form_errors(form.telephone) }}
+                        {{ form_widget(form.telephone, {
+                            'attr': {
+                                'class': 'form-control' ~ (form.telephone.vars.valid ? '' : ' is-invalid'),
+                                'pattern': '[0-9]{8,10}',
+                                'title': '8 à 10 chiffres requis',
+                                'required': 'required'
+                            }
+                        }) }}
+                        <div class="form-error">{{ form_errors(form.telephone) }}</div>
+                        <div class="form-hint">Format: 0612345678 (8 à 10 chiffres)</div>
                     </div>
 
                     <div class="form-group">
                         {{ form_label(form.email, null, {'label_attr': {'class': 'form-label'}}) }}
-                        {{ form_widget(form.email, {'attr': {'class': 'form-control', 'type': 'email'}}) }}
-                        {{ form_errors(form.email) }}
+                        {{ form_widget(form.email, {
+                            'attr': {
+                                'class': 'form-control' ~ (form.email.vars.valid ? '' : ' is-invalid'),
+                                'type': 'email',
+                                'required': 'required'
+                            }
+                        }) }}
+                        <div class="form-error">{{ form_errors(form.email) }}</div>
+                        <div class="form-hint">Format: exemple@domaine.com</div>
                     </div>
 
                     <div class="form-actions">
@@ -433,13 +474,95 @@
                 document.body.classList.remove('no-scroll');
             });
 
-            // Phone input validation
+            // Phone input validation and formatting
             const phoneInput = document.querySelector('input[name="sponsor[telephone]"]');
             if (phoneInput) {
                 phoneInput.addEventListener('input', function(e) {
                     let value = e.target.value.replace(/\D/g, '');
                     if (value.length > 10) value = value.substring(0, 10);
                     e.target.value = value;
+                    
+                    // Update validation state
+                    if (value.length >= 8 && value.length <= 10) {
+                        e.target.classList.remove('is-invalid');
+                    } else {
+                        e.target.classList.add('is-invalid');
+                    }
+                });
+            }
+
+            // Email validation
+            const emailInput = document.querySelector('input[name="sponsor[email]"]');
+            if (emailInput) {
+                emailInput.addEventListener('blur', function(e) {
+                    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                    if (!emailRegex.test(e.target.value)) {
+                        e.target.classList.add('is-invalid');
+                    } else {
+                        e.target.classList.remove('is-invalid');
+                    }
+                });
+            }
+
+            // Name validation
+            const nameInput = document.querySelector('input[name="sponsor[nom]"]');
+            if (nameInput) {
+                nameInput.addEventListener('input', function(e) {
+                    const value = e.target.value;
+                    if (value.length >= 2 && value.length <= 10) {
+                        e.target.classList.remove('is-invalid');
+                    } else {
+                        e.target.classList.add('is-invalid');
+                    }
+                });
+            }
+
+            // Type validation
+            const typeInput = document.querySelector('select[name="sponsor[type]"]');
+            if (typeInput) {
+                typeInput.addEventListener('change', function(e) {
+                    if (e.target.value) {
+                        e.target.classList.remove('is-invalid');
+                    } else {
+                        e.target.classList.add('is-invalid');
+                    }
+                });
+            }
+
+            // Form validation before submission
+            const form = document.querySelector('form[name="sponsor"]');
+            if (form) {
+                form.addEventListener('submit', function(e) {
+                    let isValid = true;
+                    
+                    // Validate name
+                    if (!nameInput.value || nameInput.value.length < 2 || nameInput.value.length > 10) {
+                        nameInput.classList.add('is-invalid');
+                        isValid = false;
+                    }
+                    
+                    // Validate type
+                    if (!typeInput.value) {
+                        typeInput.classList.add('is-invalid');
+                        isValid = false;
+                    }
+                    
+                    // Validate phone
+                    if (!phoneInput.value || phoneInput.value.length < 8 || phoneInput.value.length > 10) {
+                        phoneInput.classList.add('is-invalid');
+                        isValid = false;
+                    }
+                    
+                    // Validate email
+                    if (!emailInput.value || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailInput.value)) {
+                        emailInput.classList.add('is-invalid');
+                        isValid = false;
+                    }
+                    
+                    if (!isValid) {
+                        e.preventDefault();
+                        alert('Veuillez corriger les erreurs dans le formulaire avant de soumettre.');
+                    }
                 });
             }
 

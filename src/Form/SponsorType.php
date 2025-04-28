@@ -9,6 +9,9 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\TelType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+// Importez la classe HCaptchaType
+use MeteoConcept\HCaptchaBundle\Form\HCaptchaType;
 
 class SponsorType extends AbstractType
 {
@@ -19,8 +22,14 @@ class SponsorType extends AbstractType
                 'label' => 'Nom du sponsor',
                 'attr' => ['class' => 'form-control']
             ])
-            ->add('type', TextType::class, [
+            ->add('type', ChoiceType::class, [
                 'label' => 'Type de sponsor',
+                'choices' => [
+                    'Financier' => 'Financier',
+                    'Matériel' => 'Matériel',
+                    'Services' => 'Services',
+                    'Médiatique' => 'Médiatique',
+                ],
                 'attr' => ['class' => 'form-control']
             ])
             ->add('telephone', TelType::class, [
@@ -30,6 +39,12 @@ class SponsorType extends AbstractType
             ->add('email', EmailType::class, [
                 'label' => 'Email',
                 'attr' => ['class' => 'form-control']
+            ])
+            // Ajout du captcha
+            ->add('captcha', HCaptchaType::class, [
+                'label' => 'Veuillez confirmer que vous n\'êtes pas un robot',
+                'mapped' => false, // Ne pas mapper ce champ à l'entité Sponsor
+                'attr' => ['class' => 'form-captcha']
             ])
         ;
     }

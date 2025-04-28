@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Evenement;
 use App\Form\EvenementType;
+use App\Form\EvenementSearchType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -12,19 +13,40 @@ use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\String\Slugger\SluggerInterface;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
+use App\Repository\EvenementRepository;
 
 #[Route('/evenement')]
 final class EvenementController extends AbstractController
 {
-    #[Route(name: 'app_evenement_index', methods: ['GET'])]
-    public function index(EntityManagerInterface $entityManager): Response
+    #[Route('/', name: 'app_evenement_index', methods: ['GET'])]
+    public function index(Request $request, EvenementRepository $evenementRepository): Response
     {
-        $evenements = $entityManager
-            ->getRepository(Evenement::class)
-            ->findAll();
+        // Récupération des paramètres de tri
+     // Ligne 19-20
+$sortField = $request->query->get('sort', 'dateDebut'); // Utilisez le même format que votre entité
+$sortDirection = $request->query->get('direction', 'ASC');
+        // Validation de la direction du tri
+        if (!in_array($sortDirection, ['ASC', 'DESC'])) {
+            $sortDirection = 'ASC';
+        }
+        
+        $searchForm = $this->createForm(EvenementSearchType::class);
+        $searchForm->handleRequest($request);
+
+        $evenements = [];
+        
+        if ($searchForm->isSubmitted() && $searchForm->isValid()) {
+            $searchData = $searchForm->getData();
+            $evenements = $evenementRepository->search($searchData, $sortField, $sortDirection);
+        } else {
+            $evenements = $evenementRepository->findBySearchCriteria([], $sortField, $sortDirection);
+        }
 
         return $this->render('evenement/index.html.twig', [
             'evenements' => $evenements,
+            'searchForm' => $searchForm->createView(),
+            'sortField' => $sortField,
+            'sortDirection' => $sortDirection,
         ]);
     }
 
