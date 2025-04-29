@@ -1,24 +1,65 @@
-# This file is the entry point to configure your own services.
-# Files in the packages/ subdirectory configure your dependencies.
-
-# Put parameters here that don't need to change on each machine where the app is deployed
-# https://symfony.com/doc/current/best_practices.html#use-parameters-for-application-configuration
 parameters:
+    evenements_images_directory: '%kernel.project_dir%/public/uploads/evenements'
+    weather_api_key: '49cbb2f803b8ac2d87727c5ab2039b71'
+    google_credentials_file: '%kernel.project_dir%/config/google/credentials.json'
+    # Ajouter cette ligne pour résoudre le problème
+    credentials.json: '%kernel.project_dir%/config/google/credentials.json'
+    sponsor_logo_directory: '%kernel.project_dir%/public/uploads/sponsors'
 
 services:
-    # default configuration for services in *this* file
     _defaults:
-        autowire: true      # Automatically injects dependencies in your services.
-        autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
+        autowire: true
+        autoconfigure: true
+        bind:
+            $evenementsImagesDirectory: '%evenements_images_directory%'
+            $apiKey: '%weather_api_key%'
+            $googleClientId: '%env(GOOGLE_CLIENT_ID)%'
+            $googleClientSecret: '%env(GOOGLE_CLIENT_SECRET)%'
+            $googleRedirectUri: '%env(GOOGLE_REDIRECT_URI)%'
+            # Ajouter cette ligne pour injecter le fichier de credentials
+            $credentialsFile: '%google_credentials_file%'
 
-    # makes classes in src/ available to be used as services
-    # this creates a service per class whose id is the fully-qualified class name
+    App\Service\GoogleCalendarService:
+        arguments:
+            $parameterBag: '@parameter_bag'
+
+
+             # Déclaration du service de notification
+    App\Service\EventNotificationService:
+        arguments:
+            $notifier: '@notifier'
+            $evenementRepository: '@App\Repository\EvenementRepository'
+            $adminEmail: '%env(string:EMAIL_ADMIN)%'
+            $senderEmail: '%env(string:EMAIL_SENDER)%'
+
+    # Correctly configure the session interface
+    Symfony\Component\HttpFoundation\Session\SessionInterface: '@session.storage.factory.native'
+
+    # Configuration spécifique pour GoogleAuthService
+    App\Service\GoogleAuthService:
+        arguments:
+            $requestStack: '@request_stack'
+            $googleClientId: '%env(GOOGLE_CLIENT_ID)%'
+            $googleClientSecret: '%env(GOOGLE_CLIENT_SECRET)%'
+            $googleRedirectUri: '%env(GOOGLE_REDIRECT_URI)%'
+
+    App\Service\WeatherService:
+        arguments:
+            $client: '@http_client'
+
+            
+    # Configuration du service QR Code pour les sponsors
+    App\Service\SponsorQrCodeService:
+        arguments:
+            $websiteBaseUrl: '%env(APP_URL)%'
+
+    App\Security\LoginSuccessHandler:
+        arguments:
+            $urlGenerator: '@router'
+
     App\:
         resource: '../src/'
         exclude:
             - '../src/DependencyInjection/'
             - '../src/Entity/'
             - '../src/Kernel.php'
-
-    # add more service definitions when explicit configuration is needed
-    # please note that last definitions always *replace* previous ones

@@ -2,22 +2,22 @@
 
 namespace App\Repository;
 
-use App\Entity\Reclamation;
+use App\Entity\Reservations;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @extends ServiceEntityRepository<Reclamation>
+ * @extends ServiceEntityRepository<Reservations>
  */
-class ReclamationRepository extends ServiceEntityRepository
+class ReservationsRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, Reclamation::class);
+        parent::__construct($registry, Reservations::class);
     }
 
     //    /**
-    //     * @return Reclamation[] Returns an array of Reclamation objects
+    //     * @return Reservations[] Returns an array of Reservations objects
     //     */
     //    public function findByExampleField($value): array
     //    {
@@ -31,7 +31,7 @@ class ReclamationRepository extends ServiceEntityRepository
     //        ;
     //    }
 
-    //    public function findOneBySomeField($value): ?Reclamation
+    //    public function findOneBySomeField($value): ?Reservations
     //    {
     //        return $this->createQueryBuilder('r')
     //            ->andWhere('r.exampleField = :val')

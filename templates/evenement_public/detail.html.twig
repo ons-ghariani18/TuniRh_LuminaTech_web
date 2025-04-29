@@ -1,0 +1,776 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ evenement.nom }} - Détails de l'événement{% endblock %}
+
+{% block stylesheets %}
+<style>
+/* Root variables for consistent theming */
+:root {
+    --primary-navy: #091E3E;
+    --primary-blue: #091E3E; /* Nouvelle couleur bleue */
+    --primary-orange: #ff7a00;
+    --secondary-orange: #ff9e4f;
+    --light-orange: #ffe0c2;
+    --background-light: #f8f9fa;
+    --white: #ffffff;
+    --text-dark: #1a2a44;
+    --text-muted: #6c757d;
+    --shadow: rgba(9, 30, 62, 0.15);
+}
+
+/* General styles */
+.event-bg {
+    background-color: var(--background-light);
+    position: relative;
+    overflow: hidden;
+}
+
+.event-bg::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 300px;
+    background: var(--primary-blue); /* Bleu uni */
+    z-index: 0;
+    clip-path: polygon(0 0, 100% 0, 100% 80%, 0 100%);
+}
+
+.container {
+    position: relative;
+    z-index: 1;
+    max-width: 1200px;
+}
+
+/* Breadcrumb */
+.breadcrumb {
+    background: rgba(255, 255, 255, 0.15);
+    padding: 12px 20px;
+    border-radius: 12px;
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.breadcrumb-item a {
+    color: var(--white) !important;
+    font-weight: 500;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.breadcrumb-item a:hover {
+    color: var(--light-orange) !important;
+}
+
+.breadcrumb-item.active {
+    color: var(--light-orange);
+    font-weight: 600;
+}
+
+/* Event Card */
+.event-card {
+    background: var(--white);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border-radius: 16px !important;
+}
+
+.event-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 20px 40px var(--shadow) !important;
+}
+
+.event-image {
+    transition: transform 0.6s ease;
+    border-radius: 16px 16px 0 0;
+}
+
+.event-card:hover .event-image {
+    transform: scale(1.08);
+}
+
+.event-type-badge {
+    background: var(--primary-orange);
+    color: var(--white);
+    font-weight: 600;
+    padding: 8px 16px;
+    border-radius: 20px;
+    box-shadow: 0 4px 12px rgba(255, 122, 0, 0.3);
+    transition: all 0.3s ease;
+}
+
+.event-type-badge:hover {
+    transform: translateY(-3px);
+    background: var(--secondary-orange);
+    box-shadow: 0 6px 15px rgba(255, 122, 0, 0.4);
+}
+
+/* Icon Circles */
+.icon-circle {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: var(--white);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--primary-navy);
+    font-size: 1.3rem;
+    box-shadow: 0 4px 12px var(--shadow);
+    transition: all 0.3s ease;
+}
+
+.icon-circle:hover {
+    background: var(--light-orange);
+    color: var(--primary-orange);
+    transform: scale(1.1);
+}
+
+/* Event Title Container */
+.event-title-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+    position: relative;
+    padding-bottom: 15px;
+}
+
+.event-title-container:after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 80px;
+    height: 4px;
+    background: var(--primary-blue);
+}
+
+/* Event Title */
+.event-title {
+    color: var(--primary-navy);
+    font-size: 2rem;
+    font-weight: 700;
+    margin: 0;
+}
+
+/* Detail Icon */
+.detail-icon-circle {
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    background-color: var(--light-orange);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--primary-orange);
+    margin-left: 15px;
+    flex-shrink: 0;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 8px rgba(255, 122, 0, 0.2);
+}
+
+.detail-icon-circle:hover {
+    background-color: var(--primary-orange);
+    color: var(--white);
+    transform: translateY(-2px) scale(1.1);
+    box-shadow: 0 6px 12px rgba(255, 122, 0, 0.4);
+}
+
+/* Buttons */
+.register-btn {
+    background: var(--primary-orange);
+    color: var(--white);
+    border: none;
+    border-radius: 30px;
+    padding: 12px 24px;
+    font-weight: 600;
+    box-shadow: 0 6px 15px var(--shadow);
+    transition: all 0.3s ease;
+}
+
+.register-btn:hover {
+    background: var(--secondary-orange);
+    box-shadow: 0 8px 20px rgba(255, 122, 0, 0.35);
+    transform: translateY(-3px);
+    color: var(--white);
+}
+
+.share-btn {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--white);
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 12px var(--shadow);
+}
+
+.share-btn:hover {
+    transform: translateY(-4px) scale(1.1);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+}
+
+.view-all-btn {
+    background: transparent;
+    border: 2px solid var(--primary-blue);
+    color: var(--primary-blue);
+    font-weight: 600;
+    border-radius: 30px;
+    padding: 12px 24px;
+    transition: all 0.3s ease;
+}
+
+.view-all-btn:hover {
+    background: var(--primary-blue);
+    color: var(--white);
+    box-shadow: 0 6px 15px var(--shadow);
+}
+
+/* List Group */
+.list-group-item {
+    padding: 14px 0;
+    background: transparent;
+    transition: all 0.3s ease;
+}
+
+.list-group-item:hover {
+    transform: translateX(8px);
+}
+
+.list-group-item i {
+    color: var(--primary-navy);
+    transition: all 0.3s ease;
+}
+
+.list-group-item:hover i {
+    color: var(--primary-orange);
+    transform: scale(1.15);
+}
+
+/* Animations */
+.fade-in {
+    opacity: 0;
+    animation: fadeIn 1s ease forwards;
+}
+
+.slide-up {
+    opacity: 0;
+    transform: translateY(40px);
+    animation: slideUp 1s ease forwards;
+}
+
+@keyframes fadeIn {
+    to { opacity: 1; }
+}
+
+@keyframes slideUp {
+    to { 
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Responsive Adjustments */
+@media (max-width: 991px) {
+    .event-bg::before {
+        height: 200px;
+        clip-path: polygon(0 0, 100% 0, 100% 60%, 0 80%);
+    }
+
+    .event-title {
+        font-size: 1.75rem;
+    }
+}
+
+@media (max-width: 767px) {
+    .event-bg::before {
+        height: 150px;
+    }
+
+    .icon-circle {
+        width: 40px;
+        height: 40px;
+        font-size: 1.1rem;
+    }
+
+    .event-title {
+        font-size: 1.5rem;
+    }
+
+    .register-btn {
+        padding: 10px 20px;
+        font-size: 0.9rem;
+    }
+
+    .share-btn {
+        width: 38px;
+        height: 38px;
+    }
+    
+    .detail-icon-circle {
+        width: 36px;
+        height: 36px;
+    }
+}
+
+@media (max-width: 575px) {
+    .breadcrumb {
+        padding: 10px 15px;
+        font-size: 0.85rem;
+    }
+
+    .event-image {
+        height: 250px;
+    }
+
+    .event-card {
+        border-radius: 12px !important;
+    }
+}
+</style>
+{% endblock %}
+
+{% block javascripts %}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Elements to animate on page load
+    const elementsToAnimate = [
+        { element: document.querySelector('nav.breadcrumb'), class: 'fade-in', delay: 100 },
+        { element: document.querySelector('.col-lg-5 .card'), class: 'slide-up', delay: 200 },
+        { element: document.querySelector('.col-lg-7 .card'), class: 'slide-up', delay: 400 },
+        { element: document.querySelector('.mt-5.pt-3'), class: 'fade-in', delay: 600 }
+    ];
+
+    // Apply animations with delays
+    elementsToAnimate.forEach(item => {
+        if (item.element) {
+            setTimeout(() => {
+                item.element.classList.add(item.class);
+            }, item.delay);
+        }
+    });
+
+    // Add interactive effects
+    addInteractiveEffects();
+    
+    // Initialize share buttons
+    initShareButtons();
+    
+    // Add smooth scroll for anchor links
+    addSmoothScroll();
+});
+
+// Function for additional interactive effects
+function addInteractiveEffects() {
+    // Add ripple effect to buttons (excluding register-btn to avoid interference)
+    const buttons = document.querySelectorAll('.btn:not(.register-btn)');
+    buttons.forEach(button => {
+        button.addEventListener('click', function(e) {
+            const rect = button.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+            
+            const ripple = document.createElement('span');
+            ripple.style.left = `${x}px`;
+            ripple.style.top = `${y}px`;
+            
+            ripple.style.position = 'absolute';
+            ripple.style.background = 'rgba(255, 255, 255, 0.7)';
+            ripple.style.borderRadius = '50%';
+            ripple.style.transform = 'scale(0)';
+            ripple.style.animation = 'ripple 0.6s linear';
+            ripple.style.pointerEvents = 'none';
+            
+            button.style.position = 'relative';
+            button.style.overflow = 'hidden';
+            
+            button.appendChild(ripple);
+            
+            setTimeout(() => {
+                ripple.remove();
+            }, 700);
+        });
+    });
+    
+    // Animate icon circles on hover
+    const iconCircles = document.querySelectorAll('.icon-circle');
+    iconCircles.forEach(circle => {
+        circle.addEventListener('mouseenter', function() {
+            const icon = this.querySelector('i');
+            if (icon) {
+                icon.style.transition = 'transform 0.3s ease';
+                icon.style.transform = 'scale(1.2)';
+            }
+        });
+        
+        circle.addEventListener('mouseleave', function() {
+            const icon = this.querySelector('i');
+            if (icon) {
+                icon.style.transform = 'scale(1)';
+            }
+        });
+    });
+    
+    // Add parallax effect to event image on mouse move
+    const eventCard = document.querySelector('.event-card');
+    const eventImage = document.querySelector('.event-image');
+    
+    if (eventCard && eventImage) {
+        eventCard.addEventListener('mousemove', function(e) {
+            const rect = eventCard.getBoundingClientRect();
+            const x = (e.clientX - rect.left) / rect.width;
+            const y = (e.clientY - rect.top) / rect.height;
+            
+            eventImage.style.transform = `scale(1.05) translateX(${x * 10 - 5}px) translateY(${y * 10 - 5}px)`;
+        });
+        
+        eventCard.addEventListener('mouseleave', function() {
+            eventImage.style.transform = 'scale(1)';
+        });
+    }
+}
+
+// Function to initialize share buttons
+function initShareButtons() {
+    const shareButtons = document.querySelectorAll('.share-btn');
+    
+    shareButtons.forEach(button => {
+        button.addEventListener('click', function(e) {
+            e.preventDefault();
+            
+            const url = window.location.href;
+            const title = document.querySelector('.event-title').textContent;
+            
+            // Determine which social media platform was clicked
+            if (this.querySelector('.fa-facebook-f')) {
+                window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`, 'facebook-share');
+            } else if (this.querySelector('.fa-twitter')) {
+                window.open(`https://twitter.com/intent/tweet?url=${encodeURIComponent(url)}&text=${encodeURIComponent(title)}`, 'twitter-share');
+            } else if (this.querySelector('.fa-linkedin-in')) {
+                window.open(`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(url)}`, 'linkedin-share');
+            } else if (this.querySelector('.fa-whatsapp')) {
+                window.open(`https://api.whatsapp.com/send?text=${encodeURIComponent(title + ' ' + url)}`, 'whatsapp-share');
+            }
+        });
+    });
+}
+
+// Function for smooth scrolling
+function addSmoothScroll() {
+    const links = document.querySelectorAll('a[href^="#"]');
+    
+    links.forEach(link => {
+        link.addEventListener('click', function(e) {
+            const href = this.getAttribute('href');
+            
+            if (href !== "#") {
+                e.preventDefault();
+                const target = document.querySelector(href);
+                
+                if (target) {
+                    window.scrollTo({
+                        top: target.offsetTop - 100,
+                        behavior: 'smooth'
+                    });
+                }
+            }
+        });
+    });
+}
+
+// Add keyframes for ripple effect to document
+(function addKeyframes() {
+    const style = document.createElement('style');
+    style.textContent = `
+        @keyframes ripple {
+            to {
+                transform: scale(15);
+                opacity: 0;
+            }
+        }
+    `;
+    document.head.appendChild(style);
+})();
+</script>
+{% endblock %}
+
+{% block body %}
+
+
+   <!-- Navigation Bar -->
+<nav class="navbar navbar-expand-lg navbar-dark px-5 py-3 py-lg-0 bg-dark">
+    <div class="container-fluid">
+        <a href="{{ path('app_home') }}" class="navbar-brand p-0">
+            <h1 class="m-0"><i class="fa fa-building me-2"></i>TuniRH </h1>
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
+            <span class="fa fa-bars"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarCollapse">
+            <div class="navbar-nav ms-auto py-0">
+                <a href="{{ path('app_home') }}" class="nav-item nav-link hover-orange">Home</a>
+                <a href="{{ path('app_about') }}" class="nav-item nav-link hover-orange">About</a>
+                
+                <div class="nav-item dropdown">
+                    <a href="#" class="nav-link dropdown-toggle hover-orange" data-bs-toggle="dropdown">Services</a>
+                    <div class="dropdown-menu m-0 bg-dark">
+                        <a href="{{ path('app_recrutement') }}" class="dropdown-item text-white hover-orange">Recrutement</a>
+                        <a href="{{ path('app_formation') }}" class="dropdown-item text-white hover-orange">Formation</a>
+                    </div>
+                </div>
+                
+                <div class="nav-item dropdown">
+                    <a href="#" class="nav-link dropdown-toggle hover-orange" data-bs-toggle="dropdown">Resources</a>
+                    <div class="dropdown-menu m-0 bg-dark">
+                        <a href="{{ path('app_team') }}" class="dropdown-item text-white hover-orange">Our Team</a>
+                        <a href="{{ path('app_testimonials') }}" class="dropdown-item text-white hover-orange">Testimonials</a>
+                        <a href="{{ path('app_evenement_index') }}" class="dropdown-item text-white hover-orange">Our Events</a>
+                        <a href="{{ path('app_sponsor_index') }}" class="dropdown-item text-white hover-orange">Our Sponsors</a>
+                    </div>
+                </div>
+                
+                <a href="{{ path('app_contact') }}" class="nav-item nav-link hover-orange">Contact</a>
+            </div>
+            
+            <div class="d-flex ms-3">
+                <button type="button" class="btn text-primary hover-orange-btn" data-bs-toggle="modal" data-bs-target="#searchModal">
+                    <i class="fa fa-search"></i>
+                </button>
+                
+                {% if app.user %}
+                <div class="dropdown ms-3">
+                    <button class="btn btn-primary dropdown-toggle" type="button" id="userDropdown" data-bs-toggle="dropdown">
+                        <i class="fa fa-user me-1"></i> {{ app.user.email }}
+                    </button>
+                    <ul class="dropdown-menu dropdown-menu-end bg-dark">
+                        <li><a class="dropdown-item text-white hover-orange" href="#">Mon profil</a></li>
+                        <li><a class="dropdown-item text-white hover-orange" href="{{ path('app_logout') }}">Déconnexion</a></li>
+                    </ul>
+                </div>
+                {% else %}
+                <a href="{{ path('app_login') }}" class="btn btn-outline-primary ms-3 hover-orange-btn">Log in</a>
+                <a href="{{ path('app_register') }}" class="btn btn-primary ms-2">Sign up</a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</nav>
+
+<!-- CSS Styles -->
+<style>
+    /* Style for navigation links */
+    .hover-orange:hover {
+        color: #ff8c00 !important;
+    }
+    
+    /* Style for buttons with hover effect */
+    .hover-orange-btn:hover {
+        color: #ff8c00 !important;
+        border-color: #ff8c00 !important;
+    }
+    
+    /* Style for dropdown items */
+    .dropdown-item.hover-orange {
+        transition: background-color 0.3s, color 0.3s;
+    }
+    
+    .dropdown-item.hover-orange:hover {
+        background-color: #ff8c00 !important;
+        color: white !important;
+    }
+    
+    /* Style for dropdown menus */
+    .dropdown-menu {
+        border: 1px solid rgba(255, 140, 0, 0.2);
+    }
+    
+    /* Style for active dropdown items */
+    .dropdown-item.active, .dropdown-item:active {
+        background-color: #ff8c00;
+    }
+</style>
+
+<div class="container-fluid py-5 event-bg">
+    <div class="container py-5">
+        <!-- Fil d'Ariane -->
+        <nav aria-label="breadcrumb" class="mb-4">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{{ path('app_home') }}">Accueil</a></li>
+                <li class="breadcrumb-item"><a href="{{ path('app_evenements') }}">Evenements</a></li>
+                <li class="breadcrumb-item active" aria-current="page">{{ evenement.nom }}</li>
+            </ol>
+        </nav>
+
+        <div class="row">
+            <!-- Colonne de gauche avec image et infos clés -->
+            <div class="col-lg-5 mb-4 mb-lg-0">
+                <div class="card border-0 rounded-4 shadow-sm overflow-hidden event-card">
+                    <div class="position-relative">
+                        <img class="img-fluid w-100 event-image"
+                             src="{{ evenement.image ? asset('Uploads/evenements/' ~ evenement.image) : asset('img/events/default.jpg') }}"
+                             alt="{{ evenement.nom }}"
+                             style="height: 350px; object-fit: cover;">
+                        <div class="position-absolute top-3 start-3">
+                            <span class="badge rounded-pill py-2 px-3 event-type-badge">
+                                {% if evenement.type == 'Recrutement' %}
+                                    <i class="fas fa-users me-1"></i>
+                                {% elseif evenement.type == 'Formation' %}
+                                    <i class="fas fa-graduation-cap me-1"></i>
+                                {% elseif evenement.type == 'Conférence' %}
+                                    <i class="fas fa-chalkboard-teacher me-1"></i>
+                                {% else %}
+                                    <i class="fas fa-calendar-alt me-1"></i>
+                                {% endif %}
+                                {{ evenement.type }}
+                            </span>
+                        </div>
+                    </div>
+                    <div class="card-body p-4">
+                        <!-- Titre et icône de détail côte à côte -->
+                        <div class="event-title-container">
+                            <h2 class="event-title">{{ evenement.nom }}</h2>
+                            <a href="#details" class="detail-icon-circle">
+                                <i class="fas fa-info-circle"></i>
+                            </a>
+                        </div>
+
+                        <div class="d-flex mb-3 align-items-center">
+                            <div class="icon-circle">
+                                <i class="far fa-calendar-alt"></i>
+                            </div>
+                            <div class="ms-3">
+                                <p class="mb-0 text-muted">Date</p>
+                                <p class="mb-0 fw-bold text-dark">{{ evenement.dateDebut|date('d M Y') }}</p>
+                            </div>
+                        </div>
+
+                        <div class="d-flex mb-3 align-items-center">
+                            <div class="icon-circle">
+                                <i class="far fa-clock"></i>
+                            </div>
+                            <div class="ms-3">
+                                <p class="mb-0 text-muted">Horaire</p>
+                                <p class="mb-0 fw-bold text-dark">{{ evenement.dateDebut|date('H:i') }} - {{ evenement.dateFin|date('H:i') }}</p>
+                            </div>
+                        </div>
+
+                        <div class="d-flex mb-3 align-items-center">
+                            <div class="icon-circle">
+                                <i class="fas fa-map-marker-alt"></i>
+                            </div>
+                            <div class="ms-3">
+                                <p class="mb-0 text-muted">Lieu</p>
+                                <p class="mb-0 fw-bold text-dark">{{ evenement.lieu }}</p>
+                            </div>
+                        </div>
+                                              <div class="d-flex mb-3 align-items-center">
+    <div class="icon-circle">
+        <i class="fas fa-handshake"></i>
+    </div>
+    <div class="ms-3">
+        <p class="mb-0 text-muted">Sponsor</p>
+        <p class="mb-0 fw-bold text-dark">{{ evenement.sponsor ? evenement.sponsor.nom : 'Aucun sponsor' }}</p>
+    </div>
+</div>
+
+
+                        <div class="d-flex mb-3 align-items-center">
+                            <div class="icon-circle">
+                                <i class="fas fa-coins"></i>
+                            </div>
+                            <div class="ms-3">
+                                <p class="mb-0 text-muted">Budget</p>
+                                <p class="mb-0 fw-bold text-dark">{{ evenement.budget }} €</p>
+                            </div>
+                        </div>
+
+
+  
+                        <!-- Bouton d'inscription -->
+                        <div class="mt-4">
+                            <a href="{{ path('app_login') }}" class="btn btn-lg w-100 rounded-pill py-3 register-btn">
+                                <i class="fas fa-user-plus me-2"></i> S'inscrire à l'événement
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Colonne de droite avec description et autres détails -->
+            <div class="col-lg-7">
+                <div class="card border-0 rounded-4 shadow-sm h-100">
+                    <div class="card-body p-4" id="details">
+                        <!-- Titre et icône de détail côte à côte dans la colonne de droite aussi -->
+                        <div class="event-title-container">
+                            <h3 class="event-title">À propos de cet événement</h3>
+                            <a href="#" class="detail-icon-circle">
+                                <i class="fas fa-eye"></i>
+                            </a>
+                        </div>
+
+                        <div class="mb-5">
+                            <h5 class="fw-bold mb-3 text-dark">Description</h5>
+                            <div class="text-muted" style="line-height: 1.8;">
+                                {{ evenement.description|nl2br }}
+                            </div>
+                        </div>
+
+                        <!-- Section pour des informations complémentaires -->
+                        <div class="mb-5">
+                            <h5 class="fw-bold mb-3 text-dark">Informations importantes</h5>
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item border-0 ps-0 d-flex align-items-center">
+                                    <i class="fas fa-info-circle me-3 text-primary"></i>
+                                    <span class="text-muted">Places limitées, inscription obligatoire</span>
+                                </li>
+                                <li class="list-group-item border-0 ps-0 d-flex align-items-center">
+                                    <i class="fas fa-parking me-3 text-primary"></i>
+                                    <span class="text-muted">Parking disponible sur place</span>
+                                </li>
+                                <li class="list-group-item border-0 ps-0 d-flex align-items-center">
+                                    <i class="fas fa-utensils me-3 text-primary"></i>
+                                    <span class="text-muted">Rafraîchissements offerts</span>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <!-- Bouton de partage -->
+                        <div class="mt-4">
+                            <h5 class="fw-bold mb-3 text-dark">Partager cet événement</h5>
+                            <div class="d-flex">
+                                <a href="#" class="btn btn-sm me-2 share-btn" style="background: #3b5998;">
+                                    <i class="fab fa-facebook-f"></i>
+                                </a>
+                                <a href="#" class="btn btn-sm me-2 share-btn" style="background: #1da1f2;">
+                                    <i class="fab fa-twitter"></i>
+                                </a>
+                                <a href="#" class="btn btn-sm me-2 share-btn" style="background: #0077b5;">
+                                    <i class="fab fa-linkedin-in"></i>
+                                </a>
+                                <a href="#" class="btn btn-sm share-btn" style="background: #25D366;">
+                                    <i class="fab fa-whatsapp"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section pour les événements similaires -->
+        <div class="mt-5 pt-3">
+            <h3 class="fw-bold mb-4 text-center text-dark">Événements similaires</h3>
+            <div class="row g-4">
+                <div class="col-12 text-center">
+                    <a href="{{ path('app_evenements') }}" class="btn btn-lg px-5 py-3 rounded-pill view-all-btn">
+                        <i class="fas fa-calendar-alt me-2"></i> Voir tous les événements
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

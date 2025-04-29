@@ -1,0 +1,68 @@
+{# templates/calendar/index.html.twig #}
+{% extends 'base.html.twig' %}
+
+{% block title %}Calendrier{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.0/main.min.css">
+    <style>
+        #calendar-holder {
+            margin-top: 20px;
+            margin-bottom: 20px;
+        }
+        .error-message {
+            color: red;
+            margin-top: 10px;
+            display: none;
+        }
+    </style>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.0/main.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.0/locales/fr.min.js"></script>
+{% endblock %}
+
+{% block body %}
+    <div class="container mt-4">
+        <h1>Calendrier</h1>
+        <div id="calendar-holder"></div>
+        <div id="error-message" class="error-message"></div>
+    </div>
+    
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var calendarEl = document.getElementById('calendar-holder');
+        var errorMessageEl = document.getElementById('error-message');
+        
+        var calendar = new FullCalendar.Calendar(calendarEl, {
+            initialView: 'dayGridMonth',
+            locale: 'fr',
+            headerToolbar: {
+                left: 'prev,next today',
+                center: 'title',
+                right: 'dayGridMonth,timeGridWeek,timeGridDay'
+            },
+            events: {
+                url: "{{ path('fc_load_events') }}",
+                method: 'GET',
+                extraParams: {
+                    filters: JSON.stringify({})  // Ajoutez ici des filtres si nécessaire
+                },
+                success: function(response) {
+                    console.log('Success:', response);  // Affiche la réponse des événements
+                },
+                failure: function(error) {
+                    console.error('Error:', error);
+                    errorMessageEl.textContent = 'Erreur lors du chargement des événements';
+                    errorMessageEl.style.display = 'block';
+                }
+            }
+        });
+        
+        calendar.render();
+    });
+    </script>
+{% endblock %}

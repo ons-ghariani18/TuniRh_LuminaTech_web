@@ -1,20 +1,831 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello EvenementController!{% endblock %}
+{% block title %}Gestion des Événements{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link href="https://cdn.materialdesignicons.com/5.4.55/css/materialdesignicons.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #e67e22;
+            --primary-dark: #d35400;
+            --secondary-color: #091E3E;
+            --sidebar-bg: #091E3E;
+            --sidebar-text: #a3adcc;
+            --body-bg: #f5f7fa;
+            --card-bg: #fff;
+            --text-color: #333;
+            --muted-text: #6b7280;
+            --border-color: #e0e0e0;
+            --transition-speed: 0.3s;
+        }
+
+        body {
+            font-family: 'Nunito', sans-serif;
+            background: var(--body-bg);
+            color: var(--text-color);
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        .flex {
+            display: flex;
+        }
+
+        .flex-1 {
+            flex: 1;
+        }
+
+        .h-screen {
+            height: 100vh;
+        }
+
+        .items-center {
+            align-items: center;
+        }
+
+        .justify-between {
+            justify-content: space-between;
+        }
+
+        .gap-2 {
+            gap: 0.5rem;
+        }
+
+        .gap-4 {
+            gap: 1rem;
+        }
+
+        .text-xl {
+            font-size: 1.25rem;
+        }
+
+        .text-2xl {
+            font-size: 1.5rem;
+        }
+
+        .font-bold {
+            font-weight: 700;
+        }
+
+        .rounded-full {
+            border-radius: 9999px;
+        }
+
+        .mb-6 {
+            margin-bottom: 1.5rem;
+        }
+
+        .mr-2 {
+            margin-right: 0.5rem;
+        }
+
+        /* Notification badge */
+        .notification-badge {
+            position: relative;
+            display: inline-block;
+            margin-right: 1rem;
+        }
+
+        .notification-icon {
+            font-size: 1.25rem;
+            color: var(--text-color);
+        }
+
+        .badge-count {
+            position: absolute;
+            top: -0.5rem;
+            right: -0.5rem;
+            background-color: #ef4444;
+            color: white;
+            font-size: 0.75rem;
+            border-radius: 9999px;
+            height: 1.25rem;
+            width: 1.25rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Sidebar & Main Content */
+        .app-container {
+            position: relative;
+            display: flex;
+            min-height: 100vh;
+        }
+
+        .aside {
+            width: 240px;
+            background-color: var(--sidebar-bg);
+            color: var(--sidebar-text);
+            position: fixed;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            overflow-y: auto;
+            padding-top: 60px;
+            z-index: 100;
+            transition: transform var(--transition-speed) ease, box-shadow var(--transition-speed) ease;
+        }
+
+        .aside.is-collapsed {
+            transform: translateX(-240px);
+            box-shadow: none;
+        }
+
+        body.sidebar-expanded .aside {
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .aside .aside-brand {
+            position: fixed;
+            top: 0;
+            height: 60px;
+            background-color: var(--sidebar-bg);
+            width: 240px;
+            display: flex;
+            align-items: center;
+            padding: 0 1.5rem;
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: white;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            z-index: 101;
+            transition: transform var(--transition-speed) ease;
+        }
+
+        .aside.is-collapsed .aside-brand {
+            transform: translateX(-240px);
+        }
+
+        .menu-label {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            margin: 1rem 1.5rem 0.25rem;
+            color: rgba(255, 255, 255, 0.4);
+        }
+
+        .menu-item {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.75rem 1.5rem;
+            color: var(--sidebar-text);
+            text-decoration: none;
+            transition: background 0.3s, color 0.3s;
+        }
+
+        .menu-item:hover, .menu-item.is-active {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        .main-content {
+            margin-left: 240px;
+            flex: 1;
+            padding: 0;
+            transition: margin-left var(--transition-speed) ease;
+        }
+
+        .main-content.sidebar-collapsed {
+            margin-left: 0;
+        }
+
+        .content-inner {
+            padding: 2rem;
+        }
+
+        /* Navbar */
+        .navbar {
+            position: sticky;
+            top: 0;
+            background: white;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+            z-index: 99;
+        }
+
+        .navbar-menu {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .search-input {
+            padding: 0.5rem 1rem;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            width: 250px;
+            font-family: 'Nunito', sans-serif;
+        }
+
+        .menu-toggle {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 36px;
+            height: 36px;
+            border-radius: 6px;
+            background-color: transparent;
+            color: var(--text-color);
+            border: 1px solid var(--border-color);
+            cursor: pointer;
+            transition: background 0.2s;
+            margin-right: 1rem;
+        }
+
+        .menu-toggle:hover {
+            background-color: var(--body-bg);
+        }
+
+        .menu-toggle i {
+            transition: transform 0.3s;
+        }
+
+        .menu-toggle.active i {
+            transform: rotate(180deg);
+        }
+
+        /* Button & Table */
+        .btn-primary {
+            background: var(--primary-color);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: background 0.3s;
+            text-decoration: none;
+            border: none;
+            cursor: pointer;
+            font-family: 'Nunito', sans-serif;
+        }
+
+        .btn-primary:hover {
+            background: var(--primary-dark);
+        }
+
+        .table-container {
+            margin-top: 2rem;
+            background: var(--card-bg);
+            padding: 1.5rem;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            overflow-x: auto;
+        }
+
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .data-table th, .data-table td {
+            text-align: left;
+            padding: 0.75rem 1rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .data-table th {
+            background: #f9f9f9;
+            font-weight: 700;
+        }
+
+        .data-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .data-table tr:hover {
+            background-color: #fef7f1;
+        }
+
+        .action-link {
+            color: var(--primary-dark);
+            margin-right: 0.5rem;
+            text-decoration: none;
+            font-weight: 500;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.25rem;
+        }
+
+        .action-link:hover {
+            text-decoration: underline;
+        }
+
+        .no-records {
+            text-align: center;
+            color: var(--muted-text);
+            padding: 1rem;
+        }
+
+        /* Overlay for mobile */
+        .sidebar-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 90;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity var(--transition-speed), visibility var(--transition-speed);
+        }
+
+        .sidebar-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        @media (max-width: 768px) {
+            .aside {
+                transform: translateX(-240px);
+            }
+
+            .aside.is-expanded {
+                transform: translateX(0);
+            }
+
+            .main-content {
+                margin-left: 0;
+            }
+
+            .navbar {
+                padding: 1rem;
+            }
+
+            .search-input {
+                width: 100%;
+                max-width: 200px;
+            }
+        }
+
+        /* Badges for event status */
+        .badge {
+            display: inline-block;
+            padding: 0.25rem 0.5rem;
+            border-radius: 50px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+
+        .badge-upcoming {
+            background-color: #e3f2fd;
+            color: #1976d2;
+        }
+
+        .badge-ongoing {
+            background-color: #e8f5e9;
+            color: #388e3c;
+        }
+
+        .badge-completed {
+            background-color: #f3e5f5;
+            color: #8e24aa;
+        }
+
+        .badge-cancelled {
+            background-color: #ffebee;
+            color: #d32f2f;
+        }
+
+        /* Date formatting */
+        .date-cell {
+            white-space: nowrap;
+        }
+
+        /* Style pour le conteneur du formulaire */
+        .filter-container {
+            background: var(--card-bg);
+            padding: 1.5rem;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            margin-bottom: 2rem;
+        }
+
+        .filter-container h2 {
+            font-size: 1.25rem;
+            margin-top: 0;
+            margin-bottom: 1rem;
+        }
+
+        .filter-form {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 1rem;
+            align-items: end;
+        }
+
+        .filter-form .form-group {
+            margin-bottom: 0;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+
+        .filter-form label {
+            display: block;
+            margin-bottom: 0.25rem;
+            font-weight: 600;
+            font-size: 0.875rem;
+        }
+
+        .filter-form input, .filter-form select {
+            width: 100%;
+            padding: 0.5rem;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            font-family: 'Nunito', sans-serif;
+        }
+
+        /* Style pour le bouton de recherche */
+        .search-button {
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 6px;
+            padding: 0.5rem 1rem;
+            cursor: pointer;
+            transition: background 0.3s;
+            height: 38px;
+            align-self: flex-end;
+            margin-top: 1.5rem;
+            font-family: 'Nunito', sans-serif;
+            font-weight: 600;
+        }
+
+        .search-button:hover {
+            background: var(--primary-dark);
+        }
+
+        /* Style pour les en-têtes de tri */
+        .data-table th a {
+            color: var(--text-color);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .data-table th a:hover {
+            color: var(--primary-color);
+        }
+
+        .data-table th a i {
+            margin-left: 0.25rem;
+            font-size: 0.875rem;
+        }
+
+        /* Style pour les en-têtes de tri actifs */
+        .sort-active {
+            color: var(--primary-color) !important;
+        }
+
+        .sort-icon {
+            margin-left: 0.5rem;
+            transition: transform 0.2s;
+        }
+
+        .sort-desc .sort-icon {
+            transform: rotate(180deg);
+        }
+    </style>
+{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
+<div class="app-container">
+    <aside class="aside" id="sidebar">
+        <div class="aside-brand">
+            <i class="mdi mdi-account-tie mr-2"></i> RH Dashboard
+        </div>
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
+        <div class="aside-menu">
+            <p class="menu-label">GÉNÉRAL</p>
+            <a href="{{ path('app_back_office') }}" class="menu-item">
+                <i class="mdi mdi-view-dashboard"></i> Tableau de bord
+            </a>
 
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code>C:/Users/MSI/Examen/src/Controller/EvenementController.php</code></li>
-        <li>Your template at <code>C:/Users/MSI/Examen/templates/evenement/index.html.twig</code></li>
-    </ul>
+            <p class="menu-label">GESTION RH</p>
+            <a href="#" class="menu-item">
+                <i class="mdi mdi-account-group"></i> Profils Utilisateurs
+            </a>
+            <a href="#" class="menu-item">
+                <i class="mdi mdi-briefcase"></i> Offres d'emploi
+            </a>
+            <a href="#" class="menu-item">
+                <i class="mdi mdi-file-document"></i> Candidatures
+            </a>
+            <a href="#" class="menu-item">
+                <i class="mdi mdi-message-alert"></i> Réclamations
+            </a>
+
+            <p class="menu-label">ÉVÉNEMENTS</p>
+            <a href="{{ path('app_evenement_index') }}" class="menu-item is-active">
+                <i class="mdi mdi-calendar"></i> Événements
+            </a>
+            <a href="{{ path('app_sponsor_index') }}" class="menu-item">
+                <i class="mdi mdi-handshake"></i> Sponsors
+            </a>
+            <a href="{{ path('app_notification') }}" class="menu-item">
+                <i class="mdi mdi-bell"></i> Notifications
+            </a>
+
+            <p class="menu-label">FORMATION</p>
+            <a href="#" class="menu-item">
+                <i class="mdi mdi-school"></i> Formations
+            </a>
+            <a href="#" class="menu-item">
+                <i class="mdi mdi-account-voice"></i> Entretiens
+            </a>
+        </div>
+    </aside>
+
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+    <div class="main-content" id="mainContent">
+        <header class="navbar">
+            <div class="flex items-center">
+                <button id="menuToggle" class="menu-toggle" aria-label="Toggle Menu">
+                    <i class="mdi mdi-menu"></i>
+                </button>
+            </div>
+            <div class="navbar-menu">
+              <a href="{{ path('app_weather') }}" class="text-blue-600 hover:text-blue-800" title="Météo">
+        <i class="mdi mdi-weather-cloudy text-xl"></i>
+    </a>
+                <a href="{{ path('app_notification') }}" class="notification-badge">
+                    <i class="mdi mdi-bell-outline notification-icon"></i>
+                    {% if upcoming_events|length > 0 %}
+                        <span class="badge-count">{{ upcoming_events|length }}</span>
+                    {% endif %}
+                    
+                  
+                </a>
+                <div class="flex items-center gap-2">
+                    <img src="https://ui-avatars.com/api/?name=RH+Admin&background=091E3E&color=fff" class="rounded-full" width="36" alt="Admin Avatar">
+                    <span>Admin RH</span>
+                </div>
+            </div>
+        </header>
+
+        <div class="content-inner">
+            <div class="flex justify-between items-center mb-6">
+                <h1 class="text-2xl font-bold">Gestion des Événements</h1>
+                <a href="{{ path('app_evenement_new') }}" class="btn-primary">
+                    <i class="mdi mdi-plus-circle"></i> Nouvel Événement
+                </a>
+            </div>
+
+            <div class="filter-container">
+                <h2><i class="mdi mdi-filter-variant"></i> Filtrer les événements</h2>
+                {{ form_start(searchForm, {'attr': {'class': 'filter-form'}}) }}
+                    <div class="form-group">
+                        {{ form_label(searchForm.nom) }}
+                        {{ form_widget(searchForm.nom) }}
+                    </div>
+                    <div class="form-group">
+                        {{ form_label(searchForm.type) }}
+                        {{ form_widget(searchForm.type) }}
+                    </div>
+                    <div class="form-group">
+                        {{ form_label(searchForm.lieu) }}
+                        {{ form_widget(searchForm.lieu) }}
+                    </div>
+                    <div class="form-group">
+                        {{ form_label(searchForm.date_debut) }}
+                        {{ form_widget(searchForm.date_debut) }}
+                    </div>
+                    <div class="form-group">
+                        {{ form_label(searchForm.date_fin) }}
+                        {{ form_widget(searchForm.date_fin) }}
+                    </div>
+                    {% if searchForm.sponsor is defined %}
+                    <div class="form-group">
+                        {{ form_label(searchForm.sponsor) }}
+                        {{ form_widget(searchForm.sponsor) }}
+                    </div>
+                    {% endif %}
+                    <div class="form-group">
+                        <button type="submit" class="search-button">Rechercher</button>
+                    </div>
+                {{ form_end(searchForm) }}
+            </div>
+
+            <div class="table-container">
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>
+                                <a href="{{ path('app_evenement_index', app.request.query.all|merge({'sort': 'idEv', 'direction': (sortField == 'idEv' and sortDirection == 'asc') ? 'desc' : 'asc'})) }}"
+                                   class="{{ sortField == 'idEv' ? 'sort-active' : '' }}">
+                                    ID
+                                    <i class="mdi mdi-arrow-{{ (sortField == 'idEv' and sortDirection == 'desc') ? 'down' : 'up' }} sort-icon {{ sortField == 'idEv' ? (sortDirection == 'desc' ? 'sort-desc' : 'sort-asc') : '' }}"></i>
+                                </a>
+                            </th>
+                            <th>
+                                <a href="{{ path('app_evenement_index', app.request.query.all|merge({'sort': 'nom', 'direction': (sortField == 'nom' and sortDirection == 'asc') ? 'desc' : 'asc'})) }}"
+                                   class="{{ sortField == 'nom' ? 'sort-active' : '' }}">
+                                    Nom
+                                    <i class="mdi mdi-arrow-{{ (sortField == 'nom' and sortDirection == 'desc') ? 'down' : 'up' }} sort-icon {{ sortField == 'nom' ? (sortDirection == 'desc' ? 'sort-desc' : 'sort-asc') : '' }}"></i>
+                                </a>
+                            </th>
+                            <th>
+                                <a href="{{ path('app_evenement_index', app.request.query.all|merge({'sort': 'type', 'direction': (sortField == 'type' and sortDirection == 'asc') ? 'desc' : 'asc'})) }}"
+                                   class="{{ sortField == 'type' ? 'sort-active' : '' }}">
+                                    Type
+                                    <i class="mdi mdi-arrow-{{ (sortField == 'type' and sortDirection == 'desc') ? 'down' : 'up' }} sort-icon {{ sortField == 'type' ? (sortDirection == 'desc' ? 'sort-desc' : 'sort-asc') : '' }}"></i>
+                                </a>
+                            </th>
+                            <th>
+                                <a href="{{ path('app_evenement_index', app.request.query.all|merge({'sort': 'dateDebut', 'direction': (sortField == 'dateDebut' and sortDirection == 'asc') ? 'desc' : 'asc'})) }}"
+                                   class="{{ sortField == 'dateDebut' ? 'sort-active' : '' }}">
+                                    Date Début
+                                    <i class="mdi mdi-arrow-{{ (sortField == 'dateDebut' and sortDirection == 'desc') ? 'down' : 'up' }} sort-icon {{ sortField == 'dateDebut' ? (sortDirection == 'desc' ? 'sort-desc' : 'sort-asc') : '' }}"></i>
+                                </a>
+                            </th>
+                            <th>
+                                <a href="{{ path('app_evenement_index', app.request.query.all|merge({'sort': 'dateFin', 'direction': (sortField == 'dateFin' and sortDirection == 'asc') ? 'desc' : 'asc'})) }}"
+                                   class="{{ sortField == 'dateFin' ? 'sort-active' : '' }}">
+                                    Date Fin
+                                    <i class="mdi mdi-arrow-{{ (sortField == 'dateFin' and sortDirection == 'desc') ? 'down' : 'up' }} sort-icon {{ sortField == 'dateFin' ? (sortDirection == 'desc' ? 'sort-desc' : 'sort-asc') : '' }}"></i>
+                                </a>
+                            </th>
+                            <th>Statut</th>
+                            <th>
+                                <a href="{{ path('app_evenement_index', app.request.query.all|merge({'sort': 'lieu', 'direction': (sortField == 'lieu' and sortDirection == 'asc') ? 'desc' : 'asc'})) }}"
+                                   class="{{ sortField == 'lieu' ? 'sort-active' : '' }}">
+                                    Lieu
+                                    <i class="mdi mdi-arrow-{{ (sortField == 'lieu' and sortDirection == 'desc') ? 'down' : 'up' }} sort-icon {{ sortField == 'lieu' ? (sortDirection == 'desc' ? 'sort-desc' : 'sort-asc') : '' }}"></i>
+                                </a>
+                            </th>
+                            <th>
+                                <a href="{{ path('app_evenement_index', app.request.query.all|merge({'sort': 'budget', 'direction': (sortField == 'budget' and sortDirection == 'asc') ? 'desc' : 'asc'})) }}"
+                                   class="{{ sortField == 'budget' ? 'sort-active' : '' }}">
+                                    Budget
+                                    <i class="mdi mdi-arrow-{{ (sortField == 'budget' and sortDirection == 'desc') ? 'down' : 'up' }} sort-icon {{ sortField == 'budget' ? (sortDirection == 'desc' ? 'sort-desc' : 'sort-asc') : '' }}"></i>
+                                </a>
+                            </th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {% for evenement in evenements %}
+                        <tr>
+                            <td>{{ evenement.idEv }}</td>
+                            <td>{{ evenement.nom }}</td>
+                            <td>{{ evenement.type }}</td>
+                            <td class="date-cell">{{ evenement.dateDebut ? evenement.dateDebut|date('d/m/Y') : '' }}</td>
+                            <td class="date-cell">{{ evenement.dateFin ? evenement.dateFin|date('d/m/Y') : '' }}</td>
+                            <td>
+                                {% set now = date() %}
+                                {% if evenement.dateFin < now %}
+                                    <span class="badge badge-completed">Terminé</span>
+                                {% elseif evenement.dateDebut <= now and evenement.dateFin >= now %}
+                                    <span class="badge badge-ongoing">En cours</span>
+                                {% else %}
+                                    <span class="badge badge-upcoming">À venir</span>
+                                {% endif %}
+                            </td>
+                            <td>{{ evenement.lieu }}</td>
+                            <td>{{ evenement.budget }} €</td>
+                            <td>
+                                <a href="{{ path('app_evenement_show', {'id_ev': evenement.idEv}) }}" class="action-link">
+                                    <i class="mdi mdi-eye"></i> Voir
+                                </a>
+                                <a href="{{ path('app_evenement_edit', {'id_ev': evenement.idEv}) }}" class="action-link">
+                                    <i class="mdi mdi-pencil"></i> Modifier
+                                </a>
+                                <a href="#" class="action-link delete-event" data-event-name="{{ evenement.nom }}" data-delete-url="{{ path('app_evenement_delete', {'id_ev': evenement.idEv}) }}">
+                                    <i class="mdi mdi-delete"></i> Supprimer
+                                </a>
+          </td>
+                        </tr>
+                    {% else %}
+                        <tr>
+                            <td colspan="9" class="no-records">Aucun événement trouvé</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
 </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Handle delete confirmation
+            document.querySelectorAll('.delete-event').forEach(link => {
+                link.addEventListener('click', e => {
+                    e.preventDefault();
+                    const name = link.dataset.eventName;
+                    const deleteUrl = link.dataset.deleteUrl;
+
+                    if (confirm(`Supprimer l'événement "${name}" ? Cette action est irréversible.`)) {
+                        window.location.href = deleteUrl;
+                    }
+                });
+            });
+
+            // Sidebar toggle with animation
+            const sidebar = document.getElementById('sidebar');
+            const mainContent = document.getElementById('mainContent');
+            const menuToggle = document.getElementById('menuToggle');
+            const sidebarOverlay = document.getElementById('sidebarOverlay');
+
+            function toggleSidebar() {
+                const isExpanded = !sidebar.classList.contains('is-collapsed');
+
+                if (isExpanded) {
+                    // Collapse sidebar
+                    sidebar.classList.add('is-collapsed');
+                    mainContent.classList.add('sidebar-collapsed');
+                    menuToggle.classList.add('active');
+                    document.body.classList.remove('sidebar-expanded');
+                } else {
+                    // Expand sidebar
+                    sidebar.classList.remove('is-collapsed');
+                    mainContent.classList.remove('sidebar-collapsed');
+                    menuToggle.classList.remove('active');
+                    document.body.classList.add('sidebar-expanded');
+                }
+
+                // Show overlay on mobile when sidebar is expanded
+                if (window.innerWidth <= 768) {
+                    if (!isExpanded) {
+                        sidebarOverlay.classList.add('active');
+                    } else {
+                        sidebarOverlay.classList.remove('active');
+                    }
+                }
+            }
+
+            // Initialize sidebar state
+            function initSidebar() {
+                if (window.innerWidth <= 768) {
+                    sidebar.classList.add('is-collapsed');
+                    mainContent.classList.add('sidebar-collapsed');
+                } else {
+                    sidebar.classList.remove('is-collapsed');
+                    mainContent.classList.remove('sidebar-collapsed');
+                }
+            }
+
+            // Event listeners
+            menuToggle.addEventListener('click', toggleSidebar);
+            sidebarOverlay.addEventListener('click', () => {
+                if (window.innerWidth <= 768) {
+                    toggleSidebar();
+                }
+            });
+
+            // Notification bell animation
+            const notificationBell = document.querySelector('.notification-badge');
+            if (notificationBell) {
+                notificationBell.addEventListener('click', function() {
+                    const icon = this.querySelector('i');
+                    icon.classList.toggle('mdi-bell-outline');
+                    icon.classList.toggle('mdi-bell');
+                    
+                    // Option to mark notifications as read
+                    fetch('{{ path('app_notification') }}', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-Requested-With': 'XMLHttpRequest'
+                        }
+                    }).then(response => {
+                        if (response.ok) {
+                            const badge = this.querySelector('.badge-count');
+                            if (badge) {
+                                badge.remove();
+                            }
+                        }
+                    });
+                });
+            }
+
+            // Initialize on page load
+            initSidebar();
+
+            // Handle resize
+            window.addEventListener('resize', () => {
+                initSidebar();
+                if (window.innerWidth > 768) {
+                    sidebarOverlay.classList.remove('active');
+                }
+            });
+        });
+    </script>
 {% endblock %}

@@ -1,0 +1,49 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Gestion Excel des Sponsors{% endblock %}
+
+{% block body %}
+<div class="content-inner">
+    <div class="page-header">
+        <h1 class="page-title">
+            <i class="mdi mdi-file-excel"></i> Gestion Excel des Sponsors
+        </h1>
+    </div>
+
+    <div class="chart-container">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div class="p-6 bg-white rounded-lg shadow">
+                <h3 class="text-lg font-semibold mb-4">
+                    <i class="mdi mdi-export"></i> Exporter les sponsors
+                </h3>
+                <p class="mb-4">Générez un fichier Excel avec tous les sponsors</p>
+                <a href="{{ path('app_sponsor_excel_export') }}" class="btn-primary">
+                    <i class="mdi mdi-file-excel"></i> Exporter en Excel
+                </a>
+            </div>
+
+            <div class="p-6 bg-white rounded-lg shadow">
+                <h3 class="text-lg font-semibold mb-4">
+                    <i class="mdi mdi-import"></i> Importer des sponsors
+                </h3>
+                <p class="mb-4">Importez des sponsors depuis un fichier Excel</p>
+                <a href="{{ path('app_sponsor_excel_import') }}" class="btn-primary">
+                    <i class="mdi mdi-upload"></i> Importer depuis Excel
+                </a>
+            </div>
+        </div>
+
+        <div class="mt-6 p-6 bg-white rounded-lg shadow">
+            <h3 class="text-lg font-semibold mb-4">
+                <i class="mdi mdi-information"></i> Instructions
+            </h3>
+            <ul class="list-disc pl-5 space-y-2">
+                <li>Format Excel requis : .xlsx</li>
+                <li>Colonnes obligatoires : Nom (B), Type (C)</li>
+                <li>La première ligne doit contenir les en-têtes</li>
+                <li>Téléchargez le <a href="#" class="text-primary-600 hover:underline">modèle Excel</a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+{% endblock %}
