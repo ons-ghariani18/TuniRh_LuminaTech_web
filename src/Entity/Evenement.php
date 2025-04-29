@@ -2,223 +2,175 @@
 
 namespace App\Entity;
 
-use App\Repository\EvenementRepository;
-use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
-use App\Entity\Sponsor;
-use Symfony\Component\Validator\Constraints as Assert;
-use Symfony\Component\Validator\Context\ExecutionContextInterface;
-use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
-#[ORM\Entity(repositoryClass: EvenementRepository::class)]
-#[UniqueEntity(fields: ['nom'], message: 'Un événement avec ce nom existe déjà.')]
-#[Assert\Callback('validateDates')]
+use App\Entity\Sponsor;
+use Doctrine\Common\Collections\Collection;
+use App\Entity\Participation;
+
+#[ORM\Entity]
 class Evenement
 {
+
     #[ORM\Id]
-    #[ORM\GeneratedValue]
-    #[ORM\Column(name: "id_ev", type: "integer")]
-    private ?int $id_ev = null;
+    #[ORM\Column(type: "integer")]
+    private int $id_ev;
 
-    #[ORM\ManyToOne(targetEntity: Sponsor::class, inversedBy: "evenements")]
-    #[ORM\JoinColumn(name: "id_sp", referencedColumnName: "id_sp", onDelete: "CASCADE")]
-    #[Assert\NotNull(message: "Le sponsor est obligatoire.")]
-    private ?Sponsor $sponsor = null;
+        #[ORM\ManyToOne(targetEntity: Sponsor::class, inversedBy: "evenements")]
+    #[ORM\JoinColumn(name: 'id_sp', referencedColumnName: 'id_sp', onDelete: 'CASCADE')]
+    private Sponsor $id_sp;
 
-    #[ORM\Column(type: Types::STRING, length: 255)]
-    #[Assert\NotBlank(message: "Le nom est obligatoire.")]
-    #[Assert\Length(
-        min: 2,
-        max: 255,
-        minMessage: "Le nom doit contenir au moins {{ limit }} caractères.",
-        maxMessage: "Le nom ne peut pas dépasser {{ limit }} caractères."
-    )]
+    #[ORM\Column(type: "string", length: 255)]
     private string $nom;
 
-    #[ORM\Column(type: Types::STRING, length: 100)]
-    #[Assert\NotBlank(message: "Le type est obligatoire.")]
+    #[ORM\Column(type: "string", length: 100)]
     private string $type;
 
-    #[ORM\Column(type: Types::DATE_MUTABLE)]
-    #[Assert\NotNull(message: "La date de début est obligatoire.")]
-    private ?\DateTimeInterface $date_debut = null;
-    
-    #[ORM\Column(type: Types::DATE_MUTABLE)]
-    #[Assert\NotNull(message: "La date de fin est obligatoire.")]
-    private ?\DateTimeInterface $date_fin = null;
+    #[ORM\Column(type: "date")]
+    private \DateTimeInterface $date_debut;
 
-    #[ORM\Column(type: Types::STRING, length: 255)]
-    #[Assert\NotBlank(message: "Le lieu est obligatoire.")]
-    #[Assert\Length(
-        min: 3,
-        minMessage: "Le lieu doit contenir au moins {{ limit }} caractères."
-    )]
+    #[ORM\Column(type: "date")]
+    private \DateTimeInterface $date_fin;
+
+    #[ORM\Column(type: "string", length: 255)]
     private string $lieu;
 
-    #[ORM\Column(type: Types::FLOAT)]
-    #[Assert\NotNull(message: "Le budget est obligatoire.")]
-    #[Assert\PositiveOrZero(message: "Le budget ne peut pas être négatif.")]
-    #[Assert\Type(
-        type: "numeric",
-        message: "Le budget doit être un nombre."
-    )]
+    #[ORM\Column(type: "float")]
     private float $budget;
 
-    #[ORM\Column(type: Types::TEXT)]
-    #[Assert\NotBlank(message: "La description est obligatoire.")]
-    #[Assert\Length(
-        min: 10,
-        minMessage: "La description doit contenir au moins {{ limit }} caractères."
-    )]
+    #[ORM\Column(type: "text")]
     private string $description;
 
-    #[ORM\Column(type: Types::STRING, length: 255, nullable: true)]
-    private ?string $image = null;
+    #[ORM\Column(type: "string", length: 255)]
+    private string $google_calendar_event_id;
 
-    #[ORM\Column(type: Types::STRING, length: 255, nullable: false)]
-    private  $google_calendar_event_id;
-
-    // Validation personnalisée des dates
-    public function validateDates(ExecutionContextInterface $context): void
-    {
-        $now = new \DateTime('today');
-    
-        if ($this->date_debut === null || $this->date_fin === null) {
-            return;
-        }
-    
-        if ($this->date_debut < $now) {
-            $context->buildViolation("La date de début ne peut pas être dans le passé.")
-                ->atPath('date_debut')
-                ->addViolation();
-        }
-    
-        if ($this->date_debut > $this->date_fin) {
-            $context->buildViolation("La date de fin doit être postérieure ou égale à la date de début.")
-                ->atPath('date_fin')
-                ->addViolation();
-        }
-    }
-
-    // Getters et Setters
-    public function getIdEv(): ?int
+    public function getId_ev()
     {
         return $this->id_ev;
     }
 
-    public function setIdEv(int $id_ev): self
+    public function setId_ev($value)
     {
-        $this->id_ev = $id_ev;
-        return $this;
+        $this->id_ev = $value;
     }
 
-    public function getSponsor(): ?Sponsor
+    public function getId_sp()
     {
-        return $this->sponsor;
+        return $this->id_sp;
     }
 
-    public function setSponsor(?Sponsor $sponsor): self
+    public function setId_sp($value)
     {
-        $this->sponsor = $sponsor;
-        return $this;
+        $this->id_sp = $value;
     }
 
-    public function getNom(): string
+    public function getNom()
     {
         return $this->nom;
     }
 
-    public function setNom(string $nom): self
+    public function setNom($value)
     {
-        $this->nom = $nom;
-        return $this;
+        $this->nom = $value;
     }
 
-    public function getType(): string
+    public function getType()
     {
         return $this->type;
     }
 
-    public function setType(string $type): self
+    public function setType($value)
     {
-        $this->type = $type;
-        return $this;
+        $this->type = $value;
     }
 
-    public function getDateDebut(): ?\DateTimeInterface
+    public function getDate_debut()
     {
         return $this->date_debut;
     }
 
-    public function setDateDebut(?\DateTimeInterface $date_debut): self
+    public function setDate_debut($value)
     {
-        $this->date_debut = $date_debut;
-        return $this;
+        $this->date_debut = $value;
     }
 
-    public function getDateFin(): ?\DateTimeInterface
+    public function getDate_fin()
     {
         return $this->date_fin;
     }
 
-    public function setDateFin(?\DateTimeInterface $date_fin): self
+    public function setDate_fin($value)
     {
-        $this->date_fin = $date_fin;
-        return $this;
+        $this->date_fin = $value;
     }
 
-    public function getLieu(): string
+    public function getLieu()
     {
         return $this->lieu;
     }
 
-    public function setLieu(string $lieu): self
+    public function setLieu($value)
     {
-        $this->lieu = $lieu;
-        return $this;
+        $this->lieu = $value;
     }
 
-    public function getBudget(): float
+    public function getBudget()
     {
         return $this->budget;
     }
 
-    public function setBudget(float $budget): self
+    public function setBudget($value)
     {
-        $this->budget = $budget;
-        return $this;
+        $this->budget = $value;
     }
 
-    public function getDescription(): string
+    public function getDescription()
     {
         return $this->description;
     }
 
-    public function setDescription(string $description): self
+    public function setDescription($value)
     {
-        $this->description = $description;
-        return $this;
+        $this->description = $value;
     }
 
-    public function getImage(): ?string
-    {
-        return $this->image;
-    }
-
-    public function setImage(?string $image): self
-    {
-        $this->image = $image;
-        return $this;
-    }
-
-    public function getGoogleEventId(): ?string
+    public function getGoogle_calendar_event_id()
     {
         return $this->google_calendar_event_id;
     }
 
-    public function setGoogleEventId(?string $google_calendar_event_id): self
+    public function setGoogle_calendar_event_id($value)
     {
-        $this->google_calendar_event_id = $google_calendar_event_id;
-        return $this;
+        $this->google_calendar_event_id = $value;
     }
+
+    #[ORM\OneToMany(mappedBy: "id_ev", targetEntity: Participation::class)]
+    private Collection $participations;
+
+        public function getParticipations(): Collection
+        {
+            return $this->participations;
+        }
+    
+        public function addParticipation(Participation $participation): self
+        {
+            if (!$this->participations->contains($participation)) {
+                $this->participations[] = $participation;
+                $participation->setId_ev($this);
+            }
+    
+            return $this;
+        }
+    
+        public function removeParticipation(Participation $participation): self
+        {
+            if ($this->participations->removeElement($participation)) {
+                // set the owning side to null (unless already changed)
+                if ($participation->getId_ev() === $this) {
+                    $participation->setId_ev(null);
+                }
+            }
+    
+            return $this;
+        }
 }

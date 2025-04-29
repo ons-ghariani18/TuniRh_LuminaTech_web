@@ -8,6 +8,5 @@ framework:
             high: ['email']
             medium: ['email']
             low: ['email']
-            transport: '%env(MAILER_DSN)%'
         admin_recipients:
             - { email: admin@example.com }

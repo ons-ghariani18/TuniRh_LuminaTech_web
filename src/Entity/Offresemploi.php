@@ -2,8 +2,6 @@
 
 namespace App\Entity;
 
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 use Doctrine\Common\Collections\Collection;
@@ -121,11 +119,6 @@ class Offresemploi
     #[ORM\OneToMany(mappedBy: "id_offre", targetEntity: Candidatures::class)]
     private Collection $candidaturess;
 
-    public function __construct()
-    {
-        $this->candidaturess = new ArrayCollection();
-    }
-
         public function getCandidaturess(): Collection
         {
             return $this->candidaturess;
@@ -150,69 +143,6 @@ class Offresemploi
                 }
             }
     
-            return $this;
-        }
-
-        public function getIdOffre(): ?int
-        {
-            return $this->id_offre;
-        }
-
-        public function getCompetencesRequises(): ?string
-        {
-            return $this->competences_requises;
-        }
-
-        public function setCompetencesRequises(string $competences_requises): static
-        {
-            $this->competences_requises = $competences_requises;
-
-            return $this;
-        }
-
-        public function getTypeContrat(): ?string
-        {
-            return $this->type_contrat;
-        }
-
-        public function setTypeContrat(string $type_contrat): static
-        {
-            $this->type_contrat = $type_contrat;
-
-            return $this;
-        }
-
-        public function getDatePublication(): ?\DateTimeInterface
-        {
-            return $this->date_publication;
-        }
-
-        public function setDatePublication(\DateTimeInterface $date_publication): static
-        {
-            $this->date_publication = $date_publication;
-
-            return $this;
-        }
-
-        public function addCandidaturess(Candidatures $candidaturess): static
-        {
-            if (!$this->candidaturess->contains($candidaturess)) {
-                $this->candidaturess->add($candidaturess);
-                $candidaturess->setIdOffre($this);
-            }
-
-            return $this;
-        }
-
-        public function removeCandidaturess(Candidatures $candidaturess): static
-        {
-            if ($this->candidaturess->removeElement($candidaturess)) {
-                // set the owning side to null (unless already changed)
-                if ($candidaturess->getIdOffre() === $this) {
-                    $candidaturess->setIdOffre(null);
-                }
-            }
-
             return $this;
         }
 }

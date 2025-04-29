@@ -2,84 +2,66 @@
 
 namespace App\Entity;
 
-use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
-#[ORM\Entity(repositoryClass: 'App\Repository\ReservationsRepository')]
+use App\Entity\Formation;
+
+#[ORM\Entity]
 class Reservations
 {
+
     #[ORM\Id]
-    #[ORM\GeneratedValue(strategy: 'AUTO')]
-    #[ORM\Column(type: 'integer')]
-    private ?int $id = null;
+    #[ORM\Column(type: "integer")]
+    private int $id;
 
-    #[ORM\ManyToOne(targetEntity: Users::class, inversedBy: 'reservations')]
-    #[ORM\JoinColumn(nullable: false)]
-    private Users $user;
+        #[ORM\ManyToOne(targetEntity: Users::class, inversedBy: "reservationss")]
+    #[ORM\JoinColumn(name: 'user_id', referencedColumnName: 'id_user', onDelete: 'CASCADE')]
+    private Users $user_id;
 
-    #[ORM\ManyToOne(targetEntity: Formation::class, inversedBy: 'reservations')]
-    #[ORM\JoinColumn(nullable: false)]
-    private Formation $formation;
+        #[ORM\ManyToOne(targetEntity: Formation::class, inversedBy: "reservationss")]
+    #[ORM\JoinColumn(name: 'formation_id', referencedColumnName: 'id', onDelete: 'CASCADE')]
+    private Formation $formation_id;
 
-    #[ORM\Column(type: 'datetime')]
-    private \DateTimeInterface $reservationDate;
+    #[ORM\Column(type: "date")]
+    private \DateTimeInterface $date_inscription;
 
-    #[ORM\Column(type: 'string', length: 20)]
-    private string $status; // e.g., 'pending', 'confirmed', 'cancelled'
-
-    public function __construct()
-    {
-        $this->reservationDate = new \DateTime();
-        $this->status = 'pending';
-    }
-
-    // Getters and Setters
-    public function getId(): ?int
+    public function getId()
     {
         return $this->id;
     }
 
-    public function getUser(): Users
+    public function setId($value)
     {
-        return $this->user;
+        $this->id = $value;
     }
 
-    public function setUser(Users $user): self
+    public function getUser_id()
     {
-        $this->user = $user;
-        return $this;
+        return $this->user_id;
     }
 
-    public function getFormation(): Formation
+    public function setUser_id($value)
     {
-        return $this->formation;
+        $this->user_id = $value;
     }
 
-    public function setFormation(Formation $formation): self
+    public function getFormation_id()
     {
-        $this->formation = $formation;
-        return $this;
+        return $this->formation_id;
     }
 
-    public function getReservationDate(): \DateTimeInterface
+    public function setFormation_id($value)
     {
-        return $this->reservationDate;
+        $this->formation_id = $value;
     }
 
-    public function setReservationDate(\DateTimeInterface $reservationDate): self
+    public function getDate_inscription()
     {
-        $this->reservationDate = $reservationDate;
-        return $this;
+        return $this->date_inscription;
     }
 
-    public function getStatus(): string
+    public function setDate_inscription($value)
     {
-        return $this->status;
-    }
-
-    public function setStatus(string $status): self
-    {
-        $this->status = $status;
-        return $this;
+        $this->date_inscription = $value;
     }
 }
