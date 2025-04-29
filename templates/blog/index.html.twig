@@ -225,7 +225,7 @@
                             <i class="fa fa-bell"></i>
                             <span id="notificationCounter" class="notification-counter" style="display: none;">0</span>
                         </button>
-                        
+
                         <!-- Notification Dropdown -->
                         <div id="notificationDropdown" class="notification-dropdown">
                             <div class="notification-dropdown-header">
@@ -240,7 +240,7 @@
                             </div>
                         </div>
                     </div>
-                    
+
                     <button type="button" class="btn text-primary hover-orange-btn" data-bs-toggle="modal" data-bs-target="#searchModal">
                         <i class="fa fa-search"></i>
                     </button>
@@ -281,78 +281,11 @@
     <div class="container-fluid py-5 wow fadeInUp" data-wow-delay="0.1s">
         <div class="container py-5">
             <div class="row g-5">
+
                 <!-- Blog list Start -->
                 <div class="col-lg-8">
                     <div class="row g-5" id="formationList">
-                        {% for formation in formations %}
-                            {# Initialiser les variables #}
-                            {% set isReserved = false %}
-                            {% set reservationStatus = 'en attente' %}
-                            {% set priceType = formation.cost > 0 ? 'paid' : 'free' %}
-
-                            {# Parcourir la liste des réservations transmises depuis le contrôleur #}
-                            {% for reservation in reservations %}
-                                {% if reservation.formation.id == formation.id %}
-                                    {% set isReserved = true %}
-                                    {% set reservationStatus = reservation.status %}
-                                {% endif %}
-                            {% endfor %}
-
-                            <div class="col-md-6 wow slideInUp formation-item" data-wow-delay="0.6s" 
-                                 data-title="{{ formation.title|lower }}" 
-                                 data-description="{{ formation.description|lower }}" 
-                                 data-price-type="{{ priceType }}">
-                                <div class="blog-item bg-light rounded overflow-hidden">
-                                    <div class="blog-img position-relative overflow-hidden">
-                                        <img class="img-fluid" src="img/blog-1.jpg" alt="">
-                                        <a class="position-absolute top-0 start-0 bg-primary text-white rounded-end mt-5 py-2 px-4" href="">{{ formation.title }}</a>
-                                    </div>
-                                    <div class="p-4">
-                                        <div class="d-flex mb-3">
-                                            <small>
-                                                <i class="far fa-calendar-alt text-primary me-2"></i>
-                                                {{ formation.startDate | date('d/m/Y') }}
-                                            </small>
-                                            <small>
-                                                <i class="far fa-calendar-alt text-primary me-2"></i>
-                                                {{ formation.endDate | date('d/m/Y') }}
-                                            </small>
-                                        </div>
-                                        <h4 class="mb-3">
-                                            {% if priceType == 'free' %}
-                                                <span class="badge bg-success">Gratuit</span>
-                                            {% else %}
-                                                <span class="badge bg-primary">{{ formation.cost }} €</span>
-                                            {% endif %}
-                                        </h4>
-                                        <p>{{ formation.description }}</p>
-
-                                        {% if isReserved %}
-                                            <form action="{{ path('remove_reservation') }}" method="post">
-                                                <input type="hidden" name="formation_id" value="{{ formation.id }}">
-                                                <button type="submit" class="btn btn-danger">Se désinscrire</button>
-                                            </form>
-                                            <p>Statut de la réservation : {{ reservationStatus }}</p>
-                                            
-                                            <!-- Quiz Generation Button -->
-                                            <a href="{{ path('generate_quiz_by_id', { id: formation.id }) }}" class="btn btn-warning mt-2">
-                                                <i class="bi bi-trophy me-1"></i> Générer un quiz
-                                            </a>
-                                        {% else %}
-                                            <form action="{{ path('add_reservation') }}" method="post">
-                                                <input type="hidden" name="formation_id" value="{{ formation.id }}">
-                                                <button type="submit" class="btn btn-info">S'inscrire</button>
-                                            </form>
-                                            
-                                            <!-- Quiz Generation Button -->
-                                            <a href="{{ path('generate_quiz_by_id', { id: formation.id }) }}" class="btn btn-warning mt-2">
-                                                <i class="bi bi-trophy me-1"></i> Générer un quiz
-                                            </a>
-                                        {% endif %}
-                                    </div>
-                                </div>
-                            </div>
-                        {% endfor %}
+                        {# Les cartes seront injectées ici par JavaScript #}
                     </div>
                 </div>
                 <!-- Blog list End -->
@@ -362,42 +295,33 @@
                     <!-- Search Form Start -->
                     <div class="mb-5 wow slideInUp" data-wow-delay="0.1s">
                         <div class="input-group">
-                            <input type="text" class="form-control p-3" id="searchInput" placeholder="Rechercher des formations...">
-                            <button class="btn btn-primary px-4" id="searchButton"><i class="bi bi-search"></i></button>
+                            <input type="text" id="searchInput" class="form-control p-3" placeholder="Rechercher des formations…">
                         </div>
                     </div>
 
                     <!-- Category Start -->
                     <div class="mb-5 wow slideInUp" data-wow-delay="0.1s">
-                        <div class="section-title section-title-sm position-relative pb-3 mb-4">
-                            <h3 class="mb-0">Catégories</h3>
-                        </div>
+                        <h3 class="section-title pb-3 mb-4">Catégories</h3>
                         <div class="link-animated d-flex flex-column justify-content-start">
                             <a class="h5 fw-semi-bold bg-light rounded py-2 px-3 mb-2 filter-link active" href="#" data-filter="all"><i class="bi bi-arrow-right me-2"></i>Toutes les formations</a>
                             <a class="h5 fw-semi-bold bg-light rounded py-2 px-3 mb-2 filter-link" href="#" data-filter="free"><i class="bi bi-arrow-right me-2"></i>Formations gratuites</a>
                             <a class="h5 fw-semi-bold bg-light rounded py-2 px-3 mb-2 filter-link" href="#" data-filter="paid"><i class="bi bi-arrow-right me-2"></i>Formations payantes</a>
                         </div>
                     </div>
-                    
                     <!-- Category End -->
 
+                    <!-- Mes dernières réservations -->
                     <div class="mb-5 wow slideInUp" data-wow-delay="0.1s">
-                        <div class="section-title section-title-sm position-relative pb-3 mb-4">
-                            <h3 class="mb-0">Mes dernières réservations</h3>
-                        </div>
-
+                        <h3>Mes dernières réservations</h3>
                         {% if reservations %}
-                            {% for reservation in reservations %}
+                            {% for res in reservations %}
                                 <div class="d-flex rounded overflow-hidden mb-3">
                                     <div class="flex-grow-1 bg-light px-3 py-2">
-                                        <a
-                                                href="{{ path('app_formation_show', { id: reservation.formation.id }) }}"
-                                                class="h5 fw-semi-bold d-flex align-items-center mb-1"
-                                        >
-                                            {{ reservation.formation.title }}
+                                        <a href="{{ path('app_formation_show', { id: res.formation.id }) }}" class="h5 fw-semi-bold mb-1">
+                                            {{ res.formation.title }}
                                         </a>
                                         <small class="text-muted">
-                                            Réservé le {{ reservation.reservationDate|date('d/m/Y H:i') }}
+                                            Réservé le {{ res.reservationDate|date('d/m/Y H:i') }}
                                         </small>
                                     </div>
                                 </div>
@@ -406,43 +330,13 @@
                             <p class="text-muted">Vous n'avez encore fait aucune réservation.</p>
                         {% endif %}
                     </div>
-
-                    <div class="wow slideInUp" data-wow-delay="0.1s">
-                        <div class="section-title section-title-sm position-relative pb-3 mb-4">
-                            <h3 class="mb-0">Embarquez pour votre métamorphose : découvrez nos formations et libérez votre potentiel !</h3>
-                        </div>
-                        <div class="bg-light text-center" style="padding: 30px;">
-                            <p>Laissez-vous porter par l'élan d'apprendre et de grandir : rejoignez nos formations pour transformer vos rêves en réalités. Chaque instant passé à acquérir de nouvelles compétences est un pas de plus vers la version de vous-même dont vous avez toujours rêvé. Ensemble, partageons l'enthousiasme, les rires et ces "aha !" qui illuminent l'esprit — car c'est en osant aujourd'hui que vous construirez le succès de demain. N'attendez plus, venez écrire votre propre histoire de réussite à nos côtés.</p>
-                            <a href="" class="btn btn-primary py-2 px-4">Read More</a>
-                        </div>
-                    </div>
                 </div>
                 <!-- Sidebar End -->
+
             </div>
         </div>
     </div>
     <!-- Blog End -->
-
-
-    <!-- Vendor Start -->
-    <div class="container-fluid py-5 wow fadeInUp" data-wow-delay="0.1s">
-        <div class="container py-5 mb-5">
-            <div class="bg-white">
-                <div class="owl-carousel vendor-carousel">
-                    <img src="img/vendor-1.jpg" alt="">
-                    <img src="img/vendor-2.jpg" alt="">
-                    <img src="img/vendor-3.jpg" alt="">
-                    <img src="img/vendor-4.jpg" alt="">
-                    <img src="img/vendor-5.jpg" alt="">
-                    <img src="img/vendor-6.jpg" alt="">
-                    <img src="img/vendor-7.jpg" alt="">
-                    <img src="img/vendor-8.jpg" alt="">
-                    <img src="img/vendor-9.jpg" alt="">
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- Vendor End -->
 {% endblock %}
 
 {% block javascripts %}
@@ -455,118 +349,103 @@
     <script src="{{ asset('lib/counterup/counterup.min.js') }}"></script>
     <script src="{{ asset('lib/owlcarousel/owl.carousel.min.js') }}"></script>
     <script src="{{ asset('js/main.js') }}"></script>
-
     <script src="https://js.pusher.com/8.4.0/pusher.min.js"></script>
+
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            // Initialize the notification system
-            if (typeof window.notificationSystem === 'undefined') {
-                console.log('Initializing notification system from blog page');
+        document.addEventListener('DOMContentLoaded', () => {
+            // Notifications (inchangé)
+            if (!window.notificationSystem) {
                 window.notificationSystem = new NotificationSystem();
             }
-            
-            // Register notification button close handler
-            const closeBtn = document.querySelector('.notification-dropdown .notification-close');
-            if (closeBtn) {
-                closeBtn.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    e.stopPropagation();
-                    document.getElementById('notificationDropdown').classList.remove('show');
-                });
-            }
-            
-            // Instant search and filtering functionality
+            document.querySelector('.notification-close')?.addEventListener('click', e => {
+                e.preventDefault(); e.stopPropagation();
+                document.getElementById('notificationDropdown').classList.remove('show');
+            });
+
             const searchInput = document.getElementById('searchInput');
-            const formationItems = document.querySelectorAll('.formation-item');
             const filterLinks = document.querySelectorAll('.filter-link');
+            const formationList = document.getElementById('formationList');
             let currentFilter = 'all';
-            
-            // Function to perform search and filtering
-            function updateFormations() {
-                const searchText = searchInput.value.toLowerCase().trim();
-                
-                formationItems.forEach(item => {
-                    const title = item.getAttribute('data-title');
-                    const description = item.getAttribute('data-description');
-                    const priceType = item.getAttribute('data-price-type');
-                    
-                    // Check if item matches search text
-                    const matchesSearch = searchText === '' || 
-                                         title.includes(searchText) || 
-                                         description.includes(searchText);
-                    
-                    // Check if item matches current filter
-                    const matchesFilter = currentFilter === 'all' || priceType === currentFilter;
-                    
-                    // Show/hide based on both conditions
-                    if (matchesSearch && matchesFilter) {
-                        item.style.display = '';
-                    } else {
-                        item.style.display = 'none';
-                    }
-                });
-                
-                // Update "No results" message
-                checkNoResults();
+
+            function formatFormationHTML(f) {
+                return `
+          <div class="col-md-6 wow slideInUp formation-item" data-wow-delay="0.6s">
+            <div class="blog-item bg-light rounded overflow-hidden">
+              <div class="blog-img position-relative overflow-hidden">
+                <img class="img-fluid" src="${f.imageUrl}" alt="${f.title}">
+                <a href="${f.detailPath}" class="position-absolute top-0 start-0 bg-primary text-white rounded-end mt-5 py-2 px-4">
+                  ${f.title}
+                </a>
+              </div>
+              <div class="p-4">
+                <div class="d-flex mb-3">
+                  <small><i class="far fa-calendar-alt text-primary me-2"></i>${f.startDate}</small>
+                  <small class="ms-3"><i class="far fa-calendar-alt text-primary me-2"></i>${f.endDate}</small>
+                </div>
+                <h4 class="mb-3">
+                  ${f.cost == 0
+                    ? '<span class="badge bg-success">Gratuit</span>'
+                    : `<span class="badge bg-primary">${f.cost} €</span>`}
+                </h4>
+                <p>${f.description}</p>
+                <div class="mt-3">
+                  ${f.isReserved
+                    ? `<form action="{{ path('remove_reservation') }}" method="post" class="d-inline">
+                         <input type="hidden" name="formation_id" value="${f.id}">
+                         <button type="submit" class="btn btn-danger">Se désinscrire</button>
+                       </form>
+                       <p class="mt-2">Statut : ${f.status}</p>`
+                    : `<form action="{{ path('add_reservation') }}" method="post" class="d-inline">
+                         <input type="hidden" name="formation_id" value="${f.id}">
+                         <button type="submit" class="btn btn-info">S'inscrire</button>
+                       </form>`}
+                  <a href="${f.generateQuizPath}" class="btn btn-warning ms-2">
+                    <i class="bi bi-trophy me-1"></i> Générer un quiz
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>`;
             }
-            
-            // Function to check if there are no visible results
-            function checkNoResults() {
-                const visibleItems = document.querySelectorAll('.formation-item[style="display: "]');
-                const noResultsMessage = document.getElementById('noResultsMessage');
-                
-                if (visibleItems.length === 0) {
-                    // No results found, show or create message
-                    if (!noResultsMessage) {
-                        const message = document.createElement('div');
-                        message.id = 'noResultsMessage';
-                        message.className = 'col-12 text-center py-5';
-                        message.innerHTML = '<h4>Aucune formation ne correspond à votre recherche</h4>';
-                        document.getElementById('formationList').appendChild(message);
-                    } else {
-                        noResultsMessage.style.display = '';
-                    }
-                } else if (noResultsMessage) {
-                    // Hide message if results exist
-                    noResultsMessage.style.display = 'none';
+
+            async function fetchFormations() {
+                const params = new URLSearchParams({
+                    search: searchInput.value.trim(),
+                    price: currentFilter
+                });
+                const res = await fetch(`{{ path('app_blog') }}?${params}`, {
+                    headers: { 'X-Requested-With': 'XMLHttpRequest' }
+                });
+                if (!res.ok) throw new Error('Erreur réseau');
+                const data = await res.json();
+                formationList.innerHTML = '';
+                if (data.length === 0) {
+                    formationList.innerHTML = '<p>Aucune formation trouvée.</p>';
+                    return;
                 }
+                data.forEach(f => formationList.innerHTML += formatFormationHTML(f));
             }
-            
-            // Event listeners
-            searchInput.addEventListener('input', updateFormations);
-            
-            // Search button click
-            document.getElementById('searchButton').addEventListener('click', function(e) {
-                e.preventDefault();
-                updateFormations();
+
+            // Debounce search
+            let debounceTimer;
+            searchInput.addEventListener('input', () => {
+                clearTimeout(debounceTimer);
+                debounceTimer = setTimeout(fetchFormations, 500);
             });
-            
-            // Category filter click
+
+            // Filter clicks
             filterLinks.forEach(link => {
-                link.addEventListener('click', function(e) {
+                link.addEventListener('click', e => {
                     e.preventDefault();
-                    
-                    // Update active class
                     filterLinks.forEach(l => l.classList.remove('active'));
-                    this.classList.add('active');
-                    
-                    // Update current filter
-                    currentFilter = this.getAttribute('data-filter');
-                    
-                    // Apply filter
-                    updateFormations();
+                    link.classList.add('active');
+                    currentFilter = link.dataset.filter;
+                    fetchFormations();
                 });
             });
-            
-            // Style for active filter
-            document.head.insertAdjacentHTML('beforeend', `
-                <style>
-                    .filter-link.active {
-                        background-color: var(--primary) !important;
-                        color: white !important;
-                    }
-                </style>
-            `);
+
+            // Initial load
+            fetchFormations();
         });
     </script>
 {% endblock %}

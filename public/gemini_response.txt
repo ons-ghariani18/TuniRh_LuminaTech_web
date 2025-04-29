@@ -1,36 +1,36 @@
 Here are 5 questions about the Java language, formatted as requested:
 
-**Question:** What is the output of System.out.println(10 + 20 + "Hello");
-a) 30Hello
-b) 1020Hello
-c) Hello1020
-d) Error 
-**Correct:** a
+**Question:** What is the primary data type for storing whole numbers in Java?
+a) int
+b) float
+c) String
+d) boolean
+**Correct: a**
 
-**Question:** Which keyword is used to define a class in Java?
+**Question:** Which keyword is used to declare a class in Java?
 a) class
-b) Class
-c) CLASS
+b) method
+c) variable
 d) define
-**Correct:** a
+**Correct: a**
 
-**Question:** What is the default value of an instance variable of type int?
-a) 0
-b) 1
-c) null
-d) undefined
-**Correct:** a
+**Question:** What is the output of System.out.println("Hello World"); in Java?
+a) Hello World
+b) "Hello World"
+c) System.out.println("Hello World")
+d) It will result in an error.
+**Correct: a**
 
-**Question:** Which of these is a valid method signature in Java?
-a) public void myMethod()
-b) void myMethod(int x, y)
-c) public myMethod(String s)
-d) static void (int x)
-**Correct:** a
+**Question:** Which of these is NOT a valid access modifier in Java?
+a) public
+b) private
+c) protected
+d) friendly
+**Correct: d**
 
-**Question:** What is the purpose of the 'finally' block in a try-catch-finally statement?
-a) Executes code only if an exception is thrown.
-b) Executes code regardless of whether an exception is thrown or caught.
-c) Executes code only if no exception is thrown.
-d) Used to define a new exception.
-**Correct:** b 
+**Question:** What is the name of the data structure in Java that guarantees uniqueness of its elements?
+a) List
+b) Array
+c) Set
+d) Map
+**Correct: c** 
