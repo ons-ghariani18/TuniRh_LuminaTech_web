@@ -18,13 +18,18 @@ use App\Repository\EvenementRepository;
 #[Route('/evenement')]
 final class EvenementController extends AbstractController
 {
+    public function __construct(
+        private EntityManagerInterface $entityManager
+    ) {
+    }
+
     #[Route('/', name: 'app_evenement_index', methods: ['GET'])]
     public function index(Request $request, EvenementRepository $evenementRepository): Response
     {
         // Récupération des paramètres de tri
-     // Ligne 19-20
-$sortField = $request->query->get('sort', 'dateDebut'); // Utilisez le même format que votre entité
-$sortDirection = $request->query->get('direction', 'ASC');
+        $sortField = $request->query->get('sort', 'dateDebut');
+        $sortDirection = $request->query->get('direction', 'ASC');
+        
         // Validation de la direction du tri
         if (!in_array($sortDirection, ['ASC', 'DESC'])) {
             $sortDirection = 'ASC';
@@ -42,8 +47,12 @@ $sortDirection = $request->query->get('direction', 'ASC');
             $evenements = $evenementRepository->findBySearchCriteria([], $sortField, $sortDirection);
         }
 
+        // Récupérer les événements à venir (7 prochains jours)
+        $upcomingEvents = $this->getUpcomingEvents(7);
+
         return $this->render('evenement/index.html.twig', [
             'evenements' => $evenements,
+            'upcoming_events' => $upcomingEvents,
             'searchForm' => $searchForm->createView(),
             'sortField' => $sortField,
             'sortDirection' => $sortDirection,
@@ -145,6 +154,24 @@ $sortDirection = $request->query->get('direction', 'ASC');
         }
 
         return $this->redirectToRoute('app_evenement_index', [], Response::HTTP_SEE_OTHER);
+    }
+
+    /**
+     * Récupère les événements à venir dans les X prochains jours
+     */
+    private function getUpcomingEvents(int $days): array
+    {
+        $now = new \DateTimeImmutable('today');
+        $endDate = $now->modify("+{$days} days");
+        
+        $repository = $this->entityManager->getRepository(Evenement::class);
+        return $repository->createQueryBuilder('e')
+            ->where('e.date_debut BETWEEN :now AND :end')
+            ->setParameter('now', $now)
+            ->setParameter('end', $endDate)
+            ->orderBy('e.date_debut', 'ASC')
+            ->getQuery()
+            ->getResult();
     }
     
     private function handleImageUpload(UploadedFile $imageFile, Evenement $evenement, SluggerInterface $slugger): bool

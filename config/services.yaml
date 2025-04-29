@@ -4,6 +4,7 @@ parameters:
     google_credentials_file: '%kernel.project_dir%/config/google/credentials.json'
     # Ajouter cette ligne pour résoudre le problème
     credentials.json: '%kernel.project_dir%/config/google/credentials.json'
+    sponsor_logo_directory: '%kernel.project_dir%/public/uploads/sponsors'
 
 services:
     _defaults:
@@ -22,6 +23,15 @@ services:
         arguments:
             $parameterBag: '@parameter_bag'
 
+
+             # Déclaration du service de notification
+    App\Service\EventNotificationService:
+        arguments:
+            $notifier: '@notifier'
+            $evenementRepository: '@App\Repository\EvenementRepository'
+            $adminEmail: '%env(string:EMAIL_ADMIN)%'
+            $senderEmail: '%env(string:EMAIL_SENDER)%'
+
     # Correctly configure the session interface
     Symfony\Component\HttpFoundation\Session\SessionInterface: '@session.storage.factory.native'
 
@@ -36,6 +46,12 @@ services:
     App\Service\WeatherService:
         arguments:
             $client: '@http_client'
+
+            
+    # Configuration du service QR Code pour les sponsors
+    App\Service\SponsorQrCodeService:
+        arguments:
+            $websiteBaseUrl: '%env(APP_URL)%'
 
     App\Security\LoginSuccessHandler:
         arguments:

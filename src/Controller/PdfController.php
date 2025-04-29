@@ -3,6 +3,10 @@
 // src/Controller/PdfController.php
 namespace App\Controller;
 
+use App\Entity\Sponsor;
+use Doctrine\ORM\EntityManagerInterface;
+
+
 use App\Service\PdfGenerator;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -10,17 +14,25 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class PdfController extends AbstractController
 {
-    #[Route('/generate-pdf', name: 'generate_pdf')]
-    public function generate(PdfGenerator $pdfGenerator): Response
+    #[Route('/generate-pdf/{id}', name: 'generate_pdf')]
+    public function generate(int $id, EntityManagerInterface $em, PdfGenerator $pdfGenerator): Response
     {
-        $html = '<h1>Hello from PDF service!</h1>';
-        
+        $sponsor = $em->getRepository(Sponsor::class)->find($id);
+    
+        if (!$sponsor) {
+            throw $this->createNotFoundException('Sponsor non trouvé.');
+        }
+    
+        $html = $this->renderView('pdf/index.html.twig', [
+            'sponsor' => $sponsor,
+        ]);
+    
         return new Response(
             $pdfGenerator->generate($html),
             200,
             [
                 'Content-Type' => 'application/pdf',
-                'Content-Disposition' => 'inline; filename="myfile.pdf"'
+                'Content-Disposition' => 'inline; filename="contrat_' . $sponsor->getNom() . '.pdf"'
             ]
         );
     }

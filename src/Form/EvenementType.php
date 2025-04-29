@@ -14,6 +14,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\File;
+use MeteoConcept\HCaptchaBundle\Form\HCaptchaType;
 
 class EvenementType extends AbstractType
 {
@@ -22,6 +23,8 @@ class EvenementType extends AbstractType
         $builder
             ->add('nom', TextType::class, [
                 'label' => 'Nom de l\'événement',
+                'required' => true,
+                'empty_data' => '', 
                 'attr' => ['placeholder' => 'Entrez le nom de l\'événement']
             ])
             ->add('type', TextType::class, [
@@ -71,6 +74,14 @@ class EvenementType extends AbstractType
                 'required' => false,
                 'placeholder' => 'Sélectionnez un sponsor (obligatoire)',
             ])
+
+                // Ajout du captcha
+                ->add('captcha', HCaptchaType::class, [
+                    'label' => 'Veuillez confirmer que vous n\'êtes pas un robot',
+                    'mapped' => false,
+                    'attr' => ['class' => 'form-captcha']
+                ])
+            
         ;
     }
 

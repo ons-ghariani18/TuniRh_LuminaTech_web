@@ -1,12 +1,12 @@
 <?php
 // src/Form/EvenementSearchType.php
+// src/Form/EvenementSearchType.php
 namespace App\Form;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
-use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -48,6 +48,10 @@ class EvenementSearchType extends AbstractType
                 'required' => false,
                 'placeholder' => 'Tous les types'
             ])
+            ->add('lieu', TextType::class, [
+                'label' => 'Lieu',
+                'required' => false
+            ])
             ->add('date_debut', DateType::class, [
                 'label' => 'Date début (à partir de)',
                 'widget' => 'single_text',
@@ -58,28 +62,13 @@ class EvenementSearchType extends AbstractType
                 'widget' => 'single_text',
                 'required' => false
             ])
-            ->add('lieu', TextType::class, [
-                'label' => 'Lieu',
-                'required' => false
-            ])
-            ->add('budget_min', NumberType::class, [
-                'label' => 'Budget minimum',
-                'required' => false
-            ])
-            ->add('budget_max', NumberType::class, [
-                'label' => 'Budget maximum',
-                'required' => false
-            ])
             ->add('sponsor', ChoiceType::class, [
                 'label' => 'Sponsor',
                 'choices' => $sponsorChoices,
                 'required' => false,
                 'placeholder' => 'Tous les sponsors'
-            ])
-            ->add('rechercher', SubmitType::class, [
-                'label' => 'Rechercher',
-                'attr' => ['class' => 'btn btn-primary']
             ]);
+          
     }
 
     public function configureOptions(OptionsResolver $resolver)
@@ -87,7 +76,7 @@ class EvenementSearchType extends AbstractType
         $resolver->setDefaults([
             'data_class' => null,
             'method' => 'GET',
-            'csrf_protection' => false, // Désactive la protection CSRF pour permettre le partage des URLs de recherche
+            'csrf_protection' => false,
         ]);
     }
 }

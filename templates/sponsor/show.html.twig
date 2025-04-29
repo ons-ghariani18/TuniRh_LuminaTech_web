@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Détails du Sponsor{% endblock %}
+{% block title %}Détails du Sponsor - {{ sponsor.nom }}{% endblock %}
 
 {% block stylesheets %}
     {{ parent() }}
@@ -265,6 +265,51 @@
             box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
         }
 
+        /* QR Code container */
+        .qr-code-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 1.5rem 0;
+            padding: 1.5rem;
+            background-color: #f8f9fa;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+        }
+
+        .qr-code-image {
+            width: 200px;
+            height: 200px;
+            margin-bottom: 1rem;
+            object-fit: contain;
+        }
+
+        .qr-code-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--secondary-color);
+            margin-bottom: 0.5rem;
+        }
+
+        .qr-code-description {
+            text-align: center;
+            color: var(--muted-text);
+            font-size: 0.9rem;
+            max-width: 80%;
+            margin: 0 auto;
+        }
+
+        /* Download button for QR code */
+        .btn-download {
+            background: var(--secondary-color);
+            color: white;
+            margin-top: 1rem;
+        }
+
+        .btn-download:hover {
+            background: #0c2654;
+        }
+
         /* Responsive */
         @media (max-width: 768px) {
             .aside {
@@ -286,6 +331,27 @@
             .navbar {
                 padding: 1rem;
             }
+        }
+
+        /* Overlay for sidebar */
+        .sidebar-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 90;
+            display: none;
+        }
+
+        .sidebar-overlay.active {
+            display: block;
+        }
+
+        /* No scroll when sidebar is open */
+        body.no-scroll {
+            overflow: hidden;
         }
     </style>
 {% endblock %}
@@ -344,17 +410,18 @@
                 <button id="menuToggle" class="menu-toggle" aria-label="Toggle Menu">
                     <i class="mdi mdi-menu"></i>
                 </button>
+                <span class="text-lg font-semibold">Détails du Sponsor</span>
             </div>
             <div class="navbar-menu">
                 <div class="flex items-center gap-2">
-                    <img src="https://ui-avatars.com/api/?name=RH+Admin&background=091E3E&color=fff" class="rounded-full" width="36" alt="Admin Avatar">
+                    <img src="https://ui-avatars.com/api/?name=RH+Admin&background=091E3E&color=fff" class="rounded-full" width="36" height="36" alt="Admin Avatar">
                     <span>Admin RH</span>
                 </div>
             </div>
         </header>
 
         {# Content #}
-        <div class="content-wrapper">
+        <main class="content-wrapper">
             <div class="detail-container">
                 <h1 class="detail-title">
                     <i class="mdi mdi-handshake"></i>
@@ -386,11 +453,23 @@
                     </tbody>
                 </table>
 
+                {# QR Code Section #}
+                <div class="qr-code-container">
+                    <h3 class="qr-code-title">QR Code du Sponsor</h3>
+                    <img src="{{ qrCode }}" alt="QR Code - {{ sponsor.nom }}" class="qr-code-image">
+                    <p class="qr-code-description">
+                        Scannez ce QR code pour accéder rapidement aux informations de ce sponsor.
+                    </p>
+                    <a href="{{ path('app_sponsor_qr_generate', {'id_sp': sponsor.idsp, 'format': 'image'}) }}" download="qrcode-sponsor-{{ sponsor.idsp }}.png" class="btn btn-download">
+                        <i class="mdi mdi-download"></i> Télécharger le QR code
+                    </a>
+                </div>
+
                 <div class="detail-actions">
                     <a href="{{ path('app_sponsor_index') }}" class="btn btn-secondary">
                         <i class="mdi mdi-arrow-left"></i> Retour à la liste
                     </a>
-                    <div class="flex gap-2">
+                    <div class="flex">
                         <a href="{{ path('app_sponsor_edit', {'id_sp': sponsor.idsp}) }}" class="btn btn-primary">
                             <i class="mdi mdi-pencil"></i> Modifier
                         </a>
@@ -398,7 +477,7 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </main>
     </div>
 </div>
 {% endblock %}
@@ -410,6 +489,7 @@
             const sidebar = document.getElementById('sidebar');
             const menuToggle = document.getElementById('menuToggle');
             const sidebarOverlay = document.getElementById('sidebarOverlay');
+            const mainContent = document.getElementById('mainContent');
 
             // Toggle sidebar
             menuToggle.addEventListener('click', () => {

@@ -11,7 +11,8 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 #[ORM\Entity]
 #[UniqueEntity(fields: ['nom'], message: 'Un sponsor avec ce nom existe déjà.')]
-class Sponsor {
+class Sponsor 
+{
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(name: "id_sp", type: "integer")]
@@ -46,11 +47,13 @@ class Sponsor {
     #[ORM\Column(type: "string", length: 255)]
     #[Assert\NotBlank(message: "L'email ne peut pas être vide.")]
     #[Assert\Email(
-        mode: "strict", // ✅ stricte : pas de tolérance sur les formats approximatifs
+        mode: "strict",
         message: "Veuillez vérifier la saisie de l'email : '{{ value }}' n'est pas valide."
     )]
     private string $email;
 
+    #[ORM\Column(type: "string", length: 255, nullable: true)]
+    private ?string $logoFilename = null;
     
     #[ORM\OneToMany(mappedBy: "id_sp", targetEntity: Evenement::class)]
     private Collection $evenements;
@@ -71,48 +74,64 @@ class Sponsor {
         return $this;
     }
     
-    public function getNom()
+    public function getNom(): string
     {
         return $this->nom;
     }
     
-    public function setNom($value)
+    public function setNom(string $value): self
     {
         $this->nom = $value;
         return $this;
     }
     
-    public function getType()
+    public function getType(): string
     {
         return $this->type;
     }
     
-    public function setType($value)
+    public function setType(string $value): self
     {
         $this->type = $value;
         return $this;
     }
     
-    public function getTelephone()
+    public function getTelephone(): string
     {
         return $this->telephone;
     }
     
-    public function setTelephone($value)
+    public function setTelephone(string $value): self
     {
         $this->telephone = $value;
         return $this;
     }
     
-    public function getEmail()
+    public function getEmail(): string
     {
         return $this->email;
     }
     
-    public function setEmail($value)
+    public function setEmail(string $value): self
     {
         $this->email = $value;
         return $this;
+    }
+    
+    public function getLogoFilename(): ?string
+    {
+        return $this->logoFilename;
+    }
+    
+    public function setLogoFilename(?string $logoFilename): self
+    {
+        $this->logoFilename = $logoFilename;
+        return $this;
+    }
+    
+    public function hasLogo(): bool
+    {
+        return $this->logoFilename !== null && $this->logoFilename !== '';
     }
     
     public function getEvenements(): Collection
@@ -133,12 +152,17 @@ class Sponsor {
     public function removeEvenement(Evenement $evenement): self
     {
         if ($this->evenements->removeElement($evenement)) {
-            // set the owning side to null (unless already changed)
             if ($evenement->getId_sp() === $this) {
                 $evenement->setId_sp(null);
             }
         }
         
         return $this;
+    }
+    
+    // Méthode pour faciliter l'affichage de l'objet
+    public function __toString(): string
+    {
+        return $this->nom;
     }
 }
