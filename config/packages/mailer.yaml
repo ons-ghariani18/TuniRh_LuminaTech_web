@@ -1,3 +1,3 @@
 framework:
     mailer:
-        dsn: '%env(MAILER_DSN)%'  # Utilisez la variable d'environnement plutôt qu'une valeur en dur
+        dsn: '%env(MAILER_DSN)%'

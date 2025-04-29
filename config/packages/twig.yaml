@@ -1,7 +1,5 @@
 twig:
     file_name_pattern: '*.twig'
-    form_themes:
-        - '@MeteoConceptHCaptcha/hcaptcha_form.html.twig'
 
 when@test:
     twig:

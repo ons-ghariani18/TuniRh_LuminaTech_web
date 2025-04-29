@@ -2,7 +2,6 @@
 
 namespace App\Entity;
 
-use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 use App\Entity\Offresemploi;
@@ -115,58 +114,5 @@ class Candidatures
     public function setStatu($value)
     {
         $this->statu = $value;
-    }
-
-    public function getIdCandidature(): ?int
-    {
-        return $this->id_candidature;
-    }
-
-    public function getNomCandidat(): ?string
-    {
-        return $this->nom_candidat;
-    }
-
-    public function setNomCandidat(string $nom_candidat): static
-    {
-        $this->nom_candidat = $nom_candidat;
-
-        return $this;
-    }
-
-    public function getLettreMotivation(): ?string
-    {
-        return $this->lettre_motivation;
-    }
-
-    public function setLettreMotivation(string $lettre_motivation): static
-    {
-        $this->lettre_motivation = $lettre_motivation;
-
-        return $this;
-    }
-
-    public function getDateCandidature(): ?\DateTimeInterface
-    {
-        return $this->date_candidature;
-    }
-
-    public function setDateCandidature(\DateTimeInterface $date_candidature): static
-    {
-        $this->date_candidature = $date_candidature;
-
-        return $this;
-    }
-
-    public function getIdOffre(): ?Offresemploi
-    {
-        return $this->id_offre;
-    }
-
-    public function setIdOffre(?Offresemploi $id_offre): static
-    {
-        $this->id_offre = $id_offre;
-
-        return $this;
     }
 }

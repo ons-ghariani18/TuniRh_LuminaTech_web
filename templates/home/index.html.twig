@@ -1,7 +1,5 @@
 {% extends 'base.html.twig' %}
 
-
-
 {% block stylesheets %}
     {{ parent() }}
     <link rel="stylesheet" href="{{ asset('lib/owlcarousel/assets/owl.carousel.min.css') }}">
@@ -137,9 +135,6 @@
     .pricing-plan .bg-primary {
         background-color: var(--primary) !important;
     }
-
-
-    
 </style>
     <link rel="stylesheet" href="{{ asset('lib/owlcarousel/assets/owl.carousel.min.css') }}">
     <link rel="stylesheet" href="{{ asset('lib/animate/animate.min.css') }}">
@@ -149,15 +144,11 @@
 
 {% block body %}
 
-     
  <!-- Spinner Start -->
     <div id="spinner" class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
         <div class="spinner"></div>
     </div>
     <!-- Spinner End -->
-
-      
-
 
     {# ============================================= #}
     {# TOP BAR (CONTACT INFO + SOCIAL LINKS) - UNE SEULE FOIS #}
@@ -189,7 +180,7 @@
 <nav class="navbar navbar-expand-lg navbar-dark px-5 py-3 py-lg-0 bg-dark">
     <div class="container-fluid">
         <a href="{{ path('app_home') }}" class="navbar-brand p-0">
-            <h1 class="m-0"><i class="fa fa-building me-2"></i>TuniRH </h1>
+            <h1 class="m-0"><i class="fa fa-building me-2"></i>TuniRH Company</h1>
         </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
             <span class="fa fa-bars"></span>
@@ -204,7 +195,7 @@
                     <div class="dropdown-menu m-0 bg-dark">
                         <a href="{{ path('app_recrutement') }}" class="dropdown-item text-white hover-orange">Recrutement</a>
                         <a href="{{ path('app_formation') }}" class="dropdown-item text-white hover-orange">Formation</a>
-                        
+                         <a href="{{ path('app_reclamation') }}" class="dropdown-item text-white hover-orange">Reclammation</a>
                     </div>
                 </div>
                 
@@ -214,8 +205,8 @@
                     <div class="dropdown-menu m-0 bg-dark">
                         <a href="{{ path('app_team') }}" class="dropdown-item text-white hover-orange">Our Team</a>
                         <a href="{{ path('app_testimonials') }}" class="dropdown-item text-white hover-orange">Testimonials</a>
-                         <a href="{{ path('app_evenements') }}" class="dropdown-item text-white hover-orange"> Our Events</a>
-                           <a href="{{ path('app_evenements') }}" class="dropdown-item text-white hover-orange">Our Sponsors</a>
+                         <a href="{{ path('app_evenement') }}" class="dropdown-item text-white hover-orange"> Our Events</a>
+                           <a href="{{ path('app_sponsor') }}" class="dropdown-item text-white hover-orange">Our Sponsors</a>
                             
                             
                     </div>
@@ -224,30 +215,14 @@
                 <a href="{{ path('app_contact') }}" class="nav-item nav-link hover-orange">Contact</a>
             </div>
             
-          <div class="d-flex ms-3">
-    <button type="button" class="btn text-primary hover-orange-btn" data-bs-toggle="modal" data-bs-target="#searchModal">
-        <i class="fa fa-search"></i>
-    </button>
-    
-         {% if app.user %}
-        <div class="dropdown ms-3">
-            <button class="btn btn-primary dropdown-toggle" type="button" id="userDropdown" data-bs-toggle="dropdown">
-                <i class="fa fa-user me-1"></i> {{ app.user.email }}
-            </button>
-            <ul class="dropdown-menu dropdown-menu-end">
-                <li><a class="dropdown-item" href="#">Mon profil</a></li>
-                <li><a class="dropdown-item" href="{{ path('app_logout') }}">Déconnexion</a></li>
-            </ul>
-        </div>
-        
-    {% else %}
-        <a href="{{ path('app_login') }}" class="btn btn-outline-primary ms-3">Log in</a>
-        <a href="{{ path('app_register') }}" class="btn btn-primary ms-2">Sign up</a>
-    {% endif %}
-</div>
+            <div class="d-flex ms-3">
+                <button type="button" class="btn text-primary hover-orange-btn" data-bs-toggle="modal" data-bs-target="#searchModal">
+                    <i class="fa fa-search"></i>
+                </button>
+                <a href="{{ path('app_login') }}" class="btn btn-primary py-2 px-4 ms-3 hover-orange-btn">Login</a>
+            </div>
         </div>
     </div>
-   
 </nav>
 
 <style>
@@ -300,7 +275,7 @@
         </button>
     </div>
 
-       <!-- Full Screen Search End -->
+     <!-- Full Screen Search Start -->
     <div class="modal fade" id="searchModal" tabindex="-1">
         <div class="modal-dialog modal-fullscreen">
             <div class="modal-content" style="background: rgba(9, 30, 62, .7);">
@@ -360,2097 +335,579 @@
     </div>
     <!-- Facts Start -->
 
-  <!-- About Start -->
-<div class="container-fluid py-5 bg-dark-blue">
-    <div class="container py-5">
-        <div class="row g-5 align-items-center">
-            <div class="col-lg-7">
-                <div class="section-title position-relative pb-3 mb-5">
-                    <h5 class="fw-bold text-primary text-uppercase">About Us</h5>
-                    <h1 class="mb-0 text-white">Innovative IT Solutions With a Decade of Excellence</h1>
+     <!-- About Start -->
+    <div class="container-fluid py-5 wow fadeInUp" data-wow-delay="0.1s">
+        <div class="container py-5">
+            <div class="row g-5">
+                <div class="col-lg-7">
+                    <div class="section-title position-relative pb-3 mb-5">
+                        <h5 class="fw-bold text-primary text-uppercase">About Us</h5>
+                        <h1 class="mb-0">The Best IT Solution With 10 Years of Experience</h1>
+                    </div>
+                    <p class="mb-4">Tempor erat elitr rebum at clita. Diam dolor diam ipsum et tempor sit. Aliqu diam amet diam et eos labore. Clita erat ipsum et lorem et sit, sed stet no labore lorem sit. Sanctus clita duo justo et tempor eirmod magna dolore erat amet</p>
+                    <div class="row g-0 mb-3">
+                        <div class="col-sm-6 wow zoomIn" data-wow-delay="0.2s">
+                            <h5 class="mb-3"><i class="fa fa-check text-primary me-3"></i>Award Winning</h5>
+                            <h5 class="mb-3"><i class="fa fa-check text-primary me-3"></i>Professional Staff</h5>
+                        </div>
+                        <div class="col-sm-6 wow zoomIn" data-wow-delay="0.4s">
+                            <h5 class="mb-3"><i class="fa fa-check text-primary me-3"></i>24/7 Support</h5>
+                            <h5 class="mb-3"><i class="fa fa-check text-primary me-3"></i>Fair Prices</h5>
+                        </div>
+                    </div>
+                    <div class="d-flex align-items-center mb-4 wow fadeIn" data-wow-delay="0.6s">
+                        <div class="bg-primary d-flex align-items-center justify-content-center rounded" style="width: 60px; height: 60px;">
+                            <i class="fa fa-phone-alt text-white"></i>
+                        </div>
+                        <div class="ps-4">
+                            <h5 class="mb-2">Call to ask any question</h5>
+                            <h4 class="text-primary mb-0">+012 345 6789</h4>
+                        </div>
+                    </div>
+                    <a href="quote.html" class="btn btn-primary py-3 px-5 mt-3 wow zoomIn" data-wow-delay="0.9s">Request A Quote</a>
                 </div>
-                <p class="text-light mb-4">We are a team of passionate technology experts dedicated to delivering cutting-edge solutions. With 10 years in the industry, we've helped hundreds of businesses transform their digital infrastructure and achieve their goals.</p>
-                
-                <div class="row g-0 mb-3">
-                    <div class="col-sm-6">
-                        <div class="feature-item">
-                            <i class="fa fa-check text-primary me-3"></i>
-                            <span class="text-light">Award Winning Solutions</span>
-                        </div>
-                        <div class="feature-item">
-                            <i class="fa fa-check text-primary me-3"></i>
-                            <span class="text-light">Certified Professionals</span>
-                        </div>
-                    </div>
-                    <div class="col-sm-6">
-                        <div class="feature-item">
-                            <i class="fa fa-check text-primary me-3"></i>
-                            <span class="text-light">24/7 Technical Support</span>
-                        </div>
-                        <div class="feature-item">
-                            <i class="fa fa-check text-primary me-3"></i>
-                            <span class="text-light">Competitive Pricing</span>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="d-flex align-items-center mb-4">
-                    <div class="bg-primary d-flex align-items-center justify-content-center rounded-circle pulse-animation" style="width: 60px; height: 60px;">
-                        <i class="fa fa-phone-alt text-white"></i>
-                    </div>
-                    <div class="ps-4">
-                        <h5 class="mb-2 text-light">Call to ask any question</h5>
-                        <h4 class="text-primary mb-0">+012 345 6789</h4>
-                    </div>
-                </div>
-                
-                <a href="quote.html" class="btn btn-primary py-3 px-5 mt-3 btn-hover-effect">Request A Quote</a>
-            </div>
-            
-            <div class="col-lg-5" style="min-height: 500px;">
-                <div class="position-relative h-100">
-                    <img class="position-absolute w-100 h-100 rounded shadow-lg floating-animation" src="img/about.jpg" style="object-fit: cover; z-index: 1;" alt="IT Solutions Team">
-                    <div class="position-absolute top-0 start-0 w-100 h-100 rounded bg-primary-opacity rotate-animation" style="z-index: 0; transform: rotate(5deg);"></div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- About End -->
-
-<style>
-    :root {
-        --dark-blue: #0a192f;
-        --primary-blue: #1e6fba;
-        --light-blue: #ccd6f6;
-    }
-    
-    .bg-dark-blue {
-        background-color: var(--dark-blue);
-    }
-    
-    .bg-primary-opacity {
-        background-color: rgba(30, 111, 186, 0.2);
-    }
-    
-    .btn-hover-effect {
-        transition: all 0.3s ease;
-        transform: translateY(0);
-    }
-    
-    .btn-hover-effect:hover {
-        transform: translateY(-3px);
-        box-shadow: 0 10px 20px rgba(30, 111, 186, 0.3);
-    }
-    
-    .feature-item {
-        padding: 8px 0;
-        opacity: 0;
-        transform: translateX(-20px);
-        transition: all 0.5s ease;
-    }
-    
-    .feature-item.animated {
-        opacity: 1;
-        transform: translateX(0);
-    }
-    
-    .pulse-animation {
-        animation: pulse 2s infinite;
-    }
-    
-    .floating-animation {
-        animation: floating 6s ease-in-out infinite;
-    }
-    
-    .rotate-animation {
-        animation: rotate 10s linear infinite;
-    }
-    
-    @keyframes pulse {
-        0% { transform: scale(1); }
-        50% { transform: scale(1.05); }
-        100% { transform: scale(1); }
-    }
-    
-    @keyframes floating {
-        0% { transform: translateY(0px); }
-        50% { transform: translateY(-15px); }
-        100% { transform: translateY(0px); }
-    }
-    
-    @keyframes rotate {
-        0% { transform: rotate(5deg); }
-        50% { transform: rotate(-5deg); }
-        100% { transform: rotate(5deg); }
-    }
-</style>
-
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        // Animate features on scroll
-        const featureItems = document.querySelectorAll('.feature-item');
-        
-        const animateOnScroll = () => {
-            featureItems.forEach((item, index) => {
-                setTimeout(() => {
-                    if (isElementInViewport(item)) {
-                        item.classList.add('animated');
-                    }
-                }, index * 200);
-            });
-        };
-        
-        // Check if element is in viewport
-        function isElementInViewport(el) {
-            const rect = el.getBoundingClientRect();
-            return (
-                rect.top >= 0 &&
-                rect.left >= 0 &&
-                rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
-                rect.right <= (window.innerWidth || document.documentElement.clientWidth)
-            );
-        }
-        
-        // Initial check
-        animateOnScroll();
-        
-        // Check on scroll
-        window.addEventListener('scroll', animateOnScroll);
-        
-        // Add hover effect to the "Request A Quote" button
-        const quoteBtn = document.querySelector('.btn-hover-effect');
-        
-        quoteBtn.addEventListener('mouseenter', () => {
-            quoteBtn.style.boxShadow = '0 10px 20px rgba(30, 111, 186, 0.3)';
-        });
-        
-        quoteBtn.addEventListener('mouseleave', () => {
-            quoteBtn.style.boxShadow = 'none';
-        });
-    });
-</script>
-
-
-   <!-- Features Start - TuniRH Version -->
-<div class="container-fluid py-5 features-rh-section">
-    <div class="container py-5">
-        <div class="section-title text-center position-relative pb-3 mb-5 mx-auto" style="max-width: 700px;">
-            <h2 class="fw-bold text-primary text; font-size:30px;">Pourquoi choisir TuniRH</h2>
-            <h1 class="mb-0">Optimisez Votre Gestion RH avec Notre Solution Complète</h1>
-        </div>
-        <div class="row g-5 align-items-center">
-            <!-- Left Features -->
-            <div class="col-lg-4">
-                <div class="row g-5">
-                    <div class="col-12 feature-card" data-wow-delay="0.2s">
-                        <div class="feature-icon-wrapper">
-                            <i class="fas fa-chart-line feature-icon"></i>
-                        </div>
-                        <h4>Performance Optimisée</h4>
-                        <p class="mb-0">Suivez et améliorez les performances de vos équipes avec des outils d'analyse avancés.</p>
-                        <div class="feature-line"></div>
-                    </div>
-                    <div class="col-12 feature-card" data-wow-delay="0.6s">
-                        <div class="feature-icon-wrapper">
-                            <i class="fas fa-user-shield feature-icon"></i>
-                        </div>
-                        <h4>Gestion des Talents</h4>
-                        <p class="mb-0">Identifiez, développez et fidélisez les meilleurs talents de votre organisation.</p>
-                        <div class="feature-line"></div>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- Center Image -->
-            <div class="col-lg-4 feature-image-col">
-                <div class="feature-image-container">
-                    <img class="feature-main-image" src="img/about.jpg" alt="Gestion RH moderne">
-                    <div class="feature-circle-animation"></div>
-                    <div class="feature-dots-animation"></div>
-                </div>
-            </div>
-            
-            <!-- Right Features -->
-            <div class="col-lg-4">
-                <div class="row g-5">
-                    <div class="col-12 feature-card" data-wow-delay="0.4s">
-                        <div class="feature-icon-wrapper">
-                            <i class="fas fa-clock feature-icon"></i>
-                        </div>
-                        <h4>Gestion des Temps</h4>
-                        <p class="mb-0">Automatisez le suivi du temps de travail et simplifiez la gestion des plannings.</p>
-                        <div class="feature-line"></div>
-                    </div>
-                    <div class="col-12 feature-card" data-wow-delay="0.8s">
-                        <div class="feature-icon-wrapper">
-                            <i class="fas fa-file-invoice-dollar feature-icon"></i>
-                        </div>
-                        <h4>Paie Automatisée</h4>
-                        <p class="mb-0">Générez les bulletins de paie en quelques clics sans erreur.</p>
-                        <div class="feature-line"></div>
+                <div class="col-lg-5" style="min-height: 500px;">
+                    <div class="position-relative h-100">
+                        <img class="position-absolute w-100 h-100 rounded wow zoomIn" data-wow-delay="0.9s" src="img/about.jpg" style="object-fit: cover;">
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
+    <!-- About End -->
 
-<style>
-    /* Features Section - TuniRH Style */
-    .features-rh-section {
-        background: linear-gradient(135deg, #f8fafd 0%, #f1f5ff 100%);
-        position: relative;
-        overflow: hidden;
-    }
     
-    .features-rh-section::before {
-        content: '';
-        position: absolute;
-        top: -50%;
-        right: -50%;
-        width: 100%;
-        height: 200%;
-        background: radial-gradient(circle, rgba(26,43,71,0.05) 0%, rgba(26,43,71,0) 70%);
-        z-index: 0;
-    }
-    
-    /* Feature Cards */
-    .feature-card {
-        background: white;
-        border-radius: 12px;
-        padding: 30px;
-        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.03);
-        transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        position: relative;
-        overflow: hidden;
-        border-left: 3px solid transparent;
-        z-index: 1;
-    }
-    
-    .feature-card:hover {
-        transform: translateY(-10px);
-        box-shadow: 0 15px 30px rgba(26, 43, 71, 0.1);
-        border-left-color: #ff7a00;
-    }
-    
-    .feature-icon-wrapper {
-        width: 70px;
-        height: 70px;
-        background: linear-gradient(135deg, #1a2b47 0%, #3a4d6b 100%);
-        border-radius: 50%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        margin-bottom: 20px;
-        transition: all 0.3s ease;
-    }
-    
-    .feature-card:hover .feature-icon-wrapper {
-        transform: rotate(15deg) scale(1.1);
-        background: linear-gradient(135deg, #ff7a00 0%, #ff9433 100%);
-    }
-    
-    .feature-icon {
-        color: white;
-        font-size: 1.8rem;
-        transition: all 0.3s ease;
-    }
-    
-    .feature-card:hover .feature-icon {
-        transform: scale(1.1);
-    }
-    
-    .feature-card h4 {
-        color: #1a2b47;
-        font-size: 1.3rem;
-        font-weight: 700;
-        margin-bottom: 15px;
-        transition: all 0.3s ease;
-    }
-    
-    .feature-card:hover h4 {
-        color: #ff7a00;
-    }
-    
-    .feature-card p {
-        color: #5d6b85;
-        line-height: 1.6;
-    }
-    
-    .feature-line {
-        position: absolute;
-        bottom: 0;
-        left: 30px;
-        width: calc(100% - 60px);
-        height: 3px;
-        background: linear-gradient(to right, #1a2b47, #ff7a00);
-        transform: scaleX(0);
-        transform-origin: left;
-        transition: transform 0.6s ease;
-    }
-    
-    .feature-card:hover .feature-line {
-        transform: scaleX(1);
-    }
-    
-    /* Feature Image */
-    .feature-image-col {
-        position: relative;
-        z-index: 1;
-    }
-    
-    .feature-image-container {
-        position: relative;
-        height: 100%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
-    
-    .feature-main-image {
-        width: 100%;
-        max-width: 350px;
-        border-radius: 15px;
-        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
-        position: relative;
-        z-index: 3;
-        transform: scale(0.95);
-        transition: all 0.5s ease;
-    }
-    
-    .feature-image-container:hover .feature-main-image {
-        transform: scale(1);
-        box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
-    }
-    
-    .feature-circle-animation {
-        position: absolute;
-        width: 300px;
-        height: 300px;
-        border-radius: 50%;
-        border: 2px dashed rgba(26, 43, 71, 0.15);
-        animation: rotate 20s linear infinite;
-        z-index: 1;
-    }
-    
-    .feature-dots-animation {
-        position: absolute;
-        width: 250px;
-        height: 250px;
-        background-image: radial-gradient(rgba(255,122,0,0.2) 2px, transparent 2px);
-        background-size: 20px 20px;
-        animation: pulse 4s ease infinite alternate;
-        z-index: 2;
-    }
-    
-    /* Animations */
-    @keyframes rotate {
-        0% { transform: rotate(0deg); }
-        100% { transform: rotate(360deg); }
-    }
-    
-    @keyframes pulse {
-        0% { opacity: 0.3; transform: scale(0.95); }
-        100% { opacity: 0.6; transform: scale(1.05); }
-    }
-    
-    /* Responsive */
-    @media (max-width: 992px) {
-        .feature-image-col {
-            order: -1;
-            margin-bottom: 50px;
-        }
-        
-        .feature-main-image {
-            max-width: 300px;
-        }
-    }
-</style>
-
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        // Animate features on scroll
-        const featureCards = document.querySelectorAll('.feature-card');
-        
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    const card = entry.target;
-                    const delay = card.getAttribute('data-wow-delay') || '0s';
-                    
-                    setTimeout(() => {
-                        card.style.opacity = '1';
-                        card.style.transform = 'translateY(0)';
-                    }, parseFloat(delay) * 1000);
-                }
-            });
-        }, { threshold: 0.1 });
-        
-        featureCards.forEach(card => {
-            card.style.opacity = '0';
-            card.style.transform = 'translateY(30px)';
-            card.style.transition = 'all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275)';
-            observer.observe(card);
-        });
-        
-        // Image hover effect
-        const featureImage = document.querySelector('.feature-main-image');
-        if (featureImage) {
-            featureImage.addEventListener('mouseenter', () => {
-                const circle = document.querySelector('.feature-circle-animation');
-                if (circle) {
-                    circle.style.animationDuration = '15s';
-                }
-            });
-            
-            featureImage.addEventListener('mouseleave', () => {
-                const circle = document.querySelector('.feature-circle-animation');
-                if (circle) {
-                    circle.style.animationDuration = '20s';
-                }
-            });
-        }
-    });
-</script>
+    <!-- Features Start -->
+    <div class="container-fluid py-5 wow fadeInUp" data-wow-delay="0.1s">
+        <div class="container py-5">
+            <div class="section-title text-center position-relative pb-3 mb-5 mx-auto" style="max-width: 600px;">
+                <h5 class="fw-bold text-primary text-uppercase">Why Choose Us</h5>
+                <h1 class="mb-0">We Are Here to Grow Your Business Exponentially</h1>
+            </div>
+            <div class="row g-5">
+                <div class="col-lg-4">
+                    <div class="row g-5">
+                        <div class="col-12 wow zoomIn" data-wow-delay="0.2s">
+                            <div class="bg-primary rounded d-flex align-items-center justify-content-center mb-3" style="width: 60px; height: 60px;">
+                                <i class="fa fa-cubes text-white"></i>
+                            </div>
+                            <h4>Best In Industry</h4>
+                            <p class="mb-0">Magna sea eos sit dolor, ipsum amet lorem diam dolor eos et diam dolor</p>
+                        </div>
+                        <div class="col-12 wow zoomIn" data-wow-delay="0.6s">
+                            <div class="bg-primary rounded d-flex align-items-center justify-content-center mb-3" style="width: 60px; height: 60px;">
+                                <i class="fa fa-award text-white"></i>
+                            </div>
+                            <h4>Award Winning</h4>
+                            <p class="mb-0">Magna sea eos sit dolor, ipsum amet lorem diam dolor eos et diam dolor</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4  wow zoomIn" data-wow-delay="0.9s" style="min-height: 350px;">
+                    <div class="position-relative h-100">
+                        <img class="position-absolute w-100 h-100 rounded wow zoomIn" data-wow-delay="0.1s" src="img/feature.jpg" style="object-fit: cover;">
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="row g-5">
+                        <div class="col-12 wow zoomIn" data-wow-delay="0.4s">
+                            <div class="bg-primary rounded d-flex align-items-center justify-content-center mb-3" style="width: 60px; height: 60px;">
+                                <i class="fa fa-users-cog text-white"></i>
+                            </div>
+                            <h4>Professional Staff</h4>
+                            <p class="mb-0">Magna sea eos sit dolor, ipsum amet lorem diam dolor eos et diam dolor</p>
+                        </div>
+                        <div class="col-12 wow zoomIn" data-wow-delay="0.8s">
+                            <div class="bg-primary rounded d-flex align-items-center justify-content-center mb-3" style="width: 60px; height: 60px;">
+                                <i class="fa fa-phone-alt text-white"></i>
+                            </div>
+                            <h4>24/7 Support</h4>
+                            <p class="mb-0">Magna sea eos sit dolor, ipsum amet lorem diam dolor eos et diam dolor</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Features Start -->
 
 
 
     
-<!-- Team Start -->
+    <!-- Team Start -->
+    <div class="container-fluid py-5 wow fadeInUp" data-wow-delay="0.1s">
+        <div class="container py-5">
+            <div class="section-title text-center position-relative pb-3 mb-5 mx-auto" style="max-width: 600px;">
+                <h5 class="fw-bold text-primary text-uppercase">Team Members</h5>
+                <h1 class="mb-0">Professional Stuffs Ready to Help Your Business</h1>
+            </div>
+            <div class="row g-5">
+                <div class="col-lg-4 wow slideInUp" data-wow-delay="0.3s">
+                    <div class="team-item bg-light rounded overflow-hidden">
+                        <div class="team-img position-relative overflow-hidden">
+                            <img class="img-fluid w-100" src="img/team-1.jpg" alt="">
+                            <div class="team-social">
+                                <a class="btn btn-lg btn-primary btn-lg-square rounded" href=""><i class="fab fa-twitter fw-normal"></i></a>
+                                <a class="btn btn-lg btn-primary btn-lg-square rounded" href=""><i class="fab fa-facebook-f fw-normal"></i></a>
+                                <a class="btn btn-lg btn-primary btn-lg-square rounded" href=""><i class="fab fa-instagram fw-normal"></i></a>
+                                <a class="btn btn-lg btn-primary btn-lg-square rounded" href=""><i class="fab fa-linkedin-in fw-normal"></i></a>
+                            </div>
+                        </div>
+                        <div class="text-center py-4">
+                            <h4 class="text-primary">Full Name</h4>
+                            <p class="text-uppercase m-0">Designation</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 wow slideInUp" data-wow-delay="0.6s">
+                    <div class="team-item bg-light rounded overflow-hidden">
+                        <div class="team-img position-relative overflow-hidden">
+                            <img class="img-fluid w-100" src="img/team-2.jpg" alt="">
+                            <div class="team-social">
+                                <a class="btn btn-lg btn-primary btn-lg-square rounded" href=""><i class="fab fa-twitter fw-normal"></i></a>
+                                <a class="btn btn-lg btn-primary btn-lg-square rounded" href=""><i class="fab fa-facebook-f fw-normal"></i></a>
+                                <a class="btn btn-lg btn-primary btn-lg-square rounded" href=""><i class="fab fa-instagram fw-normal"></i></a>
+                                <a class="btn btn-lg btn-primary btn-lg-square rounded" href=""><i class="fab fa-linkedin-in fw-normal"></i></a>
+                            </div>
+                        </div>
+                        <div class="text-center py-4">
+                            <h4 class="text-primary">Full Name</h4>
+                            <p class="text-uppercase m-0">Designation</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 wow slideInUp" data-wow-delay="0.9s">
+                    <div class="team-item bg-light rounded overflow-hidden">
+                        <div class="team-img position-relative overflow-hidden">
+                            <img class="img-fluid w-100" src="img/team-3.jpg" alt="">
+                            <div class="team-social">
+                                <a class="btn btn-lg btn-primary btn-lg-square rounded" href=""><i class="fab fa-twitter fw-normal"></i></a>
+                                <a class="btn btn-lg btn-primary btn-lg-square rounded" href=""><i class="fab fa-facebook-f fw-normal"></i></a>
+                                <a class="btn btn-lg btn-primary btn-lg-square rounded" href=""><i class="fab fa-instagram fw-normal"></i></a>
+                                <a class="btn btn-lg btn-primary btn-lg-square rounded" href=""><i class="fab fa-linkedin-in fw-normal"></i></a>
+                            </div>
+                        </div>
+                        <div class="text-center py-4">
+                            <h4 class="text-primary">Full Name</h4>
+                            <p class="text-uppercase m-0">Designation</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Team End -->
+
+
+
+    
+
+
+
+
+    {# ============================================= #}
+    {# SERVICES SECTION #}
+    {# ============================================= #}
+    <div class="container-fluid py-5 wow fadeInUp" data-wow-delay="0.1s">
+        <div class="container py-5">
+            <div class="section-title text-center position-relative pb-3 mb-5 mx-auto" style="max-width: 600px;">
+                <h5 class="fw-bold text-primary text-uppercase">Our Services</h5>
+                <h1 class="mb-0">Custom IT Solutions for Your Successful Business</h1>
+            </div>
+            <div class="row g-5">
+                <!-- Service 1 -->
+                <div class="col-lg-4 col-md-6 wow zoomIn" data-wow-delay="0.3s">
+                    <div class="service-item bg-light rounded d-flex flex-column align-items-center justify-content-center text-center">
+                        <div class="service-icon">
+                            <i class="fa fa-shield-alt text-white"></i>
+                        </div>
+                        <h4 class="mb-3">Cyber Security</h4>
+                        <p class="m-0">Protection complète pour vos systèmes et données</p>
+                        <a class="btn btn-lg btn-primary rounded" href="">
+                            <i class="bi bi-arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Service 2 -->
+                <div class="col-lg-4 col-md-6 wow zoomIn" data-wow-delay="0.6s">
+                    <div class="service-item bg-light rounded d-flex flex-column align-items-center justify-content-center text-center">
+                        <div class="service-icon">
+                            <i class="fa fa-chart-pie text-white"></i>
+                        </div>
+                        <h4 class="mb-3">Data Analytics</h4>
+                        <p class="m-0">Analyse de données pour une meilleure prise de décision</p>
+                        <a class="btn btn-lg btn-primary rounded" href="">
+                            <i class="bi bi-arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Service 3 (exemple supplémentaire) -->
+                <div class="col-lg-4 col-md-6 wow zoomIn" data-wow-delay="0.9s">
+                    <div class="service-item bg-light rounded d-flex flex-column align-items-center justify-content-center text-center">
+                        <div class="service-icon">
+                            <i class="fa fa-code text-white"></i>
+                        </div>
+                        <h4 class="mb-3">Web Development</h4>
+                        <p class="m-0">Création de sites web sur mesure</p>
+                        <a class="btn btn-lg btn-primary rounded" href="">
+                            <i class="bi bi-arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    
+    <!-- Pricing Plan Start -->
+    <div class="container-fluid py-5 wow fadeInUp" data-wow-delay="0.1s">
+        <div class="container py-5">
+            <div class="section-title text-center position-relative pb-3 mb-5 mx-auto" style="max-width: 600px;">
+                <h5 class="fw-bold text-primary text-uppercase">Pricing Plans</h5>
+                <h1 class="mb-0">We are Offering Competitive Prices for Our Clients</h1>
+            </div>
+            <div class="row g-0">
+                <div class="col-lg-4 wow slideInUp" data-wow-delay="0.6s">
+                    <div class="bg-light rounded">
+                        <div class="border-bottom py-4 px-5 mb-4">
+                            <h4 class="text-primary mb-1">Basic Plan</h4>
+                            <small class="text-uppercase">For Small Size Business</small>
+                        </div>
+                        <div class="p-5 pt-0">
+                            <h1 class="display-5 mb-3">
+                                <small class="align-top" style="font-size: 22px; line-height: 45px;">$</small>49.00<small
+                                    class="align-bottom" style="font-size: 16px; line-height: 40px;">/ Month</small>
+                            </h1>
+                            <div class="d-flex justify-content-between mb-3"><span>HTML5 & CSS3</span><i class="fa fa-check text-primary pt-1"></i></div>
+                            <div class="d-flex justify-content-between mb-3"><span>Bootstrap v5</span><i class="fa fa-check text-primary pt-1"></i></div>
+                            <div class="d-flex justify-content-between mb-3"><span>Responsive Layout</span><i class="fa fa-times text-danger pt-1"></i></div>
+                            <div class="d-flex justify-content-between mb-2"><span>Cross-browser Support</span><i class="fa fa-times text-danger pt-1"></i></div>
+                            <a href="" class="btn btn-primary py-2 px-4 mt-4">Order Now</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 wow slideInUp" data-wow-delay="0.3s">
+                    <div class="bg-white rounded shadow position-relative" style="z-index: 1;">
+                        <div class="border-bottom py-4 px-5 mb-4">
+                            <h4 class="text-primary mb-1">Standard Plan</h4>
+                            <small class="text-uppercase">For Medium Size Business</small>
+                        </div>
+                        <div class="p-5 pt-0">
+                            <h1 class="display-5 mb-3">
+                                <small class="align-top" style="font-size: 22px; line-height: 45px;">$</small>99.00<small
+                                    class="align-bottom" style="font-size: 16px; line-height: 40px;">/ Month</small>
+                            </h1>
+                            <div class="d-flex justify-content-between mb-3"><span>HTML5 & CSS3</span><i class="fa fa-check text-primary pt-1"></i></div>
+                            <div class="d-flex justify-content-between mb-3"><span>Bootstrap v5</span><i class="fa fa-check text-primary pt-1"></i></div>
+                            <div class="d-flex justify-content-between mb-3"><span>Responsive Layout</span><i class="fa fa-check text-primary pt-1"></i></div>
+                            <div class="d-flex justify-content-between mb-2"><span>Cross-browser Support</span><i class="fa fa-times text-danger pt-1"></i></div>
+                            <a href="" class="btn btn-primary py-2 px-4 mt-4">Order Now</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 wow slideInUp" data-wow-delay="0.9s">
+                    <div class="bg-light rounded">
+                        <div class="border-bottom py-4 px-5 mb-4">
+                            <h4 class="text-primary mb-1">Advanced Plan</h4>
+                            <small class="text-uppercase">For Large Size Business</small>
+                        </div>
+                        <div class="p-5 pt-0">
+                            <h1 class="display-5 mb-3">
+                                <small class="align-top" style="font-size: 22px; line-height: 45px;">$</small>149.00<small
+                                    class="align-bottom" style="font-size: 16px; line-height: 40px;">/ Month</small>
+                            </h1>
+                            <div class="d-flex justify-content-between mb-3"><span>HTML5 & CSS3</span><i class="fa fa-check text-primary pt-1"></i></div>
+                            <div class="d-flex justify-content-between mb-3"><span>Bootstrap v5</span><i class="fa fa-check text-primary pt-1"></i></div>
+                            <div class="d-flex justify-content-between mb-3"><span>Responsive Layout</span><i class="fa fa-check text-primary pt-1"></i></div>
+                            <div class="d-flex justify-content-between mb-2"><span>Cross-browser Support</span><i class="fa fa-check text-primary pt-1"></i></div>
+                            <a href="" class="btn btn-primary py-2 px-4 mt-4">Order Now</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Pricing Plan End -->
+
+      <!-- Quote Start -->
+    <div class="container-fluid py-5 wow fadeInUp" data-wow-delay="0.1s">
+        <div class="container py-5">
+            <div class="row g-5">
+                <div class="col-lg-7">
+                    <div class="section-title position-relative pb-3 mb-5">
+                        <h5 class="fw-bold text-primary text-uppercase">Request A Quote</h5>
+                        <h1 class="mb-0">Need A Free Quote? Please Feel Free to Contact Us</h1>
+                    </div>
+                    <div class="row gx-3">
+                        <div class="col-sm-6 wow zoomIn" data-wow-delay="0.2s">
+                            <h5 class="mb-4"><i class="fa fa-reply text-primary me-3"></i>Reply within 24 hours</h5>
+                        </div>
+                        <div class="col-sm-6 wow zoomIn" data-wow-delay="0.4s">
+                            <h5 class="mb-4"><i class="fa fa-phone-alt text-primary me-3"></i>24 hrs telephone support</h5>
+                        </div>
+                    </div>
+                    <p class="mb-4">Eirmod sed tempor lorem ut dolores. Aliquyam sit sadipscing kasd ipsum. Dolor ea et dolore et at sea ea at dolor, justo ipsum duo rebum sea invidunt voluptua. Eos vero eos vero ea et dolore eirmod et. Dolores diam duo invidunt lorem. Elitr ut dolores magna sit. Sea dolore sanctus sed et. Takimata takimata sanctus sed.</p>
+                    <div class="d-flex align-items-center mt-2 wow zoomIn" data-wow-delay="0.6s">
+                        <div class="bg-primary d-flex align-items-center justify-content-center rounded" style="width: 60px; height: 60px;">
+                            <i class="fa fa-phone-alt text-white"></i>
+                        </div>
+                        <div class="ps-4">
+                            <h5 class="mb-2">Call to ask any question</h5>
+                            <h4 class="text-primary mb-0">+012 345 6789</h4>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-5">
+                    <div class="bg-primary rounded h-100 d-flex align-items-center p-5 wow zoomIn" data-wow-delay="0.9s">
+                        <form>
+                            <div class="row g-3">
+                                <div class="col-xl-12">
+                                    <input type="text" class="form-control bg-light border-0" placeholder="Your Name" style="height: 55px;">
+                                </div>
+                                <div class="col-12">
+                                    <input type="email" class="form-control bg-light border-0" placeholder="Your Email" style="height: 55px;">
+                                </div>
+                                <div class="col-12">
+                                    <select class="form-select bg-light border-0" style="height: 55px;">
+                                        <option selected>Select A Service</option>
+                                        <option value="1">Service 1</option>
+                                        <option value="2">Service 2</option>
+                                        <option value="3">Service 3</option>
+                                    </select>
+                                </div>
+                                <div class="col-12">
+                                    <textarea class="form-control bg-light border-0" rows="3" placeholder="Message"></textarea>
+                                </div>
+                                <div class="col-12">
+                                    <button class="btn btn-dark w-100 py-3" type="submit">Request A Quote</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Quote End -->
+
+
+
+<!-- Testimonial Start -->
+    <div class="container-fluid py-5 wow fadeInUp" data-wow-delay="0.1s">
+        <div class="container py-5">
+            <div class="section-title text-center position-relative pb-3 mb-4 mx-auto" style="max-width: 600px;">
+                <h5 class="fw-bold text-primary text-uppercase">Testimonial</h5>
+                <h1 class="mb-0">What Our Clients Say About Our Digital Services</h1>
+            </div>
+            <div class="owl-carousel testimonial-carousel wow fadeInUp" data-wow-delay="0.6s">
+                <div class="testimonial-item bg-light my-4">
+                    <div class="d-flex align-items-center border-bottom pt-5 pb-4 px-5">
+                        <img class="img-fluid rounded" src="img/testimonial-1.jpg" style="width: 60px; height: 60px;" >
+                        <div class="ps-4">
+                            <h4 class="text-primary mb-1">Client Name</h4>
+                            <small class="text-uppercase">Profession</small>
+                        </div>
+                    </div>
+                    <div class="pt-4 pb-5 px-5">
+                        Dolor et eos labore, stet justo sed est sed. Diam sed sed dolor stet amet eirmod eos labore diam
+                    </div>
+                </div>
+                <div class="testimonial-item bg-light my-4">
+                    <div class="d-flex align-items-center border-bottom pt-5 pb-4 px-5">
+                        <img class="img-fluid rounded" src="img/testimonial-2.jpg" style="width: 60px; height: 60px;" >
+                        <div class="ps-4">
+                            <h4 class="text-primary mb-1">Client Name</h4>
+                            <small class="text-uppercase">Profession</small>
+                        </div>
+                    </div>
+                    <div class="pt-4 pb-5 px-5">
+                        Dolor et eos labore, stet justo sed est sed. Diam sed sed dolor stet amet eirmod eos labore diam
+                    </div>
+                </div>
+                <div class="testimonial-item bg-light my-4">
+                    <div class="d-flex align-items-center border-bottom pt-5 pb-4 px-5">
+                        <img class="img-fluid rounded" src="img/testimonial-3.jpg" style="width: 60px; height: 60px;" >
+                        <div class="ps-4">
+                            <h4 class="text-primary mb-1">Client Name</h4>
+                            <small class="text-uppercase">Profession</small>
+                        </div>
+                    </div>
+                    <div class="pt-4 pb-5 px-5">
+                        Dolor et eos labore, stet justo sed est sed. Diam sed sed dolor stet amet eirmod eos labore diam
+                    </div>
+                </div>
+                <div class="testimonial-item bg-light my-4">
+                    <div class="d-flex align-items-center border-bottom pt-5 pb-4 px-5">
+                        <img class="img-fluid rounded" src="img/testimonial-4.jpg" style="width: 60px; height: 60px;" >
+                        <div class="ps-4">
+                            <h4 class="text-primary mb-1">Client Name</h4>
+                            <small class="text-uppercase">Profession</small>
+                        </div>
+                    </div>
+                    <div class="pt-4 pb-5 px-5">
+                        Dolor et eos labore, stet justo sed est sed. Diam sed sed dolor stet amet eirmod eos labore diam
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Testimonial End -->
+
+    
+  <!-- Événements Start -->
 <div class="container-fluid py-5 wow fadeInUp" data-wow-delay="0.1s">
     <div class="container py-5">
-        <div class="section-title text-center position-relative pb-3 mb-5 mx-auto" style="max-width: 600px;">
-            <h2 class="fw-bold text-primary text ; font-size:30px;">Team Members</h2>
-            <h1 class="mb-0">Professional Stuffs Ready to Help Your Business</h1>
-        </div>
-        <div class="row g-5">
-            <div class="col-lg-4 wow slideInUp" data-wow-delay="0.3s">
-                <div class="team-item bg-light rounded overflow-hidden">
-                    <div class="team-img position-relative overflow-hidden">
-                        <img class="img-fluid w-100 team-photo" src="img/team-1.jpg" alt="" style="height: 400px; object-fit: cover;">
-                        <div class="team-social">
-                            <a class="btn btn-lg btn-primary btn-lg-square rounded" href=""><i class="fab fa-twitter fw-normal"></i></a>
-                            <a class="btn btn-lg btn-primary btn-lg-square rounded" href=""><i class="fab fa-facebook-f fw-normal"></i></a>
-                            <a class="btn btn-lg btn-primary btn-lg-square rounded" href=""><i class="fab fa-instagram fw-normal"></i></a>
-                            <a class="btn btn-lg btn-primary btn-lg-square rounded" href=""><i class="fab fa-linkedin-in fw-normal"></i></a>
-                        </div>
-                    </div>
-                    <div class="text-center py-4">
-                        <h4 class="text-primary">Full Name</h4>
-                        <p class="text-uppercase m-0">Designation</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-4 wow slideInUp" data-wow-delay="0.6s">
-                <div class="team-item bg-light rounded overflow-hidden">
-                    <div class="team-img position-relative overflow-hidden">
-                        <img class="img-fluid w-100 team-photo" src="img/WhatsApp Image 2024-12-07 at 11.32.39 AM.jpeg" alt="" style="height: 400px; object-fit: cover;">
-                        <div class="team-social">
-                            <a class="btn btn-lg btn-primary btn-lg-square rounded" href=""><i class="fab fa-twitter fw-normal"></i></a>
-                            <a class="btn btn-lg btn-primary btn-lg-square rounded" href=""><i class="fab fa-facebook-f fw-normal"></i></a>
-                            <a class="btn btn-lg btn-primary btn-lg-square rounded" href=""><i class="fab fa-instagram fw-normal"></i></a>
-                            <a class="btn btn-lg btn-primary btn-lg-square rounded" href=""><i class="fab fa-linkedin-in fw-normal"></i></a>
-                        </div>
-                    </div>
-                    <div class="text-center py-4">
-                        <h4 class="text-primary">Ons Ghariani</h4>
-                        <p class="text-uppercase m-0">Project Manager</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-4 wow slideInUp" data-wow-delay="0.9s">
-                <div class="team-item bg-light rounded overflow-hidden">
-                    <div class="team-img position-relative overflow-hidden">
-                        <img class="img-fluid w-100 team-photo" src="img/team-3.jpg" alt="" style="height: 400px; object-fit: cover;">
-                        <div class="team-social">
-                            <a class="btn btn-lg btn-primary btn-lg-square rounded" href=""><i class="fab fa-twitter fw-normal"></i></a>
-                            <a class="btn btn-lg btn-primary btn-lg-square rounded" href=""><i class="fab fa-facebook-f fw-normal"></i></a>
-                            <a class="btn btn-lg btn-primary btn-lg-square rounded" href=""><i class="fab fa-instagram fw-normal"></i></a>
-                            <a class="btn btn-lg btn-primary btn-lg-square rounded" href=""><i class="fab fa-linkedin-in fw-normal"></i></a>
-                        </div>
-                    </div>
-                    <div class="text-center py-4">
-                        <h4 class="text-primary">Full Name</h4>
-                        <p class="text-uppercase m-0">Designation</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- Team End -->
-
-<style>
-    /* Team Section Styles */
-    .team-img {
-        overflow: hidden;
-    }
-    
-    .team-photo {
-        width: 100%;
-        transition: transform 0.5s ease;
-    }
-    
-    .team-item:hover .team-photo {
-        transform: scale(1.05);
-    }
-    
-    .team-social {
-        position: absolute;
-        bottom: -50px;
-        left: 0;
-        right: 0;
-        text-align: center;
-        transition: all 0.5s ease;
-        opacity: 0;
-    }
-    
-    .team-item:hover .team-social {
-        bottom: 20px;
-        opacity: 1;
-    }
-    
-    .team-social a {
-        display: inline-block;
-        margin: 0 5px;
-        transition: all 0.3s;
-    }
-    
-    .team-social a:hover {
-        transform: translateY(-5px);
-    }
-</style>
-
-
-
-    
-
-
-
-{# ============================================= #}
-{# CAREERS SECTION - MODERN DESIGN #}
-{# ============================================= #}
-{# ============================================= #}
-{# SECTION OFFRE D'EMPLOI - STYLE HARMONISÉ #}
-{# ============================================= #}
-<div class="container-fluid py-5 wow fadeInUp" data-wow-delay="0.1s" style="background-color: #f8f9fa;">
-    <div class="container py-5">
-        <div class="section-title text-center position-relative pb-3 mb-5 mx-auto" style="max-width: 700px;">
-          <h5 class="fw-bold text" style="color: #e67e22; font-size: 30px;">Carrières chez Nous</h5>
-            <h1 class="mb-0" style="font-size: 2.5rem; color: #091E3E;">Rejoignez Notre Aventure</h1>
-            <div class="position-absolute bottom-0 start-50 translate-middle-x" style="width: 100px; height: 3px; background: linear-gradient(to right, #e67e22, #d35400);"></div>
-        </div>
-        
-        <div class="row g-4 justify-content-center">
-            <!-- Job 1 -->
-            <div class="col-xl-4 col-lg-6 col-md-6 wow zoomIn" data-wow-delay="0.3s">
-                <div class="job-card bg-white rounded-4 overflow-hidden h-100 d-flex flex-column border-0 shadow-sm">
-                    <div class="p-4 pb-0">
-                        <div class="d-flex justify-content-between align-items-center mb-3">
-                            <div class="job-type" style="background: rgba(230, 126, 34, 0.1); color: #e67e22; padding: 0.25rem 1rem; border-radius: 50px; font-weight: 600; font-size: 0.75rem;">CDI</div>
-                            <div class="job-date text-muted" style="font-size: 0.8rem;"><i class="far fa-clock me-1"></i> Publié: 15 juin</div>
-                        </div>
-                        <h4 class="mb-3" style="color: #091E3E;">Développeur Full Stack</h4>
-                        <div class="job-meta d-flex align-items-center mb-3">
-                            <div class="d-flex align-items-center me-4">
-                                <i class="fas fa-map-marker-alt me-2" style="color: #e67e22;"></i>
-                                <span style="color: #4a5568;">Paris/Rémote</span>
-                            </div>
-                            <div class="d-flex align-items-center">
-                                <i class="fas fa-euro-sign me-2" style="color: #e67e22;"></i>
-                                <span style="color: #4a5568;">45-55K</span>
-                            </div>
-                        </div>
-                        <p class="mb-4" style="color: #718096; line-height: 1.6;">Nous recherchons un développeur expérimenté pour concevoir et implémenter des solutions techniques innovantes dans un environnement dynamique.</p>
-                    </div>
-                    
-                    <div class="job-skills px-4 pb-3">
-                        <div class="d-flex flex-wrap">
-                            <span class="skill-tag me-2 mb-2" style="background: #fdf2e9; color: #e67e22;">JavaScript</span>
-                            <span class="skill-tag me-2 mb-2" style="background: #f5e6d9; color: #d35400;">React</span>
-                            <span class="skill-tag me-2 mb-2" style="background: #ebf8ff; color: #3182ce;">Node.js</span>
-                        </div>
-                    </div>
-                    
-                    <div class="mt-auto p-4 pt-0">
-                        <a href="#" class="btn w-100 py-2 d-flex align-items-center justify-content-center" style="background: linear-gradient(to right, #e67e22, #d35400); color: white; border: none; border-radius: 8px; font-weight: 600;">
-                            Postuler maintenant <i class="fas fa-arrow-right ms-2" style="font-size: 0.9rem;"></i>
-                        </a>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- Job 2 -->
-            <div class="col-xl-4 col-lg-6 col-md-6 wow zoomIn" data-wow-delay="0.6s">
-                <div class="job-card bg-white rounded-4 overflow-hidden h-100 d-flex flex-column border-0 shadow-sm">
-                    <div class="p-4 pb-0">
-                        <div class="d-flex justify-content-between align-items-center mb-3">
-                            <div class="job-type" style="background: rgba(41, 128, 185, 0.1); color:rgb(9, 41, 63); padding: 0.25rem 1rem; border-radius: 50px; font-weight: 600; font-size: 0.75rem;">CDD</div>
-                            <div class="job-date text-muted" style="font-size: 0.8rem;"><i class="far fa-clock me-1"></i> Publié: 10 juin</div>
-                        </div>
-                        <h4 class="mb-3" style="color: #091E3E;">Chef de Projet IT</h4>
-                        <div class="job-meta d-flex align-items-center mb-3">
-                            <div class="d-flex align-items-center me-4">
-                                <i class="fas fa-map-marker-alt me-2" style="color: #2980b9;"></i>
-                                <span style="color: #4a5568;">Lyon</span>
-                            </div>
-                            <div class="d-flex align-items-center">
-                                <i class="fas fa-euro-sign me-2" style="color: #2980b9;"></i>
-                                <span style="color: #4a5568;">50-60K</span>
-                            </div>
-                        </div>
-                        <p class="mb-4" style="color: #718096; line-height: 1.6;">Pilotez des projets digitaux ambitieux et encadrez une équipe pluridisciplinaire dans un environnement Agile.</p>
-                    </div>
-                    
-                    <div class="job-skills px-4 pb-3">
-                        <div class="d-flex flex-wrap">
-                            <span class="skill-tag me-2 mb-2" style="background: #e8f4fd; color: #2980b9;">Agile</span>
-                            <span class="skill-tag me-2 mb-2" style="background: #d4e6f7; color: #1a5276;">Scrum</span>
-                            <span class="skill-tag me-2 mb-2" style="background: #fdf2e9; color: #e67e22;">Jira</span>
-                        </div>
-                    </div>
-                    
-                    <div class="mt-auto p-4 pt-0">
-                        <a href="#" class="btn w-100 py-2 d-flex align-items-center justify-content-center" style="background: linear-gradient(to right,rgb(0, 34, 56),rgb(5, 71, 114)); color: white; border: none; border-radius: 8px; font-weight: 600;">
-                            Postuler maintenant <i class="fas fa-arrow-right ms-2" style="font-size: 0.9rem;"></i>
-                        </a>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- Job 3 -->
-            <div class="col-xl-4 col-lg-6 col-md-6 wow zoomIn" data-wow-delay="0.9s">
-                <div class="job-card bg-white rounded-4 overflow-hidden h-100 d-flex flex-column border-0 shadow-sm">
-                    <div class="p-4 pb-0">
-                        <div class="d-flex justify-content-between align-items-center mb-3">
-                            <div class="job-type" style="background: rgba(16, 185, 129, 0.1); color: #10b981; padding: 0.25rem 1rem; border-radius: 50px; font-weight: 600; font-size: 0.75rem;">STAGE</div>
-                            <div class="job-date text-muted" style="font-size: 0.8rem;"><i class="far fa-clock me-1"></i> Publié: 5 juin</div>
-                        </div>
-                        <h4 class="mb-3" style="color: #091E3E;">UX/UI Designer</h4>
-                        <div class="job-meta d-flex align-items-center mb-3">
-                            <div class="d-flex align-items-center me-4">
-                                <i class="fas fa-map-marker-alt me-2" style="color:rgb(9, 82, 58);"></i>
-                                <span style="color: #4a5568;">Toulouse</span>
-                            </div>
-                            <div class="d-flex align-items-center">
-                                <i class="fas fa-euro-sign me-2" style="color: #10b981;"></i>
-                                <span style="color: #4a5568;">Indemnité</span>
-                            </div>
-                        </div>
-                        <p class="mb-4" style="color: #718096; line-height: 1.6;">Stage de 6 mois pour concevoir des interfaces utilisateur innovantes et participer à l'ensemble du processus de design.</p>
-                    </div>
-                    
-                    <div class="job-skills px-4 pb-3">
-                        <div class="d-flex flex-wrap">
-                            <span class="skill-tag me-2 mb-2" style="background: #e6fcf5; color: #10b981;">Figma</span>
-                            <span class="skill-tag me-2 mb-2" style="background: #d5f5e3; color: #0e8c6a;">Adobe XD</span>
-                            <span class="skill-tag me-2 mb-2" style="background: #fdf2e9; color: #e67e22;">Prototypage</span>
-                        </div>
-                    </div>
-                    
-                    <div class="mt-auto p-4 pt-0">
-                        <a href="#" class="btn w-100 py-2 d-flex align-items-center justify-content-center" style="background: linear-gradient(to right, #10b981, #0e8c6a); color: white; border: none; border-radius: 8px; font-weight: 600;">
-                            Postuler maintenant <i class="fas fa-arrow-right ms-2" style="font-size: 0.9rem;"></i>
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
-        
-        <div class="text-center mt-5 pt-3">
-            <a href="#" class="btn btn-lg px-4 py-2" style="background: white; color: #e67e22; border: 2px solid #e67e22; border-radius: 8px; font-weight: 600;">
-                Explorer toutes nos offres <i class="fas fa-arrow-right ms-2"></i>
-            </a>
-        </div>
-    </div>
-</div>
-
-<style>
-    .job-card {
-        transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.1);
-        border: 1px solid rgba(226, 232, 240, 0.8) !important;
-    }
-    
-    .job-card:hover {
-        transform: translateY(-8px);
-        box-shadow: 0 15px 30px rgba(230, 126, 34, 0.1) !important;
-        border-color: rgba(230, 126, 34, 0.3) !important;
-    }
-    
-    .skill-tag {
-        padding: 0.35rem 0.9rem;
-        border-radius: 50px;
-        font-size: 0.75rem;
-        font-weight: 500;
-        display: inline-block;
-        transition: all 0.2s ease;
-    }
-    
-    .job-card:hover .skill-tag {
-        transform: translateY(-2px);
-    }
-    
-    .job-type {
-        transition: all 0.3s ease;
-    }
-    
-    .job-card:hover .job-type {
-        transform: scale(1.05);
-    }
-    
-    .btn:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-    }
-    
-    /* Style spécifique pour le bouton orange */
-    .btn-orange {
-        background: linear-gradient(to right, #e67e22, #d35400);
-        color: white;
-        border: none;
-    }
-    
-    .btn-orange:hover {
-        background: linear-gradient(to right, #d35400, #e67e22);
-        color: white;
-    }
-</style>
-<!-- Formation Start -->
-<section class="container-fluid py-5 formation-section" style="background-color: #091E3E;">
-    <div class="container py-5">
-        <header class="section-title text-center position-relative pb-3 mb-5 mx-auto" style="max-width: 800px;">
-            <h5 class="fw-bold text" style="color:rgb(238, 125, 20);font-size: 30px;">Formations Professionnelles</h5>
-            <h1 class="mb-0 display-5 fw-bold" style="color: white;">Développez Vos Compétences avec Nos Formations</h1>
-            <div class="mx-auto mt-3" style="width: 100px; height: 3px; background: linear-gradient(90deg, #E9C46A 0%, #2A9D8F 100%);"></div>
-            <p class="mt-4 mb-0" style="color: rgba(255,255,255,0.8);">Profitez de nos formations premium offertes à tous nos employés</p>
-        </header>
-        <div class="row g-4">
-            <!-- Formation 1 -->
-            <article class="col-lg-4">
-                <div class="formation-card rounded-4 overflow-hidden h-100 shadow" style="background-color: #132842; border-top: 4px solid #2A9D8F;">
-                    <div class="formation-header p-4 text-center" style="background-color: #1A3353;">
-                        <div class="icon-container mb-3" style="color: #2A9D8F;">
-                            <i class="fas fa-code fa-3x"></i>
-                        </div>
-                        <h4 class="mb-1" style="color: #ffffff;">Développement Web</h4>
-                        <small class="text-muted" style="color: #c0c5d0 !important;">Pour débutants et intermédiaires</small>
-                        <div class="formation-progress mt-3">
-                            <div class="progress-bar" data-progress="85" style="background: linear-gradient(90deg, #2A9D8F 0%, #1A3353 100%);"></div>
-                        </div>
-                    </div>
-                    <div class="p-4">
-                        <div class="mb-4 text-center">
-                            <span class="badge py-2 px-3 mb-2" style="background-color: rgba(42, 157, 143, 0.2); color: #2A9D8F;">GRATUIT</span>
-                            <div class="d-flex justify-content-center align-items-center" style="color: #c0c5d0;">
-                                <i class="far fa-clock me-2"></i>
-                                <small>30 heures</small>
-                            </div>
-                        </div>
-                        <ul class="list-unstyled mb-4" style="color:rgb(1, 12, 34);">
-                            <li class="mb-2"><i class="fas fa-check-circle me-2" style="color: #2A9D8F;"></i> HTML5 & CSS3 avancé</li>
-                            <li class="mb-2"><i class="fas fa-check-circle me-2" style="color: #2A9D8F;"></i> JavaScript moderne</li>
-                            <li class="mb-2"><i class="fas fa-check-circle me-2" style="color: #2A9D8F;"></i> Framework Vue.js</li>
-                            <li class="mb-2"><i class="fas fa-check-circle me-2" style="color: #2A9D8F;"></i> Projet pratique inclus</li>
-                        </ul>
-                        <a href="#" class="btn w-100 py-2 d-flex align-items-center justify-content-center hover-effect" style="background: linear-gradient(90deg, #2A9D8F 0%, #1A3353 100%); color: white;" aria-label="S'inscrire à la formation Développement Web">
-                            S'inscrire <i class="fas fa-arrow-right ms-2"></i>
-                        </a>
-                    </div>
-                </div>
-            </article>
-
-            <!-- Formation 2 -->
-            <article class="col-lg-4">
-                <div class="formation-card rounded-4 overflow-hidden h-100 shadow position-relative" style="background-color: #132842; border-top: 4px solid #E9C46A;">
-                    <div class="popular-badge" style="background: linear-gradient(90deg, #E9C46A 0%, #E76F51 100%);">POPULAIRE</div>
-                    <div class="formation-header p-4 text-center" style="background-color: #1A3353;">
-                        <div class="icon-container mb-3" style="color: #E9C46A;">
-                            <i class="fas fa-tasks fa-3x"></i>
-                        </div>
-                        <h4 class="mb-1" style="color: #ffffff;">Gestion de Projet</h4>
-                        <small class="text-muted" style="color: #c0c5d0 !important;">Méthodes Agile & Scrum</small>
-                        <div class="formation-progress mt-3">
-                            <div class="progress-bar" data-progress="95" style="background: linear-gradient(90deg, #E9C46A 0%, #E76F51 100%);"></div>
-                        </div>
-                    </div>
-                    <div class="p-4">
-                        <div class="mb-4 text-center">
-                            <span class="badge py-2 px-3 mb-2" style="background-color: rgba(233, 196, 106, 0.2); color: #E9C46A;">GRATUIT</span>
-                            <div class="d-flex justify-content-center align-items-center" style="color: #c0c5d0;">
-                                <i class="far fa-clock me-2"></i>
-                                <small>45 heures</small>
-                            </div>
-                        </div>
-                        <ul class="list-unstyled mb-4" style="color:rgb(1, 12, 34);">
-                            <li class="mb-2"><i class="fas fa-check-circle me-2" style="color: #E9C46A;"></i> Fondamentaux Agile</li>
-                            <li class="mb-2"><i class="fas fa-check-circle me-2" style="color: #E9C46A;"></i> Certification Scrum</li>
-                            <li class="mb-2"><i class="fas fa-check-circle me-2" style="color: #E9C46A;"></i> Outils Jira/Trello</li>
-                            <li class="mb-2"><i class="fas fa-check-circle me-2" style="color: #E9C46A;"></i> Études de cas réels</li>
-                        </ul>
-                        <a href="#" class="btn w-100 py-2 d-flex align-items-center justify-content-center hover-effect" style="background: linear-gradient(90deg,rgb(177, 175, 47) 0%, #E76F51 100%); color: white;" aria-label="S'inscrire à la formation Gestion de Projet">
-                            S'inscrire <i class="fas fa-arrow-right ms-2"></i>
-                        </a>
-                    </div>
-                </div>
-            </article>
-
-            <!-- Formation 3 -->
-            <article class="col-lg-4">
-                <div class="formation-card rounded-4 overflow-hidden h-100 shadow" style="background-color: #132842; border-top: 4px solid #E76F51;">
-                    <div class="formation-header p-4 text-center" style="background-color: #1A3353;">
-                        <div class="icon-container mb-3" style="color: #E76F51;">
-                            <i class="fas fa-chart-line fa-3x"></i>
-                        </div>
-                        <h4 class="mb-1" style="color: #ffffff;">Data Science</h4>
-                        <small class="text-muted" style="color: #c0c5d0 !important;">Analyse de données avancée</small>
-                        <div class="formation-progress mt-3">
-                            <div class="progress-bar" data-progress="75" style="background: linear-gradient(90deg, #E76F51 0%, #1A3353 100%);"></div>
-                        </div>
-                    </div>
-                    <div class="p-4">
-                        <div class="mb-4 text-center">
-                            <span class="badge py-2 px-3 mb-2" style="background-color: rgba(231, 111, 81, 0.2); color: #E76F51;">GRATUIT</span>
-                            <div class="d-flex justify-content-center align-items-center" style="color: #c0c5d0;">
-                                <i class="far fa-clock me-2"></i>
-                                <small>60 heures</small>
-                            </div>
-                        </div>
-                        <ul class="list-unstyled mb-4" style="color:rgb(1, 12, 34);">
-                            <li class="mb-2"><i class="fas fa-check-circle me-2" style="color: #091E3E;;"></i> Python pour la data</li>
-                            <li class="mb-2"><i class="fas fa-check-circle me-2" style="color: #091E3E;;"></i> Machine Learning</li>
-                            <li class="mb-2"><i class="fas fa-check-circle me-2" style="color: #091E3E;;"></i> Visualisation Power BI</li>
-                            <li class="mb-2"><i class="fas fa-check-circle me-2" style="color: #091E3E;;"></i> Projet final certifiant</li>
-                        </ul>
-                       <a href="#" class="btn w-100 py-2 d-flex align-items-center justify-content-center hover-effect" style="background-color:rgb(184, 104, 38); color: white;" aria-label="S'inscrire à la formation Data Science">
-    S'inscrire <i class="fas fa-arrow-right ms-2"></i>
-</a>
-
-                    </div>
-                </div>
-            </article>
-        </div>
-        <div class="text-center mt-5 pt-4">
-            <a href="#" class="btn btn-outline-primary btn-lg px-5 py-3 hover-effect" style="border-color: white; color: white;" aria-label="Voir toutes les formations">
-                <i class="fas fa-book-open me-2"></i> Voir toutes les formations
-            </a>
-        </div>
-    </div>
-</section>
-<!-- Formation End -->
-
-<style>
-    .formation-section {
-        background-color: #091E3E;
-        position: relative;
-        overflow: hidden;
-    }
-
-    .formation-card {
-     background-color:rgb(250, 250, 250) !important;
-      color: rgba(255, 255, 255, 0.85);
-        transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        border: none;
-        position: relative;
-        overflow: hidden;
-        z-index: 1;
-        box-shadow: 0 10px 20px rgba(0,0,0,0.25);
-    }
-
-    .formation-card:hover {
-        transform: translateY(-10px) scale(1.02);
-        box-shadow: 0 15px 30px rgba(0,0,0,0.35) !important;
-    }
-
-    .formation-header {
-        border-bottom: 1px solid rgba(255,255,255,0.1);
-          background-color: #25355A !important;
-    }
-
-    .popular-badge {
-        position: absolute;
-        top: 15px;
-        right: -30px;
-        padding: 5px 30px;
-        color: white;
-        font-weight: bold;
-        transform: rotate(45deg);
-        z-index: 1;
-        font-size: 0.8rem;
-        box-shadow: 0 2px 5px rgba(0,0,0,0.3);
-    }
-
-    .icon-container {
-        transition: all 0.4s ease;
-        position: relative;
-        display: inline-block;
-    }
-
-    .formation-card:hover .icon-container {
-        transform: translateY(-5px) scale(1.1);
-    }
-
-    .rounded-4 {
-        border-radius: 1rem !important;
-    }
-
-    .btn-outline-primary {
-        transition: all 0.3s ease;
-        position: relative;
-        overflow: hidden;
-        background-color: transparent;
-    }
-
-    .btn-outline-primary:hover {
-        background: white !important;
-        color: #091E3E !important;
-    }
-
-    .formation-progress {
-        height: 6px;
-        background-color: rgba(255,255,255,0.1);
-        border-radius: 3px;
-        overflow: hidden;
-    }
-
-    .progress-bar {
-        height: 100%;
-        width: 0;
-        border-radius: 3px;
-        transition: width 1.5s cubic-bezier(0.22, 1, 0.36, 1);
-    }
-
-    .hover-effect {
-        position: relative;
-        overflow: hidden;
-        transition: all 0.3s ease;
-        z-index: 1;
-    }
-
-    .hover-effect::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: -100%;
-        width: 100%;
-        height: 100%;
-        background: rgba(255,255,255,0.2);
-        transition: all 0.4s ease;
-        z-index: -1;
-    }
-
-    .hover-effect:hover::before {
-        left: 100%;
-    }
-    
-    .formation-card .btn {
-        border-radius: 0.5rem;
-        font-weight: 500;
-        letter-spacing: 0.5px;
-        transition: all 0.3s ease;
-    }
-    
-    .formation-card .btn:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 5px 15px rgba(255, 166, 0, 0.75);
-    }
-
-    @keyframes pulse {
-        0% { transform: scale(1); }
-        50% { transform: scale(1.05); }
-        100% { transform: scale(1); }
-    }
-
-    .formation-card:hover .popular-badge {
-        animation: pulse 1.5s infinite;
-    }
-
-    /* Adaptation du texte pour le fond sombre */
-    .section-title h1,
-    .section-title p {
-        text-shadow: 0 1px 3px rgba(0,0,0,0.3);
-    }
-    
-    .text-muted {
-        color:rgb(89, 118, 180) !important;
-    }
-</style>
-
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        const progressBars = document.querySelectorAll('.progress-bar');
-
-        const animateProgressBars = () => {
-            progressBars.forEach(bar => {
-                const progress = bar.getAttribute('data-progress');
-                setTimeout(() => {
-                    bar.style.width = progress + '%';
-                }, 300);
-            });
-        };
-
-        const formationSection = document.querySelector('.formation-section');
-
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    animateProgressBars();
-                    observer.unobserve(entry.target);
-                }
-            });
-        }, { threshold: 0.1 });
-
-        observer.observe(formationSection);
-
-        const cards = document.querySelectorAll('.formation-card');
-
-        cards.forEach(card => {
-            card.addEventListener('mousemove', (e) => {
-                const rect = card.getBoundingClientRect();
-                const x = e.clientX - rect.left;
-                const y = e.clientY - rect.top;
-
-                const width = card.offsetWidth;
-                const height = card.offsetHeight;
-                
-                const rotateX = ((y - height / 2) / height) * 5;
-                const rotateY = ((width / 2 - x) / width) * 5;
-                
-                card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-10px)`;
-            });
-            
-            card.addEventListener('mouseleave', () => {
-                card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) translateY(0)';
-                setTimeout(() => {
-                    card.style.transition = 'all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275)';
-                }, 100);
-            });
-        });
-    });
-</script>
-
-   
-
-<!-- Online Evaluation Start -->
-<div class="container-fluid py-5 evaluation-section">
-    <div class="container py-5">
-        <div class="row align-items-center">
-            <div class="col-lg-6 mb-5 mb-lg-0">
-                <div class="section-title position-relative mb-4">
-                    <h2 class="fw-bold text-primary text; font_size:30px;">Processus d'Évaluation</h2>
-                    <h1 class="mb-0">Entretien en Ligne Simplifié</h1>
-                </div>
-                <div class="evaluation-steps">
-                    <div class="step-card" data-step="1">
-                        <div class="step-header">
-                            <div class="step-badge">1</div>
-                            <h4>Inscription Express</h4>
-                        </div>
-                        <p>Créez votre compte en 2 minutes et accédez à notre plateforme d'évaluation.</p>
-                        <div class="step-progress"></div>
-                    </div>
-                    
-                    <div class="step-card" data-step="2">
-                        <div class="step-header">
-                            <div class="step-badge">2</div>
-                            <h4>Test de Compétences</h4>
-                        </div>
-                        <p>Passez nos tests techniques interactifs pour évaluer vos compétences.</p>
-                        <div class="step-progress"></div>
-                    </div>
-                    
-                    <div class="step-card" data-step="3">
-                        <div class="step-header">
-                            <div class="step-badge">3</div>
-                            <h4>Entretien Vidéo</h4>
-                        </div>
-                        <p>Rencontrez nos recruteurs en visioconférence à votre convenance.</p>
-                        <div class="step-progress"></div>
-                    </div>
-                    
-                    <div class="step-card" data-step="4">
-                        <div class="step-header">
-                            <div class="step-badge">4</div>
-                            <h4>Résultats Rapides</h4>
-                        </div>
-                        <p>Recevez une analyse détaillée de votre performance sous 48h.</p>
-                    </div>
-                </div>
-                <button class="btn btn-start-evaluation mt-4">Commencer l'Évaluation</button>
-            </div>
-            
-            <div class="col-lg-6">
-                <div class="evaluation-visual">
-                    <img src="img/about.jpg" alt="Processus d'entretien en ligne" class="img-fluid main-image">
-                    <div class="floating-elements">
-                        <div class="floating-icon" style="--delay: 0.2s; --x: 20px; --y: -30px;">
-                            <i class="fas fa-video"></i>
-                        </div>
-                        <div class="floating-icon" style="--delay: 0.4s; --x: -40px; --y: 10px;">
-                            <i class="fas fa-chart-line"></i>
-                        </div>
-                        <div class="floating-icon" style="--delay: 0.6s; --x: 30px; --y: 40px;">
-                            <i class="fas fa-check-circle"></i>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- Online Evaluation End -->
-<style>
-/* Base Styles */
-.evaluation-section {
-    background: linear-gradient(135deg, #f9fafe 0%, #f0f4ff 100%);
-    position: relative;
-    overflow: hidden;
-    padding: 50px 0; /* Add padding for better spacing */
-}
-
-.evaluation-section::before {
-    content: '';
-    position: absolute;
-    top: -50%;
-    right: -50%;
-    width: 100%;
-    height: 200%;
-    background: radial-gradient(circle, rgba(255,122,0,0.05) 0%, rgba(255,122,0,0) 70%);
-    z-index: 0;
-}
-
-/* Steps Styles */
-.evaluation-steps {
-    position: relative;
-    z-index: 1;
-}
-
-.step-card {
-    background: white;
-    border-radius: 15px; /* Slightly rounder corners */
-    padding: 30px; /* Increased padding for better spacing */
-    margin-bottom: 30px; /* Increased margin for better separation */
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05); /* Enhanced shadow */
-    border-left: 5px solid transparent; /* Slightly thicker border */
-    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    position: relative;
-    overflow: hidden;
-}
-
-.step-card:hover {
-    transform: translateY(-8px); /* Slightly more lift */
-    box-shadow: 0 15px 30px rgba(26, 43, 71, 0.1); /* Enhanced shadow on hover */
-    border-left-color: #ff7a00;
-}
-
-.step-header {
-    display: flex;
-    align-items: center;
-    margin-bottom: 20px; /* Increased margin for better spacing */
-}
-
-.step-badge {
-    width: 35px;
-    height: 35px; /* Slightly larger badge */
-    background: #ff7a00;
-    color: white;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-weight: bold;
-    margin-right: 20px; /* Increased margin for better spacing */
-    flex-shrink: 0;
-}
-
-.step-card h4 {
-    color: #1a2b47;
-    font-size: 1.3rem; /* Slightly larger font size */
-    margin: 0;
-}
-
-.step-card p {
-    color: #5d6b85;
-    margin-left: 50px; /* Adjusted margin for better alignment */
-    line-height: 1.7; /* Improved line height for readability */
-}
-
-.step-progress {
-    position: absolute;
-    bottom: 0;
-    left: 50px; /* Adjusted position for better alignment */
-    height: 3px; /* Slightly thicker progress bar */
-    width: calc(100% - 50px);
-    background: #e6e9f0;
-}
-
-.step-progress::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    height: 100%;
-    width: 0;
-    background: #ff7a00;
-    transition: width 1s ease;
-}
-
-/* Visual Section - Fixed positioning */
-.evaluation-visual {
-    position: relative;
-    padding: 40px; /* Increased padding for better spacing */
-    height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.main-image {
-    position: relative;
-    z-index: 2;
-    max-height: 450px; /* Slightly larger image */
-    width: auto;
-    max-width: 100%;
-    display: block;
-    filter: drop-shadow(0 15px 30px rgba(26, 43, 71, 0.1)); /* Enhanced shadow */
-    animation: float 6s ease-in-out infinite;
-}
-
-.floating-elements {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    pointer-events: none; /* Prevent interaction with icons */
-}
-
-.floating-icon {
-    position: absolute;
-    width: 40px; /* Slightly larger icons */
-    height: 40px;
-    background: white;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #ff7a00;
-    font-size: 1.1rem; /* Slightly larger font size */
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1); /* Enhanced shadow */
-    animation: float 4s ease-in-out infinite;
-    animation-delay: var(--delay);
-    z-index: 3;
-}
-
-/* Adjusted floating icon positions */
-.floating-icon:nth-child(1) {
-    top: 15%;
-    left: 10%;
-}
-
-.floating-icon:nth-child(2) {
-    top: 55%;
-    left: 85%;
-}
-
-.floating-icon:nth-child(3) {
-    top: 75%;
-    left: 20%;
-}
-
-/* Button */
-.btn-start-evaluation {
-    background: #ff7a00;
-    color: white;
-    border: none;
-    padding: 15px 35px; /* Increased padding for better click area */
-    border-radius: 50px;
-    font-weight: 600;
-    letter-spacing: 1.2px; /* Slightly increased letter spacing */
-    position: relative;
-    overflow: hidden;
-    transition: all 0.3s ease;
-    box-shadow: 0 8px 20px rgba(255, 122, 0, 0.3); /* Enhanced shadow */
-}
-
-.btn-start-evaluation:hover {
-    transform: translateY(-5px); /* Slightly more lift */
-    box-shadow: 0 12px 25px rgba(255, 122, 0, 0.4); /* Enhanced shadow on hover */
-    background: #e67100;
-}
-
-.btn-start-evaluation::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(to right, transparent 0%, rgba(255,255,255,0.3) 100%);
-    transform: translateX(-100%);
-    transition: transform 0.6s ease;
-}
-
-.btn-start-evaluation:hover::after {
-    transform: translateX(100%);
-}
-
-/* Animations */
-@keyframes float {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-20px); } /* Slightly more float */
-}
-
-@keyframes pulse {
-    0% { transform: scale(1); }
-    50% { transform: scale(1.05); }
-    100% { transform: scale(1); }
-}
-
-/* Section title adjustment */
-.section-title h5 {
-    font-size: 1.2rem;
-    color: #ff7a00;
-    letter-spacing: 1.2px; /* Slightly increased letter spacing */
-}
-
-.section-title h1 {
-    font-size: 2.7rem; /* Slightly larger font size */
-    font-weight: 700;
-    color: #1a2b47;
-    margin-top: 20px; /* Increased margin for better spacing */
-}
-
-/* Responsive adjustments */
-@media (max-width: 992px) {
-    .evaluation-visual {
-        margin-top: 60px; /* Increased margin for better spacing */
-    }
-
-    .floating-icon {
-        width: 40px;
-        height: 40px;
-        font-size: 1rem;
-    }
-}
-</style>
-
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        // Animate steps on scroll
-        const steps = document.querySelectorAll('.step-card');
-        
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    const step = entry.target;
-                    const stepNumber = step.getAttribute('data-step');
-                    
-                    // Add animation class
-                    step.classList.add('animate-step');
-                    
-                    // Animate progress bar
-                    if (stepNumber < 4) {
-                        const progress = step.querySelector('.step-progress');
-                        setTimeout(() => {
-                            progress.querySelector('::after').style.width = '100%';
-                        }, 300);
-                    }
-                }
-            });
-        }, { threshold: 0.5 });
-        
-        steps.forEach(step => observer.observe(step));
-        
-        // Button hover effect
-        const startButton = document.querySelector('.btn-start-evaluation');
-        if (startButton) {
-            startButton.addEventListener('mouseenter', () => {
-                startButton.style.animation = 'pulse 1.5s infinite';
-            });
-            
-            startButton.addEventListener('mouseleave', () => {
-                startButton.style.animation = 'none';
-            });
-        }
-    });
-</script>
-
-
-
-
-
-
-
-<!-- Événements Start -->
-<div class="container-fluid py-5" style="background: linear-gradient(rgba(249, 250, 251, 0.98), rgba(249, 250, 251, 0.98)), url('{{ asset('img/pattern-bg.png') }}');">
-    <div class="container py-5">
         <div class="section-title text-center position-relative pb-3 mb-5 mx-auto" style="max-width: 800px;">
-            <h2 class="fw-bold text" style="color: #ff7a00; letter-spacing: 1px;">Nos Événements</h2>
-            <h1 class="mb-0 display-5 fw-bold" style="color: #1a2b47;">Découvrez Nos Prochains Événements</h1>
-            <div class="mx-auto mt-3" style="width: 100px; height: 4px; background: linear-gradient(to right, #ff7a00, #ff9430); border-radius: 2px;"></div>
+            <h5 class="fw-bold text-primary text-uppercase">Nos Événements</h5>
+            <h1 class="mb-0">Découvrez Nos Prochains Événements Professionnels</h1>
         </div>
-        
         <div class="row g-4">
-            {% if evenements|length > 0 %}
-                {% for evenement in evenements %}
-                    <div class="col-lg-4 col-md-6">
-                        <div class="event-card bg-white rounded-4 overflow-hidden h-100 d-flex flex-column shadow-sm border-0">
-                            <div class="event-header position-relative overflow-hidden">
-                                <!-- Image depuis la base de données -->
-                                <img class="img-fluid w-100" 
-                                     src="{{ evenement.image ? asset('uploads/evenements/' ~ evenement.image) : asset('img/events/default.jpg') }}" 
-                                     alt="{{ evenement.nom }}" 
-                                     style="height: 220px; object-fit: cover;">
-                                <div class="event-badge position-absolute top-3 start-3">
-                                    <span class="badge rounded-pill py-2 px-3" style="background: rgba(255, 122, 0, 0.15); color: #ff7a00; font-weight: 600; backdrop-filter: blur(4px);">
-                                        {% if evenement.type == 'Recrutement' %}
-                                            <i class="fas fa-users me-1"></i>
-                                        {% elseif evenement.type == 'Formation' %}
-                                            <i class="fas fa-graduation-cap me-1"></i>
-                                        {% elseif evenement.type == 'Conférence' %}
-                                            <i class="fas fa-chalkboard-teacher me-1"></i>
-                                        {% else %}
-                                            <i class="fas fa-calendar-alt me-1"></i>
-                                        {% endif %}
-                                        {{ evenement.type }}
-                                    </span>
-                                </div>
-
-                                
-                                <div class="event-date position-absolute bottom-0 end-0 m-3 bg-white rounded-3 shadow-sm px-3 py-2">
-                                    <div class="text-center" style="line-height: 1.2;">
-                                        <div class="fw-bold" style="color: #ff7a00; font-size: 1.2rem;">{{ evenement.dateDebut|date('d') }}</div>
-                                        <small style="font-size: 0.7rem; color: #1a2b47; font-weight: 600;">{{ evenement.dateDebut|date('M')|upper }}</small>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="p-4 d-flex flex-column flex-grow-1">
-                                <div class="d-flex align-items-center mb-3">
-                                    <span class="me-3" style="color: #ff7a00;"><i class="far fa-clock me-1"></i> {{ evenement.dateDebut|date('H:i') }}-{{ evenement.dateFin|date('H:i') }}</span>
-                                    <span style="color: #1a2b47;"><i class="fas fa-map-marker-alt me-1"></i> {{ evenement.lieu }}</span>
-                                </div>
-                                <h4 class="mb-3" style="color: #1a2b47; font-weight: 700;">{{ evenement.nom }}</h4>
-                                <p class="flex-grow-1" style="color: #5d6b85; line-height: 1.7;">
-                                    {{ evenement.description|length > 120 ? evenement.description|slice(0, 120) ~ '...' : evenement.description }}
-                                </p>
-                                <div class="d-flex justify-content-between align-items-center mt-4">
-                                    <div class="event-participants d-flex align-items-center">
-                                        <i class="fas fa-coins me-2" style="color: #ff7a00;"></i>
-                                        <span style="color: #5d6b85; font-weight: 500;">{{ evenement.budget }} €</span>
-                                    </div>
-                                  <a href="{{ path('app_evenement_public_detail', {'id': evenement.idEv}) }}" class="btn btn-sm rounded-pill px-4 py-2 d-flex align-items-center" style="background: linear-gradient(to right, #ff7a00, #ff9430); color: white; font-weight: 600; border: none;">
-    Détails <i class="fas fa-arrow-right ms-2"></i>
-</a>
-                                </div>
+            <!-- Événement 1 -->
+            <div class="col-lg-4 col-md-6 wow zoomIn" data-wow-delay="0.3s">
+                <div class="event-item bg-light rounded overflow-hidden h-100">
+                    <div class="event-img position-relative overflow-hidden">
+                        <img class="img-fluid w-100" src="{{ asset('img/about.jpg') }}" alt="Salon de recrutement tech" style="height: 220px; object-fit: cover;">
+                        <div class="event-overlay d-flex align-items-center justify-content-center">
+                            <div class="event-category bg-primary text-white rounded px-3 py-1">
+                                Recrutement
                             </div>
                         </div>
                     </div>
-                {% endfor %}
-            {% else %}
-                <div class="col-12 text-center py-5">
-                    <div class="empty-state">
-                        <i class="fas fa-calendar-times fa-4x mb-3" style="color: #ff7a00;"></i>
-                        <h4 style="color: #1a2b47;">Aucun événement à venir</h4>
-                        <p class="text-muted">Revenez bientôt pour découvrir nos prochains événements.</p>
+                    <div class="p-4 d-flex flex-column" style="height: calc(100% - 220px);">
+                        <div class="d-flex mb-2">
+                            <small class="me-3"><i class="far fa-calendar-alt text-primary me-2"></i>15 Mai 2023</small>
+                            <small><i class="far fa-clock text-primary me-2"></i>09:00-17:00</small>
+                        </div>
+                        <h4 class="mb-3">Salon de Recrutement Tech</h4>
+                        <p class="flex-grow-1">Rencontrez les meilleurs talents du secteur technologique lors de notre salon annuel.</p>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <a href="{{ path('app_evenement_detail', {'id': 1}) }}" class="btn btn-sm btn-primary">
+                                Détails <i class="fas fa-arrow-right ms-1"></i>
+                            </a>
+                      
+                        </div>
                     </div>
                 </div>
-            {% endif %}
+            </div>
+
+            <!-- Événement 2 -->
+            <div class="col-lg-4 col-md-6 wow zoomIn" data-wow-delay="0.6s">
+                <div class="event-item bg-light rounded overflow-hidden h-100">
+                    <div class="event-img position-relative overflow-hidden">
+                        <img class="img-fluid w-100" src="{{ asset('img/about.jpg') }}" alt="Atelier leadership" style="height: 220px; object-fit: cover;">
+                        <div class="event-overlay d-flex align-items-center justify-content-center">
+                            <div class="event-category bg-primary text-white rounded px-3 py-1">
+                                Formation
+                            </div>
+                        </div>
+                    </div>
+                    <div class="p-4 d-flex flex-column" style="height: calc(100% - 220px);">
+                        <div class="d-flex mb-2">
+                            <small class="me-3"><i class="far fa-calendar-alt text-primary me-2"></i>22 Juin 2023</small>
+                            <small><i class="far fa-clock text-primary me-2"></i>13:30-18:00</small>
+                        </div>
+                        <h4 class="mb-3">Atelier Leadership</h4>
+                        <p class="flex-grow-1">Formation intensive pour développer vos compétences en management et leadership.</p>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <a href="{{ path('app_evenement_detail', {'id': 2}) }}" class="btn btn-sm btn-primary">
+                                Détails <i class="fas fa-arrow-right ms-1"></i>
+                            </a>
+                     
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Événement 3 -->
+            <div class="col-lg-4 col-md-6 wow zoomIn" data-wow-delay="0.9s">
+                <div class="event-item bg-light rounded overflow-hidden h-100">
+                    <div class="event-img position-relative overflow-hidden">
+                        <img class="img-fluid w-100" src="{{ asset('img/about.jpg') }}" alt="Conférence RH" style="height: 220px; object-fit: cover;">
+                        <div class="event-overlay d-flex align-items-center justify-content-center">
+                            <div class="event-category bg-primary text-white rounded px-3 py-1">
+                                Conférence
+                            </div>
+                        </div>
+                    </div>
+                    <div class="p-4 d-flex flex-column" style="height: calc(100% - 220px);">
+                        <div class="d-flex mb-2">
+                            <small class="me-3"><i class="far fa-calendar-alt text-primary me-2"></i>10 Juillet 2023</small>
+                            <small><i class="far fa-clock text-primary me-2"></i>10:00-16:00</small>
+                        </div>
+                        <h4 class="mb-3">Tendances RH 2023</h4>
+                        <p class="flex-grow-1">Découvrez les nouvelles pratiques et technologies en ressources humaines.</p>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <a href="{{ path('app_evenement_detail', {'id': 3}) }}" class="btn btn-sm btn-primary">
+                                Détails <i class="fas fa-arrow-right ms-1"></i>
+                            </a>
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-        
-      <div class="text-center mt-5 pt-3">
-    <a href="{{ path('app_evenements') }}" class="btn btn-lg px-5 py-3 rounded-pill" style="background: #1a2b47; color: white; border: none; font-weight: 600; box-shadow: 0 6px 18px rgba(26, 43, 71, 0.2);">
-        <i class="fas fa-calendar-alt me-2"></i> Voir tous les événements
-    </a>
-</div>
+        <div class="text-center mt-5">
+            <a href="{{ path('app_evenements') }}" class="btn btn-primary py-3 px-5 mt-3 wow zoomIn" data-wow-delay="0.6s">
+                <i class="fas fa-calendar-alt me-2"></i> Voir tous les événements
+            </a>
+        </div>
+    </div>
 </div>
 <!-- Événements End -->
-<style>
-    .event-card {
-        transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        border: 1px solid rgba(226, 232, 240, 0.8);
-        border-radius: 15px;
-        position: relative;
-        overflow: hidden;
-    }
-
-    .event-card:hover {
-        transform: translateY(-10px);
-        box-shadow: 0 20px 30px rgba(26, 43, 71, 0.15) !important;
-        border-color: rgba(255, 122, 0, 0.2);
-    }
-
-    .event-card::after {
-        content: '';
-        position: absolute;
-        bottom: 0;
-        left: 0;
-        width: 100%;
-        height: 4px;
-        background: linear-gradient(to right, #1a2b47, #ff7a00);
-        transform: scaleX(0);
-        transform-origin: left;
-        transition: transform 0.4s ease;
-    }
-
-    .event-card:hover::after {
-        transform: scaleX(1);
-    }
-
-    .event-header {
-        position: relative;
-        overflow: hidden;
-    }
-
-    .event-header img {
-        transition: transform 0.8s ease;
-        border-radius: 15px 15px 0 0;
-    }
-
-    .event-card:hover .event-header img {
-        transform: scale(1.1);
-    }
-
-    .event-badge {
-        z-index: 1;
-        transition: all 0.3s ease;
-        font-size: 0.8rem;
-    }
-
-    .event-card:hover .event-badge {
-        transform: translateY(-3px);
-    }
-
-    .event-date {
-        z-index: 1;
-        transition: all 0.3s ease;
-        font-size: 0.85rem;
-    }
-
-    .event-card:hover .event-date {
-        transform: translateY(-3px);
-        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-    }
-
-    .btn {
-        transition: all 0.3s ease;
-        position: relative;
-        overflow: hidden;
-        font-weight: 600;
-    }
-
-    .btn::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: -100%;
-        width: 100%;
-        height: 100%;
-        background: rgba(255, 255, 255, 0.2);
-        transition: all 0.4s ease;
-    }
-
-    .btn:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 7px 14px rgba(0, 0, 0, 0.1);
-    }
-
-    .btn:hover::before {
-        left: 100%;
-    }
-
-    .rounded-4 {
-        border-radius: 1rem !important;
-    }
-
-    .badge {
-        letter-spacing: 0.5px;
-        font-weight: 600;
-    }
-
-    /* Animation au chargement */
-    @keyframes fadeInUp {
-        from {
-            opacity: 0;
-            transform: translateY(30px);
-        }
-        to {
-            opacity: 1;
-            transform: translateY(0);
-        }
-    }
-
-    .event-card {
-        animation: fadeInUp 0.7s ease forwards;
-        opacity: 0;
-    }
-
-    .col-lg-4:nth-child(1) .event-card { animation-delay: 0.1s; }
-    .col-lg-4:nth-child(2) .event-card { animation-delay: 0.3s; }
-    .col-lg-4:nth-child(3) .event-card { animation-delay: 0.5s; }
-
-    /* Pulse animation for infinity icon */
-    @keyframes pulse {
-        0% { transform: scale(1); }
-        50% { transform: scale(1.1); }
-        100% { transform: scale(1); }
-    }
-
-    .event-participants .fa-infinity {
-        animation: pulse 2s infinite;
-    }
-
-    /* Hover effects for improved UX */
-    .event-participants {
-        transition: transform 0.3s ease;
-    }
-
-    .event-card:hover .event-participants {
-        transform: translateX(5px);
-    }
-
-    /* Improved text styles */
-    h4 {
-        font-size: 1.25rem;
-        font-weight: 700;
-        color: #1a2b47;
-    }
-
-    p {
-        font-size: 1rem;
-        color: #5d6b85;
-        line-height: 1.6;
-    }
-
-    .section-title h5 {
-        color: #ff7a00;
-        font-weight: 700;
-        letter-spacing: 1px;
-    }
-
-    .section-title h1 {
-        font-weight: 800;
-        color: #1a2b47;
-    }
-
-    .section-title p {
-        font-size: 1.1rem;
-        color: #777;
-    }
-
-    .event-meta span {
-        font-weight: 600;
-        color: #ff7a00;
-    }
-</style>
-
-
-
-<!-- Section Réclamation Start -->
-<div class="container-fluid py-5 wow fadeInUp" style="background-color: #091E3E;" data-wow-delay="0.1s">
-    <div class="container py-5">
-        <div class="row g-5">
-            <div class="col-lg-7">
-                <div class="section-title position-relative pb-3 mb-5">
-                    <h5 class="fw-bold text-white text-uppercase">Déposer une réclamation</h5>
-                    <h1 class="mb-0 text-white">Vous avez un problème ? Contactez notre service client</h1>
-                </div>
-                <div class="row gx-3">
-                    <div class="col-sm-6 wow zoomIn" data-wow-delay="0.2s">
-                        <h5 class="mb-4 text-white"><i class="fa fa-reply text-white me-3"></i>Réponse sous 48 heures</h5>
-                    </div>
-                    <div class="col-sm-6 wow zoomIn" data-wow-delay="0.4s">
-                        <h5 class="mb-4 text-white"><i class="fa fa-phone-alt text-white me-3"></i>Assistance téléphonique 6j/7</h5>
-                    </div>
-                </div>
-                <p class="mb-4 text-white-50">Notre service client est à votre disposition pour traiter vos réclamations. Veuillez remplir le formulaire avec tous les détails nécessaires pour nous aider à résoudre votre problème rapidement et efficacement.</p>
-                <div class="d-flex align-items-center mt-2 wow zoomIn" data-wow-delay="0.6s">
-                    <div class="bg-white d-flex align-items-center justify-content-center rounded" style="width: 60px; height: 60px;">
-                        <i class="fa fa-phone-alt text-dark"></i>
-                    </div>
-                    <div class="ps-4">
-                        <h5 class="mb-2 text-white">Service client dédié</h5>
-                        <h4 class="text-white mb-0">+012 345 6789</h4>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-5">
-                <div class="bg-white rounded h-100 d-flex align-items-center p-5 wow zoomIn" data-wow-delay="0.9s">
-                    <form>
-                        <div class="row g-3">
-                            <div class="col-xl-12">
-                                <input type="text" class="form-control border-primary" placeholder="Votre nom complet" style="height: 55px;">
-                            </div>
-                            <div class="col-12">
-                                <input type="email" class="form-control border-primary" placeholder="Votre email" style="height: 55px;">
-                            </div>
-                            <div class="col-12">
-                                <input type="text" class="form-control border-primary" placeholder="Numéro de commande/client" style="height: 55px;">
-                            </div>
-                            <div class="col-12">
-                                <select class="form-select border-primary" style="height: 55px;">
-                                    <option selected>Type de réclamation</option>
-                                    <option value="1">Problème de livraison</option>
-                                    <option value="2">Produit défectueux</option>
-                                    <option value="3">Service non satisfaisant</option>
-                                    <option value="4">Facturation</option>
-                                    <option value="5">Autre</option>
-                                </select>
-                            </div>
-                            <div class="col-12">
-                                <textarea class="form-control border-primary" rows="3" placeholder="Décrivez votre réclamation en détail..."></textarea>
-                            </div>
-                            <div class="col-12">
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" id="pieceJointe" style="border-color: #0a2463;">
-                                    <label class="form-check-label text-dark" for="pieceJointe">
-                                        Joindre des pièces justificatives (facture, photos...)
-                                    </label>
-                                </div>
-                            </div>
-                            <div class="col-12">
-                                <button class="btn w-100 py-3" type="submit" style="background-color: #ff7b25; color: white; font-weight: bold;">Envoyer la réclamation</button>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
 
 <style>
-    :root {
-        --primary-color: #091E3E;  /* Harmonisé avec la couleur de la section Réclamation */
-        --secondary-color: #1a3a6e; /* Nuance plus claire du bleu foncé */
-        --accent-color: #ff7b25;   /* Couleur du bouton de la section Réclamation */
-        --dark-color: #050f1f;
-        --light-color: #f8f9fa;
+    .event-item {
+        transition: transform 0.3s, box-shadow 0.3s;
+        border: 1px solid rgba(0,0,0,0.1);
     }
-    
-    /* Ajout d'une transition douce pour l'espacement */
-    .container-fluid {
-        transition: margin 0.3s ease;
-    }
-    
-    /* Responsive adjustment for the spacing */
-    @media (max-width: 768px) {
-        .container-fluid[style*="margin-bottom"] {
-            margin-bottom: 3rem !important;
-        }
-        .container-fluid[style*="margin-top"] {
-            margin-top: 3rem !important;
-        }
-    }
-</style>
-<!-- Section Réclamation End -->
-
-<div style="height: 5rem;"></div>
-
-  <!-- Sponsors Start -->
-<div class="container-fluid py-5 bg-gradient-primary">
-    <div class="container py-5">
-        <div class="section-title text-center position-relative pb-3 mb-5 mx-auto" style="max-width: 700px;">
-            <h5 class="fw-bold text-white text-uppercase">Strategic Collaborations</h5>
-            <h1 class="mb-0 text-white">Trusted by Global Innovators</h1>
-            <p class="mt-3 text-light">We partner with industry pioneers to deliver exceptional solutions</p>
-        </div>
-
-        <div class="sponsors-container bg-white rounded-4 shadow-lg p-4 p-lg-5 position-relative">
-            <div class="owl-carousel sponsor-carousel">
-                <div class="sponsor-item">
-                    <img src="img/vendor-1.jpg" alt="Sponsor 1" class="img-fluid">
-                </div>
-                <div class="sponsor-item">
-                    <img src="img/vendor-2.jpg" alt="Sponsor 2" class="img-fluid">
-                </div>
-                <div class="sponsor-item">
-                    <img src="img/vendor-3.jpg" alt="Sponsor 3" class="img-fluid">
-                </div>
-                <div class="sponsor-item">
-                    <img src="img/vendor-4.jpg" alt="Sponsor 4" class="img-fluid">
-                </div>
-                <div class="sponsor-item">
-                    <img src="img/vendor-5.jpg" alt="Sponsor 5" class="img-fluid">
-                </div>
-                <div class="sponsor-item">
-                    <img src="img/vendor-6.jpg" alt="Sponsor 6" class="img-fluid">
-                </div>
-                <div class="sponsor-item">
-                    <img src="img/vendor-7.jpg" alt="Sponsor 7" class="img-fluid">
-                </div>
-                <div class="sponsor-item">
-                    <img src="img/vendor-8.jpg" alt="Sponsor 8" class="img-fluid">
-                </div>
-                <div class="sponsor-item">
-                    <img src="img/vendor-9.jpg" alt="Sponsor 9" class="img-fluid">
-                </div>
-            </div>
-            
-            <!-- Decorative elements -->
-            <div class="position-absolute top-0 start-0 w-100 h-100 overflow-hidden z-0">
-                <div class="sponsor-dots"></div>
-                <div class="sponsor-circle-1"></div>
-                <div class="sponsor-circle-2"></div>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- Sponsors End -->
-
-<style>
-    :root {
-        --primary-color:rgb(230, 146, 21);
-        --secondary-color:rgb(201, 116, 36);
-        --accent-color: #ff7e5f;
-        --dark-color: #1a237e;
-        --light-color: #f8f9fa;
-    }
-    
-    .bg-gradient-primary {
-        background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
-    }
-    
-    /* Sponsor container styling */
-    .sponsors-container {
-        position: relative;
-        overflow: hidden;
-        border: none;
-        background: rgba(255, 255, 255, 0.95);
-        backdrop-filter: blur(5px);
-        transition: all 0.5s ease;
-        z-index: 1;
-    }
-    
-    .sponsors-container:hover {
-        box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+    .event-item:hover {
         transform: translateY(-5px);
+        box-shadow: 0 10px 20px rgba(0,0,0,0.1);
     }
-    
-    /* Sponsor item styling */
-    .sponsor-carousel {
+    .event-img {
         position: relative;
-        z-index: 2;
     }
-    
-    .sponsor-item {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        height: 140px;
-        padding: 25px;
-        margin: 0 15px;
-        background: white;
-        border-radius: 12px;
-        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-        transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
-        transform: scale(0.95) translateY(20px);
-        opacity: 0;
-        filter: grayscale(100%) contrast(0.8);
-        will-change: transform, opacity;
-    }
-    
-    .sponsor-item.animated {
-        opacity: 1;
-        transform: scale(0.95) translateY(0);
-        filter: grayscale(100%) contrast(0.8);
-    }
-    
-    .sponsor-item:hover {
-        transform: scale(1.05) !important;
-        filter: grayscale(0%) contrast(1) !important;
-        box-shadow: 0 8px 25px rgba(78, 84, 200, 0.3);
-    }
-    
-    .sponsor-item img {
-        max-height: 70px;
-        width: auto;
-        object-fit: contain;
-        transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-    
-    /* Decorative elements */
-    .sponsor-dots {
+    .event-overlay {
         position: absolute;
-        width: 150%;
-        height: 150%;
-        background-image: radial-gradient(rgba(78, 84, 200, 0.1) 2px, transparent 2px);
-        background-size: 30px 30px;
-        animation: moveDots 120s linear infinite;
-        opacity: 0.5;
+        top: 10px;
+        left: 10px;
+        z-index: 1;
     }
-    
-    .sponsor-circle-1 {
-        position: absolute;
-        width: 200px;
-        height: 200px;
-        border-radius: 50%;
-        background: rgba(143, 148, 251, 0.1);
-        top: -50px;
-        right: -50px;
-        filter: blur(20px);
-        animation: pulse 8s ease infinite;
+    .event-category {
+        font-size: 0.8rem;
+        font-weight: 600;
     }
-    
-    .sponsor-circle-2 {
-        position: absolute;
-        width: 300px;
-        height: 300px;
-        border-radius: 50%;
-        background: rgba(255, 126, 95, 0.05);
-        bottom: -100px;
-        left: -100px;
-        filter: blur(30px);
-        animation: pulse 12s ease infinite alternate;
-    }
-    
-    /* Animations */
-    @keyframes moveDots {
-        0% { transform: translate(0, 0); }
-        100% { transform: translate(-50%, -50%); }
-    }
-    
-    @keyframes pulse {
-        0% { transform: scale(1); opacity: 0.3; }
-        50% { transform: scale(1.1); opacity: 0.5; }
-        100% { transform: scale(1); opacity: 0.3; }
-    }
-    
-    /* Responsive adjustments */
-    @media (max-width: 768px) {
-        .sponsor-item {
-            height: 100px;
-            padding: 15px;
-        }
-        
-        .sponsor-item img {
-            max-height: 50px;
-        }
+    .event-item h4 {
+        min-height: 60px;
     }
 </style>
 
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        // Enhanced carousel initialization
-        $('.sponsor-carousel').owlCarousel({
-            loop: true,
-            margin: 30,
-            nav: false,
-            dots: false,
-            autoplay: true,
-            autoplayTimeout: 2500,
-            autoplayHoverPause: true,
-            smartSpeed: 800,
-            responsive: {
-                0: { items: 2 },
-                576: { items: 3 },
-                768: { items: 4 },
-                992: { items: 5 },
-                1200: { items: 6 }
-            }
-        });
-        
-        // Advanced scroll animation with Intersection Observer
-        const sponsorItems = document.querySelectorAll('.sponsor-item');
-        
-        const observerOptions = {
-            threshold: 0.2,
-            rootMargin: '0px 0px -50px 0px'
-        };
-        
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach((entry, index) => {
-                if (entry.isIntersecting) {
-                    setTimeout(() => {
-                        entry.target.classList.add('animated');
-                        
-                        // Add color splash effect on first appearance
-                        if (!entry.target.dataset.animated) {
-                            entry.target.dataset.animated = true;
-                            const rect = entry.target.getBoundingClientRect();
-                            const x = rect.left + rect.width/2;
-                            const y = rect.top + rect.height/2;
-                            
-                            const ripple = document.createElement('div');
-                            ripple.style.position = 'absolute';
-                            ripple.style.width = '10px';
-                            ripple.style.height = '10px';
-                            ripple.style.borderRadius = '50%';
-                            ripple.style.background = 'radial-gradient(circle, rgba(143,148,251,0.5) 0%, rgba(255,255,255,0) 70%)';
-                            ripple.style.transform = 'scale(0)';
-                            ripple.style.left = `${x}px`;
-                            ripple.style.top = `${y}px`;
-                            ripple.style.pointerEvents = 'none';
-                            ripple.style.zIndex = '5';
-                            ripple.style.transition = 'transform 1s ease-out, opacity 1s ease-out';
-                            
-                            document.body.appendChild(ripple);
-                            
-                            setTimeout(() => {
-                                ripple.style.transform = 'scale(20)';
-                                ripple.style.opacity = '0';
-                            }, 10);
-                            
-                            setTimeout(() => {
-                                ripple.remove();
-                            }, 1000);
-                        }
-                    }, index * 150);
-                }
-            });
-        }, observerOptions);
-        
-        sponsorItems.forEach(item => {
-            observer.observe(item);
-        });
-        
-        // Enhanced hover effects
-        $('.sponsor-item').hover(
-            function() {
-                $(this).css({
-                    'transform': 'scale(1.05)',
-                    'filter': 'grayscale(0%) contrast(1)',
-                    'box-shadow': '0 8px 25px rgba(78, 84, 200, 0.3)'
-                });
-                
-                // Add subtle tilt effect
-                $(this).css('transform', 'scale(1.05) rotate(1deg)');
-                
-                // Add color glow
-                $(this).append('<div class="sponsor-glow"></div>');
-                $('.sponsor-glow').css({
-                    'position': 'absolute',
-                    'top': '0',
-                    'left': '0',
-                    'width': '100%',
-                    'height': '100%',
-                    'border-radius': '8px',
-                    'background': 'radial-gradient(circle at center, rgba(143, 148, 251, 0.2) 0%, transparent 70%)',
-                    'z-index': '-1',
-                    'opacity': '0',
-                    'transition': 'opacity 0.3s ease'
-                });
-                
-                setTimeout(() => {
-                    $('.sponsor-glow').css('opacity', '1');
-                }, 10);
-            },
-            function() {
-                $(this).css({
-                    'transform': 'scale(0.95)',
-                    'filter': 'grayscale(100%) contrast(0.8)',
-                    'box-shadow': '0 5px 15px rgba(0, 0, 0, 0.05)'
-                });
-                
-                // Remove tilt effect
-                $(this).css('transform', 'scale(0.95) rotate(0)');
-                
-                // Remove glow
-                $('.sponsor-glow').remove();
-            }
-        );
-    });
-</script>
+
+
+
+   
+     <!-- Vendor Start -->
+    <div class="container-fluid py-5 wow fadeInUp" data-wow-delay="0.1s">
+        <div class="container py-5 mb-5">
+            <div class="bg-white">
+                <div class="owl-carousel vendor-carousel">
+                    <img src="img/vendor-1.jpg" alt="">
+                    <img src="img/vendor-2.jpg" alt="">
+                    <img src="img/vendor-3.jpg" alt="">
+                    <img src="img/vendor-4.jpg" alt="">
+                    <img src="img/vendor-5.jpg" alt="">
+                    <img src="img/vendor-6.jpg" alt="">
+                    <img src="img/vendor-7.jpg" alt="">
+                    <img src="img/vendor-8.jpg" alt="">
+                    <img src="img/vendor-9.jpg" alt="">
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Vendor End -->
+
 
 
     
@@ -2458,10 +915,40 @@
     {# ============================================= #}
     {# FOOTER #}
     {# ============================================= #}
-    <footer>
+    <footer class="bg-dark text-white p-4 mt-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4">
+                    <h5>About Us</h5>
+                    <p>Brief description of your company and what you offer.</p>
+                </div>
+                <div class="col-md-4">
+                    <h5>Quick Links</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="#" class="text-white">Home</a></li>
+                        <li><a href="#" class="text-white">Services</a></li>
+                        <li><a href="#" class="text-white">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-4">
+                    <h5>Contact Info</h5>
+                    <address>
+                        123 Street, New York, USA<br>
+                        <i class="fa fa-phone"></i> +012 345 6789<br>
+                        <i class="fa fa-envelope"></i> info@example.com
+                    </address>
+                </div>
+            </div>
+            <hr>
+            <div class="text-center">
+                <p class="mb-0">&copy; 2023 Your Company. Al
+                l rights reserved.</p>
+            </div>
+        </div>
     </footer>
 
-      
+      <!-- Back to Top -->
+    <a href="#" class="btn btn-lg btn-primary btn-lg-square rounded back-to-top"><i class="bi bi-arrow-up"></i></a>
 
 {% endblock %}
 
