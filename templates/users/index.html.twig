@@ -10,7 +10,7 @@
     <style>
         :root {
             --primary-blue: #1B263B;
-            --primary-orange: #F57C00; /* Harmonisé avec la page des réclamations */
+            --primary-orange: #F57C00;
             --orange-light: #F28C38;
             --background-dark: #0B1322;
             --card-bg: #FFFFFF;
@@ -430,7 +430,6 @@
                 <button id="menuToggle" class="menu-toggle" aria-label="Toggle Menu">
                     <i class="mdi mdi-menu"></i>
                 </button>
-                <input type="text" placeholder="Rechercher un utilisateur..." class="search-input">
             </div>
             <div class="navbar-menu">
                 <i class="mdi mdi-bell-outline text-xl"></i>
@@ -449,6 +448,26 @@
                 </a>
             </div>
 
+            <!-- Formulaire de recherche et filtrage -->
+            <form method="get" action="{{ path('app_users_index') }}" class="mb-6 flex gap-4 flex-wrap">
+                <div>
+                    <input type="text" name="search" value="{{ search|default('') }}" placeholder="Rechercher par nom, prénom ou email..." class="search-input">
+                </div>
+                <div>
+                    <select name="role" class="search-input">
+                        <option value="">Tous les rôles</option>
+                        <option value="Candidat" {{ role == 'Candidat' ? 'selected' : '' }}>Candidat</option>
+                        <option value="Employé" {{ role == 'Employé' ? 'selected' : '' }}>Employé</option>
+                    </select>
+                </div>
+                <button type="submit" class="btn-primary">
+                    <i class="mdi mdi-magnify mr-2"></i> Rechercher
+                </button>
+                <a href="{{ path('app_users_index') }}" class="btn-primary" style="background: var(--text-muted);">
+                    <i class="mdi mdi-refresh mr-2"></i> Réinitialiser
+                </a>
+            </form>
+
             {% if users is empty %}
                 <div class="no-records wow fadeInUp" data-wow-delay="0.4s">Aucun utilisateur trouvé</div>
             {% else %}
@@ -456,11 +475,10 @@
                     <table class="data-table">
                         <thead>
                             <tr>
-                                <th>ID</th>
                                 <th>Nom</th>
                                 <th>Prénom</th>
                                 <th>Email</th>
-                                <th>Mot de passe</th>
+                            
                                 <th>Téléphone</th>
                                 <th>Adresse</th>
                                 <th>Rôle</th>
@@ -470,11 +488,9 @@
                         <tbody>
                             {% for user in users %}
                                 <tr class="wow fadeInUp" data-wow-delay="{{ loop.index0 * 50 }}ms">
-                                    <td data-label="ID">{{ user.idUser }}</td>
                                     <td data-label="Nom">{{ user.nom }}</td>
                                     <td data-label="Prénom">{{ user.prenom }}</td>
                                     <td data-label="Email">{{ user.email }}</td>
-                                    <td data-label="Mot de passe">{{ user.password|slice(0, 10) ~ '...' }}</td>
                                     <td data-label="Téléphone">{{ user.tel }}</td>
                                     <td data-label="Adresse">{{ user.address }}</td>
                                     <td data-label="Rôle">{{ user.role }}</td>

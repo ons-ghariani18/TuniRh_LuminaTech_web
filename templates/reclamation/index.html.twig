@@ -20,8 +20,6 @@
             --shadow-sm: 0 4px 12px rgba(0, 0, 0, 0.15);
             --shadow-lg: 0 12px 30px rgba(0, 0, 0, 0.2);
             --transition: all 0.3s ease;
-            --sidebar-bg: var(--primary-blue);
-            --sidebar-text: var(--text-light);
             --border-color: #E5E7EB;
             --success-green: #28a745;
             --warning-yellow: #ffc107;
@@ -35,12 +33,10 @@
             margin: 0;
             padding: 0;
             min-height: 100vh;
-            overflow-x: hidden;
         }
 
         .flex { display: flex; }
         .flex-1 { flex: 1; }
-        .h-screen { height: 100vh; }
         .items-center { align-items: center; }
         .justify-between { justify-content: space-between; }
         .gap-2 { gap: 0.5rem; }
@@ -52,101 +48,16 @@
         .mb-6 { margin-bottom: 1.5rem; }
         .mr-2 { margin-right: 0.5rem; }
 
-        /* Sidebar & Main Content */
-        .app-container {
-            position: relative;
-            display: flex;
-            min-height: 100vh;
-        }
-
-        .aside {
-            width: 240px;
-            background: linear-gradient(180deg, var(--primary-blue), var(--background-dark));
-            color: var(--sidebar-text);
-            position: fixed;
-            top: 0;
-            bottom: 0;
-            left: 0;
-            overflow-y: auto;
-            padding-top: 60px;
-            z-index: 100;
-            transition: transform var(--transition) ease, box-shadow var(--transition) ease;
-            box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
-        }
-
-        .aside.is-collapsed {
-            transform: translateX(-240px);
-            box-shadow: none;
-        }
-
-        body.sidebar-expanded .aside {
-            box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
-        }
-
-        .aside .aside-brand {
-            position: fixed;
-            top: 0;
-            height: 60px;
-            background: var(--primary-blue);
-            width: 240px;
-            display: flex;
-            align-items: center;
-            padding: 0 1.5rem;
-            font-size: 1.2rem;
-            font-weight: bold;
-            color: var(--text-light);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-            z-index: 101;
-            transition: transform var(--transition) ease;
-        }
-
-        .aside.is-collapsed .aside-brand {
-            transform: translateX(-240px);
-        }
-
-        .menu-label {
-            font-size: 0.75rem;
-            text-transform: uppercase;
-            margin: 1rem 1.5rem 0.25rem;
-            color: rgba(255, 255, 255, 0.4);
-        }
-
-        .menu-item {
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
-            padding: 0.75rem 1.5rem;
-            color: var(--sidebar-text);
-            text-decoration: none;
-            transition: background 0.3s, color 0.3s;
-        }
-
-        .menu-item:hover, .menu-item.is-active {
-            background: var(--primary-orange);
-            color: var(--text-light);
-        }
-
-        .menu-item i {
-            transition: transform 0.3s ease;
-        }
-
-        .menu-item:hover i {
-            transform: scale(1.1);
-        }
-
+        /* Main Content */
         .main-content {
-            margin-left: 240px;
-            flex: 1;
             padding: 0;
-            transition: margin-left var(--transition) ease;
-        }
-
-        .main-content.sidebar-collapsed {
-            margin-left: 0;
+            width: 100%;
         }
 
         .content-inner {
             padding: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
         }
 
         /* Navbar */
@@ -181,33 +92,6 @@
             border-color: var(--primary-orange);
             box-shadow: 0 0 8px rgba(231, 111, 81, 0.3);
             outline: none;
-        }
-
-        .menu-toggle {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 36px;
-            height: 36px;
-            border-radius: 8px;
-            background: transparent;
-            color: var(--text-dark);
-            border: 1px solid var(--border-color);
-            cursor: pointer;
-            transition: background 0.3s ease;
-            margin-right: 1rem;
-        }
-
-        .menu-toggle:hover {
-            background: #F1F5F9;
-        }
-
-        .menu-toggle i {
-            transition: transform 0.3s ease;
-        }
-
-        .menu-toggle.active i {
-            transform: rotate(180deg);
         }
 
         /* Button & Table */
@@ -290,14 +174,6 @@
             text-decoration: underline;
         }
 
-        .action-link i {
-            transition: transform 0.3s ease;
-        }
-
-        .action-link:hover i {
-            transform: scale(1.1);
-        }
-
         .no-records {
             text-align: center;
             color: var(--text-muted);
@@ -328,46 +204,21 @@
             color: var(--text-light);
         }
 
-        /* Overlay for mobile */
-        .sidebar-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(0, 0, 0, 0.5);
-            z-index: 90;
-            opacity: 0;
-            visibility: hidden;
-            transition: opacity var(--transition), visibility var(--transition);
-        }
-
-        .sidebar-overlay.active {
-            opacity: 1;
-            visibility: visible;
-        }
-
         /* Responsive */
         @media (max-width: 768px) {
-            .aside {
-                transform: translateX(-240px);
-            }
-
-            .aside.is-expanded {
-                transform: translateX(0);
-            }
-
-            .main-content {
-                margin-left: 0;
+            .content-inner {
+                padding: 1rem;
             }
 
             .navbar {
                 padding: 1rem;
+                flex-wrap: wrap;
+                gap: 1rem;
             }
 
             .search-input {
                 width: 100%;
-                max-width: 200px;
+                max-width: 100%;
             }
 
             .data-table th, .data-table td {
@@ -400,125 +251,73 @@
 {% endblock %}
 
 {% block body %}
-<div class="app-container">
-    <aside class="aside wow slideInLeft" id="sidebar" data-wow-delay="0.2s">
-        <div class="aside-brand">
-            <i class="mdi mdi-account-tie mr-2"></i> RH Dashboard
+<div class="main-content">
+    <header class="navbar wow fadeInDown" data-wow-delay="0.2s">
+        <div class="navbar-menu">
+            <i class="mdi mdi-bell-outline text-xl"></i>
+            <div class="flex items-center gap-2">
+                <img src="https://ui-avatars.com/api/?name=RH+Admin&background=091E3E&color=fff" class="rounded-full" width="36" alt="Admin Avatar">
+                <span>Admin RH</span>
+            </div>
+        </div>
+    </header>
+
+    <div class="content-inner">
+        <div class="flex justify-between items-center mb-6 wow fadeInUp" data-wow-delay="0.3s">
+            <h1 class="text-2xl font-bold" style="color: var(--primary-orange);">Gestion des Réclamations</h1>
+            <a href="{{ path('app_reclamation_new') }}" class="btn-primary">
+                <i class="mdi mdi-plus-circle"></i> Nouvelle Réclamation
+            </a>
         </div>
 
-        <div class="aside-menu">
-            <p class="menu-label">GÉNÉRAL</p>
-            <a href="{{ path('app_back_office') }}" class="menu-item">
-                <i class="mdi mdi-view-dashboard"></i> Tableau de bord
-            </a>
-
-            <p class="menu-label">GESTION RH</p>
-            <a href="{{ path('app_users_index') }}" class="menu-item">
-                <i class="mdi mdi-account-group"></i> Profils Utilisateurs
-            </a>
-
-            <a href="{{ path('app_offresemploi_index') }}" class="menu-item">
-                <i class="mdi mdi-briefcase"></i> Offres d'emploi
-            </a>
-            
-            <a href="{{ path('app_reclamation_index') }}" class="menu-item is-active">
-                <i class="mdi mdi-message-alert"></i> Réclamations
-            </a>
-
-            <p class="menu-label">ÉVÉNEMENTS</p>
-            <a href="{{ path('app_evenement_index') }}" class="menu-item">
-                <i class="mdi mdi-calendar"></i> Événements
-            </a>
-            <a href="{{ path('app_sponsor_index') }}" class="menu-item">
-                <i class="mdi mdi-handshake"></i> Sponsors
-            </a>
-
-            <p class="menu-label">FORMATION</p>
-            <a href="#" class="menu-item">
-                <i class="mdi mdi-school"></i> Formations
-            </a>
-            <a href="#" class="menu-item">
-                <i class="mdi mdi-account-voice"></i> Entretiens
-            </a>
-        </div>
-    </aside>
-
-    <div class="sidebar-overlay" id="sidebarOverlay"></div>
-
-    <div class="main-content" id="mainContent">
-        <header class="navbar wow fadeInDown" data-wow-delay="0.2s">
-            <div class="flex items-center">
-                <button id="menuToggle" class="menu-toggle" aria-label="Toggle Menu">
-                    <i class="mdi mdi-menu"></i>
-                </button>
-                <input type="text" placeholder="Rechercher..." class="search-input">
-            </div>
-            <div class="navbar-menu">
-                <i class="mdi mdi-bell-outline text-xl"></i>
-                <div class="flex items-center gap-2">
-                    <img src="https://ui-avatars.com/api/?name=RH+Admin&background=091E3E&color=fff" class="rounded-full" width="36" alt="Admin Avatar">
-                    <span>Admin RH</span>
-                </div>
-            </div>
-        </header>
-
-        <div class="content-inner">
-            <div class="flex justify-between items-center mb-6 wow fadeInUp" data-wow-delay="0.3s">
-                <h1 class="text-2xl font-bold" style="color: var(--primary-orange);">Gestion des Réclamations</h1>
-                <a href="{{ path('app_reclamation_new') }}" class="btn-primary">
-                    <i class="mdi mdi-plus-circle"></i> Nouvelle Réclamation
-                </a>
-            </div>
-
-            {% if reclamations is empty %}
-                <div class="no-records wow fadeInUp" data-wow-delay="0.4s">Aucune réclamation trouvée</div>
-            {% else %}
-                <div class="table-container wow fadeInUp" data-wow-delay="0.4s">
-                    <table class="data-table">
-                        <thead>
-                            <tr>
-                                <th>Sujet</th>
-                                <th>Description</th>
-                                <th>Date</th>
-                                <th>Statut</th>
-                                <th>Actions</th>
+        {% if reclamations is empty %}
+            <div class="no-records wow fadeInUp" data-wow-delay="0.4s">Aucune réclamation trouvée</div>
+        {% else %}
+            <div class="table-container wow fadeInUp" data-wow-delay="0.4s">
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Sujet</th>
+                            <th>Description</th>
+                            <th>Date</th>
+                            <th>Statut</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for reclamation in reclamations %}
+                            <tr class="wow fadeInUp" data-wow-delay="{{ loop.index0 * 50 }}ms">
+                                <td data-label="Sujet">{{ reclamation.sujet }}</td>
+                                <td data-label="Description">{{ reclamation.description|slice(0, 50) }}...</td>
+                                <td data-label="Date">{{ reclamation.dateReclamation|date('d/m/Y') }}</td>
+                                <td data-label="Statut">
+                                    <span class="badge bg-status-{{ reclamation.statut|lower }}">
+                                        {{ reclamation.statut }}
+                                    </span>
+                                </td>
+                                <td class="action-buttons">
+                                    <a href="{{ path('app_reclamation_show', {'idReclamation': reclamation.idReclamation}) }}" 
+                                       class="action-link" title="Détails">
+                                        <i class="mdi mdi-eye"></i> Voir
+                                    </a>
+                                    <a href="{{ path('app_reclamation_edit', {'idReclamation': reclamation.idReclamation}) }}" 
+                                       class="action-link" title="Modifier">
+                                        <i class="mdi mdi-pencil"></i> Modifier
+                                    </a>
+                                    <a href="#" class="action-link delete-reclamation" 
+                                       data-reclamation-name="{{ reclamation.sujet }}" 
+                                       data-delete-url="{{ path('app_reclamation_delete', {'idReclamation': reclamation.idReclamation}) }}"
+                                       data-token="{{ csrf_token('delete' ~ reclamation.idReclamation) }}"
+                                       title="Supprimer">
+                                        <i class="mdi mdi-delete"></i> Supprimer
+                                    </a>
+                                </td>
                             </tr>
-                        </thead>
-                        <tbody>
-                            {% for reclamation in reclamations %}
-                                <tr class="wow fadeInUp" data-wow-delay="{{ loop.index0 * 50 }}ms">
-                                    <td data-label="Sujet">{{ reclamation.sujet }}</td>
-                                    <td data-label="Description">{{ reclamation.description|slice(0, 50) }}...</td>
-                                    <td data-label="Date">{{ reclamation.dateReclamation|date('d/m/Y') }}</td>
-                                    <td data-label="Statut">
-                                        <span class="badge bg-status-{{ reclamation.statut|lower }}">
-                                            {{ reclamation.statut }}
-                                        </span>
-                                    </td>
-                                    <td class="action-buttons">
-                                        <a href="{{ path('app_reclamation_show', {'idReclamation': reclamation.idReclamation}) }}" 
-                                           class="action-link" title="Détails">
-                                            <i class="mdi mdi-eye"></i> Voir
-                                        </a>
-                                        <a href="{{ path('app_reclamation_edit', {'idReclamation': reclamation.idReclamation}) }}" 
-                                           class="action-link" title="Modifier">
-                                            <i class="mdi mdi-pencil"></i> Modifier
-                                        </a>
-                                        <a href="#" class="action-link delete-reclamation" 
-                                           data-reclamation-name="{{ reclamation.sujet }}" 
-                                           data-delete-url="{{ path('app_reclamation_delete', {'idReclamation': reclamation.idReclamation}) }}"
-                                           data-token="{{ csrf_token('delete' ~ reclamation.idReclamation) }}"
-                                           title="Supprimer">
-                                            <i class="mdi mdi-delete"></i> Supprimer
-                                        </a>
-                                    </td>
-                                </tr>
-                            {% endfor %}
-                        </tbody>
-                    </table>
-                </div>
-            {% endif %}
-        </div>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        {% endif %}
     </div>
 </div>
 {% endblock %}
@@ -526,7 +325,6 @@
 {% block javascripts %}
     {{ parent() }}
     <script>
-        // Initialiser WOW.js pour les animations
         new WOW().init();
 
         document.addEventListener('DOMContentLoaded', () => {
@@ -536,7 +334,7 @@
                     e.preventDefault();
                     const name = link.dataset.reclamationName;
                     const deleteUrl = link.dataset.deleteUrl;
-                    const token = link.dataset.token; // Récupérer le jeton CSRF depuis l'attribut data-token
+                    const token = link.dataset.token;
                     
                     if (confirm(`Supprimer la réclamation "${name}" ? Cette action est irréversible.`)) {
                         const form = document.createElement('form');
@@ -545,68 +343,12 @@
                         const tokenInput = document.createElement('input');
                         tokenInput.type = 'hidden';
                         tokenInput.name = '_token';
-                        tokenInput.value = token; // Utiliser le jeton récupéré
+                        tokenInput.value = token;
                         form.appendChild(tokenInput);
                         document.body.appendChild(form);
                         form.submit();
                     }
                 });
-            });
-            
-            // Sidebar toggle with animation
-            const sidebar = document.getElementById('sidebar');
-            const mainContent = document.getElementById('mainContent');
-            const menuToggle = document.getElementById('menuToggle');
-            const sidebarOverlay = document.getElementById('sidebarOverlay');
-            
-            function toggleSidebar() {
-                const isExpanded = !sidebar.classList.contains('is-collapsed');
-                
-                if (isExpanded) {
-                    sidebar.classList.add('is-collapsed');
-                    mainContent.classList.add('sidebar-collapsed');
-                    menuToggle.classList.add('active');
-                    document.body.classList.remove('sidebar-expanded');
-                } else {
-                    sidebar.classList.remove('is-collapsed');
-                    mainContent.classList.remove('sidebar-collapsed');
-                    menuToggle.classList.remove('active');
-                    document.body.classList.add('sidebar-expanded');
-                }
-                
-                if (window.innerWidth <= 768) {
-                    if (!isExpanded) {
-                        sidebarOverlay.classList.add('active');
-                    } else {
-                        sidebarOverlay.classList.remove('active');
-                    }
-                }
-            }
-            
-            function initSidebar() {
-                if (window.innerWidth <= 768) {
-                    sidebar.classList.add('is-collapsed');
-                    mainContent.classList.add('sidebar-collapsed');
-                } else {
-                    sidebar.classList.remove('is-collapsed');
-                    mainContent.classList.remove('sidebar-collapsed');
-                }
-            }
-            
-            menuToggle.addEventListener('click', toggleSidebar);
-            sidebarOverlay.addEventListener('click', () => {
-                if (window.innerWidth <= 768) {
-                    toggleSidebar();
-                }
-            });
-            
-            initSidebar();
-            
-            window.addEventListener('resize', () => {
-                initSidebar();
-                if (window.innerWidth > 768) {
-                    sidebarOverlay.classList.remove('active');
-                }
             });
 
             // Animation de clic sur les liens d'action

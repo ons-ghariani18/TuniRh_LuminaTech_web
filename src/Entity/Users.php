@@ -77,6 +77,9 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
     )]
     private string $role;
 
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
+    private $avatar;
+
     #[ORM\OneToMany(mappedBy: "idUser", targetEntity: Reclamation::class)]
     private Collection $reclamations;
 
@@ -213,5 +216,16 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
     public function getUserIdentifier(): string
     {
         return $this->email;
+    }
+
+    public function getAvatar(): ?string
+    {
+        return $this->avatar;
+    }
+
+    public function setAvatar(?string $avatar): self
+    {
+        $this->avatar = $avatar;
+        return $this;
     }
 }
