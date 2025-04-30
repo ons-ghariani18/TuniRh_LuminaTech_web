@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Evenement;
 use App\Form\EvenementType;
 use App\Form\EvenementSearchType;
+use App\Service\GoogleCalendarService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -18,9 +19,13 @@ use App\Repository\EvenementRepository;
 #[Route('/evenement')]
 final class EvenementController extends AbstractController
 {
+    private GoogleCalendarService $googleCalendarService;
+
     public function __construct(
-        private EntityManagerInterface $entityManager
+        private EntityManagerInterface $entityManager,
+        GoogleCalendarService $googleCalendarService
     ) {
+        $this->googleCalendarService = $googleCalendarService;
     }
 
     #[Route('/', name: 'app_evenement_index', methods: ['GET'])]
@@ -77,6 +82,14 @@ final class EvenementController extends AbstractController
                     }
                 }
 
+                // Créer l'événement dans Google Calendar
+                try {
+                    $googleEventId = $this->createGoogleCalendarEvent($evenement);
+                    $evenement->setGoogleEventId($googleEventId);
+                } catch (\Exception $e) {
+                    $this->addFlash('warning', 'L\'événement a été créé mais la synchronisation avec Google Calendar a échoué: ' . $e->getMessage());
+                }
+
                 $entityManager->persist($evenement);
                 $entityManager->flush();
 
@@ -122,6 +135,19 @@ final class EvenementController extends AbstractController
                     }
                 }
 
+                // Mettre à jour l'événement dans Google Calendar
+                try {
+                    if ($evenement->getGoogleEventId()) {
+                        $this->updateGoogleCalendarEvent($evenement);
+                    } else {
+                        // Si l'événement n'a pas encore d'ID Google Calendar, en créer un nouveau
+                        $googleEventId = $this->createGoogleCalendarEvent($evenement);
+                        $evenement->setGoogleEventId($googleEventId);
+                    }
+                } catch (\Exception $e) {
+                    $this->addFlash('warning', 'L\'événement a été modifié mais la synchronisation avec Google Calendar a échoué: ' . $e->getMessage());
+                }
+
                 $entityManager->flush();
 
                 $this->addFlash('success', 'L\'événement a été modifié avec succès');
@@ -141,6 +167,15 @@ final class EvenementController extends AbstractController
     public function delete(Request $request, Evenement $evenement, EntityManagerInterface $entityManager): Response
     {
         if ($this->isCsrfTokenValid('delete'.$evenement->getIdEv(), $request->getPayload()->get('_token'))) {
+            // Supprimer l'événement de Google Calendar
+            try {
+                if ($evenement->getGoogleEventId()) {
+                    $this->deleteGoogleCalendarEvent($evenement);
+                }
+            } catch (\Exception $e) {
+                $this->addFlash('warning', 'L\'événement a été supprimé mais la suppression de Google Calendar a échoué: ' . $e->getMessage());
+            }
+            
             if ($evenement->getImage()) {
                 $this->removeExistingImage($evenement->getImage());
             }
@@ -204,5 +239,69 @@ final class EvenementController extends AbstractController
                 $this->addFlash('warning', 'L\'image n\'a pas pu être supprimée');
             }
         }
+    }
+
+    /**
+     * Crée un événement dans Google Calendar
+     */
+    private function createGoogleCalendarEvent(Evenement $evenement): string
+    {
+        // Préparer les données de l'événement
+        $eventData = $this->prepareGoogleCalendarEventData($evenement);
+        
+        // Créer l'événement dans Google Calendar
+        $createdEvent = $this->googleCalendarService->createEvent($eventData);
+        
+        // Renvoyer l'ID de l'événement créé
+        return $createdEvent->getId();
+    }
+
+    /**
+     * Met à jour un événement dans Google Calendar
+     */
+    private function updateGoogleCalendarEvent(Evenement $evenement): void
+    {
+        // Préparer les données de l'événement
+        $eventData = $this->prepareGoogleCalendarEventData($evenement);
+        
+        // Mettre à jour l'événement dans Google Calendar
+        $this->googleCalendarService->updateEvent($evenement->getGoogleEventId(), $eventData);
+    }
+
+    /**
+     * Supprime un événement de Google Calendar
+     */
+    private function deleteGoogleCalendarEvent(Evenement $evenement): void
+    {
+        $this->googleCalendarService->deleteEvent($evenement->getGoogleEventId());
+    }
+
+    /**
+     * Prépare les données pour Google Calendar
+     */
+    private function prepareGoogleCalendarEventData(Evenement $evenement): array
+    {
+        // Convertir les dates au format attendu par Google Calendar
+        $start = clone $evenement->getDateDebut();
+        $end = clone $evenement->getDateFin();
+        
+        // Si les dates sont des DateTime sans heure spécifiée (juste la date),
+        // utiliser le format "date" de Google Calendar
+        return [
+            'summary' => $evenement->getNom(),
+            'location' => $evenement->getLieu(),
+            'description' => $evenement->getDescription() . "\n\nType: " . $evenement->getType() . "\nBudget: " . $evenement->getBudget() . " €",
+            'start' => [
+                'date' => $start->format('Y-m-d'),
+                'timeZone' => 'Europe/Paris',
+            ],
+            'end' => [
+                'date' => $end->format('Y-m-d'),
+                'timeZone' => 'Europe/Paris',
+            ],
+            'reminders' => [
+                'useDefault' => true,
+            ],
+        ];
     }
 }

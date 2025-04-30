@@ -249,11 +249,56 @@ class GoogleCalendarService
             $service = $this->getCalendarService();
             $event = $service->events->get($calendarId, $eventId);
             
-            foreach ($eventData as $key => $value) {
-                $setter = 'set' . ucfirst($key);
-                if (method_exists($event, $setter)) {
-                    $event->$setter($value);
+            // Mise à jour des champs simples
+            if (isset($eventData['summary'])) {
+                $event->setSummary($eventData['summary']);
+            }
+            if (isset($eventData['description'])) {
+                $event->setDescription($eventData['description']);
+            }
+            if (isset($eventData['location'])) {
+                $event->setLocation($eventData['location']);
+            }
+            
+            // Gestion correcte des dates pour les événements sur toute la journée (all-day events)
+            if (isset($eventData['start'])) {
+                $start = new \Google\Service\Calendar\EventDateTime();
+                if (isset($eventData['start']['date'])) {
+                    // Pour les événements sur toute la journée
+                    $start->setDate($eventData['start']['date']);
+                } elseif (isset($eventData['start']['dateTime'])) {
+                    // Pour les événements avec heure spécifique
+                    $start->setDateTime($eventData['start']['dateTime']);
                 }
+                if (isset($eventData['start']['timeZone'])) {
+                    $start->setTimeZone($eventData['start']['timeZone']);
+                }
+                $event->setStart($start);
+            }
+            
+            if (isset($eventData['end'])) {
+                $end = new \Google\Service\Calendar\EventDateTime();
+                if (isset($eventData['end']['date'])) {
+                    // Pour les événements sur toute la journée
+                    $end->setDate($eventData['end']['date']);
+                } elseif (isset($eventData['end']['dateTime'])) {
+                    // Pour les événements avec heure spécifique
+                    $end->setDateTime($eventData['end']['dateTime']);
+                }
+                if (isset($eventData['end']['timeZone'])) {
+                    $end->setTimeZone($eventData['end']['timeZone']);
+                }
+                $event->setEnd($end);
+            }
+            
+            // Mise à jour des rappels si fournis
+            if (isset($eventData['reminders'])) {
+                $reminders = new \Google\Service\Calendar\EventReminders();
+                $reminders->setUseDefault($eventData['reminders']['useDefault']);
+                if (isset($eventData['reminders']['overrides'])) {
+                    $reminders->setOverrides($eventData['reminders']['overrides']);
+                }
+                $event->setReminders($reminders);
             }
             
             return $service->events->update($calendarId, $eventId, $event);
@@ -264,46 +309,34 @@ class GoogleCalendarService
             throw $e;
         }
     }
-
-    /**
-     * Supprime un événement
-     */
-    public function deleteEvent(string $eventId, string $calendarId = 'primary'): void
-    {
-        try {
-            $service = $this->getCalendarService();
-            $service->events->delete($calendarId, $eventId);
-        } catch (\Exception $e) {
-            if ($this->logger) {
-                $this->logger->error('Error deleting calendar event: ' . $e->getMessage());
-            }
-            throw $e;
-        }
-    }
     
     /**
-     * Révoque l'accès et supprime les tokens
+     * Correction facultative pour EvenementController - méthode prepareGoogleCalendarEventData 
+     * (pour rendre le code plus explicite et faciliter le débogage)
      */
-    public function revokeAccess(): void
+    private function prepareGoogleCalendarEventData(Evenement $evenement): array
     {
-        try {
-            if ($this->client->getAccessToken()) {
-                $this->client->revokeToken();
-            }
-            
-            // Supprimer le fichier de token
-            if (file_exists($this->tokenPath)) {
-                unlink($this->tokenPath);
-            }
-            
-            // Supprimer le token de la session
-            if ($this->session && $this->session->has('google_token')) {
-                $this->session->remove('google_token');
-            }
-        } catch (\Exception $e) {
-            if ($this->logger) {
-                $this->logger->error('Error revoking access: ' . $e->getMessage());
-            }
-        }
+        // Convertir les dates au format attendu par Google Calendar
+        $start = clone $evenement->getDateDebut();
+        $end = clone $evenement->getDateFin();
+        
+        return [
+            'summary' => $evenement->getNom(),
+            'location' => $evenement->getLieu(),
+            'description' => $evenement->getDescription() . "\n\nType: " . $evenement->getType() . "\nBudget: " . $evenement->getBudget() . " €",
+            'start' => [
+                // Utiliser explicitement 'date' pour les événements sur toute la journée
+                'date' => $start->format('Y-m-d'),
+                'timeZone' => 'Europe/Paris',
+            ],
+            'end' => [
+                // Utiliser explicitement 'date' pour les événements sur toute la journée
+                'date' => $end->format('Y-m-d'),
+                'timeZone' => 'Europe/Paris',
+            ],
+            'reminders' => [
+                'useDefault' => true,
+            ],
+        ];
     }
 }
