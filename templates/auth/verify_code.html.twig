@@ -1,0 +1,42 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Vérification du code - TuniRh{% endblock %}
+
+{% block body %}
+    <section class="login-section">
+        <div class="container">
+            <div class="row justify-content-center align-items-center min-vh-100">
+                <div class="col-md-6 col-lg-4">
+                    <div class="card shadow-lg border-0 wow fadeInUp" data-wow-delay="0.3s">
+                        <div class="card-body p-5">
+                            <h2 class="text-center mb-4" style="color: var(--primary-orange); font-weight: 700;">Vérifier le code</h2>
+
+                            {% for flash_success in app.flashes('success') %}
+                                <div class="alert alert-success">{{ flash_success }}</div>
+                            {% endfor %}
+                            {% for flash_error in app.flashes('error') %}
+                                <div class="alert alert-danger">{{ flash_error }}</div>
+                            {% endfor %}
+
+                            <p class="text-center">Un code de vérification a été envoyé à {{ email }}.</p>
+
+                            {{ form_start(form) }}
+                                <div class="mb-4 form-group position-relative">
+                                    <i class="mdi mdi-shield-check position-absolute" style="top: 50%; left: 0.75rem; transform: translateY(-50%); color: var(--primary-orange); font-size: 1.1rem;"></i>
+                                    {{ form_widget(form.code) }}
+                                    {{ form_label(form.code, 'Code de vérification', {'label_attr': {'class': 'form-label'}}) }}
+                                    <div class="invalid-feedback">{{ form_errors(form.code) }}</div>
+                                </div>
+                                <div class="d-grid mb-4">
+                                    <button type="submit" class="btn btn-primary btn-lg wow zoomIn" data-wow-delay="0.4s">
+                                        <i class="mdi mdi-check me-2"></i>Vérifier
+                                    </button>
+                                </div>
+                            {{ form_end(form) }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}

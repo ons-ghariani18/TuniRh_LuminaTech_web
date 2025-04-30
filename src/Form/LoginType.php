@@ -6,6 +6,8 @@ use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+
 
 class LoginType extends AbstractType
 {
@@ -24,6 +26,17 @@ class LoginType extends AbstractType
                 'attr' => [
                     'placeholder' => 'Entrez votre mot de passe',
                     'autocomplete' => 'current-password',
+                ],
+            ])
+            ->add('remember_me', CheckboxType::class, [
+                'label' => 'Se souvenir de moi',
+                'required' => false,
+                'mapped' => false,
+                'attr' => [
+                    'class' => 'form-check-input',
+                ],
+                'label_attr' => [
+                    'class' => 'form-check-label',
                 ],
             ]);
     }

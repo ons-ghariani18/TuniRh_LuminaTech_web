@@ -10,6 +10,8 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Bundle\SecurityBundle\Security;
+use App\Service\BadWordFilter;
+
 
 
 #[Route('/reclamation')]
@@ -28,16 +30,28 @@ final class ReclamationController extends AbstractController
     }
 
     #[Route('/new', name: 'app_reclamation_new', methods: ['GET', 'POST'])]
-public function new(Request $request, EntityManagerInterface $entityManager, Security $security): Response
+public function new(Request $request, EntityManagerInterface $entityManager, Security $security, BadWordFilter $badWordFilter): Response
 {
     $reclamation = new Reclamation();
     $form = $this->createForm(ReclamationType::class, $reclamation);
     $form->handleRequest($request);
 
     if ($form->isSubmitted() && $form->isValid()) {
+
+        // Vérifier les champs textuels (ex: 'description' et 'sujet')
+        $description = $reclamation->getDescription() ?? '';
+        $sujet = $reclamation->getSujet() ?? '';
+
+        // Vérifier la présence de mots interdits
+        if ($badWordFilter->hasBadWords($description) || $badWordFilter->hasBadWords($sujet)) {
+            $this->addFlash('error', 'Votre réclamation contient des termes inappropriés.');
+            return $this->redirectToRoute('app_reclamation_new');
+        }
+
+
         // Associer l'utilisateur connecté
         $user = $security->getUser();
-        $reclamation->setIdUser($user); // ⚠️ assure-toi que la méthode existe dans l'entité
+        $reclamation->setIdUser($user); 
 
         $entityManager->persist($reclamation);
         $entityManager->flush();

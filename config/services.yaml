@@ -1,5 +1,8 @@
 parameters:
     cv_directory: '%kernel.project_dir%/public/uploads/cv'
+    app.bad_words: ['fuck', 'idiot', 'shit'] 
+    avatars_directory: '%kernel.project_dir%/public/uploads/avatars'
+
 
 services:
     _defaults:
@@ -12,3 +15,18 @@ services:
             - '../src/DependencyInjection/'
             - '../src/Entity/'
             - '../src/Kernel.php'
+
+
+
+    App\Service\SmsService:
+        arguments:
+            $twilioSid: '%env(string:TWILIO_SID)%'
+            $twilioAuthToken: '%env(string:TWILIO_AUTH_TOKEN)%'
+            $twilioPhoneNumber: '%env(string:TWILIO_PHONE_NUMBER)%'
+
+    App\Service\BadWordFilter:
+        arguments:
+            $badWords: '%app.bad_words%'  
+
+    
+          
