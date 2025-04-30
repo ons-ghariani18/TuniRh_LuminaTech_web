@@ -21,9 +21,18 @@ framework:
             messenger.bus.default: []
 
         routing:
+<<<<<<< HEAD
             Symfony\Component\Mailer\Messenger\SendEmailMessage: async
+=======
+            # Commentez ou supprimez cette ligne pour désactiver l'envoi asynchrone des emails
+            # Symfony\Component\Mailer\Messenger\SendEmailMessage: async
+>>>>>>> origin/gestionOffre
             Symfony\Component\Notifier\Message\ChatMessage: async
             Symfony\Component\Notifier\Message\SmsMessage: async
 
             # Route your messages to the transports
+<<<<<<< HEAD
             # 'App\Message\YourMessage': async
+=======
+            # 'App\Message\YourMessage': async
+>>>>>>> origin/gestionOffre

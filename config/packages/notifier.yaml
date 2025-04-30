@@ -2,6 +2,10 @@ framework:
     notifier:
         chatter_transports:
         texter_transports:
+<<<<<<< HEAD
+=======
+            sendgrid: '%env(MAILER_DSN)%'
+>>>>>>> origin/gestionOffre
         channel_policy:
             # use chat/slack, chat/telegram, sms/twilio or sms/nexmo
             urgent: ['email']

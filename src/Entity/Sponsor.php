@@ -10,10 +10,18 @@ use App\Entity\Evenement;
 #[ORM\Entity]
 class Sponsor
 {
+<<<<<<< HEAD
 
     #[ORM\Id]
     #[ORM\Column(type: "integer")]
     private int $id_sp;
+=======
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column(name: "id_sp", type: "integer")]
+    private ?int $id_sp = null;
+
+>>>>>>> origin/gestionOffre
 
     #[ORM\Column(type: "string", length: 255)]
     private string $nom;
@@ -27,6 +35,7 @@ class Sponsor
     #[ORM\Column(type: "string", length: 255)]
     private string $email;
 
+<<<<<<< HEAD
     public function getId_sp()
     {
         return $this->id_sp;
@@ -37,6 +46,18 @@ class Sponsor
         $this->id_sp = $value;
     }
 
+=======
+    public function getIdSp(): int
+{
+    return $this->id_sp;
+}
+
+public function setIdSp(int $idSp): self
+{
+    $this->id_sp = $idSp;
+    return $this;
+}
+>>>>>>> origin/gestionOffre
     public function getNom()
     {
         return $this->nom;
@@ -106,4 +127,8 @@ class Sponsor
     
             return $this;
         }
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> origin/gestionOffre

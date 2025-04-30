@@ -1,0 +1,416 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Inscription - TuniRh{% endblock %}
+
+{% block css %}
+    {{ parent() }}
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link href="https://cdn.materialdesignicons.com/5.4.55/css/materialdesignicons.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+{% endblock %}
+
+{% block body %}
+    <section class="auth-section">
+        <div class="container">
+            <div class="row justify-content-center align-items-center min-vh-100">
+                <div class="col-md-6 col-lg-5">
+                    <div class="section-header text-center mb-5 wow fadeInDown" data-wow-delay="0.2s">
+                        <h1>Inscription à TuniRh</h1>
+                    </div>
+                    <div class="form-container wow fadeInUp" data-wow-delay="0.3s">
+                        <!-- Messages Flash -->
+                        {% for label, messages in app.flashes %}
+                            {% for message in messages %}
+                                <div class="alert alert-{{ label }} wow fadeIn" data-wow-delay="0.2s">
+                                    <i class="bi {{ label == 'success' ? 'bi-check-circle' : 'bi-exclamation-circle' }} me-2"></i>
+                                    {{ message }}
+                                </div>
+                            {% endfor %}
+                        {% endfor %}
+
+                        {{ form_start(form, {'attr': {'novalidate': 'novalidate', 'class': 'form-signup'}}) }}
+                            <div class="form-group position-relative mb-4 {{ form.nom.vars.errors|length > 0 ? 'is-invalid' : '' }}">
+                                <i class="mdi mdi-account position-absolute"></i>
+                                {{ form_widget(form.nom, {'attr': {'class': 'form-control', 'placeholder': ' '}}) }}
+                                {{ form_label(form.nom, 'Nom', {'label_attr': {'class': 'form-label'}}) }}
+                                <div class="invalid-feedback">{{ form_errors(form.nom) }}</div>
+                            </div>
+
+                            <div class="form-group position-relative mb-4 {{ form.prenom.vars.errors|length > 0 ? 'is-invalid' : '' }}">
+                                <i class="mdi mdi-account position-absolute"></i>
+                                {{ form_widget(form.prenom, {'attr': {'class': 'form-control', 'placeholder': ' '}}) }}
+                                {{ form_label(form.prenom, 'Prénom', {'label_attr': {'class': 'form-label'}}) }}
+                                <div class="invalid-feedback">{{ form_errors(form.prenom) }}</div>
+                            </div>
+
+                            <div class="form-group position-relative mb-4 {{ form.email.vars.errors|length > 0 ? 'is-invalid' : '' }}">
+                                <i class="mdi mdi-email position-absolute"></i>
+                                {{ form_widget(form.email, {'attr': {'class': 'form-control', 'placeholder': ' '}}) }}
+                                {{ form_label(form.email, 'Email', {'label_attr': {'class': 'form-label'}}) }}
+                                <div class="invalid-feedback">{{ form_errors(form.email) }}</div>
+                            </div>
+
+                            <div class="form-group position-relative mb-4 {{ form.password.first.vars.errors|length > 0 ? 'is-invalid' : '' }}">
+                                <i class="mdi mdi-lock position-absolute"></i>
+                                {{ form_widget(form.password.first, {'attr': {'class': 'form-control', 'placeholder': ' '}}) }}
+                                {{ form_label(form.password.first, 'Mot de passe', {'label_attr': {'class': 'form-label'}}) }}
+                                <div class="invalid-feedback">{{ form_errors(form.password.first) }}</div>
+                            </div>
+
+                            <div class="form-group position-relative mb-4 {{ form.password.second.vars.errors|length > 0 ? 'is-invalid' : '' }}">
+                                <i class="mdi mdi-lock position-absolute"></i>
+                                {{ form_widget(form.password.second, {'attr': {'class': 'form-control', 'placeholder': ' '}}) }}
+                                {{ form_label(form.password.second, 'Confirmer le mot de passe', {'label_attr': {'class': 'form-label'}}) }}
+                                <div class="invalid-feedback">{{ form_errors(form.password.second) }}</div>
+                            </div>
+
+                            <div class="form-group position-relative mb-4 {{ form.tel.vars.errors|length > 0 ? 'is-invalid' : '' }}">
+                                <i class="mdi mdi-phone position-absolute"></i>
+                                {{ form_widget(form.tel, {'attr': {'class': 'form-control', 'placeholder': ' '}}) }}
+                                {{ form_label(form.tel, 'Téléphone', {'label_attr': {'class': 'form-label'}}) }}
+                                <div class="invalid-feedback">{{ form_errors(form.tel) }}</div>
+                            </div>
+
+                            <div class="form-group position-relative mb-4 {{ form.address.vars.errors|length > 0 ? 'is-invalid' : '' }}">
+                                <i class="mdi mdi-home position-absolute"></i>
+                                {{ form_widget(form.address, {'attr': {'class': 'form-control', 'placeholder': ' '}}) }}
+                                {{ form_label(form.address, 'Adresse', {'label_attr': {'class': 'form-label'}}) }}
+                                <div class="invalid-feedback">{{ form_errors(form.address) }}</div>
+                            </div>
+
+                            <div class="form-group position-relative mb-4 {{ form.role.vars.errors|length > 0 ? 'is-invalid' : '' }}">
+                                <i class="mdi mdi-briefcase position-absolute"></i>
+                                {{ form_widget(form.role, {'attr': {'class': 'form-select'}}) }}
+                                {{ form_label(form.role, 'Rôle', {'label_attr': {'class': 'form-label'}}) }}
+                                <div class="invalid-feedback">{{ form_errors(form.role) }}</div>
+                            </div>
+
+                            <div class="d-grid mb-4">
+                                <button type="submit" class="btn btn-orange wow zoomIn" data-wow-delay="0.4s">
+                                    <i class="mdi mdi-account-plus me-2"></i> S'inscrire
+                                </button>
+                            </div>
+                        {{ form_end(form) }}
+                        <a href="{{ path('app_login') }}" class="link">Déjà un compte ? Connectez-vous</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <style>
+        :root {
+            --primary-blue: #1B263B;
+            --primary-orange: #E76F51;
+            --orange-light: #F28C38;
+            --background-dark: #0B1322;
+            --card-bg: #FFFFFF;
+            --text-dark: #2D3142;
+            --text-light: #F5F6F5;
+            --text-muted: #6c757d;
+            --shadow-sm: 0 4px 12px rgba(0, 0, 0, 0.15);
+            --shadow-lg: 0 12px 30px rgba(0, 0, 0, 0.2);
+            --transition: all 0.3s ease;
+            --border-color: #E5E7EB;
+            --danger-color: #dc3545;
+            --success-color: #28a745;
+        }
+
+        body {
+            font-family: 'Nunito', sans-serif;
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+        }
+
+        .auth-section {
+            background: linear-gradient(45deg, var(--background-dark), var(--primary-blue));
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+        }
+
+        .section-header h1 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: var(--primary-orange);
+            margin-bottom: 40px;
+        }
+
+        .form-container {
+            background: var(--card-bg);
+            border-radius: 15px;
+            box-shadow: var(--shadow-lg);
+            padding: 40px;
+            border: 1px solid rgba(231, 111, 81, 0.2);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .form-container:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.25);
+        }
+
+        .form-group {
+            position: relative;
+        }
+
+        .form-label {
+            position: absolute;
+            top: 0.75rem;
+            left: 2.5rem;
+            font-size: 1rem;
+            color: var(--text-muted);
+            transition: all 0.2s ease;
+            pointer-events: none;
+        }
+
+        .form-control:not(:placeholder-shown) + .form-label,
+        .form-control:focus + .form-label,
+        .form-select:not(:placeholder-shown) + .form-label,
+        .form-select:focus + .form-label {
+            top: -0.5rem;
+            left: 1.5rem;
+            font-size: 0.75rem;
+            color: var(--primary-orange);
+            background: var(--card-bg);
+            padding: 0 0.25rem;
+        }
+
+        .form-control, .form-select {
+            width: 100%;
+            padding: 0.75rem 1rem 0.75rem 2.5rem;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            font-family: 'Nunito', sans-serif;
+            font-size: 1rem;
+            background: #F9FAFB;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .form-control:focus, .form-select:focus {
+            border-color: var(--primary-orange);
+            box-shadow: 0 0 8px rgba(231, 111, 81, 0.3);
+            outline: none;
+        }
+
+        .form-group.is-invalid .form-control,
+        .form-group.is-invalid .form-select {
+            border-color: var(--danger-color);
+            background: #fff5f5;
+        }
+
+        .invalid-feedback {
+            color: var(--danger-color);
+            font-size: 0.875rem;
+            margin-top: 0.25rem;
+            display: none;
+        }
+
+        .form-group.is-invalid .invalid-feedback {
+            display: block;
+        }
+
+        .form-group i {
+            position: absolute;
+            top: 50%;
+            left: 0.75rem;
+            transform: translateY(-50%);
+            color: var(--primary-orange);
+            font-size: 1.1rem;
+            transition: transform 0.3s ease;
+        }
+
+        .form-group:hover i {
+            transform: translateY(-50%) scale(1.1);
+            color: var(--orange-light);
+        }
+
+        .btn-orange {
+            background: var(--primary-orange);
+            color: var(--text-light);
+            padding: 0.75rem;
+            border-radius: 8px;
+            font-weight: 600;
+            border: none;
+            transition: all 0.3s ease;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .btn-orange:hover {
+            background: var(--orange-light);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(231, 111, 81, 0.5);
+        }
+
+        .link {
+            color: var(--primary-orange);
+            text-align: center;
+            display: block;
+            margin-top: 20px;
+            transition: color 0.3s ease;
+            text-decoration: none;
+        }
+
+        .link:hover {
+            color: var(--orange-light);
+        }
+
+        .alert {
+            padding: 1rem;
+            border-radius: 8px;
+            margin-bottom: 1.5rem;
+            font-size: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            box-shadow: var(--shadow-sm);
+            animation: slideIn 0.3s ease;
+        }
+
+        .alert-success {
+            background: #e6f4e6;
+            color: var(--success-color);
+            border: 1px solid var(--success-color);
+        }
+
+        .alert-error {
+            background: #f8d7da;
+            color: var(--danger-color);
+            border: 1px solid var(--danger-color);
+        }
+
+        .alert i {
+            font-size: 1.2rem;
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateY(-20px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .section-header h1 {
+                font-size: 2rem;
+            }
+            .form-container {
+                padding: 20px;
+            }
+        }
+    </style>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+        // Initialiser WOW.js pour les animations
+        if (typeof WOW !== 'undefined') {
+            new WOW().init();
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            // Animation de clic sur le bouton d'inscription
+            const signupButton = document.querySelector('.btn-orange');
+            signupButton.addEventListener('click', function(e) {
+                this.style.transition = 'transform 0.2s ease';
+                this.style.transform = 'scale(0.95)';
+                setTimeout(() => {
+                    this.style.transform = 'scale(1)';
+                }, 100);
+            });
+
+            // Validation du formulaire
+            const form = document.querySelector('.form-signup');
+            if (form) {
+                form.addEventListener('submit', (e) => {
+                    let isValid = true;
+
+                    // Vérifier les champs requis
+                    const inputs = form.querySelectorAll('.form-control[required], .form-select[required]');
+                    inputs.forEach(input => {
+                        if (!input.value.trim()) {
+                            isValid = false;
+                            input.classList.add('is-invalid');
+                            const feedback = input.nextElementSibling;
+                            if (feedback && feedback.classList.contains('invalid-feedback')) {
+                                feedback.textContent = 'Ce champ est requis.';
+                            }
+                        } else {
+                            input.classList.remove('is-invalid');
+                        }
+                    });
+
+                    // Valider l'email
+                    const emailInput = form.querySelector('input[type="email"]');
+                    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                    if (emailInput.value && !emailRegex.test(emailInput.value)) {
+                        isValid = false;
+                        emailInput.classList.add('is-invalid');
+                        const feedback = emailInput.nextElementSibling;
+                        if (feedback && feedback.classList.contains('invalid-feedback')) {
+                            feedback.textContent = 'Veuillez fournir une adresse email valide.';
+                        }
+                    }
+
+                    // Valider le téléphone
+                    const telInput = form.querySelector('input[name$="[tel]"]');
+                    const telRegex = /^\+?[1-9]\d{1,14}$/;
+                    if (telInput.value && !telRegex.test(telInput.value)) {
+                        isValid = false;
+                        telInput.classList.add('is-invalid');
+                        const feedback = telInput.nextElementSibling;
+                        if (feedback && feedback.classList.contains('invalid-feedback')) {
+                            feedback.textContent = 'Veuillez fournir un numéro de téléphone valide (ex. +21612345678).';
+                        }
+                    }
+
+                    // Valider la correspondance des mots de passe
+                    const passwordInput = form.querySelector('input[name$="[password][first]"]');
+                    const confirmPasswordInput = form.querySelector('input[name$="[password][second]"]');
+                    if (passwordInput.value !== confirmPasswordInput.value) {
+                        isValid = false;
+                        confirmPasswordInput.classList.add('is-invalid');
+                        const feedback = confirmPasswordInput.nextElementSibling;
+                        if (feedback && feedback.classList.contains('invalid-feedback')) {
+                            feedback.textContent = 'Les mots de passe ne correspondent pas.';
+                        }
+                    }
+
+                    // Valider la longueur minimale du mot de passe
+                    if (passwordInput.value && passwordInput.value.length < 6) {
+                        isValid = false;
+                        passwordInput.classList.add('is-invalid');
+                        const feedback = passwordInput.nextElementSibling;
+                        if (feedback && feedback.classList.contains('invalid-feedback')) {
+                            feedback.textContent = 'Le mot de passe doit contenir au moins 6 caractères.';
+                        }
+                    }
+
+                    if (!isValid) {
+                        e.preventDefault();
+                        form.classList.add('was-validated');
+                    }
+                });
+
+                // Validation en temps réel
+                const inputs = form.querySelectorAll('.form-control, .form-select');
+                inputs.forEach(input => {
+                    input.addEventListener('input', () => {
+                        if (input.value.trim()) {
+                            input.classList.remove('is-invalid');
+                        }
+                    });
+                });
+            }
+        });
+    </script>
+{% endblock %}

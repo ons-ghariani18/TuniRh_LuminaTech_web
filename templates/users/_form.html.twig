@@ -1,0 +1,63 @@
+{{ form_start(form) }}
+    <div class="form-group">
+        {{ form_label(form.nom) }}
+        {{ form_widget(form.nom) }}
+        {{ form_errors(form.nom) }}
+    </div>
+
+    <div class="form-group">
+        {{ form_label(form.prenom) }}
+        {{ form_widget(form.prenom) }}
+        {{ form_errors(form.prenom) }}
+    </div>
+
+    <div class="form-group">
+        {{ form_label(form.email) }}
+        {{ form_widget(form.email) }}
+        {{ form_errors(form.email) }}
+    </div>
+
+    <div class="form-group">
+        {{ form_label(form.password.first) }}
+        {{ form_widget(form.password.first) }}
+        {{ form_errors(form.password.first) }}
+    </div>
+
+    <div class="form-group">
+        {{ form_label(form.password.second) }}
+        {{ form_widget(form.password.second) }}
+        {{ form_errors(form.password.second) }}
+    </div>
+
+    <div class="form-group">
+        {{ form_label(form.tel) }}
+        {{ form_widget(form.tel) }}
+        {{ form_errors(form.tel) }}
+    </div>
+
+    <div class="form-group">
+        {{ form_label(form.address) }}
+        {{ form_widget(form.address) }}
+        {{ form_errors(form.address) }}
+    </div>
+
+    <div class="form-group">
+        {{ form_label(form.role) }}
+        {{ form_widget(form.role) }}
+        {{ form_errors(form.role) }}
+    </div>
+
+    <div class="form-actions">
+        <button type="submit" class="btn btn-primary">
+            <i class="mdi mdi-account-plus mr-2"></i> {{ button_label|default('Enregistrer') }}
+        </button>
+    </div>
+{{ form_end(form) }}
+
+<style>
+    .form-errors {
+        color: var(--danger-red);
+        font-size: 0.9rem;
+        margin-top: 0.25rem;
+    }
+</style>

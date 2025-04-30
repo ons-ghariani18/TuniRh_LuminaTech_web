@@ -1,0 +1,630 @@
+{% extends 'base.html.twig' %}
+{% block title %}Liste des Offres d'Emploi{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link href="https://cdn.materialdesignicons.com/5.4.55/css/materialdesignicons.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-blue: #1B263B;
+            --primary-orange: #E76F51;
+            --orange-light: #F28C38;
+            --background-dark: #0B1322;
+            --card-bg: #FFFFFF;
+            --text-dark: #2D3142;
+            --text-light: #F5F6F5;
+            --text-muted: #6c757d;
+            --shadow-sm: 0 4px 12px rgba(0, 0, 0, 0.15);
+            --shadow-lg: 0 12px 30px rgba(0, 0, 0, 0.2);
+            --transition: all 0.3s ease;
+            --sidebar-bg: var(--primary-blue);
+            --sidebar-text: var(--text-light);
+            --border-color: #E5E7EB;
+        }
+
+        body {
+            font-family: 'Nunito', sans-serif;
+            background: linear-gradient(45deg, var(--background-dark), var(--primary-blue));
+            color: var(--text-dark);
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        .flex { display: flex; }
+        .flex-1 { flex: 1; }
+        .h-screen { height: 100vh; }
+        .items-center { align-items: center; }
+        .justify-between { justify-content: space-between; }
+        .gap-2 { gap: 0.5rem; }
+        .gap-4 { gap: 1rem; }
+        .text-xl { font-size: 1.25rem; }
+        .text-2xl { font-size: 1.5rem; }
+        .font-bold { font-weight: 700; }
+        .rounded-full { border-radius: 9999px; }
+        .mb-6 { margin-bottom: 1.5rem; }
+        .mr-2 { margin-right: 0.5rem; }
+
+        /* Sidebar & Main Content */
+        .app-container {
+            position: relative;
+            display: flex;
+            min-height: 100vh;
+        }
+
+        .aside {
+            width: 240px;
+            background: linear-gradient(180deg, var(--primary-blue), var(--background-dark));
+            color: var(--sidebar-text);
+            position: fixed;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            overflow-y: auto;
+            padding-top: 60px;
+            z-index: 100;
+            transition: transform var(--transition) ease, box-shadow var(--transition) ease;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .aside.is-collapsed {
+            transform: translateX(-240px);
+            box-shadow: none;
+        }
+
+        body.sidebar-expanded .aside {
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .aside .aside-brand {
+            position: fixed;
+            top: 0;
+            height: 60px;
+            background: var(--primary-blue);
+            width: 240px;
+            display: flex;
+            align-items: center;
+            padding: 0 1.5rem;
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: var(--text-light);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            z-index: 101;
+            transition: transform var(--transition) ease;
+        }
+
+        .aside.is-collapsed .aside-brand {
+            transform: translateX(-240px);
+        }
+
+        .menu-label {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            margin: 1rem 1.5rem 0.25rem;
+            color: rgba(255, 255, 255, 0.4);
+        }
+
+        .menu-item {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.75rem 1.5rem;
+            color: var(--sidebar-text);
+            text-decoration: none;
+            transition: background 0.3s, color 0.3s;
+        }
+
+        .menu-item:hover, .menu-item.is-active {
+            background: var(--primary-orange);
+            color: var(--text-light);
+        }
+
+        .menu-item i {
+            transition: transform 0.3s ease;
+        }
+
+        .menu-item:hover i {
+            transform: scale(1.1);
+        }
+
+        .main-content {
+            margin-left: 240px;
+            flex: 1;
+            padding: 0;
+            transition: margin-left var(--transition) ease;
+        }
+
+        .main-content.sidebar-collapsed {
+            margin-left: 0;
+        }
+
+        .content-inner {
+            padding: 2rem;
+        }
+
+        /* Navbar */
+        .navbar {
+            position: sticky;
+            top: 0;
+            background: var(--card-bg);
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: var(--shadow-sm);
+            z-index: 99;
+        }
+
+        .navbar-menu {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .search-input {
+            padding: 0.5rem 1rem;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            width: 250px;
+            font-family: 'Nunito', sans-serif;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .search-input:focus {
+            border-color: var(--primary-orange);
+            box-shadow: 0 0 8px rgba(231, 111, 81, 0.3);
+            outline: none;
+        }
+
+        .menu-toggle {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 36px;
+            height: 36px;
+            border-radius: 8px;
+            background: transparent;
+            color: var(--text-dark);
+            border: 1px solid var(--border-color);
+            cursor: pointer;
+            transition: background 0.3s ease;
+            margin-right: 1rem;
+        }
+
+        .menu-toggle:hover {
+            background: #F1F5F9;
+        }
+
+        .menu-toggle i {
+            transition: transform 0.3s ease;
+        }
+
+        .menu-toggle.active i {
+            transform: rotate(180deg);
+        }
+
+        /* Button & Table */
+        .btn-primary {
+            background: var(--primary-orange);
+            color: var(--text-light);
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            border: none;
+            cursor: pointer;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .btn-primary:hover {
+            background: var(--orange-light);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(231, 111, 81, 0.5);
+        }
+
+        .table-container {
+            margin-top: 2rem;
+            background: var(--card-bg);
+            padding: 1.5rem;
+            border-radius: 10px;
+            box-shadow: var(--shadow-lg);
+            overflow-x: auto;
+        }
+
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .data-table th, .data-table td {
+            text-align: left;
+            padding: 0.75rem 1rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .data-table th {
+            background: linear-gradient(135deg, var(--primary-blue), var(--primary-blue) 60%, var(--primary-orange));
+            color: var(--text-light);
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .data-table td {
+            color: var(--text-dark);
+        }
+
+        .data-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .data-table tr:hover {
+            background: #F1F5F9;
+            transition: background 0.3s ease;
+        }
+
+        .action-link {
+            color: var(--primary-orange);
+            margin-right: 0.5rem;
+            text-decoration: none;
+            font-weight: 500;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.25rem;
+            transition: color 0.3s ease;
+        }
+
+        .action-link:hover {
+            color: var(--orange-light);
+            text-decoration: underline;
+        }
+
+        .action-link i {
+            transition: transform 0.3s ease;
+        }
+
+        .action-link:hover i {
+            transform: scale(1.1);
+        }
+
+        .no-records {
+            text-align: center;
+            color: var(--text-muted);
+            padding: 1rem;
+            font-size: 1.1rem;
+        }
+
+        /* Badge Styling */
+        .badge {
+            padding: 0.5rem 1rem;
+            border-radius: 9999px;
+            font-size: 0.875rem;
+            font-weight: 600;
+        }
+
+        .badge.bg-status-active {
+            background: #28a745;
+            color: var(--text-light);
+        }
+
+        .badge.bg-status-inactive {
+            background: #6c757d;
+            color: var(--text-light);
+        }
+
+        /* Overlay for mobile */
+        .sidebar-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 90;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity var(--transition), visibility var(--transition);
+        }
+
+        .sidebar-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        /* Pagination */
+        .pagination {
+            margin-top: 2rem;
+            display: flex;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        .page-item .page-link {
+            padding: 0.5rem 1rem;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            color: var(--text-dark);
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .page-item.active .page-link {
+            background: var(--primary-orange);
+            color: var(--text-light);
+            border-color: var(--primary-orange);
+        }
+
+        .page-item.disabled .page-link {
+            color: var(--text-muted);
+            cursor: not-allowed;
+        }
+
+        .page-item .page-link:hover:not(.disabled) {
+            background: var(--primary-orange);
+            color: var(--text-light);
+            border-color: var(--primary-orange);
+        }
+
+        .page-item i {
+            vertical-align: middle;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .aside {
+                transform: translateX(-240px);
+            }
+
+            .aside.is-expanded {
+                transform: translateX(0);
+            }
+
+            .main-content {
+                margin-left: 0;
+            }
+
+            .navbar {
+                padding: 1rem;
+            }
+
+            .search-input {
+                width: 100%;
+                max-width: 200px;
+            }
+
+            .data-table th, .data-table td {
+                padding: 0.5rem;
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+{% endblock %}
+
+{% block body %}
+<div class="app-container">
+    <aside class="aside wow slideInLeft" id="sidebar" data-wow-delay="0.2s">
+        <div class="aside-brand">
+            <i class="mdi mdi-account-tie mr-2"></i> RH Dashboard
+        </div>
+
+        <div class="aside-menu">
+            <p class="menu-label">GÉNÉRAL</p>
+            <a href="{{ path('app_back_office') }}" class="menu-item">
+                <i class="mdi mdi-view-dashboard"></i> Tableau de bord
+            </a>
+
+            <p class="menu-label">GESTION RH</p>
+            <a href="#" class="menu-item is-active">
+                <i class="mdi mdi-briefcase"></i> Offres d'emploi
+            </a>
+            <a href="#" class="menu-item">
+                <i class="mdi mdi-account-group"></i> Profils Utilisateurs
+            </a>
+           
+            <a href="{{ path('app_reponse_index') }}" class="menu-item">
+                <i class="mdi mdi-message-alert"></i> Réclamations
+            </a>
+
+            <p class="menu-label">ÉVÉNEMENTS</p>
+            <a href="{{ path('app_evenement_index') }}" class="menu-item">
+                <i class="mdi mdi-calendar"></i> Événements
+            </a>
+            <a href="{{ path('app_sponsor_index') }}" class="menu-item">
+                <i class="mdi mdi-handshake"></i> Sponsors
+            </a>
+
+            <p class="menu-label">FORMATION</p>
+            <a href="#" class="menu-item">
+                <i class="mdi mdi-school"></i> Formations
+            </a>
+            <a href="#" class="menu-item">
+                <i class="mdi mdi-account-voice"></i> Entretiens
+            </a>
+        </div>
+    </aside>
+
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+    <div class="main-content" id="mainContent">
+        <header class="navbar wow fadeInDown" data-wow-delay="0.2s">
+            <div class="flex items-center">
+                <button id="menuToggle" class="menu-toggle" aria-label="Toggle Menu">
+                    <i class="mdi mdi-menu"></i>
+                </button>
+                <input type="text" placeholder="Rechercher..." class="search-input">
+            </div>
+            <div class="navbar-menu">
+                <i class="mdi mdi-bell-outline text-xl"></i>
+                <div class="flex items-center gap-2">
+                    <img src="https://ui-avatars.com/api/?name=RH+Admin&background=091E3E&color=fff" class="rounded-full" width="36" alt="Admin Avatar">
+                    <span>Admin RH</span>
+                </div>
+            </div>
+        </header>
+
+        <div class="content-inner">
+            <div class="flex justify-between items-center mb-6 wow fadeInUp" data-wow-delay="0.3s">
+                <h1 class="text-2xl font-bold" style="color: var(--primary-orange);">Liste des Offres d'Emploi</h1>
+                <a href="{{ path('app_offresemploi_new') }}" class="btn-primary">
+                    <i class="mdi mdi-plus-circle"></i> Nouvelle Offre
+                </a>
+            </div>
+
+            {% if offresemplois|length == 0 %}
+                <div class="no-records wow fadeInUp" data-wow-delay="0.4s">Aucune offre d'emploi trouvée</div>
+            {% else %}
+                <div class="table-container wow fadeInUp" data-wow-delay="0.4s">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Titre</th>
+                                <th>Description</th>
+                                <th>Compétences</th>
+                                <th>Lieu</th>
+                                <th>Contrat</th>
+                                <th>Date</th>
+                                <th>Statut</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for offresemploi in offresemplois %}
+                                <tr class="wow fadeInUp" data-wow-delay="{{ loop.index0 * 50 }}ms">
+                                    <td>{{ offresemploi.titre }}</td>
+                                    <td>{{ offresemploi.description|slice(0, 60) ~ (offresemploi.description|length > 60 ? '...' : '') }}</td>
+                                    <td>{{ offresemploi.competencesRequises|slice(0, 40) ~ (offresemploi.competencesRequises|length > 40 ? '...' : '') }}</td>
+                                    <td>{{ offresemploi.lieu }}</td>
+                                    <td>{{ offresemploi.typeContrat }}</td>
+                                    <td>{{ offresemploi.datePublication ? offresemploi.datePublication|date('d/m/Y') : 'N/A' }}</td>
+                                    <td>
+                                        <span class="badge {{ offresemploi.statut == 'Actif' ? 'bg-status-active' : 'bg-status-inactive' }}">
+                                            {{ offresemploi.statut }}
+                                        </span>
+                                    </td>
+                                    <td>
+                                        <a href="{{ path('app_candidatures_list_by_offre', {'id_offre': offresemploi.idOffre}) }}" class="action-link">
+                                            <i class="mdi mdi-eye"></i> Voir
+                                        </a>
+                                        <a href="{{ path('app_offresemploi_edit', {'id_offre': offresemploi.idOffre}) }}" class="action-link">
+                                            <i class="mdi mdi-pencil"></i> Modifier
+                                        </a>
+                                        <a href="#" class="action-link delete-offre" data-offre-name="{{ offresemploi.titre }}" data-delete-url="{{ path('app_offresemploi_delete', {'id_offre': offresemploi.idOffre}) }}">
+                                            <i class="mdi mdi-delete"></i> Supprimer
+                                        </a>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+
+                {# Utilisation du helper Twig de KnpPaginatorBundle pour afficher la pagination #}
+                <div class="pagination wow fadeInUp" data-wow-delay="0.5s">
+                    {{ knp_pagination_render(pagination) }}
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+        // Initialiser WOW.js pour les animations
+        new WOW().init();
+
+        document.addEventListener('DOMContentLoaded', () => {
+            // Handle delete confirmation
+            document.querySelectorAll('.delete-offre').forEach(link => {
+                link.addEventListener('click', e => {
+                    e.preventDefault();
+                    const name = link.dataset.offreName;
+                    const deleteUrl = link.dataset.deleteUrl;
+                    
+                    if (confirm(`Supprimer l'offre "${name}" ? Cette action est irréversible.`)) {
+                        window.location.href = deleteUrl;
+                    }
+                });
+            });
+            
+            // Sidebar toggle with animation
+            const sidebar = document.getElementById('sidebar');
+            const mainContent = document.getElementById('mainContent');
+            const menuToggle = document.getElementById('menuToggle');
+            const sidebarOverlay = document.getElementById('sidebarOverlay');
+            
+            function toggleSidebar() {
+                const isExpanded = !sidebar.classList.contains('is-collapsed');
+                
+                if (isExpanded) {
+                    sidebar.classList.add('is-collapsed');
+                    mainContent.classList.add('sidebar-collapsed');
+                    menuToggle.classList.add('active');
+                    document.body.classList.remove('sidebar-expanded');
+                } else {
+                    sidebar.classList.remove('is-collapsed');
+                    mainContent.classList.remove('sidebar-collapsed');
+                    menuToggle.classList.remove('active');
+                    document.body.classList.add('sidebar-expanded');
+                }
+                
+                if (window.innerWidth <= 768) {
+                    if (!isExpanded) {
+                        sidebarOverlay.classList.add('active');
+                    } else {
+                        sidebarOverlay.classList.remove('active');
+                    }
+                }
+            }
+            
+            function initSidebar() {
+                if (window.innerWidth <= 768) {
+                    sidebar.classList.add('is-collapsed');
+                    mainContent.classList.add('sidebar-collapsed');
+                } else {
+                    sidebar.classList.remove('is-collapsed');
+                    mainContent.classList.remove('sidebar-collapsed');
+                }
+            }
+            
+            menuToggle.addEventListener('click', toggleSidebar);
+            sidebarOverlay.addEventListener('click', () => {
+                if (window.innerWidth <= 768) {
+                    toggleSidebar();
+                }
+            });
+            
+            initSidebar();
+            
+            window.addEventListener('resize', () => {
+                initSidebar();
+                if (window.innerWidth > 768) {
+                    sidebarOverlay.classList.remove('active');
+                }
+            });
+
+            // Animation de clic sur les liens d'action
+            document.querySelectorAll('.action-link, .btn-primary, .page-link').forEach(link => {
+                link.addEventListener('click', function(e) {
+                    if (!this.classList.contains('disabled')) {
+                        e.preventDefault();
+                        const href = this.getAttribute('href');
+                        this.style.transition = 'transform 0.2s ease';
+                        this.style.transform = 'scale(0.95)';
+                        setTimeout(() => {
+                            this.style.transform = 'scale(1)';
+                            window.location.href = href;
+                        }, 100);
+                    }
+                });
+            });
+        });
+    </script>
+{% endblock %}

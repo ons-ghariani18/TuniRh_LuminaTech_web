@@ -26,6 +26,12 @@
             "./migrations/.gitignore"
         ]
     },
+<<<<<<< HEAD
+=======
+    "knplabs/knp-paginator-bundle": {
+        "version": "v6.8.0"
+    },
+>>>>>>> origin/gestionOffre
     "phpunit/phpunit": {
         "version": "9.6",
         "recipe": {
@@ -131,6 +137,21 @@
             "ref": "fadbfe33303a76e25cb63401050439aa9b1a9c7f"
         }
     },
+<<<<<<< HEAD
+=======
+    "symfony/mercure-bundle": {
+        "version": "0.3",
+        "recipe": {
+            "repo": "github.com/symfony/recipes",
+            "branch": "main",
+            "version": "0.3",
+            "ref": "528285147494380298f8f991ee8c47abebaf79db"
+        },
+        "files": [
+            "./config/packages/mercure.yaml"
+        ]
+    },
+>>>>>>> origin/gestionOffre
     "symfony/messenger": {
         "version": "6.4",
         "recipe": {
@@ -208,6 +229,18 @@
             "./config/routes/security.yaml"
         ]
     },
+<<<<<<< HEAD
+=======
+    "symfony/sendgrid-mailer": {
+        "version": "6.4",
+        "recipe": {
+            "repo": "github.com/symfony/recipes",
+            "branch": "main",
+            "version": "4.4",
+            "ref": "224aedffb66812dc2b0965dabc14d5f800941da6"
+        }
+    },
+>>>>>>> origin/gestionOffre
     "symfony/stimulus-bundle": {
         "version": "2.21",
         "recipe": {

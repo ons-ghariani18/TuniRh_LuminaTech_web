@@ -11,8 +11,18 @@
         "doctrine/doctrine-bundle": "^2.13",
         "doctrine/doctrine-migrations-bundle": "^3.3",
         "doctrine/orm": "^3.3",
+<<<<<<< HEAD
         "phpdocumentor/reflection-docblock": "^5.4",
         "phpstan/phpdoc-parser": "^1.33",
+=======
+        "google/cloud-dialogflow": "^2.1",
+        "guzzlehttp/guzzle": "^7.9",
+        "knplabs/knp-paginator-bundle": "^6.8",
+        "phpdocumentor/reflection-docblock": "^5.4",
+        "phpstan/phpdoc-parser": "^1.33",
+        "smalot/pdfparser": "^2.8",
+        "spatie/pdf-to-text": "*",
+>>>>>>> origin/gestionOffre
         "symfony/asset": "6.4.*",
         "symfony/asset-mapper": "6.4.*",
         "symfony/console": "6.4.*",
@@ -25,6 +35,10 @@
         "symfony/http-client": "6.4.*",
         "symfony/intl": "6.4.*",
         "symfony/mailer": "6.4.*",
+<<<<<<< HEAD
+=======
+        "symfony/mercure-bundle": "^0.3.9",
+>>>>>>> origin/gestionOffre
         "symfony/mime": "6.4.*",
         "symfony/monolog-bundle": "^3.0",
         "symfony/notifier": "6.4.*",
@@ -33,6 +47,10 @@
         "symfony/property-info": "6.4.*",
         "symfony/runtime": "6.4.*",
         "symfony/security-bundle": "6.4.*",
+<<<<<<< HEAD
+=======
+        "symfony/sendgrid-mailer": "6.4.*",
+>>>>>>> origin/gestionOffre
         "symfony/serializer": "6.4.*",
         "symfony/stimulus-bundle": "^2.21",
         "symfony/string": "6.4.*",
@@ -43,6 +61,10 @@
         "symfony/web-link": "6.4.*",
         "symfony/yaml": "6.4.*",
         "twig/extra-bundle": "^2.12|^3.0",
+<<<<<<< HEAD
+=======
+        "twig/string-extra": "^3.20",
+>>>>>>> origin/gestionOffre
         "twig/twig": "^2.12|^3.0"
     },
     "config": {
@@ -99,7 +121,11 @@
         "symfony/browser-kit": "6.4.*",
         "symfony/css-selector": "6.4.*",
         "symfony/debug-bundle": "6.4.*",
+<<<<<<< HEAD
         "symfony/maker-bundle": "^1.0",
+=======
+        "symfony/maker-bundle": "^1.62",
+>>>>>>> origin/gestionOffre
         "symfony/phpunit-bridge": "^7.1",
         "symfony/stopwatch": "6.4.*",
         "symfony/web-profiler-bundle": "6.4.*"
