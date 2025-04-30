@@ -11,6 +11,17 @@ use Symfony\Component\Security\Core\User\PasswordUpgraderInterface;
 
 /**
  * @extends ServiceEntityRepository<Users>
+<<<<<<< HEAD
+<<<<<<< HEAD
+ *
+ * @method Users|null find($id, $lockMode = null, $lockVersion = null)
+ * @method Users|null findOneBy(array $criteria, array $orderBy = null)
+ * @method Users[]    findAll()
+ * @method Users[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+=======
+>>>>>>> origin/gestionOffre
+=======
+>>>>>>> origin/gestionOffre
  */
 class UsersRepository extends ServiceEntityRepository implements PasswordUpgraderInterface
 {
@@ -19,6 +30,15 @@ class UsersRepository extends ServiceEntityRepository implements PasswordUpgrade
         parent::__construct($registry, Users::class);
     }
 
+<<<<<<< HEAD
+<<<<<<< HEAD
+    public function upgradePassword(PasswordAuthenticatedUserInterface $user, string $newHashedPassword): void
+    {
+        if (!$user instanceof Users) {
+            throw new UnsupportedUserException(sprintf('Instances of "%s" are not supported.', get_class($user)));
+=======
+=======
+>>>>>>> origin/gestionOffre
     /**
      * Used to upgrade (rehash) the user's password automatically over time.
      */
@@ -26,12 +46,21 @@ class UsersRepository extends ServiceEntityRepository implements PasswordUpgrade
     {
         if (!$user instanceof Users) {
             throw new UnsupportedUserException(sprintf('Instances of "%s" are not supported.', $user::class));
+<<<<<<< HEAD
+>>>>>>> origin/gestionOffre
+=======
+>>>>>>> origin/gestionOffre
         }
 
         $user->setPassword($newHashedPassword);
         $this->getEntityManager()->persist($user);
         $this->getEntityManager()->flush();
     }
+<<<<<<< HEAD
+<<<<<<< HEAD
+=======
+=======
+>>>>>>> origin/gestionOffre
 
     //    /**
     //     * @return Users[] Returns an array of Users objects
@@ -57,4 +86,8 @@ class UsersRepository extends ServiceEntityRepository implements PasswordUpgrade
     //            ->getOneOrNullResult()
     //        ;
     //    }
+<<<<<<< HEAD
+>>>>>>> origin/gestionOffre
+=======
+>>>>>>> origin/gestionOffre
 }

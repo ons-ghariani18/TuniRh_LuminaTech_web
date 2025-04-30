@@ -41,11 +41,31 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+    "knplabs/knp-paginator-bundle": {
+        "version": "v6.8.0"
+    },
+    "knpuniversity/oauth2-client-bundle": {
+        "version": "2.18",
+        "recipe": {
+            "repo": "github.com/symfony/recipes-contrib",
+            "branch": "main",
+            "version": "1.20",
+            "ref": "1ff300d8c030f55c99219cc55050b97a695af3f6"
+        }
+    },
+=======
+<<<<<<< HEAD
+=======
+>>>>>>> origin/gestionOffre
+>>>>>>> 76179cffc7b72c06d034d39a661eec43d0ee6421
 =======
     "knplabs/knp-paginator-bundle": {
         "version": "v6.8.0"
     },
 >>>>>>> origin/gestionOffre
+<<<<<<< HEAD
 =======
     "knplabs/knp-paginator-bundle": {
         "version": "v6.8.0"
@@ -86,6 +106,12 @@
         ]
     },
 >>>>>>> origin/gestions-formations
+=======
+<<<<<<< HEAD
+>>>>>>> origin/gestionOffre
+=======
+>>>>>>> origin/gestionOffre
+>>>>>>> 76179cffc7b72c06d034d39a661eec43d0ee6421
     "phpunit/phpunit": {
         "version": "9.6",
         "recipe": {
@@ -228,10 +254,19 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 =======
+<<<<<<< HEAD
 =======
 >>>>>>> origin/gestionUserReclamation
 =======
 >>>>>>> origin/gestions-formations
+=======
+<<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> origin/gestionOffre
+=======
+>>>>>>> origin/gestionOffre
+>>>>>>> 76179cffc7b72c06d034d39a661eec43d0ee6421
     "symfony/mercure-bundle": {
         "version": "0.3",
         "recipe": {
@@ -246,6 +281,13 @@
     },
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+=======
+>>>>>>> origin/gestionOffre
+=======
+>>>>>>> origin/gestionOffre
+>>>>>>> 76179cffc7b72c06d034d39a661eec43d0ee6421
 >>>>>>> origin/gestionOffre
 =======
 >>>>>>> origin/gestionUserReclamation
@@ -332,6 +374,12 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 =======
+<<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> origin/gestionOffre
+=======
+>>>>>>> origin/gestionOffre
     "symfony/sendgrid-mailer": {
         "version": "6.4",
         "recipe": {
@@ -341,6 +389,12 @@
             "ref": "224aedffb66812dc2b0965dabc14d5f800941da6"
         }
     },
+<<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> origin/gestionOffre
+=======
+>>>>>>> origin/gestionOffre
 >>>>>>> origin/gestionOffre
 =======
 >>>>>>> origin/gestionUserReclamation

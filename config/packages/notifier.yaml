@@ -7,11 +7,25 @@ framework:
 <<<<<<< HEAD
 =======
             sendgrid: '%env(MAILER_DSN)%'
+=======
+>>>>>>> 76179cffc7b72c06d034d39a661eec43d0ee6421
+<<<<<<< HEAD
+=======
+            sendgrid: '%env(MAILER_DSN)%'
 >>>>>>> origin/gestionOffre
+<<<<<<< HEAD
 =======
 >>>>>>> origin/gestionUserReclamation
 =======
 >>>>>>> origin/gestions-formations
+=======
+>>>>>>> origin/gestionOffre
+=======
+=======
+            sendgrid: '%env(MAILER_DSN)%'
+>>>>>>> origin/gestionOffre
+>>>>>>> origin/gestionOffre
+>>>>>>> 76179cffc7b72c06d034d39a661eec43d0ee6421
         channel_policy:
             # use chat/slack, chat/telegram, sms/twilio or sms/nexmo
             urgent: ['email']

@@ -31,17 +31,33 @@ framework:
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+            # Commentez ou supprimez cette ligne pour désactiver l'envoi asynchrone des emails
+            # Symfony\Component\Mailer\Messenger\SendEmailMessage: async
+=======
+<<<<<<< HEAD
+=======
+>>>>>>> origin/gestionOffre
+>>>>>>> 76179cffc7b72c06d034d39a661eec43d0ee6421
             Symfony\Component\Mailer\Messenger\SendEmailMessage: async
 =======
             # Commentez ou supprimez cette ligne pour désactiver l'envoi asynchrone des emails
             # Symfony\Component\Mailer\Messenger\SendEmailMessage: async
 >>>>>>> origin/gestionOffre
+<<<<<<< HEAD
 =======
             Symfony\Component\Mailer\Messenger\SendEmailMessage: sync
 >>>>>>> origin/gestionUserReclamation
 =======
             Symfony\Component\Mailer\Messenger\SendEmailMessage: async
 >>>>>>> origin/gestions-formations
+=======
+<<<<<<< HEAD
+>>>>>>> origin/gestionOffre
+=======
+>>>>>>> origin/gestionOffre
+>>>>>>> 76179cffc7b72c06d034d39a661eec43d0ee6421
             Symfony\Component\Notifier\Message\ChatMessage: async
             Symfony\Component\Notifier\Message\SmsMessage: async
 
@@ -51,11 +67,23 @@ framework:
 <<<<<<< HEAD
             # 'App\Message\YourMessage': async
 =======
+<<<<<<< HEAD
+<<<<<<< HEAD
+            # 'App\Message\YourMessage': async
+=======
             # 'App\Message\YourMessage': async
 >>>>>>> origin/gestionOffre
+<<<<<<< HEAD
 =======
             # 'App\Message\YourMessage': async
 >>>>>>> origin/gestionUserReclamation
 =======
             # 'App\Message\YourMessage': async
 >>>>>>> origin/gestions-formations
+=======
+>>>>>>> origin/gestionOffre
+=======
+            # 'App\Message\YourMessage': async
+>>>>>>> origin/gestionOffre
+>>>>>>> origin/gestionOffre
+>>>>>>> 76179cffc7b72c06d034d39a661eec43d0ee6421

@@ -4,10 +4,17 @@ use App\Kernel;
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> origin/gestionUserReclamation
 =======
 >>>>>>> origin/gestions-formations
+=======
+=======
+<<<<<<< HEAD
+=======
+>>>>>>> origin/gestionOffre
+>>>>>>> 76179cffc7b72c06d034d39a661eec43d0ee6421
 
 require_once dirname(__DIR__).'/vendor/autoload_runtime.php';
 
@@ -17,6 +24,10 @@ return function (array $context) {
 <<<<<<< HEAD
 <<<<<<< HEAD
 =======
+<<<<<<< HEAD
+>>>>>>> origin/gestionOffre
+=======
+>>>>>>> origin/gestionOffre
 use Symfony\Component\Dotenv\Dotenv;
 use Symfony\Component\ErrorHandler\Debug;
 use Symfony\Component\HttpFoundation\Request;
@@ -58,9 +69,21 @@ $kernel = new Kernel($env, $debug);
 $request = Request::createFromGlobals();
 $response = $kernel->handle($request);
 $response->send();
+<<<<<<< HEAD
+<<<<<<< HEAD
+$kernel->terminate($request, $response);
+=======
 $kernel->terminate($request, $response);
 >>>>>>> origin/gestionOffre
+<<<<<<< HEAD
 =======
 >>>>>>> origin/gestionUserReclamation
 =======
 >>>>>>> origin/gestions-formations
+=======
+>>>>>>> origin/gestionOffre
+=======
+$kernel->terminate($request, $response);
+>>>>>>> origin/gestionOffre
+>>>>>>> origin/gestionOffre
+>>>>>>> 76179cffc7b72c06d034d39a661eec43d0ee6421

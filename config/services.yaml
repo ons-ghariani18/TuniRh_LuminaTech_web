@@ -1,6 +1,13 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+=======
+<<<<<<< HEAD
+=======
+>>>>>>> origin/gestionOffre
+>>>>>>> 76179cffc7b72c06d034d39a661eec43d0ee6421
 # This file is the entry point to configure your own services.
 # Files in the packages/ subdirectory configure your dependencies.
 
@@ -17,6 +24,10 @@ services:
     # makes classes in src/ available to be used as services
     # this creates a service per class whose id is the fully-qualified class name
 =======
+<<<<<<< HEAD
+>>>>>>> origin/gestionOffre
+=======
+>>>>>>> origin/gestionOffre
 parameters:
     cv_directory: '%kernel.project_dir%/public/uploads/cv'
     huggingface.api_key: '%env(HUGGINGFACE_API_KEY)%'
@@ -35,6 +46,14 @@ services:
         autoconfigure: true
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+=======
+>>>>>>> origin/gestionOffre
+=======
+>>>>>>> origin/gestionOffre
+>>>>>>> 76179cffc7b72c06d034d39a661eec43d0ee6421
 >>>>>>> origin/gestionOffre
 =======
 >>>>>>> origin/gestionUserReclamation
@@ -47,9 +66,20 @@ services:
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+=======
+<<<<<<< HEAD
+>>>>>>> 76179cffc7b72c06d034d39a661eec43d0ee6421
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
 =======
+>>>>>>> origin/gestionOffre
+=======
+    # add more service definitions when explicit configuration is needed
+    # please note that last definitions always *replace* previous ones
+=======
+>>>>>>> origin/gestionOffre
     App\Service\HuggingFaceService:
         arguments:
             $httpClient: '@Symfony\Contracts\HttpClient\HttpClientInterface'
@@ -63,8 +93,13 @@ services:
             $pdfParser: '@Smalot\PdfParser\Parser'
             $logger: '@Psr\Log\LoggerInterface'
 
+<<<<<<< HEAD
+<<<<<<< HEAD
+    Smalot\PdfParser\Parser: ~
+=======
     Smalot\PdfParser\Parser: ~
 >>>>>>> origin/gestionOffre
+<<<<<<< HEAD
 =======
 
 
@@ -105,3 +140,10 @@ services:
     arguments:
       $googleApiKey: '%google.api_key%'
 >>>>>>> origin/gestions-formations
+=======
+>>>>>>> origin/gestionOffre
+=======
+    Smalot\PdfParser\Parser: ~
+>>>>>>> origin/gestionOffre
+>>>>>>> origin/gestionOffre
+>>>>>>> 76179cffc7b72c06d034d39a661eec43d0ee6421

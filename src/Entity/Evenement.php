@@ -6,6 +6,14 @@ namespace App\Entity;
 use Doctrine\ORM\Mapping as ORM;
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+use App\Entity\Sponsor;
+=======
+<<<<<<< HEAD
+=======
+>>>>>>> origin/gestionOffre
+>>>>>>> 76179cffc7b72c06d034d39a661eec43d0ee6421
 
 use App\Entity\Sponsor;
 use Doctrine\Common\Collections\Collection;
@@ -13,15 +21,29 @@ use App\Entity\Participation;
 =======
 use App\Entity\Sponsor;
 >>>>>>> origin/gestionOffre
+<<<<<<< HEAD
 =======
 use App\Entity\Sponsor;
 >>>>>>> origin/gestionUserReclamation
+=======
+<<<<<<< HEAD
+>>>>>>> origin/gestionOffre
+=======
+>>>>>>> origin/gestionOffre
+>>>>>>> 76179cffc7b72c06d034d39a661eec43d0ee6421
 
 #[ORM\Entity]
 class Evenement
 {
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+=======
+<<<<<<< HEAD
+=======
+>>>>>>> origin/gestionOffre
+>>>>>>> 76179cffc7b72c06d034d39a661eec43d0ee6421
 
     #[ORM\Id]
     #[ORM\Column(type: "integer")]
@@ -31,6 +53,7 @@ class Evenement
     #[ORM\JoinColumn(name: 'id_sp', referencedColumnName: 'id_sp', onDelete: 'CASCADE')]
     private Sponsor $id_sp;
 =======
+<<<<<<< HEAD
 =======
 >>>>>>> origin/gestionUserReclamation
 =======
@@ -41,6 +64,12 @@ use App\Entity\Sponsor;
 #[ORM\Entity]
 class Evenement {
 >>>>>>> origin/gestions-formations
+=======
+<<<<<<< HEAD
+>>>>>>> origin/gestionOffre
+=======
+>>>>>>> origin/gestionOffre
+>>>>>>> 76179cffc7b72c06d034d39a661eec43d0ee6421
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(name: "id_ev", type: "integer")]
@@ -51,6 +80,14 @@ class Evenement {
     #[ORM\JoinColumn(name: "id_sp", referencedColumnName: "id_sp", onDelete: "CASCADE")]
     private ?Sponsor $sponsor = null;
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+=======
+>>>>>>> origin/gestionOffre
+=======
+>>>>>>> origin/gestionOffre
+>>>>>>> 76179cffc7b72c06d034d39a661eec43d0ee6421
 >>>>>>> origin/gestionOffre
 =======
 >>>>>>> origin/gestionUserReclamation
@@ -81,6 +118,13 @@ class Evenement {
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+=======
+<<<<<<< HEAD
+=======
+>>>>>>> origin/gestionOffre
+>>>>>>> 76179cffc7b72c06d034d39a661eec43d0ee6421
     public function getId_ev()
     {
         return $this->id_ev;
@@ -103,6 +147,7 @@ class Evenement {
 
     public function getNom()
 =======
+<<<<<<< HEAD
 =======
 >>>>>>> origin/gestionUserReclamation
 =======
@@ -139,6 +184,12 @@ class Evenement {
     private ?string $image = null;
     
 >>>>>>> origin/gestions-formations
+=======
+<<<<<<< HEAD
+>>>>>>> origin/gestionOffre
+=======
+>>>>>>> origin/gestionOffre
+>>>>>>> 76179cffc7b72c06d034d39a661eec43d0ee6421
     public function getIdEv(): ?int
     {
         return $this->id_ev;
@@ -172,6 +223,14 @@ class Evenement {
 
     public function getNom(): string
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+=======
+>>>>>>> origin/gestionOffre
+=======
+>>>>>>> origin/gestionOffre
+>>>>>>> 76179cffc7b72c06d034d39a661eec43d0ee6421
 >>>>>>> origin/gestionOffre
 =======
 >>>>>>> origin/gestionUserReclamation
@@ -181,6 +240,13 @@ class Evenement {
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+=======
+<<<<<<< HEAD
+=======
+>>>>>>> origin/gestionOffre
+>>>>>>> 76179cffc7b72c06d034d39a661eec43d0ee6421
     public function setNom($value)
     {
         $this->nom = $value;
@@ -188,6 +254,7 @@ class Evenement {
 
     public function getType()
 =======
+<<<<<<< HEAD
 =======
 >>>>>>> origin/gestionUserReclamation
 =======
@@ -198,6 +265,12 @@ class Evenement {
     }
     
 >>>>>>> origin/gestions-formations
+=======
+<<<<<<< HEAD
+>>>>>>> origin/gestionOffre
+=======
+>>>>>>> origin/gestionOffre
+>>>>>>> 76179cffc7b72c06d034d39a661eec43d0ee6421
     public function setNom(string $nom): self
     {
         $this->nom = $nom;
@@ -207,6 +280,14 @@ class Evenement {
 
     public function getType(): string
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+=======
+>>>>>>> origin/gestionOffre
+=======
+>>>>>>> origin/gestionOffre
+>>>>>>> 76179cffc7b72c06d034d39a661eec43d0ee6421
 >>>>>>> origin/gestionOffre
 =======
 >>>>>>> origin/gestionUserReclamation
@@ -216,6 +297,13 @@ class Evenement {
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+=======
+<<<<<<< HEAD
+=======
+>>>>>>> origin/gestionOffre
+>>>>>>> 76179cffc7b72c06d034d39a661eec43d0ee6421
     public function setType($value)
     {
         $this->type = $value;
@@ -223,6 +311,7 @@ class Evenement {
 
     public function getDate_debut()
 =======
+<<<<<<< HEAD
 =======
 >>>>>>> origin/gestionUserReclamation
 =======
@@ -233,6 +322,12 @@ class Evenement {
     }
     
 >>>>>>> origin/gestions-formations
+=======
+<<<<<<< HEAD
+>>>>>>> origin/gestionOffre
+=======
+>>>>>>> origin/gestionOffre
+>>>>>>> 76179cffc7b72c06d034d39a661eec43d0ee6421
     public function setType(string $type): self
     {
         $this->type = $type;
@@ -242,6 +337,14 @@ class Evenement {
 
     public function getDateDebut(): \DateTimeInterface
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+=======
+>>>>>>> origin/gestionOffre
+=======
+>>>>>>> origin/gestionOffre
+>>>>>>> 76179cffc7b72c06d034d39a661eec43d0ee6421
 >>>>>>> origin/gestionOffre
 =======
 >>>>>>> origin/gestionUserReclamation
@@ -251,6 +354,13 @@ class Evenement {
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+=======
+<<<<<<< HEAD
+=======
+>>>>>>> origin/gestionOffre
+>>>>>>> 76179cffc7b72c06d034d39a661eec43d0ee6421
     public function setDate_debut($value)
     {
         $this->date_debut = $value;
@@ -258,6 +368,7 @@ class Evenement {
 
     public function getDate_fin()
 =======
+<<<<<<< HEAD
 =======
 >>>>>>> origin/gestionUserReclamation
 =======
@@ -268,6 +379,12 @@ class Evenement {
     }
     
 >>>>>>> origin/gestions-formations
+=======
+<<<<<<< HEAD
+>>>>>>> origin/gestionOffre
+=======
+>>>>>>> origin/gestionOffre
+>>>>>>> 76179cffc7b72c06d034d39a661eec43d0ee6421
     public function setDateDebut(\DateTimeInterface $dateDebut): self
     {
         $this->date_debut = $dateDebut;
@@ -277,6 +394,14 @@ class Evenement {
 
     public function getDateFin(): \DateTimeInterface
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+=======
+>>>>>>> origin/gestionOffre
+=======
+>>>>>>> origin/gestionOffre
+>>>>>>> 76179cffc7b72c06d034d39a661eec43d0ee6421
 >>>>>>> origin/gestionOffre
 =======
 >>>>>>> origin/gestionUserReclamation
@@ -286,6 +411,13 @@ class Evenement {
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+=======
+<<<<<<< HEAD
+=======
+>>>>>>> origin/gestionOffre
+>>>>>>> 76179cffc7b72c06d034d39a661eec43d0ee6421
     public function setDate_fin($value)
     {
         $this->date_fin = $value;
@@ -293,6 +425,7 @@ class Evenement {
 
     public function getLieu()
 =======
+<<<<<<< HEAD
 =======
 >>>>>>> origin/gestionUserReclamation
 =======
@@ -303,6 +436,12 @@ class Evenement {
     }
     
 >>>>>>> origin/gestions-formations
+=======
+<<<<<<< HEAD
+>>>>>>> origin/gestionOffre
+=======
+>>>>>>> origin/gestionOffre
+>>>>>>> 76179cffc7b72c06d034d39a661eec43d0ee6421
     public function setDateFin(\DateTimeInterface $dateFin): self
     {
         $this->date_fin = $dateFin;
@@ -312,6 +451,14 @@ class Evenement {
 
     public function getLieu(): string
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+=======
+>>>>>>> origin/gestionOffre
+=======
+>>>>>>> origin/gestionOffre
+>>>>>>> 76179cffc7b72c06d034d39a661eec43d0ee6421
 >>>>>>> origin/gestionOffre
 =======
 >>>>>>> origin/gestionUserReclamation
@@ -321,6 +468,13 @@ class Evenement {
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+=======
+<<<<<<< HEAD
+=======
+>>>>>>> origin/gestionOffre
+>>>>>>> 76179cffc7b72c06d034d39a661eec43d0ee6421
     public function setLieu($value)
     {
         $this->lieu = $value;
@@ -328,6 +482,7 @@ class Evenement {
 
     public function getBudget()
 =======
+<<<<<<< HEAD
 =======
 >>>>>>> origin/gestionUserReclamation
 =======
@@ -338,6 +493,12 @@ class Evenement {
     }
     
 >>>>>>> origin/gestions-formations
+=======
+<<<<<<< HEAD
+>>>>>>> origin/gestionOffre
+=======
+>>>>>>> origin/gestionOffre
+>>>>>>> 76179cffc7b72c06d034d39a661eec43d0ee6421
     public function setLieu(string $lieu): self
     {
         $this->lieu = $lieu;
@@ -347,6 +508,14 @@ class Evenement {
 
     public function getBudget(): float
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+=======
+>>>>>>> origin/gestionOffre
+=======
+>>>>>>> origin/gestionOffre
+>>>>>>> 76179cffc7b72c06d034d39a661eec43d0ee6421
 >>>>>>> origin/gestionOffre
 =======
 >>>>>>> origin/gestionUserReclamation
@@ -356,6 +525,13 @@ class Evenement {
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+=======
+<<<<<<< HEAD
+=======
+>>>>>>> origin/gestionOffre
+>>>>>>> 76179cffc7b72c06d034d39a661eec43d0ee6421
     public function setBudget($value)
     {
         $this->budget = $value;
@@ -363,6 +539,7 @@ class Evenement {
 
     public function getDescription()
 =======
+<<<<<<< HEAD
 =======
 >>>>>>> origin/gestionUserReclamation
 =======
@@ -373,6 +550,12 @@ class Evenement {
     }
     
 >>>>>>> origin/gestions-formations
+=======
+<<<<<<< HEAD
+>>>>>>> origin/gestionOffre
+=======
+>>>>>>> origin/gestionOffre
+>>>>>>> 76179cffc7b72c06d034d39a661eec43d0ee6421
     public function setBudget(float $budget): self
     {
         $this->budget = $budget;
@@ -382,6 +565,14 @@ class Evenement {
 
     public function getDescription(): string
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+=======
+>>>>>>> origin/gestionOffre
+=======
+>>>>>>> origin/gestionOffre
+>>>>>>> 76179cffc7b72c06d034d39a661eec43d0ee6421
 >>>>>>> origin/gestionOffre
 =======
 >>>>>>> origin/gestionUserReclamation
@@ -391,6 +582,13 @@ class Evenement {
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+=======
+<<<<<<< HEAD
+=======
+>>>>>>> origin/gestionOffre
+>>>>>>> 76179cffc7b72c06d034d39a661eec43d0ee6421
     public function setDescription($value)
     {
         $this->description = $value;
@@ -398,6 +596,7 @@ class Evenement {
 
     public function getGoogle_calendar_event_id()
 =======
+<<<<<<< HEAD
 =======
 >>>>>>> origin/gestionUserReclamation
 =======
@@ -408,6 +607,12 @@ class Evenement {
     }
     
 >>>>>>> origin/gestions-formations
+=======
+<<<<<<< HEAD
+>>>>>>> origin/gestionOffre
+=======
+>>>>>>> origin/gestionOffre
+>>>>>>> 76179cffc7b72c06d034d39a661eec43d0ee6421
     public function setDescription(string $description): self
     {
         $this->description = $description;
@@ -417,6 +622,14 @@ class Evenement {
 
     public function getGoogleCalendarEventId(): string
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+=======
+>>>>>>> origin/gestionOffre
+=======
+>>>>>>> origin/gestionOffre
+>>>>>>> 76179cffc7b72c06d034d39a661eec43d0ee6421
 >>>>>>> origin/gestionOffre
 =======
 >>>>>>> origin/gestionUserReclamation
@@ -426,6 +639,13 @@ class Evenement {
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+=======
+<<<<<<< HEAD
+=======
+>>>>>>> origin/gestionOffre
+>>>>>>> 76179cffc7b72c06d034d39a661eec43d0ee6421
     public function setGoogle_calendar_event_id($value)
     {
         $this->google_calendar_event_id = $value;
@@ -461,6 +681,7 @@ class Evenement {
             return $this;
         }
 =======
+<<<<<<< HEAD
 =======
 >>>>>>> origin/gestionUserReclamation
 =======
@@ -471,6 +692,12 @@ class Evenement {
     }
     
 >>>>>>> origin/gestions-formations
+=======
+<<<<<<< HEAD
+>>>>>>> origin/gestionOffre
+=======
+>>>>>>> origin/gestionOffre
+>>>>>>> 76179cffc7b72c06d034d39a661eec43d0ee6421
     public function setGoogleCalendarEventId(string $googleCalendarEventId): self
     {
         $this->google_calendar_event_id = $googleCalendarEventId;
@@ -478,6 +705,13 @@ class Evenement {
     }
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+=======
+>>>>>>> origin/gestionOffre
+=======
+>>>>>>> origin/gestionOffre
+>>>>>>> 76179cffc7b72c06d034d39a661eec43d0ee6421
 >>>>>>> origin/gestionOffre
 =======
 >>>>>>> origin/gestionUserReclamation

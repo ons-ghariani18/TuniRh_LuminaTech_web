@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+<<<<<<< HEAD
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -45,3 +46,24 @@ class SecurityController extends AbstractController
         throw new \LogicException('This method should not be reached!');
     }
 }
+=======
+use KnpU\OAuth2ClientBundle\Client\ClientRegistry;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\Routing\Annotation\Route;
+
+class SecurityController extends AbstractController
+{
+    #[Route('/connect/google', name: 'connect_google')]
+    public function connectGoogle(ClientRegistry $clientRegistry): RedirectResponse
+    {
+        return $clientRegistry->getClient('google')->redirect(['email', 'profile'], []);
+    }
+
+    #[Route('/connect/google/check', name: 'connect_google_check')]
+    public function connectGoogleCheck(): void
+    {
+        // Géré par GoogleAuthenticator
+    }
+}
+>>>>>>> 76179cffc7b72c06d034d39a661eec43d0ee6421

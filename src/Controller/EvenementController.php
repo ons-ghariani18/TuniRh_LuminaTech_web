@@ -5,6 +5,13 @@ namespace App\Controller;
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+=======
+<<<<<<< HEAD
+=======
+>>>>>>> origin/gestionOffre
+>>>>>>> 76179cffc7b72c06d034d39a661eec43d0ee6421
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
@@ -19,10 +26,17 @@ class EvenementController extends AbstractController
         ]);
     }
 =======
+<<<<<<< HEAD
 =======
 >>>>>>> origin/gestionUserReclamation
 =======
 >>>>>>> origin/gestions-formations
+=======
+<<<<<<< HEAD
+>>>>>>> origin/gestionOffre
+=======
+>>>>>>> origin/gestionOffre
+>>>>>>> 76179cffc7b72c06d034d39a661eec43d0ee6421
 use App\Entity\Evenement;
 use App\Form\EvenementType;
 use Doctrine\ORM\EntityManagerInterface;
@@ -162,6 +176,13 @@ final class EvenementController extends AbstractController
     }
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+=======
+>>>>>>> origin/gestionOffre
+=======
+>>>>>>> origin/gestionOffre
+>>>>>>> 76179cffc7b72c06d034d39a661eec43d0ee6421
 >>>>>>> origin/gestionOffre
 =======
 >>>>>>> origin/gestionUserReclamation

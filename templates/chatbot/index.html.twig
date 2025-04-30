@@ -138,7 +138,15 @@
             margin: 10px 0;
             padding: 12px 20px;
             border-radius: 15px;
+<<<<<<< HEAD
+<<<<<<< HEAD
+            font-size: 1rem;
+=======
             font-size: 1rem; /* Réduit pour une meilleure lisibilité */
+>>>>>>> origin/gestionOffre
+=======
+            font-size: 1rem; /* Réduit pour une meilleure lisibilité */
+>>>>>>> origin/gestionOffre
             line-height: 1.4;
             position: relative;
             display: flex;
@@ -390,12 +398,23 @@
 
 {% block javascripts %}
     {{ parent() }}
+<<<<<<< HEAD
+<<<<<<< HEAD
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/wow/1.1.2/wow.min.js"></script>
+=======
+=======
+>>>>>>> origin/gestionOffre
     {# Charger les scripts manquants via CDN pour éviter les erreurs #}
     <script src="https://cdnjs.cloudflare.com/ajax/libs/wow/1.1.2/wow.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/waypoints/4.0.1/jquery.waypoints.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<<<<<<< HEAD
+>>>>>>> origin/gestionOffre
+=======
+>>>>>>> origin/gestionOffre
     <script>
         // Initialiser WOW.js pour les animations
         if (typeof WOW !== 'undefined') {
@@ -404,6 +423,42 @@
             console.warn('WOW.js is not loaded, skipping initialization.');
         }
 
+<<<<<<< HEAD
+<<<<<<< HEAD
+        const chatForm = document.getElementById('chat-form');
+        const chatContainer = document.getElementById('chat-container');
+        const messageInput = document.getElementById('message');
+
+        chatForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const message = messageInput.value.trim();
+            if (!message) {
+                console.log('Message vide, envoi annulé');
+                return;
+            }
+
+            console.log('Message envoyé:', message);
+
+            // Afficher le message de l'utilisateur
+            const userMessageDiv = document.createElement('div');
+            userMessageDiv.className = 'message user';
+            userMessageDiv.innerHTML = `
+                <i class="bi bi-person-circle icon"></i>
+                <span>${message}</span>
+            `;
+            chatContainer.appendChild(userMessageDiv);
+
+            // Vider le champ de saisie
+            messageInput.value = '';
+
+            // Faire défiler vers le bas
+            chatContainer.scrollTop = chatContainer.scrollHeight;
+
+            try {
+                console.log('Envoi de la requête fetch...');
+=======
+=======
+>>>>>>> origin/gestionOffre
         document.getElementById('chat-form').addEventListener('submit', async (e) => {
             e.preventDefault();
             const messageInput = document.getElementById('message');
@@ -419,10 +474,78 @@
             messageInput.value = '';
 
             try {
+<<<<<<< HEAD
+>>>>>>> origin/gestionOffre
+=======
+>>>>>>> origin/gestionOffre
                 const response = await fetch('{{ path('chatbot_message') }}', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/x-www-form-urlencoded',
+<<<<<<< HEAD
+<<<<<<< HEAD
+                        'Accept': 'application/json',
+                    },
+                    body: new URLSearchParams({
+                        'message': message
+                    })
+                });
+
+                console.log('Réponse fetch reçue:', response);
+
+                if (!response.ok) {
+                    throw new Error(`Erreur HTTP : ${response.status}`);
+                }
+
+                const data = await response.json();
+                console.log('Données JSON:', data);
+
+                if (data.error) {
+                    console.log('Erreur dans la réponse:', data.error);
+                    const errorMessageDiv = document.createElement('div');
+                    errorMessageDiv.className = 'message error';
+                    errorMessageDiv.innerHTML = `
+                        <i class="bi bi-exclamation-circle icon"></i>
+                        <span>${data.error}</span>
+                    `;
+                    chatContainer.appendChild(errorMessageDiv);
+                } else {
+                    // Remplacer les sauts de ligne par des <br>
+                    let responseText = data.response.replace(/\n/g, '<br>');
+                    console.log('Texte de la réponse formaté:', responseText);
+
+                    // Créer la réponse du bot
+                    const botMessageDiv = document.createElement('div');
+                    botMessageDiv.className = 'message bot';
+                    botMessageDiv.innerHTML = `
+                        <i class="bi bi-robot icon"></i>
+                        <span>${responseText}</span>
+                    `;
+                    chatContainer.appendChild(botMessageDiv);
+                }
+
+                // Faire défiler vers le bas
+                chatContainer.scrollTop = chatContainer.scrollHeight;
+            } catch (error) {
+                console.error('Erreur lors de la requête fetch:', error);
+                const errorMessageDiv = document.createElement('div');
+                errorMessageDiv.className = 'message error';
+                errorMessageDiv.innerHTML = `
+                    <i class="bi bi-exclamation-circle icon"></i>
+                    <span>Impossible de contacter le serveur. (${error.message})</span>
+                `;
+                chatContainer.appendChild(errorMessageDiv);
+                chatContainer.scrollTop = chatContainer.scrollHeight;
+            }
+        });
+
+        // Permettre l'envoi avec la touche Entrée
+        messageInput.addEventListener('keypress', function (e) {
+            if (e.key === 'Enter') {
+                chatForm.dispatchEvent(new Event('submit'));
+=======
+=======
+>>>>>>> origin/gestionOffre
                     },
                     body: `message=${encodeURIComponent(message)}`
                 });
@@ -481,6 +604,10 @@
                         <i class="bi bi-exclamation-circle icon"></i>
                         <span>Impossible de contacter le serveur. (${error.message})</span>
                     </div>`;
+<<<<<<< HEAD
+>>>>>>> origin/gestionOffre
+=======
+>>>>>>> origin/gestionOffre
             }
         });
     </script>

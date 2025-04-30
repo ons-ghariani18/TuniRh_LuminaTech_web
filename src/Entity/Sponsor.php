@@ -17,15 +17,29 @@ class Sponsor
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+=======
+<<<<<<< HEAD
+=======
+>>>>>>> origin/gestionOffre
+>>>>>>> 76179cffc7b72c06d034d39a661eec43d0ee6421
 
     #[ORM\Id]
     #[ORM\Column(type: "integer")]
     private int $id_sp;
 =======
+<<<<<<< HEAD
 =======
 >>>>>>> origin/gestionUserReclamation
 =======
 >>>>>>> origin/gestions-formations
+=======
+<<<<<<< HEAD
+>>>>>>> origin/gestionOffre
+=======
+>>>>>>> origin/gestionOffre
+>>>>>>> 76179cffc7b72c06d034d39a661eec43d0ee6421
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(name: "id_sp", type: "integer")]
@@ -33,6 +47,13 @@ class Sponsor
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+=======
+>>>>>>> origin/gestionOffre
+=======
+>>>>>>> origin/gestionOffre
+>>>>>>> 76179cffc7b72c06d034d39a661eec43d0ee6421
 >>>>>>> origin/gestionOffre
 =======
 >>>>>>> origin/gestionUserReclamation
@@ -54,6 +75,13 @@ class Sponsor
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+=======
+<<<<<<< HEAD
+=======
+>>>>>>> origin/gestionOffre
+>>>>>>> 76179cffc7b72c06d034d39a661eec43d0ee6421
     public function getId_sp()
     {
         return $this->id_sp;
@@ -65,10 +93,17 @@ class Sponsor
     }
 
 =======
+<<<<<<< HEAD
 =======
 >>>>>>> origin/gestionUserReclamation
 =======
 >>>>>>> origin/gestions-formations
+=======
+<<<<<<< HEAD
+>>>>>>> origin/gestionOffre
+=======
+>>>>>>> origin/gestionOffre
+>>>>>>> 76179cffc7b72c06d034d39a661eec43d0ee6421
     public function getIdSp(): int
 {
     return $this->id_sp;
@@ -81,6 +116,13 @@ public function setIdSp(int $idSp): self
 }
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+=======
+>>>>>>> origin/gestionOffre
+=======
+>>>>>>> origin/gestionOffre
+>>>>>>> 76179cffc7b72c06d034d39a661eec43d0ee6421
 >>>>>>> origin/gestionOffre
 =======
 >>>>>>> origin/gestionUserReclamation
@@ -168,11 +210,23 @@ public function setIdSp(int $idSp): self
 <<<<<<< HEAD
 }
 =======
+<<<<<<< HEAD
+<<<<<<< HEAD
+}
+=======
 }
 >>>>>>> origin/gestionOffre
+<<<<<<< HEAD
 =======
 }
 >>>>>>> origin/gestionUserReclamation
 =======
 }
 >>>>>>> origin/gestions-formations
+=======
+>>>>>>> origin/gestionOffre
+=======
+}
+>>>>>>> origin/gestionOffre
+>>>>>>> origin/gestionOffre
+>>>>>>> 76179cffc7b72c06d034d39a661eec43d0ee6421

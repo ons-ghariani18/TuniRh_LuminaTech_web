@@ -6,12 +6,22 @@ namespace App\Entity;
 use Doctrine\ORM\Mapping as ORM;
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+use App\Entity\Offresemploi;
+use Symfony\Component\Validator\Constraints as Assert;
+=======
+<<<<<<< HEAD
+=======
+>>>>>>> origin/gestionOffre
+>>>>>>> 76179cffc7b72c06d034d39a661eec43d0ee6421
 
 use App\Entity\Offresemploi;
 =======
 use App\Entity\Offresemploi;
 use Symfony\Component\Validator\Constraints as Assert;
 >>>>>>> origin/gestionOffre
+<<<<<<< HEAD
 =======
 use App\Entity\Offresemploi;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -22,6 +32,12 @@ use Doctrine\ORM\Mapping as ORM;
 
 use App\Entity\Offresemploi;
 >>>>>>> origin/gestions-formations
+=======
+<<<<<<< HEAD
+>>>>>>> origin/gestionOffre
+=======
+>>>>>>> origin/gestionOffre
+>>>>>>> 76179cffc7b72c06d034d39a661eec43d0ee6421
 
 #[ORM\Entity]
 class Candidatures
@@ -29,8 +45,15 @@ class Candidatures
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> origin/gestions-formations
+=======
+=======
+<<<<<<< HEAD
+=======
+>>>>>>> origin/gestionOffre
+>>>>>>> 76179cffc7b72c06d034d39a661eec43d0ee6421
 
     #[ORM\Id]
     #[ORM\Column(type: "integer")]
@@ -61,8 +84,15 @@ class Candidatures
     public function getId_candidature()
 <<<<<<< HEAD
 =======
+<<<<<<< HEAD
 =======
 >>>>>>> origin/gestionUserReclamation
+=======
+<<<<<<< HEAD
+>>>>>>> origin/gestionOffre
+=======
+>>>>>>> origin/gestionOffre
+>>>>>>> 76179cffc7b72c06d034d39a661eec43d0ee6421
     #[ORM\GeneratedValue(strategy: "IDENTITY")]
     #[ORM\Id]
     #[ORM\Column(type: "integer")]
@@ -123,6 +153,12 @@ class Candidatures
 
     // Getters/Setters
     public function getIdCandidature(): ?int
+<<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> origin/gestionOffre
+=======
+>>>>>>> origin/gestionOffre
 >>>>>>> origin/gestionOffre
 =======
     // Getters/Setters
@@ -137,8 +173,15 @@ class Candidatures
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> origin/gestions-formations
+=======
+=======
+<<<<<<< HEAD
+=======
+>>>>>>> origin/gestionOffre
+>>>>>>> 76179cffc7b72c06d034d39a661eec43d0ee6421
     public function setId_candidature($value)
     {
         $this->id_candidature = $value;
@@ -157,8 +200,15 @@ class Candidatures
     public function getNom_candidat()
 <<<<<<< HEAD
 =======
+<<<<<<< HEAD
 =======
 >>>>>>> origin/gestionUserReclamation
+=======
+<<<<<<< HEAD
+>>>>>>> origin/gestionOffre
+=======
+>>>>>>> origin/gestionOffre
+>>>>>>> 76179cffc7b72c06d034d39a661eec43d0ee6421
     public function setIdCandidature(?int $value): self
     {
         $this->id_candidature = $value;
@@ -178,6 +228,14 @@ class Candidatures
 
     public function getNomCandidat(): ?string
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+=======
+>>>>>>> origin/gestionOffre
+=======
+>>>>>>> origin/gestionOffre
+>>>>>>> 76179cffc7b72c06d034d39a661eec43d0ee6421
 >>>>>>> origin/gestionOffre
 =======
 >>>>>>> origin/gestionUserReclamation
@@ -190,8 +248,15 @@ class Candidatures
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> origin/gestions-formations
+=======
+=======
+<<<<<<< HEAD
+=======
+>>>>>>> origin/gestionOffre
+>>>>>>> 76179cffc7b72c06d034d39a661eec43d0ee6421
     public function setNom_candidat($value)
     {
         $this->nom_candidat = $value;
@@ -200,8 +265,15 @@ class Candidatures
     public function getEmail()
 <<<<<<< HEAD
 =======
+<<<<<<< HEAD
 =======
 >>>>>>> origin/gestionUserReclamation
+=======
+<<<<<<< HEAD
+>>>>>>> origin/gestionOffre
+=======
+>>>>>>> origin/gestionOffre
+>>>>>>> 76179cffc7b72c06d034d39a661eec43d0ee6421
     public function setNomCandidat(?string $value): self
     {
         $this->nom_candidat = $value;
@@ -210,6 +282,14 @@ class Candidatures
 
     public function getEmail(): ?string
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+=======
+>>>>>>> origin/gestionOffre
+=======
+>>>>>>> origin/gestionOffre
+>>>>>>> 76179cffc7b72c06d034d39a661eec43d0ee6421
 >>>>>>> origin/gestionOffre
 =======
 >>>>>>> origin/gestionUserReclamation
@@ -222,8 +302,15 @@ class Candidatures
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> origin/gestions-formations
+=======
+=======
+<<<<<<< HEAD
+=======
+>>>>>>> origin/gestionOffre
+>>>>>>> 76179cffc7b72c06d034d39a661eec43d0ee6421
     public function setEmail($value)
     {
         $this->email = $value;
@@ -232,8 +319,15 @@ class Candidatures
     public function getCv()
 <<<<<<< HEAD
 =======
+<<<<<<< HEAD
 =======
 >>>>>>> origin/gestionUserReclamation
+=======
+<<<<<<< HEAD
+>>>>>>> origin/gestionOffre
+=======
+>>>>>>> origin/gestionOffre
+>>>>>>> 76179cffc7b72c06d034d39a661eec43d0ee6421
     public function setEmail(?string $value): self
     {
         $this->email = $value;
@@ -242,6 +336,14 @@ class Candidatures
 
     public function getCv(): ?string
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+=======
+>>>>>>> origin/gestionOffre
+=======
+>>>>>>> origin/gestionOffre
+>>>>>>> 76179cffc7b72c06d034d39a661eec43d0ee6421
 >>>>>>> origin/gestionOffre
 =======
 >>>>>>> origin/gestionUserReclamation
@@ -254,8 +356,15 @@ class Candidatures
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> origin/gestions-formations
+=======
+=======
+<<<<<<< HEAD
+=======
+>>>>>>> origin/gestionOffre
+>>>>>>> 76179cffc7b72c06d034d39a661eec43d0ee6421
     public function setCv($value)
     {
         $this->cv = $value;
@@ -264,8 +373,15 @@ class Candidatures
     public function getLettre_motivation()
 <<<<<<< HEAD
 =======
+<<<<<<< HEAD
 =======
 >>>>>>> origin/gestionUserReclamation
+=======
+<<<<<<< HEAD
+>>>>>>> origin/gestionOffre
+=======
+>>>>>>> origin/gestionOffre
+>>>>>>> 76179cffc7b72c06d034d39a661eec43d0ee6421
     public function setCv(?string $value): self
     {
         $this->cv = $value;
@@ -274,6 +390,14 @@ class Candidatures
 
     public function getLettreMotivation(): ?string
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+=======
+>>>>>>> origin/gestionOffre
+=======
+>>>>>>> origin/gestionOffre
+>>>>>>> 76179cffc7b72c06d034d39a661eec43d0ee6421
 >>>>>>> origin/gestionOffre
 =======
 >>>>>>> origin/gestionUserReclamation
@@ -286,8 +410,15 @@ class Candidatures
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> origin/gestions-formations
+=======
+=======
+<<<<<<< HEAD
+=======
+>>>>>>> origin/gestionOffre
+>>>>>>> 76179cffc7b72c06d034d39a661eec43d0ee6421
     public function setLettre_motivation($value)
     {
         $this->lettre_motivation = $value;
@@ -315,8 +446,15 @@ class Candidatures
 <<<<<<< HEAD
 }
 =======
+<<<<<<< HEAD
 =======
 >>>>>>> origin/gestionUserReclamation
+=======
+<<<<<<< HEAD
+>>>>>>> origin/gestionOffre
+=======
+>>>>>>> origin/gestionOffre
+>>>>>>> 76179cffc7b72c06d034d39a661eec43d0ee6421
     public function setLettreMotivation(?string $value): self
     {
         $this->lettre_motivation = $value;
@@ -394,8 +532,13 @@ class Candidatures
         $this->score = $score;
         return $this;
     }
+<<<<<<< HEAD
+<<<<<<< HEAD
+}
+=======
 }
 >>>>>>> origin/gestionOffre
+<<<<<<< HEAD
 =======
 }
 >>>>>>> origin/gestionUserReclamation
@@ -423,3 +566,10 @@ class Candidatures
     }
 }
 >>>>>>> origin/gestions-formations
+=======
+>>>>>>> origin/gestionOffre
+=======
+}
+>>>>>>> origin/gestionOffre
+>>>>>>> origin/gestionOffre
+>>>>>>> 76179cffc7b72c06d034d39a661eec43d0ee6421
