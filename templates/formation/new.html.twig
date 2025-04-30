@@ -1,0 +1,457 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Formation{% endblock %}
+{% block stylesheets %}
+    {{ parent() }}
+    <link href="https://cdn.materialdesignicons.com/5.4.55/css/materialdesignicons.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #e67e22;
+            --primary-dark: #d35400;
+            --secondary-color: #091E3E;
+            --sidebar-bg: #091E3E;
+            --sidebar-text: #a3adcc;
+            --body-bg: #f5f7fa;
+            --card-bg: #fff;
+            --text-color: #333;
+            --muted-text: #6b7280;
+            --border-color: #e0e0e0;
+            --danger-color: #ef4444;
+            --success-color: #10b981;
+            --transition-speed: 0.3s;
+        }
+
+        body {
+            font-family: 'Nunito', sans-serif;
+            background: var(--body-bg);
+            color: var(--text-color);
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+        }
+
+        /* Layout Structure */
+        .app-container {
+            display: flex;
+            min-height: 100vh;
+            position: relative;
+        }
+
+        /* Sidebar Styles */
+        .aside {
+            width: 240px;
+            background-color: var(--sidebar-bg);
+            color: var(--sidebar-text);
+            position: fixed;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            overflow-y: auto;
+            z-index: 100;
+            transition: transform var(--transition-speed) ease;
+            transform: translateX(0);
+        }
+
+        .aside-collapsed {
+            transform: translateX(-240px);
+        }
+
+        .aside-brand {
+            height: 60px;
+            background-color: var(--sidebar-bg);
+            display: flex;
+            align-items: center;
+            padding: 0 1.5rem;
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: white;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 101;
+        }
+
+        .aside-menu {
+            padding: 1rem 0;
+        }
+
+        .menu-label {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            margin: 1rem 1.5rem 0.25rem;
+            color: rgba(255, 255, 255, 0.4);
+        }
+
+        .menu-item {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.75rem 1.5rem;
+            color: var(--sidebar-text);
+            text-decoration: none;
+            transition: background 0.3s, color 0.3s;
+        }
+
+        .menu-item:hover, .menu-item.is-active {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        /* Main Content */
+        .main-content {
+            margin-left: 240px;
+            flex: 1;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            transition: margin-left var(--transition-speed) ease;
+        }
+
+        .main-content-full {
+            margin-left: 0;
+        }
+
+        /* Navbar */
+        .navbar {
+            position: sticky;
+            top: 0;
+            background: white;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+            z-index: 99;
+        }
+
+        .menu-toggle {
+            display: none;
+            align-items: center;
+            justify-content: center;
+            width: 36px;
+            height: 36px;
+            border-radius: 6px;
+            background-color: transparent;
+            color: var(--text-color);
+            border: 1px solid var(--border-color);
+            cursor: pointer;
+            transition: background 0.2s;
+            margin-right: 1rem;
+        }
+
+        .menu-toggle:hover {
+            background-color: var(--body-bg);
+        }
+
+        /* Form Styles */
+        .form-container {
+            background: var(--card-bg);
+            border-radius: 8px;
+            padding: 2rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            max-width: 800px;
+            margin: 2rem auto;
+        }
+
+        .form-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            color: var(--secondary-color);
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: var(--secondary-color);
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            font-family: 'Nunito', sans-serif;
+            font-size: 1rem;
+            transition: border-color 0.3s, box-shadow 0.3s;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(230, 126, 34, 0.1);
+        }
+
+        select.form-control {
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%236b7280' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 0.75rem center;
+            background-size: 1rem;
+        }
+
+        .form-actions {
+            display: flex;
+            justify-content: flex-end;
+            gap: 1rem;
+            margin-top: 2rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .btn {
+            padding: 0.75rem 1.5rem;
+            border-radius: 6px;
+            font-weight: 600;
+            font-family: 'Nunito', sans-serif;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            text-decoration: none;
+            border: none;
+        }
+
+        .btn-primary {
+            background: var(--primary-color);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: var(--primary-dark);
+        }
+
+        .btn-secondary {
+            background: var(--border-color);
+            color: var(--text-color);
+        }
+
+        .btn-secondary:hover {
+            background: #e0e0e0;
+        }
+
+        /* Date picker styling */
+        .date-picker {
+            position: relative;
+        }
+
+        .date-picker i {
+            position: absolute;
+            right: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--muted-text);
+            pointer-events: none;
+        }
+
+        /* Overlay for mobile */
+        .sidebar-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 90;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity var(--transition-speed), visibility var(--transition-speed);
+        }
+
+        .sidebar-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .aside {
+                transform: translateX(-240px);
+            }
+
+            .aside.expanded {
+                transform: translateX(0);
+            }
+
+            .main-content {
+                margin-left: 0;
+            }
+
+            .menu-toggle {
+                display: flex;
+            }
+
+            .navbar {
+                padding: 1rem;
+            }
+
+            .form-container {
+                padding: 1.5rem;
+                margin: 1rem;
+            }
+        }
+    </style>
+{% endblock %}
+
+{% block body %}
+<div class="app-container">
+    {# Sidebar #}
+    <aside class="aside" id="sidebar">
+        <div class="aside-brand">
+            <i class="mdi mdi-account-tie mr-2"></i> RH Dashboard
+        </div>
+        <div class="aside-menu">
+            <p class="menu-label">GÉNÉRAL</p>
+            <a href="{{ path('app_dashboard') }}" class="menu-item">
+                <i class="mdi mdi-view-dashboard"></i> Tableau de bord
+            </a>
+
+            <p class="menu-label">GESTION RH</p>
+            <a href="#" class="menu-item">
+                <i class="mdi mdi-account-group"></i> Profils Utilisateurs
+            </a>
+            <a href="#" class="menu-item">
+                <i class="mdi mdi-briefcase"></i> Offres d'emploi
+            </a>
+            <a href="#" class="menu-item">
+                <i class="mdi mdi-file-document"></i> Candidatures
+            </a>
+            <a href="#" class="menu-item">
+                <i class="mdi mdi-message-alert"></i> Réclamations
+            </a>
+
+            <p class="menu-label">ÉVÉNEMENTS</p>
+            <a href="{{ path('app_evenement_index') }}" class="menu-item is-active">
+                <i class="mdi mdi-calendar"></i> Événements
+            </a>
+            <a href="{{ path('app_sponsor_index') }}" class="menu-item">
+                <i class="mdi mdi-handshake"></i> Sponsors
+            </a>
+
+            <p class="menu-label">FORMATION</p>
+            <a href="#" class="menu-item">
+                <i class="mdi mdi-school"></i> Formations
+            </a>
+            <a href="#" class="menu-item">
+                <i class="mdi mdi-account-voice"></i> Entretiens
+            </a>
+        </div>
+    </aside>
+
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+    <div class="main-content" id="mainContent">
+        {# Navbar #}
+        <header class="navbar">
+            <div class="flex items-center">
+                <button id="menuToggle" class="menu-toggle" aria-label="Toggle Menu">
+                    <i class="mdi mdi-menu"></i>
+                </button>
+            </div>
+            <div class="navbar-menu">
+                <div class="flex items-center gap-2">
+                    <img src="https://ui-avatars.com/api/?name=RH+Admin&background=091E3E&color=fff" class="rounded-full" width="36" alt="Admin Avatar">
+                    <span>Admin RH</span>
+                </div>
+            </div>
+        </header>
+
+        {# Content #}
+        <div class="content-wrapper">
+            <div class="form-container">
+                <h1 class="form-title">
+                    <i class="mdi mdi-calendar-plus"></i>
+                    Créer un nouvel Formation
+                </h1>
+
+
+                {{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
+                <div class="form-group">
+                    {{ form_label(form.title, null, {'label_attr': {'class': 'form-label'}}) }}
+                    {{ form_widget(form.title, {'attr': {'class': 'form-control', 'rows': 4}}) }}
+                    <div style="color: red;">
+                    {{ form_errors(form.title) }}
+                    </div>
+                </div>
+                <div class="form-group">
+                    {{ form_label(form.description, null, {'label_attr': {'class': 'form-label'}}) }}
+                    {{ form_widget(form.description, {'attr': {'class': 'form-control'}}) }}
+                    <div style="color: red;">
+                    {{ form_errors(form.description) }}
+                    </div>
+
+                </div>
+
+
+                <div class="form-group">
+                    {{ form_label(form.startDate, null, {'label_attr': {'class': 'form-label'}}) }}
+                    <div class="date-picker">
+                        {{ form_widget(form.startDate, {'attr': {'class': 'form-control'}}) }}
+                        <i class="mdi mdi-calendar"></i>
+                        <div style="color: red;">
+                            {{ form_errors(form.startDate) }}
+                        </div>
+
+
+
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    {{ form_label(form.endDate,null, {'label_attr': {'class': 'form-label'}}) }}
+                    <div class="date-picker">
+                        {{ form_widget(form.endDate, {'attr': {'class': 'form-control'}}) }}
+                        <i class="mdi mdi-calendar"></i>
+                        <div style="color: red;">
+                        {{ form_errors(form.endDate) }}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    {{ form_label(form.maxParticipants, null, {'label_attr': {'class': 'form-label'}}) }}
+                    {{ form_widget(form.maxParticipants, {'attr': {'class': 'form-control'}}) }}
+                    <div style="color: red;">
+                    {{ form_errors(form.maxParticipants) }}
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    {{ form_label(form.cost, null, {'label_attr': {'class': 'form-label'}}) }}
+                    {{ form_widget(form.cost, {'attr': {'class': 'form-control'}}) }}
+                    <div style="color: red;">
+                    {{ form_errors(form.cost) }}
+                    </div>
+                </div>
+
+
+
+
+
+
+
+                <div class="form-actions">
+                    <a href="{{ path('app_formation_index') }}" class="btn btn-secondary">
+                        <i class="mdi mdi-arrow-left"></i> Retour à la liste
+                    </a>
+                    <button type="submit" class="btn btn-primary">
+                        <i class="mdi mdi-content-save"></i> Enregistrer
+                    </button>
+                </div>
+                {{ form_end(form) }}
+
+
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+{% endblock %}

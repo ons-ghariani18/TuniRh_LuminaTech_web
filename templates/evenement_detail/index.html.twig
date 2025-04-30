@@ -1,5 +1,6 @@
 {% extends 'base.html.twig' %}
 
+<<<<<<< HEAD
 {% block title %}Hello EvenementDetailController!{% endblock %}
 
 {% block body %}
@@ -18,3 +19,184 @@
     </ul>
 </div>
 {% endblock %}
+=======
+{% block title %}{{ evenement.nom }} - Détails de l'événement{% endblock %}
+
+{% block body %}
+<div class="container-fluid py-5" style="background: linear-gradient(rgba(249, 250, 251, 0.98), rgba(249, 250, 251, 0.98)), url('{{ asset('img/pattern-bg.png') }}');">
+    <div class="container py-5">
+        <!-- Fil d'Ariane -->
+        <nav aria-label="breadcrumb" class="mb-4">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{{ path('app_home') }}" style="color: #ff7a00;">Accueil</a></li>
+                <li class="breadcrumb-item"><a href="{{ path('app_evenements') }}" style="color: #ff7a00;">Événements</a></li>
+                <li class="breadcrumb-item active" aria-current="page">{{ evenement.nom }}</li>
+            </ol>
+        </nav>
+
+        <div class="row">
+            <!-- Colonne de gauche avec image et infos clés -->
+            <div class="col-lg-5 mb-4 mb-lg-0">
+                <div class="card border-0 rounded-4 shadow-sm overflow-hidden">
+                    <div class="position-relative">
+                        <img class="img-fluid w-100" 
+                             src="{{ evenement.image ? asset('uploads/evenements/' ~ evenement.image) : asset('img/events/default.jpg') }}" 
+                             alt="{{ evenement.nom }}" 
+                             style="height: 350px; object-fit: cover;">
+                        <div class="position-absolute top-3 start-3">
+                            <span class="badge rounded-pill py-2 px-3" style="background: rgba(255, 122, 0, 0.15); color: #ff7a00; font-weight: 600; backdrop-filter: blur(4px);">
+                                {% if evenement.type == 'Recrutement' %}
+                                    <i class="fas fa-users me-1"></i>
+                                {% elseif evenement.type == 'Formation' %}
+                                    <i class="fas fa-graduation-cap me-1"></i>
+                                {% elseif evenement.type == 'Conférence' %}
+                                    <i class="fas fa-chalkboard-teacher me-1"></i>
+                                {% else %}
+                                    <i class="fas fa-calendar-alt me-1"></i>
+                                {% endif %}
+                                {{ evenement.type }}
+                            </span>
+                        </div>
+                    </div>
+                    <div class="card-body p-4">
+                        <h2 class="fw-bold mb-4" style="color: #1a2b47;">{{ evenement.nom }}</h2>
+                        
+                        <div class="d-flex mb-3 align-items-center">
+                            <div class="d-flex align-items-center justify-content-center" style="width: 48px; height: 48px; background: rgba(255, 122, 0, 0.1); border-radius: 50%;">
+                                <i class="far fa-calendar-alt" style="color: #ff7a00; font-size: 1.2rem;"></i>
+                            </div>
+                            <div class="ms-3">
+                                <p class="mb-0" style="color: #5d6b85;">Date</p>
+                                <p class="mb-0 fw-bold" style="color: #1a2b47;">{{ evenement.dateDebut|date('d M Y') }}</p>
+                            </div>
+                        </div>
+                        
+                        <div class="d-flex mb-3 align-items-center">
+                            <div class="d-flex align-items-center justify-content-center" style="width: 48px; height: 48px; background: rgba(255, 122, 0, 0.1); border-radius: 50%;">
+                                <i class="far fa-clock" style="color: #ff7a00; font-size: 1.2rem;"></i>
+                            </div>
+                            <div class="ms-3">
+                                <p class="mb-0" style="color: #5d6b85;">Horaire</p>
+                                <p class="mb-0 fw-bold" style="color: #1a2b47;">{{ evenement.dateDebut|date('H:i') }} - {{ evenement.dateFin|date('H:i') }}</p>
+                            </div>
+                        </div>
+                        
+                        <div class="d-flex mb-3 align-items-center">
+                            <div class="d-flex align-items-center justify-content-center" style="width: 48px; height: 48px; background: rgba(255, 122, 0, 0.1); border-radius: 50%;">
+                                <i class="fas fa-map-marker-alt" style="color: #ff7a00; font-size: 1.2rem;"></i>
+                            </div>
+                            <div class="ms-3">
+                                <p class="mb-0" style="color: #5d6b85;">Lieu</p>
+                                <p class="mb-0 fw-bold" style="color: #1a2b47;">{{ evenement.lieu }}</p>
+                            </div>
+                        </div>
+                        
+                        <div class="d-flex mb-3 align-items-center">
+                            <div class="d-flex align-items-center justify-content-center" style="width: 48px; height: 48px; background: rgba(255, 122, 0, 0.1); border-radius: 50%;">
+                                <i class="fas fa-coins" style="color: #ff7a00; font-size: 1.2rem;"></i>
+                            </div>
+                            <div class="ms-3">
+                                <p class="mb-0" style="color: #5d6b85;">Budget</p>
+                                <p class="mb-0 fw-bold" style="color: #1a2b47;">{{ evenement.budget }} €</p>
+                            </div>
+                        </div>
+                        
+                        <!-- Bouton d'inscription - à ajuster selon vos besoins -->
+                        <div class="mt-4">
+                            <a href="#" class="btn btn-lg w-100 rounded-pill py-3" style="background: linear-gradient(to right, #ff7a00, #ff9430); color: white; font-weight: 600; border: none;">
+                                <i class="fas fa-user-plus me-2"></i> S'inscrire à l'événement
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Colonne de droite avec description et autres détails -->
+            <div class="col-lg-7">
+                <div class="card border-0 rounded-4 shadow-sm h-100">
+                    <div class="card-body p-4">
+                        <h3 class="fw-bold mb-4" style="color: #1a2b47;">À propos de cet événement</h3>
+                        
+                        <div class="mb-5">
+                            <h5 class="fw-bold mb-3" style="color: #1a2b47;">Description</h5>
+                            <div style="color: #5d6b85; line-height: 1.8;">
+                                {{ evenement.description|nl2br }}
+                            </div>
+                        </div>
+                        
+                        <!-- Vous pouvez ajouter d'autres sections selon les champs disponibles dans votre entité Evenement -->
+                        
+                        <!-- Section pour les organisateurs, si disponible -->
+                        {% if evenement.organisateur is defined %}
+                        <div class="mb-5">
+                            <h5 class="fw-bold mb-3" style="color: #1a2b47;">Organisateur</h5>
+                            <div class="d-flex align-items-center">
+                                <div class="rounded-circle bg-light d-flex align-items-center justify-content-center" style="width: 60px; height: 60px;">
+                                    <i class="fas fa-user" style="color: #ff7a00; font-size: 1.5rem;"></i>
+                                </div>
+                                <div class="ms-3">
+                                    <h6 class="fw-bold mb-1" style="color: #1a2b47;">{{ evenement.organisateur }}</h6>
+                                    <!-- Autres informations sur l'organisateur si disponibles -->
+                                </div>
+                            </div>
+                        </div>
+                        {% endif %}
+                        
+                        <!-- Section pour des informations complémentaires -->
+                        <div class="mb-5">
+                            <h5 class="fw-bold mb-3" style="color: #1a2b47;">Informations importantes</h5>
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item border-0 ps-0 d-flex align-items-center">
+                                    <i class="fas fa-info-circle me-3" style="color: #ff7a00;"></i>
+                                    <span style="color: #5d6b85;">Places limitées, inscription obligatoire</span>
+                                </li>
+                                <li class="list-group-item border-0 ps-0 d-flex align-items-center">
+                                    <i class="fas fa-parking me-3" style="color: #ff7a00;"></i>
+                                    <span style="color: #5d6b85;">Parking disponible sur place</span>
+                                </li>
+                                <li class="list-group-item border-0 ps-0 d-flex align-items-center">
+                                    <i class="fas fa-utensils me-3" style="color: #ff7a00;"></i>
+                                    <span style="color: #5d6b85;">Rafraîchissements offerts</span>
+                                </li>
+                            </ul>
+                        </div>
+                        
+                        <!-- Bouton de partage -->
+                        <div class="mt-4">
+                            <h5 class="fw-bold mb-3" style="color: #1a2b47;">Partager cet événement</h5>
+                            <div class="d-flex">
+                                <a href="#" class="btn btn-sm me-2" style="background: #3b5998; color: white; border-radius: 50%; width: 40px; height: 40px; display: flex; align-items: center; justify-content: center;">
+                                    <i class="fab fa-facebook-f"></i>
+                                </a>
+                                <a href="#" class="btn btn-sm me-2" style="background: #1da1f2; color: white; border-radius: 50%; width: 40px; height: 40px; display: flex; align-items: center; justify-content: center;">
+                                    <i class="fab fa-twitter"></i>
+                                </a>
+                                <a href="#" class="btn btn-sm me-2" style="background: #0077b5; color: white; border-radius: 50%; width: 40px; height: 40px; display: flex; align-items: center; justify-content: center;">
+                                    <i class="fab fa-linkedin-in"></i>
+                                </a>
+                                <a href="#" class="btn btn-sm" style="background: #25D366; color: white; border-radius: 50%; width: 40px; height: 40px; display: flex; align-items: center; justify-content: center;">
+                                    <i class="fab fa-whatsapp"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Section pour les événements similaires -->
+        <div class="mt-5 pt-3">
+            <h3 class="fw-bold mb-4 text-center" style="color: #1a2b47;">Événements similaires</h3>
+            <div class="row g-4">
+                <!-- Cette partie pourrait être dynamique avec d'autres événements du même type -->
+                <div class="col-12 text-center">
+                    <a href="{{ path('app_evenements') }}" class="btn btn-lg px-5 py-3 rounded-pill" style="background: #1a2b47; color: white; border: none; font-weight: 600;">
+                        <i class="fas fa-calendar-alt me-2"></i> Voir tous les événements
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+>>>>>>> origin/gestions-formations

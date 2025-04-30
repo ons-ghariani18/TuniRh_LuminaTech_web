@@ -3,14 +3,18 @@
 use App\Kernel;
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> origin/gestionUserReclamation
+=======
+>>>>>>> origin/gestions-formations
 
 require_once dirname(__DIR__).'/vendor/autoload_runtime.php';
 
 return function (array $context) {
     return new Kernel($context['APP_ENV'], (bool) $context['APP_DEBUG']);
 };
+<<<<<<< HEAD
 <<<<<<< HEAD
 =======
 use Symfony\Component\Dotenv\Dotenv;
@@ -58,3 +62,5 @@ $kernel->terminate($request, $response);
 >>>>>>> origin/gestionOffre
 =======
 >>>>>>> origin/gestionUserReclamation
+=======
+>>>>>>> origin/gestions-formations

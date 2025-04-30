@@ -1,4 +1,16 @@
 {
+<<<<<<< HEAD
+=======
+    "doctrine/annotations": {
+        "version": "2.0",
+        "recipe": {
+            "repo": "github.com/symfony/recipes",
+            "branch": "main",
+            "version": "1.10",
+            "ref": "64d8583af5ea57b7afa4aba4b159907f3a148b05"
+        }
+    },
+>>>>>>> origin/gestions-formations
     "doctrine/doctrine-bundle": {
         "version": "2.13",
         "recipe": {
@@ -28,6 +40,7 @@
     },
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
     "knplabs/knp-paginator-bundle": {
         "version": "v6.8.0"
@@ -47,6 +60,32 @@
         }
     },
 >>>>>>> origin/gestionUserReclamation
+=======
+    "knplabs/knp-snappy-bundle": {
+        "version": "1.10",
+        "recipe": {
+            "repo": "github.com/symfony/recipes-contrib",
+            "branch": "main",
+            "version": "1.5",
+            "ref": "c81bdcf4a9d4e7b1959071457f9608631865d381"
+        },
+        "files": [
+            "./config/packages/knp_snappy.yaml"
+        ]
+    },
+    "php-http/discovery": {
+        "version": "1.20",
+        "recipe": {
+            "repo": "github.com/symfony/recipes",
+            "branch": "main",
+            "version": "1.18",
+            "ref": "f45b5dd173a27873ab19f5e3180b2f661c21de02"
+        },
+        "files": [
+            "./config/packages/http_discovery.yaml"
+        ]
+    },
+>>>>>>> origin/gestions-formations
     "phpunit/phpunit": {
         "version": "9.6",
         "recipe": {
@@ -61,6 +100,21 @@
             "./tests/bootstrap.php"
         ]
     },
+<<<<<<< HEAD
+=======
+    "pusher/pusher-php-server": {
+        "version": "7.2",
+        "recipe": {
+            "repo": "github.com/symfony/recipes-contrib",
+            "branch": "main",
+            "version": "3.0",
+            "ref": "8dd3ea817217453e14ab596317177465211e01d2"
+        },
+        "files": [
+            "./config/packages/pusher_php_server.yaml"
+        ]
+    },
+>>>>>>> origin/gestions-formations
     "symfony/asset-mapper": {
         "version": "6.4",
         "recipe": {
@@ -132,7 +186,10 @@
         ]
     },
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
+=======
+>>>>>>> origin/gestions-formations
     "symfony/google-mailer": {
         "version": "6.4",
         "recipe": {
@@ -142,7 +199,10 @@
             "ref": "f8fd4ddb9b477510f8f4bce2b9c054ab428c0120"
         }
     },
+<<<<<<< HEAD
 >>>>>>> origin/gestionUserReclamation
+=======
+>>>>>>> origin/gestions-formations
     "symfony/mailer": {
         "version": "6.4",
         "recipe": {
@@ -166,9 +226,12 @@
     },
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 =======
 >>>>>>> origin/gestionUserReclamation
+=======
+>>>>>>> origin/gestions-formations
     "symfony/mercure-bundle": {
         "version": "0.3",
         "recipe": {
@@ -182,9 +245,12 @@
         ]
     },
 <<<<<<< HEAD
+<<<<<<< HEAD
 >>>>>>> origin/gestionOffre
 =======
 >>>>>>> origin/gestionUserReclamation
+=======
+>>>>>>> origin/gestions-formations
     "symfony/messenger": {
         "version": "6.4",
         "recipe": {
@@ -264,6 +330,7 @@
     },
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
     "symfony/sendgrid-mailer": {
         "version": "6.4",
@@ -277,6 +344,8 @@
 >>>>>>> origin/gestionOffre
 =======
 >>>>>>> origin/gestionUserReclamation
+=======
+>>>>>>> origin/gestions-formations
     "symfony/stimulus-bundle": {
         "version": "2.21",
         "recipe": {

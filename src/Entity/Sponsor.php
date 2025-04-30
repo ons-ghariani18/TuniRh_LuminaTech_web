@@ -2,6 +2,10 @@
 
 namespace App\Entity;
 
+<<<<<<< HEAD
+=======
+use Doctrine\Common\Collections\ArrayCollection;
+>>>>>>> origin/gestions-formations
 use Doctrine\ORM\Mapping as ORM;
 
 use Doctrine\Common\Collections\Collection;
@@ -12,6 +16,7 @@ class Sponsor
 {
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 
     #[ORM\Id]
     #[ORM\Column(type: "integer")]
@@ -19,15 +24,20 @@ class Sponsor
 =======
 =======
 >>>>>>> origin/gestionUserReclamation
+=======
+>>>>>>> origin/gestions-formations
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(name: "id_sp", type: "integer")]
     private ?int $id_sp = null;
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 >>>>>>> origin/gestionOffre
 =======
 >>>>>>> origin/gestionUserReclamation
+=======
+>>>>>>> origin/gestions-formations
 
     #[ORM\Column(type: "string", length: 255)]
     private string $nom;
@@ -43,6 +53,7 @@ class Sponsor
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
     public function getId_sp()
     {
         return $this->id_sp;
@@ -56,6 +67,8 @@ class Sponsor
 =======
 =======
 >>>>>>> origin/gestionUserReclamation
+=======
+>>>>>>> origin/gestions-formations
     public function getIdSp(): int
 {
     return $this->id_sp;
@@ -67,9 +80,12 @@ public function setIdSp(int $idSp): self
     return $this;
 }
 <<<<<<< HEAD
+<<<<<<< HEAD
 >>>>>>> origin/gestionOffre
 =======
 >>>>>>> origin/gestionUserReclamation
+=======
+>>>>>>> origin/gestions-formations
     public function getNom()
     {
         return $this->nom;
@@ -113,6 +129,14 @@ public function setIdSp(int $idSp): self
     #[ORM\OneToMany(mappedBy: "id_sp", targetEntity: Evenement::class)]
     private Collection $evenements;
 
+<<<<<<< HEAD
+=======
+    public function __construct()
+    {
+        $this->evenements = new ArrayCollection();
+    }
+
+>>>>>>> origin/gestions-formations
         public function getEvenements(): Collection
         {
             return $this->evenements;
@@ -141,6 +165,7 @@ public function setIdSp(int $idSp): self
         }
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 }
 =======
 }
@@ -148,3 +173,6 @@ public function setIdSp(int $idSp): self
 =======
 }
 >>>>>>> origin/gestionUserReclamation
+=======
+}
+>>>>>>> origin/gestions-formations

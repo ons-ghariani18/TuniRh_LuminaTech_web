@@ -7,10 +7,16 @@
         "php": ">=8.1",
         "ext-ctype": "*",
         "ext-iconv": "*",
+<<<<<<< HEAD
+=======
+        "cboden/ratchet": "^0.4.4",
+        "doctrine/annotations": "^2.0",
+>>>>>>> origin/gestions-formations
         "doctrine/dbal": "^3",
         "doctrine/doctrine-bundle": "^2.13",
         "doctrine/doctrine-migrations-bundle": "^3.3",
         "doctrine/orm": "^3.3",
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
         "phpdocumentor/reflection-docblock": "^5.4",
@@ -32,6 +38,19 @@
         "phpdocumentor/reflection-docblock": "^5.4",
         "phpstan/phpdoc-parser": "^1.33",
 >>>>>>> origin/gestionUserReclamation
+=======
+        "dompdf/dompdf": "*",
+        "knplabs/knp-snappy-bundle": "^1.10",
+        "openai-php/client": "^0.10.3",
+        "phpdocumentor/reflection-docblock": "^5.4",
+        "phpstan/phpdoc-parser": "^1.33",
+        "pusher/pusher-php-server": "*",
+        "ratchet/pawl": "^0.4.1",
+        "react/event-loop": "^1.5",
+        "react/promise": "^3.2",
+        "react/socket": "^1.16",
+        "stripe/stripe-php": "^17.1",
+>>>>>>> origin/gestions-formations
         "symfony/asset": "6.4.*",
         "symfony/asset-mapper": "6.4.*",
         "symfony/console": "6.4.*",
@@ -42,6 +61,7 @@
         "symfony/form": "6.4.*",
         "symfony/framework-bundle": "6.4.*",
 <<<<<<< HEAD
+<<<<<<< HEAD
         "symfony/http-client": "6.4.*",
         "symfony/intl": "6.4.*",
         "symfony/mailer": "6.4.*",
@@ -50,18 +70,24 @@
         "symfony/mercure-bundle": "^0.3.9",
 >>>>>>> origin/gestionOffre
 =======
+=======
+>>>>>>> origin/gestions-formations
         "symfony/google-mailer": "6.4.*",
         "symfony/http-client": "6.4.*",
         "symfony/intl": "6.4.*",
         "symfony/mailer": "6.4.*",
         "symfony/mercure-bundle": "^0.3.9",
+<<<<<<< HEAD
 >>>>>>> origin/gestionUserReclamation
+=======
+>>>>>>> origin/gestions-formations
         "symfony/mime": "6.4.*",
         "symfony/monolog-bundle": "^3.0",
         "symfony/notifier": "6.4.*",
         "symfony/process": "6.4.*",
         "symfony/property-access": "6.4.*",
         "symfony/property-info": "6.4.*",
+<<<<<<< HEAD
         "symfony/runtime": "6.4.*",
         "symfony/security-bundle": "6.4.*",
 <<<<<<< HEAD
@@ -71,6 +97,11 @@
 >>>>>>> origin/gestionOffre
 =======
 >>>>>>> origin/gestionUserReclamation
+=======
+        "symfony/rate-limiter": "6.4.*",
+        "symfony/runtime": "6.4.*",
+        "symfony/security-bundle": "6.4.*",
+>>>>>>> origin/gestions-formations
         "symfony/serializer": "6.4.*",
         "symfony/stimulus-bundle": "^2.21",
         "symfony/string": "6.4.*",
@@ -83,6 +114,7 @@
         "twig/extra-bundle": "^2.12|^3.0",
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
         "twig/string-extra": "^3.20",
 >>>>>>> origin/gestionOffre
@@ -92,6 +124,9 @@
         "twig/twig": "^2.12|^3.0",
         "twilio/sdk": "^8.5"
 >>>>>>> origin/gestionUserReclamation
+=======
+        "twig/twig": "^2.12|^3.0"
+>>>>>>> origin/gestions-formations
     },
     "config": {
         "allow-plugins": {
@@ -149,6 +184,7 @@
         "symfony/debug-bundle": "6.4.*",
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
         "symfony/maker-bundle": "^1.0",
 =======
         "symfony/maker-bundle": "^1.62",
@@ -156,6 +192,9 @@
 =======
         "symfony/maker-bundle": "^1.62",
 >>>>>>> origin/gestionUserReclamation
+=======
+        "symfony/maker-bundle": "^1.62",
+>>>>>>> origin/gestions-formations
         "symfony/phpunit-bridge": "^7.1",
         "symfony/stopwatch": "6.4.*",
         "symfony/web-profiler-bundle": "6.4.*"

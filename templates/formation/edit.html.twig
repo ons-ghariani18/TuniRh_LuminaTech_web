@@ -1,0 +1,540 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit Formation{% endblock %}
+{% block stylesheets %}
+    {{ parent() }}
+    <link href="https://cdn.materialdesignicons.com/5.4.55/css/materialdesignicons.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #e67e22;
+            --primary-dark: #d35400;
+            --secondary-color: #091E3E;
+            --sidebar-bg: #091E3E;
+            --sidebar-text: #a3adcc;
+            --body-bg: #f5f7fa;
+            --card-bg: #fff;
+            --text-color: #333;
+            --muted-text: #6b7280;
+            --border-color: #e0e0e0;
+            --transition-speed: 0.3s;
+        }
+
+        body {
+            font-family: 'Nunito', sans-serif;
+            background: var(--body-bg);
+            color: var(--text-color);
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        .flex {
+            display: flex;
+        }
+
+        .flex-1 {
+            flex: 1;
+        }
+
+        .h-screen {
+            height: 100vh;
+        }
+
+        .items-center {
+            align-items: center;
+        }
+
+        .justify-between {
+            justify-content: space-between;
+        }
+
+        .gap-2 {
+            gap: 0.5rem;
+        }
+
+        .gap-4 {
+            gap: 1rem;
+        }
+
+        .text-xl {
+            font-size: 1.25rem;
+        }
+
+        .text-2xl {
+            font-size: 1.5rem;
+        }
+
+        .font-bold {
+            font-weight: 700;
+        }
+
+        .rounded-full {
+            border-radius: 9999px;
+        }
+
+        .mb-6 {
+            margin-bottom: 1.5rem;
+        }
+
+        .mr-2 {
+            margin-right: 0.5rem;
+        }
+
+        /* Sidebar & Main Content */
+        .app-container {
+            position: relative;
+            display: flex;
+            min-height: 100vh;
+        }
+
+        .aside {
+            width: 240px;
+            background-color: var(--sidebar-bg);
+            color: var(--sidebar-text);
+            position: fixed;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            overflow-y: auto;
+            padding-top: 60px;
+            z-index: 100;
+            transition: transform var(--transition-speed) ease, box-shadow var(--transition-speed) ease;
+        }
+
+        .aside.is-collapsed {
+            transform: translateX(-240px);
+            box-shadow: none;
+        }
+
+        body.sidebar-expanded .aside {
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .aside .aside-brand {
+            position: fixed;
+            top: 0;
+            height: 60px;
+            background-color: var(--sidebar-bg);
+            width: 240px;
+            display: flex;
+            align-items: center;
+            padding: 0 1.5rem;
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: white;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            z-index: 101;
+            transition: transform var(--transition-speed) ease;
+        }
+
+        .aside.is-collapsed .aside-brand {
+            transform: translateX(-240px);
+        }
+
+        .menu-label {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            margin: 1rem 1.5rem 0.25rem;
+            color: rgba(255, 255, 255, 0.4);
+        }
+
+        .menu-item {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.75rem 1.5rem;
+            color: var(--sidebar-text);
+            text-decoration: none;
+            transition: background 0.3s, color 0.3s;
+        }
+
+        .menu-item:hover, .menu-item.is-active {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        .main-content {
+            margin-left: 240px;
+            flex: 1;
+            padding: 0;
+            transition: margin-left var(--transition-speed) ease;
+        }
+
+        .main-content.sidebar-collapsed {
+            margin-left: 0;
+        }
+
+        .content-inner {
+            padding: 2rem;
+        }
+
+        /* Navbar */
+        .navbar {
+            position: sticky;
+            top: 0;
+            background: white;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+            z-index: 99;
+        }
+
+        .navbar-menu {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .search-input {
+            padding: 0.5rem 1rem;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            width: 250px;
+            font-family: 'Nunito', sans-serif;
+        }
+
+        .menu-toggle {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 36px;
+            height: 36px;
+            border-radius: 6px;
+            background-color: transparent;
+            color: var(--text-color);
+            border: 1px solid var(--border-color);
+            cursor: pointer;
+            transition: background 0.2s;
+            margin-right: 1rem;
+        }
+
+        .menu-toggle:hover {
+            background-color: var(--body-bg);
+        }
+
+        .menu-toggle i {
+            transition: transform 0.3s;
+        }
+
+        .menu-toggle.active i {
+            transform: rotate(180deg);
+        }
+
+        /* Button & Table */
+        .btn-primary {
+            background: var(--primary-color);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: background 0.3s;
+            text-decoration: none;
+            border: none;
+            cursor: pointer;
+            font-family: 'Nunito', sans-serif;
+        }
+
+        .btn-primary:hover {
+            background: var(--primary-dark);
+        }
+
+        .table-container {
+            margin-top: 2rem;
+            background: var(--card-bg);
+            padding: 1.5rem;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            overflow-x: auto;
+        }
+
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .data-table th, .data-table td {
+            text-align: left;
+            padding: 0.75rem 1rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .data-table th {
+            background: #f9f9f9;
+            font-weight: 700;
+        }
+
+        .data-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .data-table tr:hover {
+            background-color: #fef7f1;
+        }
+
+        .action-link {
+            color: var(--primary-dark);
+            margin-right: 0.5rem;
+            text-decoration: none;
+            font-weight: 500;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.25rem;
+        }
+
+        .action-link:hover {
+            text-decoration: underline;
+        }
+
+        .no-records {
+            text-align: center;
+            color: var(--muted-text);
+            padding: 1rem;
+        }
+
+        /* Overlay for mobile */
+        .sidebar-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 90;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity var(--transition-speed), visibility var(--transition-speed);
+        }
+
+        .sidebar-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        @media (max-width: 768px) {
+            .aside {
+                transform: translateX(-240px);
+            }
+
+            .aside.is-expanded {
+                transform: translateX(0);
+            }
+
+            .main-content {
+                margin-left: 0;
+            }
+
+            .navbar {
+                padding: 1rem;
+            }
+
+            .search-input {
+                width: 100%;
+                max-width: 200px;
+            }
+        }
+
+        /* Badges for event status */
+        .badge {
+            display: inline-block;
+            padding: 0.25rem 0.5rem;
+            border-radius: 50px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+
+        .badge-upcoming {
+            background-color: #e3f2fd;
+            color: #1976d2;
+        }
+
+        .badge-ongoing {
+            background-color: #e8f5e9;
+            color: #388e3c;
+        }
+
+        .badge-completed {
+            background-color: #f3e5f5;
+            color: #8e24aa;
+        }
+
+        .badge-cancelled {
+            background-color: #ffebee;
+            color: #d32f2f;
+        }
+
+        /* Date formatting */
+        .date-cell {
+            white-space: nowrap;
+        }
+    </style>
+{% endblock %}
+
+{% block body %}
+    <aside class="aside" id="sidebar">
+        <div class="aside-brand">
+            <i class="mdi mdi-account-tie mr-2"></i> RH Dashboard
+        </div>
+
+        <div class="aside-menu">
+            <p class="menu-label">GÉNÉRAL</p>
+            <a href="{{ path('app_back_office') }}" class="menu-item">
+                <i class="mdi mdi-view-dashboard"></i> Tableau de bord
+            </a>
+
+            <p class="menu-label">GESTION RH</p>
+            <a href="#" class="menu-item">
+                <i class="mdi mdi-account-group"></i> Profils Utilisateurs
+            </a>
+            <a href="#" class="menu-item">
+                <i class="mdi mdi-briefcase"></i> Offres d'emploi
+            </a>
+            <a href="#" class="menu-item">
+                <i class="mdi mdi-file-document"></i> Candidatures
+            </a>
+            <a href="#" class="menu-item">
+                <i class="mdi mdi-message-alert"></i> Réclamations
+            </a>
+
+            <p class="menu-label">ÉVÉNEMENTS</p>
+            <a href="{{ path('app_evenement_index') }}" class="menu-item is-active">
+                <i class="mdi mdi-calendar"></i> Événements
+            </a>
+            <a href="{{ path('app_sponsor_index') }}" class="menu-item">
+                <i class="mdi mdi-handshake"></i> Sponsors
+            </a>
+
+            <p class="menu-label">FORMATION</p>
+            <a href="{{ path('app_formation_index') }}" class="menu-item">
+                <i class="mdi mdi-school"></i> Formations
+            </a>
+            <a href="#" class="menu-item">
+                <i class="mdi mdi-account-voice"></i> Entretiens
+            </a>
+        </div>
+    </aside>
+
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+<div class="main-content" id="mainContent">
+    <header class="navbar">
+        <div class="flex items-center">
+            <button id="menuToggle" class="menu-toggle" aria-label="Toggle Menu">
+                <i class="mdi mdi-menu"></i>
+            </button>
+            <input type="text" placeholder="Rechercher..." class="search-input">
+        </div>
+        <div class="navbar-menu">
+            <i class="mdi mdi-bell-outline text-xl"></i>
+            <div class="flex items-center gap-2">
+                <img src="https://ui-avatars.com/api/?name=RH+Admin&background=091E3E&color=fff" class="rounded-full" width="36" alt="Admin Avatar">
+                <span>Admin RH</span>
+            </div>
+
+
+        </div>
+    </header>
+
+    {# Content #}
+    <div class="content-wrapper">
+        <div class="form-card">
+            <div class="form-header">
+                <h1 class="form-title">
+                    <i class="mdi mdi-calendar-edit"></i>
+                    Modifier la Formation
+                </h1>
+            </div>
+
+
+
+            {{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
+            <div class="form-group">
+                {{ form_label(form.title, null, {'label_attr': {'class': 'form-label'}}) }}
+                {{ form_widget(form.title, {'attr': {'class': 'form-control', 'rows': 4}}) }}
+                <div style="color: red;">
+                    {{ form_errors(form.title) }}
+                </div>
+            </div>
+            <div class="form-group">
+                {{ form_label(form.description, null, {'label_attr': {'class': 'form-label'}}) }}
+                {{ form_widget(form.description, {'attr': {'class': 'form-control'}}) }}
+                <div style="color: red;">
+                    {{ form_errors(form.description) }}
+                </div>
+
+            </div>
+
+
+            <div class="form-group">
+                {{ form_label(form.startDate, null, {'label_attr': {'class': 'form-label'}}) }}
+                <div class="date-picker">
+                    {{ form_widget(form.startDate, {'attr': {'class': 'form-control'}}) }}
+                    <i class="mdi mdi-calendar"></i>
+                    <div style="color: red;">
+                        {{ form_errors(form.startDate) }}
+                    </div>
+
+
+
+                </div>
+            </div>
+
+            <div class="form-group">
+                {{ form_label(form.endDate, null, {'label_attr': {'class': 'form-label'}}) }}
+                <div class="date-picker">
+                    {{ form_widget(form.endDate, {'attr': {'class': 'form-control'}}) }}
+                    <i class="mdi mdi-calendar"></i>
+                    <div style="color: red;">
+                        {{ form_errors(form.endDate) }}
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                {{ form_label(form.maxParticipants, null, {'label_attr': {'class': 'form-label'}}) }}
+                {{ form_widget(form.maxParticipants, {'attr': {'class': 'form-control'}}) }}
+                <div style="color: red;">
+                    {{ form_errors(form.maxParticipants) }}
+                </div>
+            </div>
+
+            <div class="form-group">
+                {{ form_label(form.cost, null, {'label_attr': {'class': 'form-label'}}) }}
+                {{ form_widget(form.cost, {'attr': {'class': 'form-control'}}) }}
+                <div style="color: red;">
+                    {{ form_errors(form.cost) }}
+                </div>
+            </div>
+
+
+
+
+
+
+
+            <div class="form-actions">
+                <a href="{{ path('app_formation_index') }}" class="btn btn-secondary">
+                    <i class="mdi mdi-arrow-left"></i> Retour à la liste
+                </a>
+                <button type="submit" class="btn btn-primary">
+                    <i class="mdi mdi-content-save"></i> Enregistrer
+                </button>
+            </div>
+            {{ form_end(form) }}
+            </div>
+    </div>
+{#    {{ include('formation/_form.html.twig', {'button_label': 'Update'}) }}#}
+
+{#    <a href="{{ path('app_formation_index') }}">back to list</a>#}
+
+    {{ include('formation/_delete_form.html.twig') }}
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+{% endblock %}

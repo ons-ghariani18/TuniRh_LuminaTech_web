@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 security:
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -17,19 +18,34 @@ security:
     password_hashers:
         App\Entity\Users:
             algorithm: auto
+=======
+# config/packages/security.yaml
+security:
+    enable_authenticator_manager: true
+
+    password_hashers:
+        Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface: 'auto'
+
+>>>>>>> origin/gestions-formations
     providers:
         app_user_provider:
             entity:
                 class: App\Entity\Users
 <<<<<<< HEAD
+<<<<<<< HEAD
 >>>>>>> origin/gestionOffre
 =======
 >>>>>>> origin/gestionUserReclamation
                 property: email
+=======
+                property: email
+
+>>>>>>> origin/gestions-formations
     firewalls:
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
+<<<<<<< HEAD
         main:
             lazy: true
             provider: app_user_provider
@@ -100,3 +116,31 @@ when@test:
 =======
                 memory_cost: 10
 >>>>>>> origin/gestionUserReclamation
+=======
+
+        main:
+            lazy: true
+            provider: app_user_provider
+            custom_authenticator: App\Security\AppAuthenticator
+            entry_point: App\Security\AppAuthenticator
+
+            remember_me:
+                secret: '%kernel.secret%'
+                lifetime: 604800
+                path: /
+                always_remember_me: false
+            logout:
+                path: app_logout
+                target: app_login
+            login_throttling:
+                max_attempts: 5
+                interval: '15 minutes'
+
+    access_control:
+        - { path: ^/login, roles: PUBLIC_ACCESS }
+        - { path: ^/register, roles: PUBLIC_ACCESS }
+        - { path: ^/rh, roles: ROLE_RH }
+        - { path: ^/employee, roles: ROLE_EMPLOYEE }
+        - { path: ^/admin, roles: ROLE_ADMIN }
+        - { path: ^/back/office, roles: ROLE_RH }
+>>>>>>> origin/gestions-formations

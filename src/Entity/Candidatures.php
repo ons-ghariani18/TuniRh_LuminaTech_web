@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+<<<<<<< HEAD
 use Doctrine\ORM\Mapping as ORM;
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -15,12 +16,21 @@ use Symfony\Component\Validator\Constraints as Assert;
 use App\Entity\Offresemploi;
 use Symfony\Component\Validator\Constraints as Assert;
 >>>>>>> origin/gestionUserReclamation
+=======
+use Doctrine\DBAL\Types\Types;
+use Doctrine\ORM\Mapping as ORM;
+
+use App\Entity\Offresemploi;
+>>>>>>> origin/gestions-formations
 
 #[ORM\Entity]
 class Candidatures
 {
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> origin/gestions-formations
 
     #[ORM\Id]
     #[ORM\Column(type: "integer")]
@@ -49,6 +59,7 @@ class Candidatures
     private string $statu;
 
     public function getId_candidature()
+<<<<<<< HEAD
 =======
 =======
 >>>>>>> origin/gestionUserReclamation
@@ -117,12 +128,17 @@ class Candidatures
     // Getters/Setters
     public function getIdCandidature(): ?int
 >>>>>>> origin/gestionUserReclamation
+=======
+>>>>>>> origin/gestions-formations
     {
         return $this->id_candidature;
     }
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> origin/gestions-formations
     public function setId_candidature($value)
     {
         $this->id_candidature = $value;
@@ -139,6 +155,7 @@ class Candidatures
     }
 
     public function getNom_candidat()
+<<<<<<< HEAD
 =======
 =======
 >>>>>>> origin/gestionUserReclamation
@@ -164,18 +181,24 @@ class Candidatures
 >>>>>>> origin/gestionOffre
 =======
 >>>>>>> origin/gestionUserReclamation
+=======
+>>>>>>> origin/gestions-formations
     {
         return $this->nom_candidat;
     }
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> origin/gestions-formations
     public function setNom_candidat($value)
     {
         $this->nom_candidat = $value;
     }
 
     public function getEmail()
+<<<<<<< HEAD
 =======
 =======
 >>>>>>> origin/gestionUserReclamation
@@ -190,18 +213,24 @@ class Candidatures
 >>>>>>> origin/gestionOffre
 =======
 >>>>>>> origin/gestionUserReclamation
+=======
+>>>>>>> origin/gestions-formations
     {
         return $this->email;
     }
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> origin/gestions-formations
     public function setEmail($value)
     {
         $this->email = $value;
     }
 
     public function getCv()
+<<<<<<< HEAD
 =======
 =======
 >>>>>>> origin/gestionUserReclamation
@@ -216,18 +245,24 @@ class Candidatures
 >>>>>>> origin/gestionOffre
 =======
 >>>>>>> origin/gestionUserReclamation
+=======
+>>>>>>> origin/gestions-formations
     {
         return $this->cv;
     }
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> origin/gestions-formations
     public function setCv($value)
     {
         $this->cv = $value;
     }
 
     public function getLettre_motivation()
+<<<<<<< HEAD
 =======
 =======
 >>>>>>> origin/gestionUserReclamation
@@ -242,12 +277,17 @@ class Candidatures
 >>>>>>> origin/gestionOffre
 =======
 >>>>>>> origin/gestionUserReclamation
+=======
+>>>>>>> origin/gestions-formations
     {
         return $this->lettre_motivation;
     }
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> origin/gestions-formations
     public function setLettre_motivation($value)
     {
         $this->lettre_motivation = $value;
@@ -272,6 +312,7 @@ class Candidatures
     {
         $this->statu = $value;
     }
+<<<<<<< HEAD
 }
 =======
 =======
@@ -279,11 +320,41 @@ class Candidatures
     public function setLettreMotivation(?string $value): self
     {
         $this->lettre_motivation = $value;
+=======
+
+    public function getIdCandidature(): ?int
+    {
+        return $this->id_candidature;
+    }
+
+    public function getNomCandidat(): ?string
+    {
+        return $this->nom_candidat;
+    }
+
+    public function setNomCandidat(string $nom_candidat): static
+    {
+        $this->nom_candidat = $nom_candidat;
+
+        return $this;
+    }
+
+    public function getLettreMotivation(): ?string
+    {
+        return $this->lettre_motivation;
+    }
+
+    public function setLettreMotivation(string $lettre_motivation): static
+    {
+        $this->lettre_motivation = $lettre_motivation;
+
+>>>>>>> origin/gestions-formations
         return $this;
     }
 
     public function getDateCandidature(): ?\DateTimeInterface
     {
+<<<<<<< HEAD
 <<<<<<< HEAD
         return $this->dateCandidature;
 =======
@@ -328,3 +399,27 @@ class Candidatures
 =======
 }
 >>>>>>> origin/gestionUserReclamation
+=======
+        return $this->date_candidature;
+    }
+
+    public function setDateCandidature(\DateTimeInterface $date_candidature): static
+    {
+        $this->date_candidature = $date_candidature;
+
+        return $this;
+    }
+
+    public function getIdOffre(): ?Offresemploi
+    {
+        return $this->id_offre;
+    }
+
+    public function setIdOffre(?Offresemploi $id_offre): static
+    {
+        $this->id_offre = $id_offre;
+
+        return $this;
+    }
+}
+>>>>>>> origin/gestions-formations

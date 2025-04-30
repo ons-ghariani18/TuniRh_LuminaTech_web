@@ -1,5 +1,6 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 # This file is the entry point to configure your own services.
 # Files in the packages/ subdirectory configure your dependencies.
 
@@ -80,3 +81,27 @@ services:
     
           
 >>>>>>> origin/gestionUserReclamation
+=======
+parameters:
+  evenements_images_directory: '%kernel.project_dir%/public/uploads/evenements'
+  google.api_key: '%env(GOOGLE_API_KEY)%'
+
+services:
+  _defaults:
+    autowire: true      # Automatically injects dependencies in your services.
+    autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
+    bind:
+      string $googleApiKey: '%google.api_key%'
+      string $sender: '%env(EMAIL_SENDER)%'
+
+  App\:
+    resource: '../src/'
+    exclude:
+      - '../src/DependencyInjection/'
+      - '../src/Entity/'
+      - '../src/Kernel.php'
+
+  App\Service\GoogleGeminiService:
+    arguments:
+      $googleApiKey: '%google.api_key%'
+>>>>>>> origin/gestions-formations

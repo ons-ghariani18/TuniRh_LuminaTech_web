@@ -1,0 +1,87 @@
+{# templates/quiz/generate_quiz.html.twig #}
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ title }} Quiz{% endblock %}
+
+{% block body %}
+<div class="quiz-container">
+    <h1 class="mb-4 text-center">{{ title }} Quiz</h1>
+
+    {# Show error if set #}
+    {% if error %}
+        <div class="alert alert-danger">{{ error }}</div>
+        
+        {% if debugInfo %}
+            <div class="card mt-3 mb-3">
+                <div class="card-header bg-light">
+                    <h3 class="fs-6 mb-0">Raw Response from API (Debug Information)</h3>
+                </div>
+                <div class="card-body">
+                    <pre class="mb-0" style="white-space: pre-wrap;">{{ debugInfo }}</pre>
+                </div>
+            </div>
+        {% endif %}
+    {% endif %}
+
+    {# Only render questions if we have them #}
+    {% if questions is not empty %}
+        <form action="{{ path('verify_quiz') }}" method="post" id="quizForm">
+            <input type="hidden" name="_token" value="{{ csrf_token('quiz_verify') }}">
+            <input type="hidden" name="formationId" value="{{ formationId }}">
+            {% for question in questions %}
+                <div class="question card mb-4">
+                    <div class="card-header">
+                        <h2 class="mb-0 fs-5 fw-bold">{{ loop.index }}. {{ question.question }}</h2>
+                    </div>
+                    <div class="card-body">
+                        <div class="options">
+                            {% for letter, option in question.options %}
+                                <div class="form-check mb-2">
+                                    <input class="form-check-input" type="radio" 
+                                           name="answers[{{ loop.parent.loop.index }}]" 
+                                           id="option_{{ loop.parent.loop.index }}_{{ letter }}" 
+                                           value="{{ letter }}" required>
+                                    <label class="form-check-label" for="option_{{ loop.parent.loop.index }}_{{ letter }}">
+                                        {{ letter }}) {{ option }}
+                                    </label>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+            
+            <div class="d-grid gap-2 col-6 mx-auto">
+                <button type="submit" class="btn btn-primary btn-lg">Verify Answers</button>
+            </div>
+        </form>
+    {% else %}
+        <div class="alert alert-info">No questions available for this quiz.</div>
+    {% endif %}
+    
+    <div class="mt-4 text-center">
+        <a href="{{ path('app_formation_index') }}" class="btn btn-secondary">Back to Formations</a>
+    </div>
+</div>
+{% endblock %}
+
+{% block stylesheets %}
+{{ parent() }}
+<style>
+    .quiz-container {
+        max-width: 900px;
+        margin: 30px auto;
+        background: #fff;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+    .question {
+        margin-bottom: 25px;
+    }
+    .options {
+        list-style: none;
+        padding: 0;
+    }
+</style>
+{% endblock %}

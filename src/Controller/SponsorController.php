@@ -4,6 +4,7 @@ namespace App\Controller;
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
@@ -20,6 +21,8 @@ class SponsorController extends AbstractController
 =======
 =======
 >>>>>>> origin/gestionUserReclamation
+=======
+>>>>>>> origin/gestions-formations
 use App\Entity\Sponsor;
 use App\Form\SponsorType;
 use Doctrine\ORM\EntityManagerInterface;
@@ -100,7 +103,10 @@ final class SponsorController extends AbstractController
         return $this->redirectToRoute('app_sponsor_index', [], Response::HTTP_SEE_OTHER);
     }
 <<<<<<< HEAD
+<<<<<<< HEAD
 >>>>>>> origin/gestionOffre
 =======
 >>>>>>> origin/gestionUserReclamation
+=======
+>>>>>>> origin/gestions-formations
 }

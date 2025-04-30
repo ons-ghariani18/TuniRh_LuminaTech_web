@@ -18,9 +18,12 @@ services:
 ###< symfony/mailer ###
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 =======
 >>>>>>> origin/gestionUserReclamation
+=======
+>>>>>>> origin/gestions-formations
 
 ###> symfony/mercure-bundle ###
   mercure:
@@ -28,6 +31,9 @@ services:
       - "80"
 ###< symfony/mercure-bundle ###
 <<<<<<< HEAD
+<<<<<<< HEAD
 >>>>>>> origin/gestionOffre
 =======
 >>>>>>> origin/gestionUserReclamation
+=======
+>>>>>>> origin/gestions-formations

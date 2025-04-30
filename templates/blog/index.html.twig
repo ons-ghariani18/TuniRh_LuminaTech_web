@@ -1,10 +1,16 @@
 {% extends 'base.html.twig' %}
 
+<<<<<<< HEAD
 {% block title %}Hello BlogController!{% endblock %}
+=======
+{% block title %}Blog{% endblock %}
+
+>>>>>>> origin/gestions-formations
 {% block stylesheets %}
     {{ parent() }}
     <link rel="stylesheet" href="{{ asset('lib/owlcarousel/assets/owl.carousel.min.css') }}">
     <link rel="stylesheet" href="{{ asset('lib/animate/animate.min.css') }}">
+<<<<<<< HEAD
 
     <style>
     :root {
@@ -148,6 +154,157 @@
     </div>
     <!-- Spinner End -->
 
+=======
+    <style>
+        :root {
+            --primary: #e67e22 !important;
+            --primary-hover: #d35400 !important;
+            --secondary: #3498db !important;
+            --secondary-hover: #2980b9 !important;
+            --light: #f5f7fa !important;
+            --dark: #091E3E !important;
+        }
+
+        /* Text Colors */
+        .text-primary {
+            color: var(--primary) !important;
+        }
+        .text-secondary {
+            color: var(--secondary) !important;
+        }
+
+        /* Background Colors */
+        .bg-primary {
+            background-color: var(--primary) !important;
+        }
+        .bg-secondary {
+            background-color: var(--secondary) !important;
+        }
+
+        /* Border Colors */
+        .border-primary {
+            border-color: var(--primary) !important;
+        }
+        .border-secondary {
+            border-color: var(--secondary) !important;
+        }
+
+        /* Couleurs de texte et de fond pour les boutons */
+        .btn-primary {
+            background-color: var(--primary) !important;
+            border-color: var(--primary) !important;
+            color: #fff !important;
+        }
+        .btn-primary:hover {
+            background-color: var(--primary-hover) !important;
+            border-color: var(--primary-hover) !important;
+        }
+        .btn-info {
+            background-color: var(--secondary) !important;
+            border-color: var(--secondary) !important;
+            color: #fff !important;
+        }
+        .btn-info:hover {
+            background-color: var(--secondary-hover) !important;
+            border-color: var(--secondary-hover) !important;
+        }
+        .btn-danger {
+            background-color: red !important;
+            color: #fff !important;
+        }
+        .btn-secondary {
+            background-color: var(--secondary) !important;
+            border-color: var(--secondary) !important;
+            color: #fff !important;
+        }
+        .btn-secondary:hover {
+            background-color: var(--secondary-hover) !important;
+            border-color: var(--secondary-hover) !important;
+        }
+
+        .btn-outline-primary {
+            color: var(--primary) !important;
+            border-color: var(--primary) !important;
+            background-color: transparent !important;
+        }
+        .btn-outline-primary:hover {
+            background-color: var(--primary) !important;
+            color: #fff !important;
+        }
+
+        .btn-outline-secondary {
+            color: var(--secondary) !important;
+            border-color: var(--secondary) !important;
+            background-color: transparent !important;
+        }
+        .btn-outline-secondary:hover {
+            background-color: var(--secondary) !important;
+            color: #fff !important;
+        }
+
+        /* Navbar */
+        .navbar-dark .navbar-nav .nav-link:hover,
+        .navbar-dark .navbar-nav .nav-link.active {
+            color: var(--primary) !important;
+        }
+        .navbar-dark .navbar-toggler {
+            color: var(--primary) !important;
+            border-color: var(--primary) !important;
+        }
+
+        /* Section Title */
+        .section-title::before {
+            background: var(--primary) !important;
+        }
+
+        /* Service Items */
+        .service-item .service-icon {
+            background: var(--primary) !important;
+        }
+
+        /* Testimonials */
+        .testimonial-carousel .owl-dot.active {
+            background: var(--primary) !important;
+        }
+
+        /* Team */
+        .team-social a.btn {
+            background: var(--primary) !important;
+            border-color: var(--primary) !important;
+            color: #fff !important;
+        }
+        .team-social a.btn:hover {
+            background: var(--primary-hover) !important;
+            border-color: var(--primary-hover) !important;
+        }
+
+        /* Back to Top */
+        .back-to-top {
+            background: var(--primary) !important;
+            color: #fff !important;
+        }
+        .back-to-top:hover {
+            background: var(--primary-hover) !important;
+        }
+
+        /* Carousel Controls */
+        .carousel-control-prev-icon,
+        .carousel-control-next-icon {
+            background-color: var(--primary) !important;
+        }
+
+        /* Pricing Plan */
+        .pricing-plan .bg-primary {
+            background-color: var(--primary) !important;
+        }
+    </style>
+{% endblock %}
+
+{% block body %}
+    <div id="spinner" class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
+        <div class="spinner"></div>
+    </div>
+>>>>>>> origin/gestions-formations
 
     <!-- Topbar Start -->
     <div class="container-fluid bg-dark px-5 d-none d-lg-block">
@@ -172,6 +329,7 @@
     </div>
     <!-- Topbar End -->
 
+<<<<<<< HEAD
 
    {# ============================================= #}
     {# NAVBAR (PRINCIPAL NAVIGATION) - UNE SEULE FOIS #}
@@ -232,6 +390,89 @@
         color: white !important;
     }
 </style>
+=======
+    {# ============================================= #}
+    {# NAVBAR (PRINCIPAL NAVIGATION) - UNE SEULE FOIS #}
+    {# ============================================= #}
+    <nav class="navbar navbar-expand-lg navbar-dark px-5 py-3 py-lg-0 bg-dark">
+        <div class="container-fluid">
+            <a href="index.html" class="navbar-brand p-0">
+                <h1 class="m-0"><i class="fa fa-user-tie me-2"></i>Startup</h1>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
+                <span class="fa fa-bars"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarCollapse">
+                <div class="navbar-nav ms-auto py-0">
+                    <a href="{{ path('app_home') }}" class="nav-item nav-link hover-orange">Home</a>
+                    <a href="{{ path('app_about') }}" class="nav-item nav-link hover-orange">About</a>
+                    <a href="{{ path('app_services') }}" class="nav-item nav-link hover-orange">Services</a>
+
+                    <div class="nav-item dropdown">
+                        <a href="#" class="nav-link dropdown-toggle hover-orange" data-bs-toggle="dropdown">Blog</a>
+                        <div class="dropdown-menu m-0 bg-dark">
+                            <a href="{{ path('app_blog') }}" class="dropdown-item text-white hover-orange">Blog Grid</a>
+                            <a href="{{ path('app_blog_detail') }}" class="dropdown-item text-white hover-orange">Blog Detail</a>
+                        </div>
+                    </div>
+
+                    <div class="nav-item dropdown">
+                        <a href="#" class="nav-link dropdown-toggle hover-orange" data-bs-toggle="dropdown">Pages</a>
+                        <div class="dropdown-menu m-0 bg-dark">
+                            <a href="{{ path('app_pricing') }}" class="dropdown-item text-white hover-orange">Pricing Plan</a>
+                            <a href="{{ path('app_features') }}" class="dropdown-item text-white hover-orange">Our Features</a>
+                            <a href="{{ path('app_team') }}" class="dropdown-item text-white hover-orange">Team Members</a>
+                            <a href="{{ path('app_testimonials') }}" class="dropdown-item text-white hover-orange">Testimonial</a>
+                            <a href="{{ path('app_quote') }}" class="dropdown-item text-white hover-orange">Free Quote</a>
+                        </div>
+                    </div>
+
+                    <a href="{{ path('app_contact') }}" class="nav-item nav-link hover-orange">Contact</a>
+                </div>
+
+                <div class="d-flex ms-3">
+                    <!-- Notification Button -->
+                    <div class="position-relative">
+                        <button type="button" id="notificationBtn" class="notification-btn">
+                            <i class="fa fa-bell"></i>
+                            <span id="notificationCounter" class="notification-counter" style="display: none;">0</span>
+                        </button>
+
+                        <!-- Notification Dropdown -->
+                        <div id="notificationDropdown" class="notification-dropdown">
+                            <div class="notification-dropdown-header">
+                                <div class="notification-dropdown-title">Notifications</div>
+                                <button type="button" class="notification-close">&times;</button>
+                            </div>
+                            <ul id="notificationDropdownList" class="notification-dropdown-list">
+                                <!-- Notifications will be added here dynamically -->
+                            </ul>
+                            <div class="notification-dropdown-footer">
+                                <a href="#">View all notifications</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <button type="button" class="btn text-primary hover-orange-btn" data-bs-toggle="modal" data-bs-target="#searchModal">
+                        <i class="fa fa-search"></i>
+                    </button>
+                    <a href="https://htmlcodex.com/startup-company-website-template" class="btn btn-primary py-2 px-4 ms-3 hover-orange-btn">Download Pro Version</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <style>
+        /* Style pour les liens de navigation */
+
+
+        /* Style spécifique pour les éléments dropdown */
+        .dropdown-item.hover-orange:hover {
+            background-color: #ff8c00 !important;
+            color: white !important;
+        }
+    </style>
+>>>>>>> origin/gestions-formations
     <!-- Full Screen Search Start -->
     <div class="modal fade" id="searchModal" tabindex="-1">
         <div class="modal-dialog modal-fullscreen">
@@ -249,12 +490,16 @@
         </div>
     </div>
     <!-- Full Screen Search End -->
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> origin/gestions-formations
     <!-- Blog Start -->
     <div class="container-fluid py-5 wow fadeInUp" data-wow-delay="0.1s">
         <div class="container py-5">
             <div class="row g-5">
+<<<<<<< HEAD
                 <!-- Blog list Start -->
                 <div class="col-lg-8">
                     <div class="row g-5">
@@ -451,11 +696,23 @@
                 </div>
                 <!-- Blog list End -->
     
+=======
+
+                <!-- Blog list Start -->
+                <div class="col-lg-8">
+                    <div class="row g-5" id="formationList">
+                        {# Les cartes seront injectées ici par JavaScript #}
+                    </div>
+                </div>
+                <!-- Blog list End -->
+
+>>>>>>> origin/gestions-formations
                 <!-- Sidebar Start -->
                 <div class="col-lg-4">
                     <!-- Search Form Start -->
                     <div class="mb-5 wow slideInUp" data-wow-delay="0.1s">
                         <div class="input-group">
+<<<<<<< HEAD
                             <input type="text" class="form-control p-3" placeholder="Keyword">
                             <button class="btn btn-primary px-4"><i class="bi bi-search"></i></button>
                         </div>
@@ -556,10 +813,51 @@
                     <!-- Plain Text End -->
                 </div>
                 <!-- Sidebar End -->
+=======
+                            <input type="text" id="searchInput" class="form-control p-3" placeholder="Rechercher des formations…">
+                        </div>
+                    </div>
+
+                    <!-- Category Start -->
+                    <div class="mb-5 wow slideInUp" data-wow-delay="0.1s">
+                        <h3 class="section-title pb-3 mb-4">Catégories</h3>
+                        <div class="link-animated d-flex flex-column justify-content-start">
+                            <a class="h5 fw-semi-bold bg-light rounded py-2 px-3 mb-2 filter-link active" href="#" data-filter="all"><i class="bi bi-arrow-right me-2"></i>Toutes les formations</a>
+                            <a class="h5 fw-semi-bold bg-light rounded py-2 px-3 mb-2 filter-link" href="#" data-filter="free"><i class="bi bi-arrow-right me-2"></i>Formations gratuites</a>
+                            <a class="h5 fw-semi-bold bg-light rounded py-2 px-3 mb-2 filter-link" href="#" data-filter="paid"><i class="bi bi-arrow-right me-2"></i>Formations payantes</a>
+                        </div>
+                    </div>
+                    <!-- Category End -->
+
+                    <!-- Mes dernières réservations -->
+                    <div class="mb-5 wow slideInUp" data-wow-delay="0.1s">
+                        <h3>Mes dernières réservations</h3>
+                        {% if reservations %}
+                            {% for res in reservations %}
+                                <div class="d-flex rounded overflow-hidden mb-3">
+                                    <div class="flex-grow-1 bg-light px-3 py-2">
+                                        <a href="{{ path('app_formation_show', { id: res.formation.id }) }}" class="h5 fw-semi-bold mb-1">
+                                            {{ res.formation.title }}
+                                        </a>
+                                        <small class="text-muted">
+                                            Réservé le {{ res.reservationDate|date('d/m/Y H:i') }}
+                                        </small>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        {% else %}
+                            <p class="text-muted">Vous n'avez encore fait aucune réservation.</p>
+                        {% endif %}
+                    </div>
+                </div>
+                <!-- Sidebar End -->
+
+>>>>>>> origin/gestions-formations
             </div>
         </div>
     </div>
     <!-- Blog End -->
+<<<<<<< HEAD
 
 
     <!-- Vendor Start -->
@@ -634,3 +932,117 @@
         <script src="{{ asset('js/main.js') }}"></script>
     
 {% endblock %} 
+=======
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ asset('public/js/bootstrap.bundle.min.js') }}"></script>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="{{ asset('lib/wow/wow.min.js') }}"></script>
+    <script src="{{ asset('lib/easing/easing.min.js') }}"></script>
+    <script src="{{ asset('lib/waypoints/waypoints.min.js') }}"></script>
+    <script src="{{ asset('lib/counterup/counterup.min.js') }}"></script>
+    <script src="{{ asset('lib/owlcarousel/owl.carousel.min.js') }}"></script>
+    <script src="{{ asset('js/main.js') }}"></script>
+    <script src="https://js.pusher.com/8.4.0/pusher.min.js"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Notifications (inchangé)
+            if (!window.notificationSystem) {
+                window.notificationSystem = new NotificationSystem();
+            }
+            document.querySelector('.notification-close')?.addEventListener('click', e => {
+                e.preventDefault(); e.stopPropagation();
+                document.getElementById('notificationDropdown').classList.remove('show');
+            });
+
+            const searchInput = document.getElementById('searchInput');
+            const filterLinks = document.querySelectorAll('.filter-link');
+            const formationList = document.getElementById('formationList');
+            let currentFilter = 'all';
+
+            function formatFormationHTML(f) {
+                return `
+          <div class="col-md-6 wow slideInUp formation-item" data-wow-delay="0.6s">
+            <div class="blog-item bg-light rounded overflow-hidden">
+              <div class="blog-img position-relative overflow-hidden">
+                <img class="img-fluid" src="${f.imageUrl}" alt="${f.title}">
+                <a href="${f.detailPath}" class="position-absolute top-0 start-0 bg-primary text-white rounded-end mt-5 py-2 px-4">
+                  ${f.title}
+                </a>
+              </div>
+              <div class="p-4">
+                <div class="d-flex mb-3">
+                  <small><i class="far fa-calendar-alt text-primary me-2"></i>${f.startDate}</small>
+                  <small class="ms-3"><i class="far fa-calendar-alt text-primary me-2"></i>${f.endDate}</small>
+                </div>
+                <h4 class="mb-3">
+                  ${f.cost == 0
+                    ? '<span class="badge bg-success">Gratuit</span>'
+                    : `<span class="badge bg-primary">${f.cost} €</span>`}
+                </h4>
+                <p>${f.description}</p>
+                <div class="mt-3">
+                  ${f.isReserved
+                    ? `<form action="{{ path('remove_reservation') }}" method="post" class="d-inline">
+                         <input type="hidden" name="formation_id" value="${f.id}">
+                         <button type="submit" class="btn btn-danger">Se désinscrire</button>
+                       </form>
+                       <p class="mt-2">Statut : ${f.status}</p>`
+                    : `<form action="{{ path('add_reservation') }}" method="post" class="d-inline">
+                         <input type="hidden" name="formation_id" value="${f.id}">
+                         <button type="submit" class="btn btn-info">S'inscrire</button>
+                       </form>`}
+                  <a href="${f.generateQuizPath}" class="btn btn-warning ms-2">
+                    <i class="bi bi-trophy me-1"></i> Générer un quiz
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>`;
+            }
+
+            async function fetchFormations() {
+                const params = new URLSearchParams({
+                    search: searchInput.value.trim(),
+                    price: currentFilter
+                });
+                const res = await fetch(`{{ path('app_blog') }}?${params}`, {
+                    headers: { 'X-Requested-With': 'XMLHttpRequest' }
+                });
+                if (!res.ok) throw new Error('Erreur réseau');
+                const data = await res.json();
+                formationList.innerHTML = '';
+                if (data.length === 0) {
+                    formationList.innerHTML = '<p>Aucune formation trouvée.</p>';
+                    return;
+                }
+                data.forEach(f => formationList.innerHTML += formatFormationHTML(f));
+            }
+
+            // Debounce search
+            let debounceTimer;
+            searchInput.addEventListener('input', () => {
+                clearTimeout(debounceTimer);
+                debounceTimer = setTimeout(fetchFormations, 500);
+            });
+
+            // Filter clicks
+            filterLinks.forEach(link => {
+                link.addEventListener('click', e => {
+                    e.preventDefault();
+                    filterLinks.forEach(l => l.classList.remove('active'));
+                    link.classList.add('active');
+                    currentFilter = link.dataset.filter;
+                    fetchFormations();
+                });
+            });
+
+            // Initial load
+            fetchFormations();
+        });
+    </script>
+{% endblock %}
+>>>>>>> origin/gestions-formations
