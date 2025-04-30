@@ -20,10 +20,17 @@
 
                             {% if error %}
                                 <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                                    {{ error.messageKey|trans(error.messageData, 'security') }}
+                                    {{ error.messageKey|trans(error.messageData, 'security')|raw }}
                                     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                                 </div>
                             {% endif %}
+
+                            {% for message in app.flashes('error') %}
+                                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                    {{ message|raw }}
+                                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                </div>
+                            {% endfor %}
 
                             <form method="post" action="{{ path('app_login') }}" class="form-login">
                                 {{ form_start(form) }}
@@ -59,6 +66,12 @@
                                     </div>
                                 {{ form_end(form) }}
 
+                                <div class="d-grid mb-4">
+                                    <a href="{{ path('connect_google') }}" class="btn btn-google btn-lg wow zoomIn" data-wow-delay="0.5s">
+                                        <i class="mdi mdi-google me-2"></i>Connexion avec Google
+                                    </a>
+                                </div>
+
                                 <p class="text-center mt-3">
                                     Pas de compte ? <a href="{{ path('app_signup') }}" class="text-orange fw-bold">Inscrivez-vous</a>
                                 </p>
@@ -85,6 +98,8 @@
             --transition: all 0.3s ease;
             --border-color: #E5E7EB;
             --danger-color: #dc3545;
+            --google-blue: #4285F4;
+            --google-blue-hover: #357ABD;
         }
 
         body {
@@ -186,6 +201,26 @@
             box-shadow: 0 6px 15px rgba(231, 111, 81, 0.5);
         }
 
+        .btn-google {
+            background: var(--google-blue);
+            color: var(--text-light);
+            border-radius: 8px;
+            padding: 0.75rem;
+            font-weight: 600;
+            border: none;
+            transition: all 0.3s ease;
+            box-shadow: var(--shadow-sm);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .btn-google:hover {
+            background: var(--google-blue-hover);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(66, 133, 244, 0.5);
+        }
+
         .text-orange {
             color: var(--primary-orange) !important;
             transition: color 0.3s ease;
@@ -215,17 +250,19 @@
         new WOW().init();
 
         document.addEventListener('DOMContentLoaded', () => {
-            // Animation de clic sur le bouton de connexion
-            const loginButton = document.querySelector('.btn-primary');
-            loginButton.addEventListener('click', function(e) {
-                this.style.transition = 'transform 0.2s ease';
-                this.style.transform = 'scale(0.95)';
-                setTimeout(() => {
-                    this.style.transform = 'scale(1)';
-                }, 100);
+            // Animation de clic pour les boutons
+            const buttons = document.querySelectorAll('.btn-primary, .btn-google');
+            buttons.forEach(button => {
+                button.addEventListener('click', function(e) {
+                    this.style.transition = 'transform 0.2s ease';
+                    this.style.transform = 'scale(0.95)';
+                    setTimeout(() => {
+                        this.style.transform = 'scale(1)';
+                    }, 100);
+                });
             });
 
-            // Form validation
+            // Validation du formulaire
             const form = document.querySelector('form');
             if (form) {
                 form.addEventListener('submit', (e) => {
@@ -235,7 +272,7 @@
                         if (!input.value.trim()) {
                             isValid = false;
                             input.classList.add('is-invalid');
-                            const feedback = input.nextElementSibling;
+                            const feedback = input.nextElementSibling.nextElementSibling;
                             if (feedback && feedback.classList.contains('invalid-feedback')) {
                                 feedback.textContent = 'Ce champ est requis.';
                             }
@@ -250,7 +287,7 @@
                     }
                 });
 
-                // Real-time validation
+                // Validation en temps réel
                 const inputs = form.querySelectorAll('.form-control');
                 inputs.forEach(input => {
                     input.addEventListener('input', () => {
