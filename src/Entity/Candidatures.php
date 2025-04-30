@@ -3,12 +3,55 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+<<<<<<< HEAD
 use App\Entity\Offresemploi;
 use Symfony\Component\Validator\Constraints as Assert;
+=======
+<<<<<<< HEAD
+
+use App\Entity\Offresemploi;
+=======
+use App\Entity\Offresemploi;
+use Symfony\Component\Validator\Constraints as Assert;
+>>>>>>> origin/gestionOffre
+>>>>>>> origin/gestionOffre
 
 #[ORM\Entity]
 class Candidatures
 {
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+
+    #[ORM\Id]
+    #[ORM\Column(type: "integer")]
+    private int $id_candidature;
+
+        #[ORM\ManyToOne(targetEntity: Offresemploi::class, inversedBy: "candidaturess")]
+    #[ORM\JoinColumn(name: 'id_offre', referencedColumnName: 'id_offre', onDelete: 'CASCADE')]
+    private Offresemploi $id_offre;
+
+    #[ORM\Column(type: "string", length: 100)]
+    private string $nom_candidat;
+
+    #[ORM\Column(type: "string", length: 100)]
+    private string $email;
+
+    #[ORM\Column(type: "text")]
+    private string $cv;
+
+    #[ORM\Column(type: "text")]
+    private string $lettre_motivation;
+
+    #[ORM\Column(type: "date")]
+    private \DateTimeInterface $date_candidature;
+
+    #[ORM\Column(type: "string", length: 50)]
+    private string $statu;
+
+    public function getId_candidature()
+=======
+>>>>>>> origin/gestionOffre
     #[ORM\GeneratedValue(strategy: "IDENTITY")]
     #[ORM\Id]
     #[ORM\Column(type: "integer")]
@@ -62,10 +105,35 @@ class Candidatures
 
     // Getters/Setters
     public function getIdCandidature(): ?int
+<<<<<<< HEAD
+=======
+>>>>>>> origin/gestionOffre
+>>>>>>> origin/gestionOffre
     {
         return $this->id_candidature;
     }
 
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+    public function setId_candidature($value)
+    {
+        $this->id_candidature = $value;
+    }
+
+    public function getId_offre()
+    {
+        return $this->id_offre;
+    }
+
+    public function setId_offre($value)
+    {
+        $this->id_offre = $value;
+    }
+
+    public function getNom_candidat()
+=======
+>>>>>>> origin/gestionOffre
     public function setIdCandidature(?int $value): self
     {
         $this->id_candidature = $value;
@@ -84,10 +152,25 @@ class Candidatures
     }
 
     public function getNomCandidat(): ?string
+<<<<<<< HEAD
+=======
+>>>>>>> origin/gestionOffre
+>>>>>>> origin/gestionOffre
     {
         return $this->nom_candidat;
     }
 
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+    public function setNom_candidat($value)
+    {
+        $this->nom_candidat = $value;
+    }
+
+    public function getEmail()
+=======
+>>>>>>> origin/gestionOffre
     public function setNomCandidat(?string $value): self
     {
         $this->nom_candidat = $value;
@@ -95,10 +178,25 @@ class Candidatures
     }
 
     public function getEmail(): ?string
+<<<<<<< HEAD
+=======
+>>>>>>> origin/gestionOffre
+>>>>>>> origin/gestionOffre
     {
         return $this->email;
     }
 
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+    public function setEmail($value)
+    {
+        $this->email = $value;
+    }
+
+    public function getCv()
+=======
+>>>>>>> origin/gestionOffre
     public function setEmail(?string $value): self
     {
         $this->email = $value;
@@ -106,10 +204,25 @@ class Candidatures
     }
 
     public function getCv(): ?string
+<<<<<<< HEAD
+=======
+>>>>>>> origin/gestionOffre
+>>>>>>> origin/gestionOffre
     {
         return $this->cv;
     }
 
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+    public function setCv($value)
+    {
+        $this->cv = $value;
+    }
+
+    public function getLettre_motivation()
+=======
+>>>>>>> origin/gestionOffre
     public function setCv(?string $value): self
     {
         $this->cv = $value;
@@ -117,10 +230,44 @@ class Candidatures
     }
 
     public function getLettreMotivation(): ?string
+<<<<<<< HEAD
+=======
+>>>>>>> origin/gestionOffre
+>>>>>>> origin/gestionOffre
     {
         return $this->lettre_motivation;
     }
 
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+    public function setLettre_motivation($value)
+    {
+        $this->lettre_motivation = $value;
+    }
+
+    public function getDate_candidature()
+    {
+        return $this->date_candidature;
+    }
+
+    public function setDate_candidature($value)
+    {
+        $this->date_candidature = $value;
+    }
+
+    public function getStatu()
+    {
+        return $this->statu;
+    }
+
+    public function setStatu($value)
+    {
+        $this->statu = $value;
+    }
+}
+=======
+>>>>>>> origin/gestionOffre
     public function setLettreMotivation(?string $value): self
     {
         $this->lettre_motivation = $value;
@@ -159,4 +306,9 @@ class Candidatures
         $this->score = $score;
         return $this;
     }
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> origin/gestionOffre
+>>>>>>> origin/gestionOffre

@@ -1,3 +1,7 @@
 _security_logout:
     resource: security.route_loader.logout
+<<<<<<< HEAD
     type: service
+=======
+    type: service
+>>>>>>> origin/gestionOffre

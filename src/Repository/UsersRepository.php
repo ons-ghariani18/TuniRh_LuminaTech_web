@@ -11,11 +11,14 @@ use Symfony\Component\Security\Core\User\PasswordUpgraderInterface;
 
 /**
  * @extends ServiceEntityRepository<Users>
+<<<<<<< HEAD
  *
  * @method Users|null find($id, $lockMode = null, $lockVersion = null)
  * @method Users|null findOneBy(array $criteria, array $orderBy = null)
  * @method Users[]    findAll()
  * @method Users[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+=======
+>>>>>>> origin/gestionOffre
  */
 class UsersRepository extends ServiceEntityRepository implements PasswordUpgraderInterface
 {
@@ -24,14 +27,52 @@ class UsersRepository extends ServiceEntityRepository implements PasswordUpgrade
         parent::__construct($registry, Users::class);
     }
 
+<<<<<<< HEAD
     public function upgradePassword(PasswordAuthenticatedUserInterface $user, string $newHashedPassword): void
     {
         if (!$user instanceof Users) {
             throw new UnsupportedUserException(sprintf('Instances of "%s" are not supported.', get_class($user)));
+=======
+    /**
+     * Used to upgrade (rehash) the user's password automatically over time.
+     */
+    public function upgradePassword(PasswordAuthenticatedUserInterface $user, string $newHashedPassword): void
+    {
+        if (!$user instanceof Users) {
+            throw new UnsupportedUserException(sprintf('Instances of "%s" are not supported.', $user::class));
+>>>>>>> origin/gestionOffre
         }
 
         $user->setPassword($newHashedPassword);
         $this->getEntityManager()->persist($user);
         $this->getEntityManager()->flush();
     }
+<<<<<<< HEAD
+=======
+
+    //    /**
+    //     * @return Users[] Returns an array of Users objects
+    //     */
+    //    public function findByExampleField($value): array
+    //    {
+    //        return $this->createQueryBuilder('u')
+    //            ->andWhere('u.exampleField = :val')
+    //            ->setParameter('val', $value)
+    //            ->orderBy('u.id', 'ASC')
+    //            ->setMaxResults(10)
+    //            ->getQuery()
+    //            ->getResult()
+    //        ;
+    //    }
+
+    //    public function findOneBySomeField($value): ?Users
+    //    {
+    //        return $this->createQueryBuilder('u')
+    //            ->andWhere('u.exampleField = :val')
+    //            ->setParameter('val', $value)
+    //            ->getQuery()
+    //            ->getOneOrNullResult()
+    //        ;
+    //    }
+>>>>>>> origin/gestionOffre
 }

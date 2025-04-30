@@ -20,11 +20,16 @@
 
                             {% if error %}
                                 <div class="alert alert-danger alert-dismissible fade show" role="alert">
+<<<<<<< HEAD
                                     {{ error.messageKey|trans(error.messageData, 'security')|raw }}
+=======
+                                    {{ error.messageKey|trans(error.messageData, 'security') }}
+>>>>>>> origin/gestionOffre
                                     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                                 </div>
                             {% endif %}
 
+<<<<<<< HEAD
                             {% for message in app.flashes('error') %}
                                 <div class="alert alert-danger alert-dismissible fade show" role="alert">
                                     {{ message|raw }}
@@ -32,6 +37,8 @@
                                 </div>
                             {% endfor %}
 
+=======
+>>>>>>> origin/gestionOffre
                             <form method="post" action="{{ path('app_login') }}" class="form-login">
                                 {{ form_start(form) }}
                                     <div class="mb-4 form-group position-relative">
@@ -66,12 +73,15 @@
                                     </div>
                                 {{ form_end(form) }}
 
+<<<<<<< HEAD
                                 <div class="d-grid mb-4">
                                     <a href="{{ path('connect_google') }}" class="btn btn-google btn-lg wow zoomIn" data-wow-delay="0.5s">
                                         <i class="mdi mdi-google me-2"></i>Connexion avec Google
                                     </a>
                                 </div>
 
+=======
+>>>>>>> origin/gestionOffre
                                 <p class="text-center mt-3">
                                     Pas de compte ? <a href="{{ path('app_signup') }}" class="text-orange fw-bold">Inscrivez-vous</a>
                                 </p>
@@ -98,8 +108,11 @@
             --transition: all 0.3s ease;
             --border-color: #E5E7EB;
             --danger-color: #dc3545;
+<<<<<<< HEAD
             --google-blue: #4285F4;
             --google-blue-hover: #357ABD;
+=======
+>>>>>>> origin/gestionOffre
         }
 
         body {
@@ -201,6 +214,7 @@
             box-shadow: 0 6px 15px rgba(231, 111, 81, 0.5);
         }
 
+<<<<<<< HEAD
         .btn-google {
             background: var(--google-blue);
             color: var(--text-light);
@@ -221,6 +235,8 @@
             box-shadow: 0 6px 15px rgba(66, 133, 244, 0.5);
         }
 
+=======
+>>>>>>> origin/gestionOffre
         .text-orange {
             color: var(--primary-orange) !important;
             transition: color 0.3s ease;
@@ -250,6 +266,7 @@
         new WOW().init();
 
         document.addEventListener('DOMContentLoaded', () => {
+<<<<<<< HEAD
             // Animation de clic pour les boutons
             const buttons = document.querySelectorAll('.btn-primary, .btn-google');
             buttons.forEach(button => {
@@ -263,6 +280,19 @@
             });
 
             // Validation du formulaire
+=======
+            // Animation de clic sur le bouton de connexion
+            const loginButton = document.querySelector('.btn-primary');
+            loginButton.addEventListener('click', function(e) {
+                this.style.transition = 'transform 0.2s ease';
+                this.style.transform = 'scale(0.95)';
+                setTimeout(() => {
+                    this.style.transform = 'scale(1)';
+                }, 100);
+            });
+
+            // Form validation
+>>>>>>> origin/gestionOffre
             const form = document.querySelector('form');
             if (form) {
                 form.addEventListener('submit', (e) => {
@@ -272,7 +302,11 @@
                         if (!input.value.trim()) {
                             isValid = false;
                             input.classList.add('is-invalid');
+<<<<<<< HEAD
                             const feedback = input.nextElementSibling.nextElementSibling;
+=======
+                            const feedback = input.nextElementSibling;
+>>>>>>> origin/gestionOffre
                             if (feedback && feedback.classList.contains('invalid-feedback')) {
                                 feedback.textContent = 'Ce champ est requis.';
                             }
@@ -287,7 +321,11 @@
                     }
                 });
 
+<<<<<<< HEAD
                 // Validation en temps réel
+=======
+                // Real-time validation
+>>>>>>> origin/gestionOffre
                 const inputs = form.querySelectorAll('.form-control');
                 inputs.forEach(input => {
                     input.addEventListener('input', () => {

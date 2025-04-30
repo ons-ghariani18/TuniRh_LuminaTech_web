@@ -1,6 +1,17 @@
 <?php
 
 use App\Kernel;
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+
+require_once dirname(__DIR__).'/vendor/autoload_runtime.php';
+
+return function (array $context) {
+    return new Kernel($context['APP_ENV'], (bool) $context['APP_DEBUG']);
+};
+=======
+>>>>>>> origin/gestionOffre
 use Symfony\Component\Dotenv\Dotenv;
 use Symfony\Component\ErrorHandler\Debug;
 use Symfony\Component\HttpFoundation\Request;
@@ -42,4 +53,9 @@ $kernel = new Kernel($env, $debug);
 $request = Request::createFromGlobals();
 $response = $kernel->handle($request);
 $response->send();
+<<<<<<< HEAD
 $kernel->terminate($request, $response);
+=======
+$kernel->terminate($request, $response);
+>>>>>>> origin/gestionOffre
+>>>>>>> origin/gestionOffre

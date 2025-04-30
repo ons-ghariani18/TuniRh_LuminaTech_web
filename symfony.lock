@@ -26,6 +26,7 @@
             "./migrations/.gitignore"
         ]
     },
+<<<<<<< HEAD
     "knplabs/knp-paginator-bundle": {
         "version": "v6.8.0"
     },
@@ -38,6 +39,14 @@
             "ref": "1ff300d8c030f55c99219cc55050b97a695af3f6"
         }
     },
+=======
+<<<<<<< HEAD
+=======
+    "knplabs/knp-paginator-bundle": {
+        "version": "v6.8.0"
+    },
+>>>>>>> origin/gestionOffre
+>>>>>>> origin/gestionOffre
     "phpunit/phpunit": {
         "version": "9.6",
         "recipe": {
@@ -143,6 +152,11 @@
             "ref": "fadbfe33303a76e25cb63401050439aa9b1a9c7f"
         }
     },
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+=======
+>>>>>>> origin/gestionOffre
     "symfony/mercure-bundle": {
         "version": "0.3",
         "recipe": {
@@ -155,6 +169,10 @@
             "./config/packages/mercure.yaml"
         ]
     },
+<<<<<<< HEAD
+=======
+>>>>>>> origin/gestionOffre
+>>>>>>> origin/gestionOffre
     "symfony/messenger": {
         "version": "6.4",
         "recipe": {
@@ -232,6 +250,11 @@
             "./config/routes/security.yaml"
         ]
     },
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+=======
+>>>>>>> origin/gestionOffre
     "symfony/sendgrid-mailer": {
         "version": "6.4",
         "recipe": {
@@ -241,6 +264,10 @@
             "ref": "224aedffb66812dc2b0965dabc14d5f800941da6"
         }
     },
+<<<<<<< HEAD
+=======
+>>>>>>> origin/gestionOffre
+>>>>>>> origin/gestionOffre
     "symfony/stimulus-bundle": {
         "version": "2.21",
         "recipe": {

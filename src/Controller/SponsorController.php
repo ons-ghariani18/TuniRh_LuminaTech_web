@@ -2,6 +2,24 @@
 
 namespace App\Controller;
 
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Attribute\Route;
+
+class SponsorController extends AbstractController
+{
+    #[Route('/sponsor', name: 'app_sponsor')]
+    public function index(): Response
+    {
+        return $this->render('sponsor/index.html.twig', [
+            'controller_name' => 'SponsorController',
+        ]);
+    }
+=======
+>>>>>>> origin/gestionOffre
 use App\Entity\Sponsor;
 use App\Form\SponsorType;
 use Doctrine\ORM\EntityManagerInterface;
@@ -81,4 +99,8 @@ final class SponsorController extends AbstractController
 
         return $this->redirectToRoute('app_sponsor_index', [], Response::HTTP_SEE_OTHER);
     }
+<<<<<<< HEAD
+=======
+>>>>>>> origin/gestionOffre
+>>>>>>> origin/gestionOffre
 }

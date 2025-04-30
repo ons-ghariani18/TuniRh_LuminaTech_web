@@ -15,7 +15,10 @@ when@test:
 
     framework:
         profiler: { collect: false }
+<<<<<<< HEAD
 
 
 
 
+=======
+>>>>>>> origin/gestionOffre

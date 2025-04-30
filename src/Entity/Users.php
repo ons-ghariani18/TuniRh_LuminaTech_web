@@ -2,8 +2,48 @@
 
 namespace App\Entity;
 
+<<<<<<< HEAD
 use App\Repository\UsersRepository;
 use Doctrine\ORM\Mapping as ORM;
+=======
+use Doctrine\ORM\Mapping as ORM;
+<<<<<<< HEAD
+
+use Doctrine\Common\Collections\Collection;
+use App\Entity\Reservations;
+
+#[ORM\Entity]
+class Users
+{
+
+    #[ORM\Id]
+    #[ORM\Column(type: "integer")]
+    private int $id_user;
+
+    #[ORM\Column(type: "string", length: 100)]
+    private string $nom;
+
+    #[ORM\Column(type: "string", length: 100)]
+    private string $prenom;
+
+    #[ORM\Column(type: "string", length: 255)]
+    private string $email;
+
+    #[ORM\Column(type: "string", length: 15)]
+    private string $tel;
+
+    #[ORM\Column(type: "string", length: 255)]
+    private string $address;
+
+    #[ORM\Column(type: "string", length: 255)]
+    private string $password;
+
+    #[ORM\Column(type: "string", length: 50)]
+    private string $role;
+
+    public function getId_user()
+=======
+>>>>>>> origin/gestionOffre
 use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
 use App\Entity\Reclamation;
@@ -11,8 +51,12 @@ use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 
+<<<<<<< HEAD
 #[ORM\Entity(repositoryClass: UsersRepository::class)]
 #[ORM\Table(name: 'users')]
+=======
+#[ORM\Entity]
+>>>>>>> origin/gestionOffre
 class Users implements UserInterface, PasswordAuthenticatedUserInterface
 {
     #[ORM\Id]
@@ -46,6 +90,14 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
     private string $email;
 
     #[ORM\Column(type: "string", length: 255)]
+<<<<<<< HEAD
+=======
+    #[Assert\NotBlank(message: "Le mot de passe est obligatoire")]
+    #[Assert\Length(
+        min: 6,
+        minMessage: "Le mot de passe doit contenir au moins {{ limit }} caractères"
+    )]
+>>>>>>> origin/gestionOffre
     private string $password;
 
     #[ORM\Column(type: "string", length: 20)]
@@ -74,10 +126,13 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
     )]
     private string $role;
 
+<<<<<<< HEAD
     #[ORM\Column(name: "googleId", type: "string", length: 255, nullable: true)]
     private ?string $googleId = null;
 
 
+=======
+>>>>>>> origin/gestionOffre
     #[ORM\OneToMany(mappedBy: "idUser", targetEntity: Reclamation::class)]
     private Collection $reclamations;
 
@@ -87,15 +142,43 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
     }
 
     public function getIdUser(): ?int
+<<<<<<< HEAD
+=======
+>>>>>>> origin/gestionOffre
+>>>>>>> origin/gestionOffre
     {
         return $this->id_user;
     }
 
+<<<<<<< HEAD
     public function getNom(): ?string
+=======
+<<<<<<< HEAD
+    public function setId_user($value)
+    {
+        $this->id_user = $value;
+    }
+
+    public function getNom()
+=======
+    public function getNom(): ?string
+>>>>>>> origin/gestionOffre
+>>>>>>> origin/gestionOffre
     {
         return $this->nom;
     }
 
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+    public function setNom($value)
+    {
+        $this->nom = $value;
+    }
+
+    public function getPrenom()
+=======
+>>>>>>> origin/gestionOffre
     public function setNom(string $nom): self
     {
         $this->nom = $nom;
@@ -103,10 +186,25 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
     }
 
     public function getPrenom(): ?string
+<<<<<<< HEAD
+=======
+>>>>>>> origin/gestionOffre
+>>>>>>> origin/gestionOffre
     {
         return $this->prenom;
     }
 
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+    public function setPrenom($value)
+    {
+        $this->prenom = $value;
+    }
+
+    public function getEmail()
+=======
+>>>>>>> origin/gestionOffre
     public function setPrenom(string $prenom): self
     {
         $this->prenom = $prenom;
@@ -114,10 +212,45 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
     }
 
     public function getEmail(): ?string
+<<<<<<< HEAD
+=======
+>>>>>>> origin/gestionOffre
+>>>>>>> origin/gestionOffre
     {
         return $this->email;
     }
 
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+    public function setEmail($value)
+    {
+        $this->email = $value;
+    }
+
+    public function getTel()
+    {
+        return $this->tel;
+    }
+
+    public function setTel($value)
+    {
+        $this->tel = $value;
+    }
+
+    public function getAddress()
+    {
+        return $this->address;
+    }
+
+    public function setAddress($value)
+    {
+        $this->address = $value;
+    }
+
+    public function getPassword()
+=======
+>>>>>>> origin/gestionOffre
     public function setEmail(string $email): self
     {
         $this->email = $email;
@@ -125,10 +258,25 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
     }
 
     public function getPassword(): ?string
+<<<<<<< HEAD
+=======
+>>>>>>> origin/gestionOffre
+>>>>>>> origin/gestionOffre
     {
         return $this->password;
     }
 
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+    public function setPassword($value)
+    {
+        $this->password = $value;
+    }
+
+    public function getRole()
+=======
+>>>>>>> origin/gestionOffre
     public function setPassword(string $password): self
     {
         $this->password = $password;
@@ -158,10 +306,84 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
     }
 
     public function getRole(): ?string
+<<<<<<< HEAD
+=======
+>>>>>>> origin/gestionOffre
+>>>>>>> origin/gestionOffre
     {
         return $this->role;
     }
 
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+    public function setRole($value)
+    {
+        $this->role = $value;
+    }
+
+    #[ORM\OneToMany(mappedBy: "id_user", targetEntity: Participation::class)]
+    private Collection $participations;
+
+        public function getParticipations(): Collection
+        {
+            return $this->participations;
+        }
+    
+        public function addParticipation(Participation $participation): self
+        {
+            if (!$this->participations->contains($participation)) {
+                $this->participations[] = $participation;
+                $participation->setId_user($this);
+            }
+    
+            return $this;
+        }
+    
+        public function removeParticipation(Participation $participation): self
+        {
+            if ($this->participations->removeElement($participation)) {
+                // set the owning side to null (unless already changed)
+                if ($participation->getId_user() === $this) {
+                    $participation->setId_user(null);
+                }
+            }
+    
+            return $this;
+        }
+
+    #[ORM\OneToMany(mappedBy: "user_id", targetEntity: Reservations::class)]
+    private Collection $reservationss;
+
+        public function getReservationss(): Collection
+        {
+            return $this->reservationss;
+        }
+    
+        public function addReservations(Reservations $reservations): self
+        {
+            if (!$this->reservationss->contains($reservations)) {
+                $this->reservationss[] = $reservations;
+                $reservations->setUser_id($this);
+            }
+    
+            return $this;
+        }
+    
+        public function removeReservations(Reservations $reservations): self
+        {
+            if ($this->reservationss->removeElement($reservations)) {
+                // set the owning side to null (unless already changed)
+                if ($reservations->getUser_id() === $this) {
+                    $reservations->setUser_id(null);
+                }
+            }
+    
+            return $this;
+        }
+}
+=======
+>>>>>>> origin/gestionOffre
     public function setRole(string $role): self
     {
         if (!in_array($role, ['Responsable RH', 'Employé', 'candidat'])) {
@@ -171,6 +393,7 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
+<<<<<<< HEAD
     public function getGoogleId(): ?string
     {
         return $this->googleId;
@@ -182,6 +405,8 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
+=======
+>>>>>>> origin/gestionOffre
     public function getReclamations(): Collection
     {
         return $this->reclamations;
@@ -226,4 +451,9 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
     {
         return $this->email;
     }
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> origin/gestionOffre
+>>>>>>> origin/gestionOffre

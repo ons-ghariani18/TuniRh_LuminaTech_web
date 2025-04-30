@@ -13,8 +13,16 @@ return [
     Symfony\Bundle\SecurityBundle\SecurityBundle::class => ['all' => true],
     Symfony\Bundle\MonologBundle\MonologBundle::class => ['all' => true],
     Symfony\Bundle\MakerBundle\MakerBundle::class => ['dev' => true],
+<<<<<<< HEAD
     Symfony\Bundle\MercureBundle\MercureBundle::class => ['all' => true],
     Knp\Bundle\PaginatorBundle\KnpPaginatorBundle::class => ['all' => true],
     KnpU\OAuth2ClientBundle\KnpUOAuth2ClientBundle::class => ['all' => true],
 
+=======
+<<<<<<< HEAD
+=======
+    Symfony\Bundle\MercureBundle\MercureBundle::class => ['all' => true],
+    Knp\Bundle\PaginatorBundle\KnpPaginatorBundle::class => ['all' => true],
+>>>>>>> origin/gestionOffre
+>>>>>>> origin/gestionOffre
 ];
