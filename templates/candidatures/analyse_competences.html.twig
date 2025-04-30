@@ -1,0 +1,123 @@
+{# templates/candidatures/analyse_competences.html.twig #}
+
+{% extends 'base.html.twig' %}
+
+{% block title %}Analyse des compétences - {{ candidature.nomCandidat }}{% endblock %}
+
+{% block body %}
+    <div class="container mt-4">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{{ path('app_offres_index') }}">Offres</a></li>
+                <li class="breadcrumb-item"><a href="{{ path('app_offres_show', {'id_offre': candidature.offre.idOffre}) }}">{{ candidature.offre.titre }}</a></li>
+                <li class="breadcrumb-item"><a href="{{ path('app_candidatures_list_by_offre', {'id_offre': candidature.offre.idOffre}) }}">Candidatures</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Analyse des compétences</li>
+            </ol>
+        </nav>
+
+        <div class="row mb-4">
+            <div class="col-md-8">
+                <h1>Analyse des compétences</h1>
+                <h4 class="text-muted">{{ candidature.nomCandidat }} - {{ candidature.offre.titre }}</h4>
+            </div>
+            <div class="col-md-4 text-end">
+                {% if candidature.matchScore is not null %}
+                    <div class="score-card p-3 border rounded">
+                        <h2 class="mb-0">Score: {{ candidature.matchScore }}%</h2>
+                        <div class="progress mt-2" style="height: 10px;">
+                            <div class="progress-bar {% if candidature.matchScore > 75 %}bg-success{% elseif candidature.matchScore > 50 %}bg-info{% elseif candidature.matchScore > 25 %}bg-warning{% else %}bg-danger{% endif %}" 
+                                role="progressbar" 
+                                style="width: {{ candidature.matchScore }}%;" 
+                                aria-valuenow="{{ candidature.matchScore }}" 
+                                aria-valuemin="0" 
+                                aria-valuemax="100">
+                            </div>
+                        </div>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6">
+                <div class="card mb-4">
+                    <div class="card-header bg-primary text-white">
+                        <h5 class="mb-0">Compétences requises</h5>
+                    </div>
+                    <div class="card-body">
+                        {% if offre_skills|length > 0 %}
+                            <div class="skills-container">
+                                {% for skill in offre_skills %}
+                                    <span class="badge bg-primary me-2 mb-2">{{ skill }}</span>
+                                {% endfor %}
+                            </div>
+                        {% else %}
+                            <p class="text-muted">Aucune compétence requise extraite.</p>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-6">
+                <div class="card mb-4">
+                    <div class="card-header bg-info text-white">
+                        <h5 class="mb-0">Compétences du candidat</h5>
+                    </div>
+                    <div class="card-body">
+                        {% if cv_skills|length > 0 %}
+                            <div class="skills-container">
+                                {% for skill in cv_skills %}
+                                    <span class="badge {% if skill in matching_skills %}bg-success{% else %}bg-info{% endif %} me-2 mb-2">{{ skill }}</span>
+                                {% endfor %}
+                            </div>
+                        {% else %}
+                            <p class="text-muted">Aucune compétence candidate extraite.</p>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-4">
+                <div class="card mb-4">
+                    <div class="card-header bg-success text-white">
+                        <h5 class="mb-0">Compétences correspondantes</h5>
+                    </div>
+                    <div class="card-body">
+                        {% if matching_skills|length > 0 %}
+                            <div class="skills-container">
+                                {% for skill in matching_skills %}
+                                    <span class="badge bg-success me-2 mb-2">{{ skill }}</span>
+                                {% endfor %}
+                            </div>
+                        {% else %}
+                            <p class="text-muted">Aucune correspondance trouvée.</p>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="card mb-4">
+                    <div class="card-header bg-danger text-white">
+                        <h5 class="mb-0">Compétences manquantes</h5>
+                    </div>
+                    <div class="card-body">
+                        {% if missing_skills|length > 0 %}
+                            <div class="skills-container">
+                                {% for skill in missing_skills %}
+                                    <span class="badge bg-danger me-2 mb-2">{{ skill }}</span>
+                                {% endfor %}
+                            </div>
+                        {% else %}
+                            <p class="text-success">Aucune compétence requise manquante!</p>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="card mb-4">
+                    <div class="card-header bg-secondary text-white">
+                        <h5 class="mb-0">Compétences supplémentaires

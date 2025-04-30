@@ -1,0 +1,435 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Postuler à {{ offre.titre }}{% endblock %}
+
+{% block body %}
+    <!-- ======= Postuler Section ======= -->
+    <section id="postuler" class="section-bg">
+        <div class="container py-5">
+            <!-- En-tête -->
+            <div class="section-title text-center mb-5 wow fadeInDown" data-wow-delay="0.2s">
+                <h2>Postuler à : {{ offre.titre }}</h2>
+                <p>Remplissez le formulaire pour faire partie de notre aventure.</p>
+                <div class="title-underline"></div>
+            </div>
+
+            <!-- Messages Flash -->
+            {% for label, messages in app.flashes %}
+                {% for message in messages %}
+                    <div class="alert alert-{{ label }} wow fadeIn" data-wow-delay="0.2s">
+                        <i class="bi {{ label == 'success' ? 'bi-check-circle' : 'bi-exclamation-circle' }} me-2"></i>
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endfor %}
+
+            <!-- Formulaire -->
+            <div class="card shadow-lg wow fadeInUp" data-wow-delay="0.1s">
+                <div class="card-header text-center">
+                    <h3 class="mb-0">Formulaire de Candidature</h3>
+                </div>
+                <div class="card-body p-5">
+                    {{ form_start(form, {'attr': {'class': 'needs-validation', 'novalidate': 'novalidate', 'enctype': 'multipart/form-data'}}) }}
+                        <div class="row g-4">
+                            <!-- Nom Complet -->
+                            <div class="col-md-6">
+                                <div class="form-group {{ form.nom_candidat.vars.errors|length > 0 ? 'is-invalid' : '' }}">
+                                    <label class="form-label"><i class="bi bi-person me-2"></i> Nom complet</label>
+                                    {{ form_widget(form.nom_candidat, {'attr': {'class': 'form-control custom-input' ~ (form.nom_candidat.vars.errors|length > 0 ? ' is-invalid' : ''), 'placeholder': 'Votre nom complet', 'required': 'required'}}) }}
+                                    <div class="invalid-feedback">{{ form_errors(form.nom_candidat) }}</div>
+                                </div>
+                            </div>
+
+                            <!-- Email -->
+                            <div class="col-md-6">
+                                <div class="form-group {{ form.email.vars.errors|length > 0 ? 'is-invalid' : '' }}">
+                                    <label class="form-label"><i class="bi bi-envelope me-2"></i> Email</label>
+                                    {{ form_widget(form.email, {'attr': {'class': 'form-control custom-input' ~ (form.email.vars.errors|length > 0 ? ' is-invalid' : ''), 'placeholder': 'votre@email.com', 'required': 'required'}}) }}
+                                    <div class="invalid-feedback">{{ form_errors(form.email) }}</div>
+                                </div>
+                            </div>
+
+                            <!-- Lettre de Motivation -->
+                            <div class="col-12">
+                                <div class="form-group {{ form.lettre_motivation.vars.errors|length > 0 ? 'is-invalid' : '' }}">
+                                    <label class="form-label"><i class="bi bi-file-text me-2"></i> Lettre de motivation</label>
+                                    {{ form_widget(form.lettre_motivation, {'attr': {'class': 'form-control custom-input' ~ (form.lettre_motivation.vars.errors|length > 0 ? ' is-invalid' : ''), 'rows': 6, 'placeholder': 'Expliquez pourquoi vous êtes le candidat idéal...', 'required': 'required'}}) }}
+                                    <div class="invalid-feedback">{{ form_errors(form.lettre_motivation) }}</div>
+                                </div>
+                            </div>
+
+                            <!-- CV -->
+                            <div class="col-12">
+                                <div class="form-group {{ form.cvFile.vars.errors|length > 0 ? 'is-invalid' : '' }}">
+                                    <label class="form-label"><i class="bi bi-file-earmark-arrow-up me-2"></i> CV (PDF - 2Mo maximum)</label>
+                                    {{ form_widget(form.cvFile, {'attr': {'class': 'form-control custom-input' ~ (form.cvFile.vars.errors|length > 0 ? ' is-invalid' : ''), 'accept': 'application/pdf'}}) }}
+                                    <div class="invalid-feedback">{{ form_errors(form.cvFile) }}</div>
+                                </div>
+                            </div>
+
+                            <!-- Boutons -->
+                            <div class="col-12 text-center mt-5">
+                                <button type="submit" class="btn btn-submit-orange btn-lg wow zoomIn" data-wow-delay="0.3s">
+                                    <i class="bi bi-paper-plane me-2"></i> Envoyer la Candidature
+                                </button>
+                                <a href="{{ path('app_offres_index') }}" class="btn btn-return-blue btn-lg wow zoomIn" data-wow-delay="0.4s">
+                                    <i class="bi bi-arrow-left me-2"></i> Retour
+                                </a>
+                            </div>
+                        </div>
+                    {{ form_end(form) }}
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- End Postuler Section -->
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <style>
+        :root {
+            --primary-blue: #1B263B;
+            --primary-orange: #E76F51;
+            --orange-light: #F28C38;
+            --background-dark: #0B1322;
+            --card-bg: #FFFFFF;
+            --text-dark: #2D3142;
+            --text-light: #F5F6F5;
+            --text-muted: #6c757d;
+            --shadow-sm: 0 4px 12px rgba(0, 0, 0, 0.15);
+            --shadow-lg: 0 12px 30px rgba(0, 0, 0, 0.2);
+            --transition: all 0.3s ease;
+            --danger-color: #dc3545;
+            --success-color: #28a745;
+        }
+
+        .section-bg {
+            background: linear-gradient(45deg, var(--background-dark), var(--primary-blue));
+            padding: 80px 0;
+            min-height: 100vh;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .section-title h2 {
+            font-size: 2.8rem;
+            font-weight: 800;
+            color: var(--primary-orange);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            text-shadow: 2px 2px 8px rgba(231, 111, 81, 0.3);
+        }
+
+        .section-title p {
+            font-size: 1.2rem;
+            color: var(--text-light);
+            max-width: 600px;
+            margin: 0 auto;
+            opacity: 0.9;
+        }
+
+        .title-underline {
+            width: 80px;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary-orange), var(--orange-light));
+            border-radius: 2px;
+            margin: 20px auto;
+            transition: width 0.3s ease;
+            box-shadow: 0 0 10px rgba(231, 111, 81, 0.5);
+        }
+
+        .section-title:hover .title-underline {
+            width: 120px;
+        }
+
+        .card {
+            background: var(--card-bg);
+            border-radius: 15px;
+            border: none;
+            box-shadow: var(--shadow-lg);
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.25);
+        }
+
+        .card-header {
+            background: linear-gradient(135deg, var(--primary-blue), var(--primary-blue) 60%, var(--primary-orange));
+            padding: 20px;
+            border-radius: 15px 15px 0 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card-header h3 {
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: var(--text-light);
+        }
+
+        .card-body {
+            padding: 2.5rem;
+            background: #F9FAFB;
+        }
+
+        .form-group {
+            position: relative;
+            margin-bottom: 1.5rem;
+        }
+
+        .form-label {
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--text-dark);
+            display: flex;
+            align-items: center;
+            transition: all 0.3s ease;
+        }
+
+        .form-label i {
+            color: var(--primary-orange);
+            font-size: 1.2rem;
+            margin-right: 8px;
+            transition: transform 0.3s ease;
+        }
+
+        .form-group.is-invalid .form-label i {
+            color: var(--danger-color);
+        }
+
+        .custom-input:focus ~ .form-label i {
+            transform: scale(1.1);
+            color: var(--orange-light);
+        }
+
+        .custom-input {
+            border-radius: 8px;
+            border: 1px solid #dcdcdc;
+            padding: 12px 15px;
+            font-size: 1rem;
+            color: var(--text-dark);
+            background-color: var(--card-bg);
+            transition: all 0.3s ease;
+            width: 100%;
+            box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.05);
+        }
+
+        .custom-input:focus {
+            border-color: var(--primary-orange);
+            box-shadow: 0 0 10px rgba(231, 111, 81, 0.3);
+            outline: none;
+        }
+
+        .custom-input.is-invalid {
+            border-color: var(--danger-color);
+            background: #fff5f5;
+        }
+
+        .custom-input::placeholder {
+            color: var(--text-muted);
+            opacity: 0.7;
+        }
+
+        .custom-input:focus::placeholder {
+            opacity: 0.5;
+        }
+
+        .invalid-feedback {
+            color: var(--danger-color);
+            font-size: 0.9rem;
+            margin-top: 5px;
+            display: none;
+        }
+
+        .custom-input.is-invalid ~ .invalid-feedback {
+            display: block;
+        }
+
+        .alert {
+            padding: 1rem;
+            border-radius: 8px;
+            margin-bottom: 1.5rem;
+            font-size: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            box-shadow: var(--shadow-sm);
+            animation: slideIn 0.3s ease;
+        }
+
+        .alert-success {
+            background: #e6f4e6;
+            color: var(--success-color);
+            border: 1px solid var(--success-color);
+        }
+
+        .alert-error {
+            background: #f8d7da;
+            color: var(--danger-color);
+            border: 1px solid var(--danger-color);
+        }
+
+        .alert i {
+            font-size: 1.2rem;
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateY(-20px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .btn-submit-orange {
+            background: var(--primary-orange);
+            color: var(--text-light);
+            padding: 12px 35px;
+            border-radius: 25px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            border: none;
+            transition: all 0.3s ease;
+            box-shadow: var(--shadow-sm);
+            position: relative;
+            overflow: hidden;
+            margin-right: 15px;
+        }
+
+        .btn-submit-orange:hover {
+            background: var(--orange-light);
+            transform: translateY(-2px) scale(1.05);
+            box-shadow: 0 6px 15px rgba(231, 111, 81, 0.5);
+        }
+
+        .btn-submit-orange i {
+            vertical-align: middle;
+        }
+
+        .btn-return-blue {
+            background: transparent;
+            color: var(--primary-blue);
+            border: 2px solid var(--primary-blue);
+            padding: 12px 35px;
+            border-radius: 25px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: var(--shadow-sm);
+            position: relative;
+            overflow: hidden;
+            text-decoration: none;
+        }
+
+        .btn-return-blue:hover {
+            background: var(--primary-blue);
+            color: var(--text-light);
+            border-color: transparent;
+            transform: translateY(-2px) scale(1.05);
+            box-shadow: 0 6px 15px rgba(27, 38, 59, 0.5);
+        }
+
+        .btn-return-blue i {
+            vertical-align: middle;
+        }
+
+        @media (max-width: 768px) {
+            .section-title h2 {
+                font-size: 2rem;
+            }
+            .section-title p {
+                font-size: 1rem;
+            }
+            .card-body {
+                padding: 1.5rem;
+            }
+            .btn-submit-orange,
+            .btn-return-blue {
+                width: 100%;
+                margin: 10px 0;
+            }
+            .alert {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .section-title h2 {
+                font-size: 1.8rem;
+            }
+            .title-underline {
+                width: 60px;
+            }
+            .section-title:hover .title-underline {
+                width: 90px;
+            }
+            .form-label {
+                font-size: 0.9rem;
+            }
+            .custom-input {
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+        // Initialiser WOW.js pour les animations
+        if (typeof WOW !== 'undefined') {
+            new WOW().init();
+        }
+
+        // Animation de clic sur les boutons
+        document.addEventListener('DOMContentLoaded', () => {
+            // Bouton Envoyer
+            const submitBtn = document.querySelector('.btn-submit-orange');
+            submitBtn.addEventListener('click', function(e) {
+                const form = this.closest('form');
+                if (!form.checkValidity()) {
+                    e.preventDefault();
+                    form.classList.add('was-validated');
+                }
+                this.style.transition = 'transform 0.2s ease';
+                this.style.transform = 'scale(0.95)';
+                setTimeout(() => {
+                    this.style.transform = 'scale(1)';
+                }, 100);
+            });
+
+            // Bouton Retour
+            const returnBtn = document.querySelector('.btn-return-blue');
+            returnBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                const href = this.getAttribute('href');
+                this.style.transition = 'transform 0.2s ease';
+                this.style.transform = 'scale(0.95)';
+                setTimeout(() => {
+                    this.style.transform = 'scale(1)';
+                    window.location.href = href;
+                }, 100);
+            });
+
+            // Animation au focus des champs
+            const inputs = document.querySelectorAll('.custom-input');
+            inputs.forEach(input => {
+                input.addEventListener('focus', function() {
+                    const label = this.closest('.form-group').querySelector('.form-label');
+                    label.style.color = 'var(--primary-orange)';
+                });
+                input.addEventListener('blur', function() {
+                    const label = this.closest('.form-group').querySelector('.form-label');
+                    label.style.color = 'var(--text-dark)';
+                });
+            });
+        });
+    </script>
+{% endblock %}

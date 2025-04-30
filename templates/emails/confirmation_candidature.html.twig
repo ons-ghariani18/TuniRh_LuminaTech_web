@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Confirmation de candidature</title>
+    <style>
+        body { font-family: Arial, sans-serif; line-height: 1.6; color: #333; margin: 0; }
+        .container { max-width: 600px; margin: 20px auto; padding: 20px; background: #f9f9f9; }
+        .header { background: #1e3a8a; color: #fff; padding: 15px; text-align: center; }
+        .header h1 { margin: 0; font-size: 24px; }
+        .content { padding: 20px; background: #fff; border: 1px solid #ddd; }
+        .content p { margin: 0 0 15px; }
+        .content ul { list-style: none; padding: 0; }
+        .content ul li { margin: 10px 0; }
+        .content ul li strong { color: #f97316; }
+        .footer { margin-top: 20px; font-size: 12px; color: #777; text-align: center; }
+        .footer a { color: #1e3a8a; text-decoration: none; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Confirmation de candidature</h1>
+        </div>
+        <div class="content">
+            <p>Bonjour {{ candidateName }},</p>
+            <p>Nous vous confirmons la réception de votre candidature pour le poste de <strong>{{ jobTitle }}</strong>.</p>
+            <h3>Détails de votre candidature :</h3>
+            <ul>
+                <li><strong>Date :</strong> {{ applicationDate }}</li>
+                <li><strong>Poste :</strong> {{ jobTitle }}</li>
+            </ul>
+            <p>Nous examinerons votre candidature avec soin et vous contacterons dans les meilleurs délais.</p>
+            <p>Cordialement,<br>L'équipe de recrutement TuniRh</p>
+        </div>
+        <div class="footer">
+            <p>Ce message est automatique, merci de ne pas y répondre directement. Contactez-nous à <a href="mailto:mrabethedi8@gmail.com">mrabethedi8@gmail.com</a>.</p>
+        </div>
+    </div>
+</body>
+</html>

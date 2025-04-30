@@ -1,0 +1,688 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    Créer une Nouvelle Offre d'Emploi
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link href="https://cdn.materialdesignicons.com/5.4.55/css/materialdesignicons.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <style>
+        :root {
+            --primary-blue: #1B263B;
+            --primary-orange: #E76F51;
+            --orange-light: #F28C38;
+            --background-dark: #0B1322;
+            --card-bg: #FFFFFF;
+            --text-dark: #2D3142;
+            --text-light: #F5F6F5;
+            --text-muted: #6c757d;
+            --shadow-sm: 0 4px 12px rgba(0, 0, 0, 0.15);
+            --shadow-lg: 0 12px 30px rgba(0, 0, 0, 0.2);
+            --transition: all 0.3s ease;
+            --sidebar-bg: var(--primary-blue);
+            --sidebar-text: var(--text-light);
+            --border-color: #E5E7EB;
+            --danger-color: #dc3545;
+            --success-color: #28a745;
+        }
+
+        body {
+            font-family: 'Nunito', sans-serif;
+            background: linear-gradient(45deg, var(--background-dark), var(--primary-blue));
+            color: var(--text-dark);
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* Utility Classes */
+        .flex { display: flex; }
+        .flex-1 { flex: 1; }
+        .items-center { align-items: center; }
+        .justify-between { justify-content: space-between; }
+        .gap-2 { gap: 0.5rem; }
+        .gap-4 { gap: 1rem; }
+        .text-xl { font-size: 1.25rem; }
+        .font-bold { font-weight: 700; }
+        .rounded-full { border-radius: 9999px; }
+        .mb-6 { margin-bottom: 1.5rem; }
+        .mr-2 { margin-right: 0.5rem; }
+        .p-4 { padding: 1rem; }
+
+        /* Sidebar */
+        .app-container {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        .aside {
+            width: 240px;
+            background: linear-gradient(180deg, var(--primary-blue), var(--background-dark));
+            color: var(--sidebar-text);
+            position: fixed;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            overflow-y: auto;
+            padding-top: 60px;
+            z-index: 100;
+            transition: transform var(--transition) ease, box-shadow var(--transition) ease;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .aside.is-collapsed {
+            transform: translateX(-240px);
+            box-shadow: none;
+        }
+
+        .aside-brand {
+            position: fixed;
+            top: 0;
+            height: 60px;
+            background: var(--primary-blue);
+            width: 240px;
+            display: flex;
+            align-items: center;
+            padding: 0 1.5rem;
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: var(--text-light);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            z-index: 101;
+        }
+
+        .menu-label {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            margin: 1rem 1.5rem 0.25rem;
+            color: rgba(255, 255, 255, 0.4);
+        }
+
+        .menu-item {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.75rem 1.5rem;
+            color: var(--sidebar-text);
+            text-decoration: none;
+            transition: background 0.3s, color 0.3s;
+        }
+
+        .menu-item:hover, .menu-item.is-active {
+            background: var(--primary-orange);
+            color: var(--text-light);
+        }
+
+        .menu-item i {
+            transition: transform 0.3s ease;
+        }
+
+        .menu-item:hover i {
+            transform: scale(1.1);
+        }
+
+        /* Main Content */
+        .main-content {
+            margin-left: 240px;
+            flex: 1;
+            transition: margin-left var(--transition) ease;
+        }
+
+        .main-content.sidebar-collapsed {
+            margin-left: 0;
+        }
+
+        .content-inner {
+            padding: 2rem;
+        }
+
+        /* Navbar */
+        .navbar {
+            position: sticky;
+            top: 0;
+            background: var(--card-bg);
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: var(--shadow-sm);
+            z-index: 99;
+        }
+
+        .navbar-menu {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .search-input {
+            padding: 0.5rem 1rem;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            width: 250px;
+            font-family: 'Nunito', sans-serif;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .search-input:focus {
+            border-color: var(--primary-orange);
+            box-shadow: 0 0 8px rgba(231, 111, 81, 0.3);
+            outline: none;
+        }
+
+        .menu-toggle {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 36px;
+            height: 36px;
+            border-radius: 8px;
+            background: transparent;
+            color: var(--text-dark);
+            border: 1px solid var(--border-color);
+            cursor: pointer;
+            transition: background 0.3s ease;
+            margin-right: 1rem;
+        }
+
+        .menu-toggle:hover {
+            background: #F1F5F9;
+        }
+
+        .menu-toggle i {
+            transition: transform 0.3s ease;
+        }
+
+        .menu-toggle.active i {
+            transform: rotate(180deg);
+        }
+
+        /* Form Styling */
+        .form-container {
+            background: var(--card-bg);
+            padding: 2.5rem;
+            border-radius: 15px;
+            box-shadow: var(--shadow-lg);
+            max-width: 700px;
+            margin: 0 auto;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(231, 111, 81, 0.2);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .form-container:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.25);
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+            position: relative;
+        }
+
+        .form-group label {
+            position: absolute;
+            top: 0.75rem;
+            left: 2.5rem;
+            font-size: 1rem;
+            color: var(--text-muted);
+            transition: all 0.2s ease;
+            pointer-events: none;
+        }
+
+        .form-group .form-control:not(:placeholder-shown) + label,
+        .form-group .form-control:focus + label,
+        .form-group .form-select:not(:placeholder-shown) + label,
+        .form-group .form-select:focus + label {
+            top: -0.5rem;
+            left: 1.5rem;
+            font-size: 0.75rem;
+            color: var(--primary-orange);
+            background: var(--card-bg);
+            padding: 0 0.25rem;
+        }
+
+        .form-control, .form-select {
+            width: 100%;
+            padding: 0.75rem 1rem 0.75rem 2.5rem;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            font-family: 'Nunito', sans-serif;
+            font-size: 1rem;
+            background: #F9FAFB;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .form-control:focus, .form-select:focus {
+            border-color: var(--primary-orange);
+            box-shadow: 0 0 8px rgba(231, 111, 81, 0.3);
+            outline: none;
+        }
+
+        .form-control.is-invalid, .form-select.is-invalid {
+            border-color: var(--danger-color);
+            background: #fff5f5;
+        }
+
+        .invalid-feedback {
+            color: var(--danger-color);
+            font-size: 0.875rem;
+            margin-top: 0.25rem;
+            display: none;
+        }
+
+        .form-control.is-invalid ~ .invalid-feedback,
+        .form-select.is-invalid ~ .invalid-feedback {
+            display: block;
+        }
+
+        .form-group i {
+            position: absolute;
+            top: 50%;
+            left: 0.75rem;
+            transform: translateY(-50%);
+            color: var(--primary-orange);
+            font-size: 1.1rem;
+            transition: transform 0.3s ease;
+        }
+
+        .form-group:hover i {
+            transform: translateY(-50%) scale(1.1);
+            color: var(--orange-light);
+        }
+
+        .form-group.is-invalid i {
+            color: var(--danger-color);
+        }
+
+        .btn-primary {
+            background: var(--primary-orange);
+            color: var(--text-light);
+            padding: 0.75rem 2rem;
+            border-radius: 8px;
+            font-weight: 600;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .btn-primary:hover {
+            background: var(--orange-light);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(231, 111, 81, 0.5);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--primary-blue);
+            border: 2px solid var(--primary-blue);
+            padding: 0.75rem 2rem;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .btn-secondary:hover {
+            background: var(--primary-blue);
+            color: var(--text-light);
+            border-color: transparent;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(27, 38, 59, 0.5);
+        }
+
+        /* Flash Messages */
+        .alert {
+            padding: 1rem;
+            border-radius: 8px;
+            margin-bottom: 1.5rem;
+            font-size: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            box-shadow: var(--shadow-sm);
+            animation: slideIn 0.3s ease;
+        }
+
+        .alert-success {
+            background: #e6f4e6;
+            color: var(--success-color);
+            border: 1px solid var(--success-color);
+        }
+
+        .alert-error {
+            background: #f8d7da;
+            color: var(--danger-color);
+            border: 1px solid var(--danger-color);
+        }
+
+        .alert i {
+            font-size: 1.2rem;
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateY(-20px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        /* Overlay */
+        .sidebar-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 90;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity var(--transition), visibility var(--transition);
+        }
+
+        .sidebar-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        /* Flatpickr Customization */
+        .flatpickr-calendar {
+            font-family: 'Nunito', sans-serif;
+        }
+
+        .flatpickr-day.selected {
+            background: var(--primary-orange);
+            border-color: var(--primary-orange);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .aside {
+                transform: translateX(-240px);
+            }
+
+            .aside.is-expanded {
+                transform: translateX(0);
+            }
+
+            .main-content {
+                margin-left: 0;
+            }
+
+            .navbar {
+                padding: 1rem;
+            }
+
+            .search-input {
+                width: 100%;
+                max-width: 200px;
+            }
+
+            .form-container {
+                padding: 1.5rem;
+            }
+
+            .btn-primary, .btn-secondary {
+                width: 100%;
+                justify-content: center;
+                margin: 10px 0;
+            }
+
+            .alert {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+        }
+    </style>
+{% endblock %}
+
+{% block body %}
+    <div class="app-container">
+        <aside class="aside wow slideInLeft" id="sidebar" data-wow-delay="0.2s">
+            <div class="aside-brand">
+                <i class="mdi mdi-account-tie mr-2"></i> RH Dashboard
+            </div>
+
+            <div class="aside-menu">
+                <p class="menu-label">GÉNÉRAL</p>
+                <a href="{{ path('app_back_office') }}" class="menu-item">
+                    <i class="mdi mdi-view-dashboard"></i> Tableau de bord
+                </a>
+
+                <p class="menu-label">GESTION RH</p>
+                <a href="{{ path('app_offresemploi_index') }}" class="menu-item is-active">
+                    <i class="mdi mdi-briefcase"></i> Offres d'emploi
+                </a>
+                <a href="#" class="menu-item">
+                    <i class="mdi mdi-account-group"></i> Profils Utilisateurs
+                </a>
+                <a href="#" class="menu-item">
+                    <i class="mdi mdi-file-document"></i> Candidatures
+                </a>
+                <a href="#" class="menu-item">
+                    <i class="mdi mdi-message-alert"></i> Réclamations
+                </a>
+
+                <p class="menu-label">ÉVÉNEMENTS</p>
+                <a href="{{ path('app_evenement_index') }}" class="menu-item">
+                    <i class="mdi mdi-calendar"></i> Événements
+                </a>
+                <a href="{{ path('app_sponsor_index') }}" class="menu-item">
+                    <i class="mdi mdi-handshake"></i> Sponsors
+                </a>
+
+                <p class="menu-label">FORMATION</p>
+                <a href="#" class="menu-item">
+                    <i class="mdi mdi-school"></i> Formations
+                </a>
+                <a href="#" class="menu-item">
+                    <i class="mdi mdi-account-voice"></i> Entretiens
+                </a>
+            </div>
+        </aside>
+
+        <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+        <div class="main-content" id="mainContent">
+            <header class="navbar wow fadeInDown" data-wow-delay="0.2s">
+                <div class="flex items-center">
+                    <button id="menuToggle" class="menu-toggle" aria-label="Toggle Menu">
+                        <i class="mdi mdi-menu"></i>
+                    </button>
+                    <input type="text" placeholder="Rechercher..." class="search-input">
+                </div>
+                <div class="navbar-menu">
+                    <i class="mdi mdi-bell-outline text-xl"></i>
+                    <div class="flex items-center gap-2">
+                        <img src="https://ui-avatars.com/api/?name=RH+Admin&background=091E3E&color=fff" class="rounded-full" width="36" alt="Admin Avatar">
+                        <span>Admin RH</span>
+                    </div>
+                </div>
+            </header>
+
+            <div class="content-inner">
+                <div class="flex justify-between items-center mb-6 wow fadeInUp" data-wow-delay="0.3s">
+                    <h1 class="text-2xl font-bold" style="color: var(--primary-orange);">Créer une Nouvelle Offre d'Emploi</h1>
+                    <a href="{{ path('app_offresemploi_index') }}" class="btn-secondary">
+                        <i class="mdi mdi-arrow-left"></i> Retour à la liste
+                    </a>
+                </div>
+
+                {% for label, messages in app.flashes %}
+                    {% for message in messages %}
+                        <div class="alert alert-{{ label }} wow fadeIn" data-wow-delay="0.2s">
+                            <i class="mdi {{ label == 'success' ? 'mdi-check-circle' : 'mdi-alert-circle' }}"></i>
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+                {% endfor %}
+
+                <div class="form-container wow fadeInUp" data-wow-delay="0.4s">
+                    {{ form_start(form, {'attr': {'novalidate': 'novalidate', 'class': 'form-offresemploi'}}) }}
+
+                        <div class="form-group {{ form.titre.vars.errors|length > 0 ? 'is-invalid' : '' }}">
+                            <i class="mdi mdi-briefcase"></i>
+                            {{ form_widget(form.titre, {'attr': {'class': 'form-control' ~ (form.titre.vars.errors|length > 0 ? ' is-invalid' : ''), 'placeholder': ' '}}) }}
+                            {{ form_label(form.titre, 'Titre') }}
+                            <div class="invalid-feedback">{{ form_errors(form.titre) }}</div>
+                        </div>
+
+                        <div class="form-group {{ form.description.vars.errors|length > 0 ? 'is-invalid' : '' }}">
+                            <i class="mdi mdi-text"></i>
+                            {{ form_widget(form.description, {'attr': {'class': 'form-control' ~ (form.description.vars.errors|length > 0 ? ' is-invalid' : ''), 'rows': '5', 'placeholder': ' '}}) }}
+                            {{ form_label(form.description, 'Description') }}
+                            <div class="invalid-feedback">{{ form_errors(form.description) }}</div>
+                        </div>
+
+                        <div class="form-group {{ form.competences_requises.vars.errors|length > 0 ? 'is-invalid' : '' }}">
+                            <i class="mdi mdi-lightbulb-on"></i>
+                            {{ form_widget(form.competences_requises, {'attr': {'class': 'form-control' ~ (form.competences_requises.vars.errors|length > 0 ? ' is-invalid' : ''), 'placeholder': ' '}}) }}
+                            {{ form_label(form.competences_requises, 'Compétences Requises') }}
+                            <div class="invalid-feedback">{{ form_errors(form.competences_requises) }}</div>
+                        </div>
+
+                        <div class="form-group {{ form.lieu.vars.errors|length > 0 ? 'is-invalid' : '' }}">
+                            <i class="mdi mdi-map-marker"></i>
+                            {{ form_widget(form.lieu, {'attr': {'class': 'form-control' ~ (form.lieu.vars.errors|length > 0 ? ' is-invalid' : ''), 'placeholder': ' '}}) }}
+                            {{ form_label(form.lieu, 'Lieu') }}
+                            <div class="invalid-feedback">{{ form_errors(form.lieu) }}</div>
+                        </div>
+
+                        <div class="form-group {{ form.type_contrat.vars.errors|length > 0 ? 'is-invalid' : '' }}">
+                            <i class="mdi mdi-file-document"></i>
+                            {{ form_widget(form.type_contrat, {'attr': {'class': 'form-select' ~ (form.type_contrat.vars.errors|length > 0 ? ' is-invalid' : '')}}) }}
+                            {{ form_label(form.type_contrat, 'Type de Contrat') }}
+                            <div class="invalid-feedback">{{ form_errors(form.type_contrat) }}</div>
+                        </div>
+
+                        <div class="form-group {{ form.statut.vars.errors|length > 0 ? 'is-invalid' : '' }}">
+                            <i class="mdi mdi-tag"></i>
+                            {{ form_widget(form.statut, {'attr': {'class': 'form-select' ~ (form.statut.vars.errors|length > 0 ? ' is-invalid' : '')}}) }}
+                            {{ form_label(form.statut, 'Statut') }}
+                            <div class="invalid-feedback">{{ form_errors(form.statut) }}</div>
+                        </div>
+
+                        <div class="form-group {{ form.date_publication.vars.errors|length > 0 ? 'is-invalid' : '' }}">
+                            <i class="mdi mdi-calendar"></i>
+                            {{ form_widget(form.date_publication, {'attr': {'class': 'form-control' ~ (form.date_publication.vars.errors|length > 0 ? ' is-invalid' : '')}}) }}
+                            {{ form_label(form.date_publication, 'Date de Publication') }}
+                            <div class="invalid-feedback">{{ form_errors(form.date_publication) }}</div>
+                        </div>
+
+                        <div class="flex gap-4 justify-center mt-5">
+                            <button type="submit" class="btn-primary wow zoomIn" data-wow-delay="0.5s">
+                                <i class="mdi mdi-content-save"></i> Publier
+                            </button>
+                            <a href="{{ path('app_offresemploi_index') }}" class="btn-secondary wow zoomIn" data-wow-delay="0.6s">
+                                <i class="mdi mdi-cancel"></i> Annuler
+                            </a>
+                        </div>
+                    {{ form_end(form) }}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <script>
+        // Initialiser WOW.js pour les animations
+        new WOW().init();
+
+        document.addEventListener('DOMContentLoaded', () => {
+            // Sidebar toggle
+            const sidebar = document.getElementById('sidebar');
+            const mainContent = document.getElementById('mainContent');
+            const menuToggle = document.getElementById('menuToggle');
+            const sidebarOverlay = document.getElementById('sidebarOverlay');
+
+            function toggleSidebar() {
+                const isExpanded = !sidebar.classList.contains('is-collapsed');
+                if (isExpanded) {
+                    sidebar.classList.add('is-collapsed');
+                    mainContent.classList.add('sidebar-collapsed');
+                    menuToggle.classList.add('active');
+                    sidebarOverlay.classList.remove('active');
+                } else {
+                    sidebar.classList.remove('is-collapsed');
+                    mainContent.classList.remove('sidebar-collapsed');
+                    menuToggle.classList.remove('active');
+                    if (window.innerWidth <= 768) {
+                        sidebarOverlay.classList.add('active');
+                    }
+                }
+            }
+
+            function initSidebar() {
+                if (window.innerWidth <= 768) {
+                    sidebar.classList.add('is-collapsed');
+                    mainContent.classList.add('sidebar-collapsed');
+                }
+            }
+
+            menuToggle.addEventListener('click', toggleSidebar);
+            sidebarOverlay.addEventListener('click', toggleSidebar);
+            initSidebar();
+
+            window.addEventListener('resize', () => {
+                initSidebar();
+                if (window.innerWidth > 768) {
+                    sidebarOverlay.classList.remove('active');
+                }
+            });
+
+            // Initialize Flatpickr for date picker
+            flatpickr('.form-control[type="date"]', {
+                dateFormat: 'Y-m-d',
+                defaultDate: 'today',
+                maxDate: 'today',
+                locale: {
+                    firstDayOfWeek: 1 // Lundi comme premier jour
+                }
+            });
+
+            // Animation de clic sur les boutons
+            document.querySelectorAll('.btn-primary, .btn-secondary').forEach(button => {
+                button.addEventListener('click', function(e) {
+                    if (this.tagName === 'A') {
+                        e.preventDefault();
+                        const href = this.getAttribute('href');
+                        this.style.transition = 'transform 0.2s ease';
+                        this.style.transform = 'scale(0.95)';
+                        setTimeout(() => {
+                            this.style.transform = 'scale(1)';
+                            window.location.href = href;
+                        }, 100);
+                    } else {
+                        this.style.transition = 'transform 0.2s ease';
+                        this.style.transform = 'scale(0.95)';
+                        setTimeout(() => {
+                            this.style.transform = 'scale(1)';
+                        }, 100);
+                    }
+                });
+            });
+        });
+    </script>
+{% endblock %}

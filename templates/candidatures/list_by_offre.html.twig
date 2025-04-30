@@ -1,0 +1,344 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Candidatures pour {{ offre.titre }}{% endblock %}
+
+{% block body %}
+    <section id="candidatures" class="section-bg">
+        <div class="container py-5">
+            <!-- En-tête -->
+            <div class="section-title text-center mb-5 wow fadeInDown" data-wow-delay="0.2s">
+                <h2>Candidatures pour : {{ offre.titre }}</h2>
+                <p>Liste des candidats ayant postulé à cette offre.</p>
+                <div class="title-underline"></div>
+            </div>
+
+            {% if candidatures is empty %}
+                <div class="alert alert-info text-center shadow-sm wow fadeInUp" role="alert" data-wow-delay="0.2s">
+                    <i class="bi bi-info-circle me-2"></i> Aucune candidature trouvée pour cette offre.
+                </div>
+            {% else %}
+                <div class="table-responsive shadow-lg wow fadeInUp" data-wow-delay="0.3s">
+                    <table class="table table-hover align-middle">
+                        <thead class="table-header-custom">
+                            <tr class="text-center">
+                                <th><i class="bi bi-person me-1"></i> Nom</th>
+                                <th><i class="bi bi-envelope me-1"></i> Email</th>
+                                <th><i class="bi bi-star me-1"></i> Score</th>
+                                <th><i class="bi bi-file-text me-1"></i> Lettre</th>
+                                <th><i class="bi bi-file-pdf me-1"></i> CV</th>
+                                <th><i class="bi bi-calendar me-1"></i> Date</th>
+                                <th><i class="bi bi-check-circle me-1"></i> Statut</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for candidature in candidatures %}
+                                <tr class="wow fadeInUp" data-wow-delay="{{ loop.index0 * 50 }}ms">
+                                    <td class="fw-bold">{{ candidature.nomCandidat }}</td>
+                                    <td>{{ candidature.email }}</td>
+                                    <td class="text-center">
+                                        {% if candidature.score is not null %}
+                                            <span class="badge {% if candidature.score >= 70 %}bg-success{% elseif candidature.score >= 40 %}bg-warning{% else %}bg-danger{% endif %}">
+                                                {{ candidature.score }}%
+                                            </span>
+                                        {% else %}
+                                            <span class="badge bg-secondary">N/A</span>
+                                        {% endif %}
+                                    </td>
+                                    <td class="letter-column">{{ candidature.lettreMotivation }}</td>
+                                    <td class="text-center">
+                                        <a href="{{ asset('uploads/cv/' ~ candidature.cv) }}" target="_blank" class="btn btn-action btn-view">
+                                            <i class="bi bi-download"></i>
+                                        </a>
+                                    </td>
+                                    <td class="text-center">{{ candidature.dateCandidature|date('d/m/Y H:i') }}</td>
+                                    <td class="text-center">{{ candidature.statut }}</td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            {% endif %}
+
+            <!-- Bouton Retour -->
+            <div class="text-center mt-5">
+                <a href="{{ path('app_offresemploi_index') }}" class="btn btn-return-blue btn-lg wow zoomIn" data-wow-delay="0.4s">
+                    <i class="bi bi-arrow-left me-2"></i> Retour à la liste des offres
+                </a>
+            </div>
+        </div>
+    </section>
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <style>
+        :root {
+            --primary-blue: #1B263B;
+            --primary-orange: #E76F51;
+            --orange-light: #F28C38;
+            --background-dark: #0B1322;
+            --card-bg: #FFFFFF;
+            --text-dark: #2D3142;
+            --text-light: #F5F6F5;
+            --text-muted: #6c757d;
+            --shadow-sm: 0 4px 12px rgba(0, 0, 0, 0.15);
+            --shadow-lg: 0 12px 30px rgba(0, 0, 0, 0.2);
+            --transition: all 0.3s ease;
+        }
+
+        /* Section */
+        .section-bg {
+            background: linear-gradient(45deg, var(--background-dark), var(--primary-blue));
+            padding: 60px 0;
+            min-height: 100vh;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* En-tête */
+        .section-title h2 {
+            font-size: 2.8rem;
+            font-weight: 800;
+            color: var(--primary-orange);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            text-shadow: 2px 2px 8px rgba(231, 111, 81, 0.3);
+        }
+
+        .section-title p {
+            font-size: 1.2rem;
+            color: var(--text-light);
+            max-width: 600px;
+            margin: 0 auto;
+            opacity: 0.9;
+        }
+
+        .title-underline {
+            width: 80px;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary-orange), var(--orange-light));
+            border-radius: 2px;
+            margin: 20px auto;
+            transition: width 0.3s ease;
+            box-shadow: 0 0 10px rgba(231, 111, 81, 0.5);
+        }
+
+        .section-title:hover .title-underline {
+            width: 120px;
+        }
+
+        /* Alert */
+        .alert-info {
+            background: #E5E7EB;
+            color: var(--primary-blue);
+            border: 1px solid #D1D5DB;
+            border-radius: 8px;
+            padding: 1.5rem;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .alert-info i {
+            color: var(--primary-orange);
+            font-size: 1.2rem;
+        }
+
+        /* Tableau */
+        .table-responsive {
+            border-radius: 10px;
+            overflow-x: auto;
+            background: var(--card-bg);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .table-header-custom {
+            background: linear-gradient(135deg, var(--primary-blue), var(--primary-blue) 60%, var(--primary-orange));
+            color: var(--text-light);
+            font-weight: 600;
+            font-size: 0.95rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .table th {
+            padding: 1rem 0.75rem;
+            border-top: none;
+            border-bottom: 2px solid #E5E7EB;
+        }
+
+        .table td {
+            padding: 1rem 0.75rem;
+            border-top: 1px solid #E5E7EB;
+            color: var(--text-dark);
+            vertical-align: middle;
+        }
+
+        .table-hover tbody tr:hover {
+            background: #F1F5F9;
+            transition: background 0.3s ease;
+        }
+
+        .table i {
+            color: var(--primary-orange);
+            font-size: 1.2rem;
+            margin-right: 8px;
+            transition: transform 0.3s ease;
+        }
+
+        .table th:hover i {
+            transform: scale(1.1);
+            color: var(--orange-light);
+        }
+
+        .letter-column {
+            min-width: 300px;
+            max-width: 500px;
+            white-space: normal;
+            word-wrap: break-word;
+            line-height: 1.5;
+        }
+
+        /* Badges pour le score */
+        .badge {
+            font-size: 0.9rem;
+            padding: 6px 12px;
+            border-radius: 12px;
+            font-weight: 500;
+            transition: transform 0.3s ease;
+        }
+
+        .badge:hover {
+            transform: scale(1.1);
+        }
+
+        .bg-success {
+            background: #28A745;
+            color: var(--text-light);
+        }
+
+        .bg-warning {
+            background: var(--primary-orange);
+            color: var(--text-light);
+        }
+
+        .bg-danger {
+            background: #DC3545;
+            color: var(--text-light);
+        }
+
+        .bg-secondary {
+            background: var(--text-muted);
+            color: var(--text-light);
+        }
+
+        /* Bouton Action (Télécharger CV) */
+        .btn-action {
+            padding: 5px 10px;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            border: none;
+            font-size: 0.9rem;
+            line-height: 1;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .btn-view {
+            background: var(--primary-orange);
+            color: var(--text-light);
+        }
+
+        .btn-view:hover {
+            background: var(--orange-light);
+            transform: scale(1.1);
+            box-shadow: 0 4px 10px rgba(231, 111, 81, 0.5);
+        }
+
+        .btn-view i {
+            color: var(--text-light);
+        }
+
+        /* Bouton Retour */
+        .btn-return-blue {
+            background: transparent;
+            color: var(--primary-blue);
+            border: 2px solid var(--primary-blue);
+            padding: 12px 35px;
+            border-radius: 25px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: var(--shadow-sm);
+            text-decoration: none;
+        }
+
+        .btn-return-blue:hover {
+            background: var(--primary-blue);
+            color: var(--text-light);
+            border-color: transparent;
+            transform: translateY(-2px) scale(1.05);
+            box-shadow: 0 6px 15px rgba(27, 38, 59, 0.5);
+        }
+
+        .btn-return-blue i {
+            vertical-align: middle;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .section-title h2 {
+                font-size: 2rem;
+            }
+            .section-title p {
+                font-size: 1rem;
+            }
+            .table th,
+            .table td {
+                padding: 0.75rem 0.5rem;
+                font-size: 0.9rem;
+            }
+            .letter-column {
+                min-width: 200px;
+                max-width: 300px;
+            }
+            .btn-return-blue {
+                width: 100%;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .section-title h2 {
+                font-size: 1.8rem;
+            }
+            .title-underline {
+                width: 60px;
+            }
+            .section-title:hover .title-underline {
+                width: 90px;
+            }
+            .badge {
+                font-size: 0.8rem;
+                padding: 4px 8px;
+            }
+        }
+    </style>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+        // Initialiser WOW.js pour les animations
+        new WOW().init();
+
+        // Animation de clic sur le bouton Retour
+        $(document).ready(function() {
+            $('.btn-return-blue, .btn-view').on('click', function(e) {
+                e.preventDefault();
+                const href = $(this).attr('href');
+                $(this).animate({ scale: 0.95 }, 100, function() {
+                    $(this).animate({ scale: 1 }, 100, function() {
+                        window.location.href = href;
+                    });
+                });
+            });
+        });
+    </script>
+{% endblock %}

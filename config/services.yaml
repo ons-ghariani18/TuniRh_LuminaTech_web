@@ -1,0 +1,31 @@
+parameters:
+    cv_directory: '%kernel.project_dir%/public/uploads/cv'
+    huggingface.api_key: '%env(HUGGINGFACE_API_KEY)%'
+    huggingface.model: '%env(HUGGINGFACE_MODEL)%'
+
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+
+    App\:
+        resource: '../src/'
+        exclude:
+            - '../src/DependencyInjection/'
+            - '../src/Entity/'
+            - '../src/Kernel.php'
+
+    App\Service\HuggingFaceService:
+        arguments:
+            $httpClient: '@Symfony\Contracts\HttpClient\HttpClientInterface'
+            $apiKey: '%huggingface.api_key%'
+            $model: '%huggingface.model%'
+            $logger: '@Psr\Log\LoggerInterface'
+
+    App\Service\SkillsMatchingService:
+        arguments:
+            $huggingFaceService: '@App\Service\HuggingFaceService'
+            $pdfParser: '@Smalot\PdfParser\Parser'
+            $logger: '@Psr\Log\LoggerInterface'
+
+    Smalot\PdfParser\Parser: ~
