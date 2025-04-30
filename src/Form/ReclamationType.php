@@ -53,6 +53,7 @@ class ReclamationType extends AbstractType
                     'class' => 'form-control'
                 ],
             ])
+<<<<<<< HEAD
             ->add('idUser', EntityType::class, [
                 'class' => Users::class,
                 'choice_label' => function (Users $user) {
@@ -63,6 +64,9 @@ class ReclamationType extends AbstractType
                     'class' => 'form-control'
                 ],
             ])
+=======
+            
+>>>>>>> origin/gestionUserReclamation
         ;
     }
 

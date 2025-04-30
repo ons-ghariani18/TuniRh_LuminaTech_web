@@ -4,6 +4,10 @@ framework:
 
         transports:
             # https://symfony.com/doc/current/messenger.html#transport-configuration
+<<<<<<< HEAD
+=======
+            sync: 'sync://'
+>>>>>>> origin/gestionUserReclamation
             async:
                 dsn: '%env(MESSENGER_TRANSPORT_DSN)%'
                 options:
@@ -22,17 +26,25 @@ framework:
 
         routing:
 <<<<<<< HEAD
+<<<<<<< HEAD
             Symfony\Component\Mailer\Messenger\SendEmailMessage: async
 =======
             # Commentez ou supprimez cette ligne pour désactiver l'envoi asynchrone des emails
             # Symfony\Component\Mailer\Messenger\SendEmailMessage: async
 >>>>>>> origin/gestionOffre
+=======
+            Symfony\Component\Mailer\Messenger\SendEmailMessage: sync
+>>>>>>> origin/gestionUserReclamation
             Symfony\Component\Notifier\Message\ChatMessage: async
             Symfony\Component\Notifier\Message\SmsMessage: async
 
             # Route your messages to the transports
 <<<<<<< HEAD
+<<<<<<< HEAD
             # 'App\Message\YourMessage': async
 =======
             # 'App\Message\YourMessage': async
 >>>>>>> origin/gestionOffre
+=======
+            # 'App\Message\YourMessage': async
+>>>>>>> origin/gestionUserReclamation

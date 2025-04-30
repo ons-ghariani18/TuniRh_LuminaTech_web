@@ -4,19 +4,26 @@ namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 use Doctrine\Common\Collections\Collection;
 use App\Entity\Candidatures;
 =======
+=======
+>>>>>>> origin/gestionUserReclamation
 use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
 use App\Entity\Candidatures;
 use Symfony\Component\Validator\Constraints as Assert;
+<<<<<<< HEAD
 >>>>>>> origin/gestionOffre
+=======
+>>>>>>> origin/gestionUserReclamation
 
 #[ORM\Entity]
 class Offresemploi
 {
+<<<<<<< HEAD
 <<<<<<< HEAD
 
     #[ORM\Id]
@@ -124,6 +131,8 @@ class Offresemploi
         $this->statut = $value;
     }
 =======
+=======
+>>>>>>> origin/gestionUserReclamation
     #[ORM\Id]
     #[ORM\Column(type: "integer")]
     #[ORM\GeneratedValue]
@@ -186,11 +195,15 @@ class Offresemploi
         message: "Le statut doit être Ouverte, Fermée ou En attente"
     )]
     private ?string $statut = 'Ouverte';
+<<<<<<< HEAD
 >>>>>>> origin/gestionOffre
+=======
+>>>>>>> origin/gestionUserReclamation
 
     #[ORM\OneToMany(mappedBy: "id_offre", targetEntity: Candidatures::class)]
     private Collection $candidaturess;
 
+<<<<<<< HEAD
 <<<<<<< HEAD
         public function getCandidaturess(): Collection
         {
@@ -220,6 +233,8 @@ class Offresemploi
         }
 }
 =======
+=======
+>>>>>>> origin/gestionUserReclamation
     public function __construct()
     {
         $this->candidaturess = new ArrayCollection();
@@ -338,5 +353,9 @@ class Offresemploi
 
         return $this;
     }
+<<<<<<< HEAD
 }
 >>>>>>> origin/gestionOffre
+=======
+}
+>>>>>>> origin/gestionUserReclamation

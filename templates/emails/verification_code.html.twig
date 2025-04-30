@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Code de vérification - TuniRh</title>
+    <style>
+        :root {
+            --primary-orange: #E76F51;
+            --text-light: #F5F6F5;
+            --card-bg: #FFFFFF;
+        }
+        body {
+            font-family: 'Nunito', sans-serif;
+            background: #F9FAFB;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background: var(--card-bg);
+            padding: 20px;
+            border-radius: 8px;
+            border: 1px solid rgba(231, 111, 81, 0.2);
+        }
+        h1 {
+            color: var(--primary-orange);
+        }
+        .code {
+            font-size: 2rem;
+            letter-spacing: 0.2em;
+            color: var(--primary-orange);
+            text-align: center;
+            margin: 20px 0;
+            background: rgba(231, 111, 81, 0.1);
+            padding: 10px;
+            border-radius: 8px;
+        }
+        p {
+            color: #2D3142;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Code de vérification</h1>
+        <p>Bonjour {{ user.nom }},</p>
+        <p>Vous avez demandé à réinitialiser votre mot de passe. Utilisez le code suivant pour continuer :</p>
+        <div class="code">{{ code }}</div>
+        <p>Ce code expirera dans 30 minutes. Si vous n'avez pas demandé cette réinitialisation, veuillez ignorer cet email.</p>
+        <p>Merci,<br>L'équipe TuniRh</p>
+    </div>
+</body>
+</html>

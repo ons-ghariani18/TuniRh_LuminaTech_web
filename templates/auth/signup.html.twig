@@ -78,11 +78,19 @@
                                 <div class="invalid-feedback">{{ form_errors(form.address) }}</div>
                             </div>
 
+<<<<<<< HEAD
                             <div class="form-group position-relative mb-4 {{ form.role.vars.errors|length > 0 ? 'is-invalid' : '' }}">
                                 <i class="mdi mdi-briefcase position-absolute"></i>
                                 {{ form_widget(form.role, {'attr': {'class': 'form-select'}}) }}
                                 {{ form_label(form.role, 'Rôle', {'label_attr': {'class': 'form-label'}}) }}
                                 <div class="invalid-feedback">{{ form_errors(form.role) }}</div>
+=======
+                            <div class="form-group position-relative mb-4 {{ form.avatar.vars.errors|length > 0 ? 'is-invalid' : '' }}">
+                                <i class="mdi mdi-camera position-absolute"></i>
+                                {{ form_widget(form.avatar, {'attr': {'class': 'form-control', 'placeholder': ' ', 'accept': 'image/*'}}) }}
+                                {{ form_label(form.avatar, 'Photo de profil', {'label_attr': {'class': 'form-label'}}) }}
+                                <div class="invalid-feedback">{{ form_errors(form.avatar) }}</div>
+>>>>>>> origin/gestionUserReclamation
                             </div>
 
                             <div class="d-grid mb-4">
@@ -395,6 +403,32 @@
                         }
                     }
 
+<<<<<<< HEAD
+=======
+                    // Valider le fichier image
+                    const avatarInput = form.querySelector('input[name$="[avatar]"]');
+                    if (avatarInput.files.length > 0) {
+                        const file = avatarInput.files[0];
+                        const maxSize = 2 * 1024 * 1024; // 2 Mo
+                        const allowedTypes = ['image/jpeg', 'image/png', 'image/gif'];
+                        if (file.size > maxSize) {
+                            isValid = false;
+                            avatarInput.classList.add('is-invalid');
+                            const feedback = avatarInput.nextElementSibling;
+                            if (feedback && feedback.classList.contains('invalid-feedback')) {
+                                feedback.textContent = 'L\'image ne doit pas dépasser 2 Mo.';
+                            }
+                        } else if (!allowedTypes.includes(file.type)) {
+                            isValid = false;
+                            avatarInput.classList.add('is-invalid');
+                            const feedback = avatarInput.nextElementSibling;
+                            if (feedback && feedback.classList.contains('invalid-feedback')) {
+                                feedback.textContent = 'Veuillez uploader une image valide (JPEG, PNG, GIF).';
+                            }
+                        }
+                    }
+
+>>>>>>> origin/gestionUserReclamation
                     if (!isValid) {
                         e.preventDefault();
                         form.classList.add('was-validated');
@@ -410,6 +444,17 @@
                         }
                     });
                 });
+<<<<<<< HEAD
+=======
+
+                // Validation en temps réel pour le fichier
+                const avatarInput = form.querySelector('input[name$="[avatar]"]');
+                avatarInput.addEventListener('change', () => {
+                    if (avatarInput.files.length > 0) {
+                        avatarInput.classList.remove('is-invalid');
+                    }
+                });
+>>>>>>> origin/gestionUserReclamation
             }
         });
     </script>

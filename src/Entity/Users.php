@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 use Doctrine\Common\Collections\Collection;
 use App\Entity\Reservations;
@@ -39,6 +40,8 @@ class Users
 
     public function getId_user()
 =======
+=======
+>>>>>>> origin/gestionUserReclamation
 use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
 use App\Entity\Reclamation;
@@ -113,6 +116,12 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
     )]
     private string $role;
 
+<<<<<<< HEAD
+=======
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
+    private $avatar;
+
+>>>>>>> origin/gestionUserReclamation
     #[ORM\OneToMany(mappedBy: "idUser", targetEntity: Reclamation::class)]
     private Collection $reclamations;
 
@@ -122,11 +131,15 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
     }
 
     public function getIdUser(): ?int
+<<<<<<< HEAD
 >>>>>>> origin/gestionOffre
+=======
+>>>>>>> origin/gestionUserReclamation
     {
         return $this->id_user;
     }
 
+<<<<<<< HEAD
 <<<<<<< HEAD
     public function setId_user($value)
     {
@@ -137,10 +150,14 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
 =======
     public function getNom(): ?string
 >>>>>>> origin/gestionOffre
+=======
+    public function getNom(): ?string
+>>>>>>> origin/gestionUserReclamation
     {
         return $this->nom;
     }
 
+<<<<<<< HEAD
 <<<<<<< HEAD
     public function setNom($value)
     {
@@ -149,6 +166,8 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
 
     public function getPrenom()
 =======
+=======
+>>>>>>> origin/gestionUserReclamation
     public function setNom(string $nom): self
     {
         $this->nom = $nom;
@@ -156,11 +175,15 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
     }
 
     public function getPrenom(): ?string
+<<<<<<< HEAD
 >>>>>>> origin/gestionOffre
+=======
+>>>>>>> origin/gestionUserReclamation
     {
         return $this->prenom;
     }
 
+<<<<<<< HEAD
 <<<<<<< HEAD
     public function setPrenom($value)
     {
@@ -169,6 +192,8 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
 
     public function getEmail()
 =======
+=======
+>>>>>>> origin/gestionUserReclamation
     public function setPrenom(string $prenom): self
     {
         $this->prenom = $prenom;
@@ -176,11 +201,15 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
     }
 
     public function getEmail(): ?string
+<<<<<<< HEAD
 >>>>>>> origin/gestionOffre
+=======
+>>>>>>> origin/gestionUserReclamation
     {
         return $this->email;
     }
 
+<<<<<<< HEAD
 <<<<<<< HEAD
     public function setEmail($value)
     {
@@ -209,6 +238,8 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
 
     public function getPassword()
 =======
+=======
+>>>>>>> origin/gestionUserReclamation
     public function setEmail(string $email): self
     {
         $this->email = $email;
@@ -216,11 +247,15 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
     }
 
     public function getPassword(): ?string
+<<<<<<< HEAD
 >>>>>>> origin/gestionOffre
+=======
+>>>>>>> origin/gestionUserReclamation
     {
         return $this->password;
     }
 
+<<<<<<< HEAD
 <<<<<<< HEAD
     public function setPassword($value)
     {
@@ -229,6 +264,8 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
 
     public function getRole()
 =======
+=======
+>>>>>>> origin/gestionUserReclamation
     public function setPassword(string $password): self
     {
         $this->password = $password;
@@ -258,11 +295,15 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
     }
 
     public function getRole(): ?string
+<<<<<<< HEAD
 >>>>>>> origin/gestionOffre
+=======
+>>>>>>> origin/gestionUserReclamation
     {
         return $this->role;
     }
 
+<<<<<<< HEAD
 <<<<<<< HEAD
     public function setRole($value)
     {
@@ -330,6 +371,8 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
         }
 }
 =======
+=======
+>>>>>>> origin/gestionUserReclamation
     public function setRole(string $role): self
     {
         if (!in_array($role, ['Responsable RH', 'Employé', 'candidat'])) {
@@ -383,5 +426,20 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
     {
         return $this->email;
     }
+<<<<<<< HEAD
 }
 >>>>>>> origin/gestionOffre
+=======
+
+    public function getAvatar(): ?string
+    {
+        return $this->avatar;
+    }
+
+    public function setAvatar(?string $avatar): self
+    {
+        $this->avatar = $avatar;
+        return $this;
+    }
+}
+>>>>>>> origin/gestionUserReclamation

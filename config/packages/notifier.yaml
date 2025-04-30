@@ -3,9 +3,12 @@ framework:
         chatter_transports:
         texter_transports:
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
             sendgrid: '%env(MAILER_DSN)%'
 >>>>>>> origin/gestionOffre
+=======
+>>>>>>> origin/gestionUserReclamation
         channel_policy:
             # use chat/slack, chat/telegram, sms/twilio or sms/nexmo
             urgent: ['email']

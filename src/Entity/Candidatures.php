@@ -4,16 +4,22 @@ namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 use App\Entity\Offresemploi;
 =======
 use App\Entity\Offresemploi;
 use Symfony\Component\Validator\Constraints as Assert;
 >>>>>>> origin/gestionOffre
+=======
+use App\Entity\Offresemploi;
+use Symfony\Component\Validator\Constraints as Assert;
+>>>>>>> origin/gestionUserReclamation
 
 #[ORM\Entity]
 class Candidatures
 {
+<<<<<<< HEAD
 <<<<<<< HEAD
 
     #[ORM\Id]
@@ -44,6 +50,8 @@ class Candidatures
 
     public function getId_candidature()
 =======
+=======
+>>>>>>> origin/gestionUserReclamation
     #[ORM\GeneratedValue(strategy: "IDENTITY")]
     #[ORM\Id]
     #[ORM\Column(type: "integer")]
@@ -80,9 +88,15 @@ class Candidatures
     )]
     private ?string $lettre_motivation = null;
 
+<<<<<<< HEAD
     #[ORM\Column(name: "date_candidature", type: "date")]
     #[Assert\NotNull(message: "La date de candidature est obligatoire")]
     private ?\DateTimeInterface $dateCandidature = null;
+=======
+    #[ORM\Column(type: "date")]
+    #[Assert\NotNull(message: "La date de candidature est obligatoire")]
+    private ?\DateTimeInterface $date_candidature = null;
+>>>>>>> origin/gestionUserReclamation
 
     #[ORM\Column(type: "string", length: 50)]
     #[Assert\NotBlank(message: "Le statut est obligatoire")]
@@ -92,16 +106,22 @@ class Candidatures
     )]
     private ?string $statut = 'En attente';
 
+<<<<<<< HEAD
     #[ORM\Column(type: "float", nullable: true)]
     private ?float $score = null;
 
     // Getters/Setters
     public function getIdCandidature(): ?int
 >>>>>>> origin/gestionOffre
+=======
+    // Getters/Setters
+    public function getIdCandidature(): ?int
+>>>>>>> origin/gestionUserReclamation
     {
         return $this->id_candidature;
     }
 
+<<<<<<< HEAD
 <<<<<<< HEAD
     public function setId_candidature($value)
     {
@@ -120,6 +140,8 @@ class Candidatures
 
     public function getNom_candidat()
 =======
+=======
+>>>>>>> origin/gestionUserReclamation
     public function setIdCandidature(?int $value): self
     {
         $this->id_candidature = $value;
@@ -138,11 +160,15 @@ class Candidatures
     }
 
     public function getNomCandidat(): ?string
+<<<<<<< HEAD
 >>>>>>> origin/gestionOffre
+=======
+>>>>>>> origin/gestionUserReclamation
     {
         return $this->nom_candidat;
     }
 
+<<<<<<< HEAD
 <<<<<<< HEAD
     public function setNom_candidat($value)
     {
@@ -151,6 +177,8 @@ class Candidatures
 
     public function getEmail()
 =======
+=======
+>>>>>>> origin/gestionUserReclamation
     public function setNomCandidat(?string $value): self
     {
         $this->nom_candidat = $value;
@@ -158,11 +186,15 @@ class Candidatures
     }
 
     public function getEmail(): ?string
+<<<<<<< HEAD
 >>>>>>> origin/gestionOffre
+=======
+>>>>>>> origin/gestionUserReclamation
     {
         return $this->email;
     }
 
+<<<<<<< HEAD
 <<<<<<< HEAD
     public function setEmail($value)
     {
@@ -171,6 +203,8 @@ class Candidatures
 
     public function getCv()
 =======
+=======
+>>>>>>> origin/gestionUserReclamation
     public function setEmail(?string $value): self
     {
         $this->email = $value;
@@ -178,11 +212,15 @@ class Candidatures
     }
 
     public function getCv(): ?string
+<<<<<<< HEAD
 >>>>>>> origin/gestionOffre
+=======
+>>>>>>> origin/gestionUserReclamation
     {
         return $this->cv;
     }
 
+<<<<<<< HEAD
 <<<<<<< HEAD
     public function setCv($value)
     {
@@ -191,6 +229,8 @@ class Candidatures
 
     public function getLettre_motivation()
 =======
+=======
+>>>>>>> origin/gestionUserReclamation
     public function setCv(?string $value): self
     {
         $this->cv = $value;
@@ -198,11 +238,15 @@ class Candidatures
     }
 
     public function getLettreMotivation(): ?string
+<<<<<<< HEAD
 >>>>>>> origin/gestionOffre
+=======
+>>>>>>> origin/gestionUserReclamation
     {
         return $this->lettre_motivation;
     }
 
+<<<<<<< HEAD
 <<<<<<< HEAD
     public function setLettre_motivation($value)
     {
@@ -230,6 +274,8 @@ class Candidatures
     }
 }
 =======
+=======
+>>>>>>> origin/gestionUserReclamation
     public function setLettreMotivation(?string $value): self
     {
         $this->lettre_motivation = $value;
@@ -238,12 +284,20 @@ class Candidatures
 
     public function getDateCandidature(): ?\DateTimeInterface
     {
+<<<<<<< HEAD
         return $this->dateCandidature;
+=======
+        return $this->date_candidature;
+>>>>>>> origin/gestionUserReclamation
     }
 
     public function setDateCandidature(?\DateTimeInterface $value): self
     {
+<<<<<<< HEAD
         $this->dateCandidature = $value;
+=======
+        $this->date_candidature = $value;
+>>>>>>> origin/gestionUserReclamation
         return $this;
     }
 
@@ -257,6 +311,7 @@ class Candidatures
         $this->statut = $value;
         return $this;
     }
+<<<<<<< HEAD
 
     public function getScore(): ?float
     {
@@ -270,3 +325,6 @@ class Candidatures
     }
 }
 >>>>>>> origin/gestionOffre
+=======
+}
+>>>>>>> origin/gestionUserReclamation

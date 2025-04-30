@@ -11,17 +11,23 @@ use App\Entity\Evenement;
 class Sponsor
 {
 <<<<<<< HEAD
+<<<<<<< HEAD
 
     #[ORM\Id]
     #[ORM\Column(type: "integer")]
     private int $id_sp;
 =======
+=======
+>>>>>>> origin/gestionUserReclamation
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(name: "id_sp", type: "integer")]
     private ?int $id_sp = null;
 
+<<<<<<< HEAD
 >>>>>>> origin/gestionOffre
+=======
+>>>>>>> origin/gestionUserReclamation
 
     #[ORM\Column(type: "string", length: 255)]
     private string $nom;
@@ -36,6 +42,7 @@ class Sponsor
     private string $email;
 
 <<<<<<< HEAD
+<<<<<<< HEAD
     public function getId_sp()
     {
         return $this->id_sp;
@@ -47,6 +54,8 @@ class Sponsor
     }
 
 =======
+=======
+>>>>>>> origin/gestionUserReclamation
     public function getIdSp(): int
 {
     return $this->id_sp;
@@ -57,7 +66,10 @@ public function setIdSp(int $idSp): self
     $this->id_sp = $idSp;
     return $this;
 }
+<<<<<<< HEAD
 >>>>>>> origin/gestionOffre
+=======
+>>>>>>> origin/gestionUserReclamation
     public function getNom()
     {
         return $this->nom;
@@ -128,7 +140,11 @@ public function setIdSp(int $idSp): self
             return $this;
         }
 <<<<<<< HEAD
+<<<<<<< HEAD
 }
 =======
 }
 >>>>>>> origin/gestionOffre
+=======
+}
+>>>>>>> origin/gestionUserReclamation

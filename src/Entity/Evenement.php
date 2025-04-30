@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 use App\Entity\Sponsor;
 use Doctrine\Common\Collections\Collection;
@@ -11,10 +12,14 @@ use App\Entity\Participation;
 =======
 use App\Entity\Sponsor;
 >>>>>>> origin/gestionOffre
+=======
+use App\Entity\Sponsor;
+>>>>>>> origin/gestionUserReclamation
 
 #[ORM\Entity]
 class Evenement
 {
+<<<<<<< HEAD
 <<<<<<< HEAD
 
     #[ORM\Id]
@@ -25,6 +30,8 @@ class Evenement
     #[ORM\JoinColumn(name: 'id_sp', referencedColumnName: 'id_sp', onDelete: 'CASCADE')]
     private Sponsor $id_sp;
 =======
+=======
+>>>>>>> origin/gestionUserReclamation
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(name: "id_ev", type: "integer")]
@@ -33,7 +40,10 @@ class Evenement
     #[ORM\ManyToOne(targetEntity: Sponsor::class, inversedBy: "evenements")]
     #[ORM\JoinColumn(name: "id_sp", referencedColumnName: "id_sp", onDelete: "CASCADE")]
     private ?Sponsor $sponsor = null;
+<<<<<<< HEAD
 >>>>>>> origin/gestionOffre
+=======
+>>>>>>> origin/gestionUserReclamation
 
     #[ORM\Column(type: "string", length: 255)]
     private string $nom;
@@ -60,6 +70,7 @@ class Evenement
     private string $google_calendar_event_id;
 
 <<<<<<< HEAD
+<<<<<<< HEAD
     public function getId_ev()
     {
         return $this->id_ev;
@@ -82,6 +93,8 @@ class Evenement
 
     public function getNom()
 =======
+=======
+>>>>>>> origin/gestionUserReclamation
     public function getIdEv(): ?int
     {
         return $this->id_ev;
@@ -105,11 +118,15 @@ class Evenement
     }
 
     public function getNom(): string
+<<<<<<< HEAD
 >>>>>>> origin/gestionOffre
+=======
+>>>>>>> origin/gestionUserReclamation
     {
         return $this->nom;
     }
 
+<<<<<<< HEAD
 <<<<<<< HEAD
     public function setNom($value)
     {
@@ -118,6 +135,8 @@ class Evenement
 
     public function getType()
 =======
+=======
+>>>>>>> origin/gestionUserReclamation
     public function setNom(string $nom): self
     {
         $this->nom = $nom;
@@ -125,11 +144,15 @@ class Evenement
     }
 
     public function getType(): string
+<<<<<<< HEAD
 >>>>>>> origin/gestionOffre
+=======
+>>>>>>> origin/gestionUserReclamation
     {
         return $this->type;
     }
 
+<<<<<<< HEAD
 <<<<<<< HEAD
     public function setType($value)
     {
@@ -138,6 +161,8 @@ class Evenement
 
     public function getDate_debut()
 =======
+=======
+>>>>>>> origin/gestionUserReclamation
     public function setType(string $type): self
     {
         $this->type = $type;
@@ -145,11 +170,15 @@ class Evenement
     }
 
     public function getDateDebut(): \DateTimeInterface
+<<<<<<< HEAD
 >>>>>>> origin/gestionOffre
+=======
+>>>>>>> origin/gestionUserReclamation
     {
         return $this->date_debut;
     }
 
+<<<<<<< HEAD
 <<<<<<< HEAD
     public function setDate_debut($value)
     {
@@ -158,6 +187,8 @@ class Evenement
 
     public function getDate_fin()
 =======
+=======
+>>>>>>> origin/gestionUserReclamation
     public function setDateDebut(\DateTimeInterface $dateDebut): self
     {
         $this->date_debut = $dateDebut;
@@ -165,11 +196,15 @@ class Evenement
     }
 
     public function getDateFin(): \DateTimeInterface
+<<<<<<< HEAD
 >>>>>>> origin/gestionOffre
+=======
+>>>>>>> origin/gestionUserReclamation
     {
         return $this->date_fin;
     }
 
+<<<<<<< HEAD
 <<<<<<< HEAD
     public function setDate_fin($value)
     {
@@ -178,6 +213,8 @@ class Evenement
 
     public function getLieu()
 =======
+=======
+>>>>>>> origin/gestionUserReclamation
     public function setDateFin(\DateTimeInterface $dateFin): self
     {
         $this->date_fin = $dateFin;
@@ -185,11 +222,15 @@ class Evenement
     }
 
     public function getLieu(): string
+<<<<<<< HEAD
 >>>>>>> origin/gestionOffre
+=======
+>>>>>>> origin/gestionUserReclamation
     {
         return $this->lieu;
     }
 
+<<<<<<< HEAD
 <<<<<<< HEAD
     public function setLieu($value)
     {
@@ -198,6 +239,8 @@ class Evenement
 
     public function getBudget()
 =======
+=======
+>>>>>>> origin/gestionUserReclamation
     public function setLieu(string $lieu): self
     {
         $this->lieu = $lieu;
@@ -205,11 +248,15 @@ class Evenement
     }
 
     public function getBudget(): float
+<<<<<<< HEAD
 >>>>>>> origin/gestionOffre
+=======
+>>>>>>> origin/gestionUserReclamation
     {
         return $this->budget;
     }
 
+<<<<<<< HEAD
 <<<<<<< HEAD
     public function setBudget($value)
     {
@@ -218,6 +265,8 @@ class Evenement
 
     public function getDescription()
 =======
+=======
+>>>>>>> origin/gestionUserReclamation
     public function setBudget(float $budget): self
     {
         $this->budget = $budget;
@@ -225,11 +274,15 @@ class Evenement
     }
 
     public function getDescription(): string
+<<<<<<< HEAD
 >>>>>>> origin/gestionOffre
+=======
+>>>>>>> origin/gestionUserReclamation
     {
         return $this->description;
     }
 
+<<<<<<< HEAD
 <<<<<<< HEAD
     public function setDescription($value)
     {
@@ -238,6 +291,8 @@ class Evenement
 
     public function getGoogle_calendar_event_id()
 =======
+=======
+>>>>>>> origin/gestionUserReclamation
     public function setDescription(string $description): self
     {
         $this->description = $description;
@@ -245,11 +300,15 @@ class Evenement
     }
 
     public function getGoogleCalendarEventId(): string
+<<<<<<< HEAD
 >>>>>>> origin/gestionOffre
+=======
+>>>>>>> origin/gestionUserReclamation
     {
         return $this->google_calendar_event_id;
     }
 
+<<<<<<< HEAD
 <<<<<<< HEAD
     public function setGoogle_calendar_event_id($value)
     {
@@ -286,10 +345,15 @@ class Evenement
             return $this;
         }
 =======
+=======
+>>>>>>> origin/gestionUserReclamation
     public function setGoogleCalendarEventId(string $googleCalendarEventId): self
     {
         $this->google_calendar_event_id = $googleCalendarEventId;
         return $this;
     }
+<<<<<<< HEAD
 >>>>>>> origin/gestionOffre
+=======
+>>>>>>> origin/gestionUserReclamation
 }

@@ -14,8 +14,13 @@ return [
     Symfony\Bundle\MonologBundle\MonologBundle::class => ['all' => true],
     Symfony\Bundle\MakerBundle\MakerBundle::class => ['dev' => true],
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
     Symfony\Bundle\MercureBundle\MercureBundle::class => ['all' => true],
     Knp\Bundle\PaginatorBundle\KnpPaginatorBundle::class => ['all' => true],
 >>>>>>> origin/gestionOffre
+=======
+    Symfony\Bundle\MercureBundle\MercureBundle::class => ['all' => true],
+    Knp\Bundle\PaginatorBundle\KnpPaginatorBundle::class => ['all' => true],
+>>>>>>> origin/gestionUserReclamation
 ];

@@ -1,5 +1,6 @@
 security:
 <<<<<<< HEAD
+<<<<<<< HEAD
     # https://symfony.com/doc/current/security.html#registering-the-user-hashing-passwords
     password_hashers:
         Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface: 'auto'
@@ -10,6 +11,8 @@ security:
             entity:
                 class: App\Entity\User
 =======
+=======
+>>>>>>> origin/gestionUserReclamation
     enable_authenticator_manager: true
     password_hashers:
         App\Entity\Users:
@@ -18,7 +21,10 @@ security:
         app_user_provider:
             entity:
                 class: App\Entity\Users
+<<<<<<< HEAD
 >>>>>>> origin/gestionOffre
+=======
+>>>>>>> origin/gestionUserReclamation
                 property: email
     firewalls:
         dev:
@@ -27,6 +33,7 @@ security:
         main:
             lazy: true
             provider: app_user_provider
+<<<<<<< HEAD
 <<<<<<< HEAD
 
             # activate different ways to authenticate
@@ -41,6 +48,8 @@ security:
         # - { path: ^/admin, roles: ROLE_ADMIN }
         # - { path: ^/profile, roles: ROLE_USER }
 =======
+=======
+>>>>>>> origin/gestionUserReclamation
             custom_authenticator: App\Security\LoginAuthenticator
             logout:
                 path: app_logout
@@ -48,17 +57,26 @@ security:
             remember_me:
                 secret: '%kernel.secret%'
                 lifetime: 604800
+<<<<<<< HEAD
+=======
+        
+        
+>>>>>>> origin/gestionUserReclamation
 
     access_control:
         - { path: ^/login, roles: PUBLIC_ACCESS }
         - { path: ^/signup, roles: PUBLIC_ACCESS }
         - { path: ^/admin, roles: ROLE_RH } # Exemple pour Responsable RH
         - { path: ^/, roles: [ROLE_EMPLOYE, ROLE_CANDIDAT, ROLE_RH] }
+<<<<<<< HEAD
 >>>>>>> origin/gestionOffre
+=======
+>>>>>>> origin/gestionUserReclamation
 
 when@test:
     security:
         password_hashers:
+<<<<<<< HEAD
 <<<<<<< HEAD
             # By default, password hashers are resource intensive and take time. This is
             # important to generate secure password hashes. In tests however, secure hashes
@@ -70,9 +88,15 @@ when@test:
                 time_cost: 3 # Lowest possible value for argon
                 memory_cost: 10 # Lowest possible value for argon
 =======
+=======
+>>>>>>> origin/gestionUserReclamation
             App\Entity\Users:
                 algorithm: auto
                 cost: 4
                 time_cost: 3
+<<<<<<< HEAD
                 memory_cost: 10
 >>>>>>> origin/gestionOffre
+=======
+                memory_cost: 10
+>>>>>>> origin/gestionUserReclamation

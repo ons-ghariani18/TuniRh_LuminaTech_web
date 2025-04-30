@@ -9,6 +9,10 @@ use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+<<<<<<< HEAD
+=======
+use Symfony\Component\Form\Extension\Core\Type\FileType;
+>>>>>>> origin/gestionUserReclamation
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -116,6 +120,7 @@ class SignUpType extends AbstractType
                     ]),
                 ],
             ])
+<<<<<<< HEAD
             ->add('role', ChoiceType::class, [
                 'label' => 'Rôle',
                 'choices' => [
@@ -131,6 +136,22 @@ class SignUpType extends AbstractType
                     new Assert\Choice([
                         'choices' => ['Responsable RH', 'Employé', 'candidat'],
                         'message' => 'Veuillez sélectionner un rôle valide',
+=======
+            ->add('avatar', FileType::class, [
+                'label' => 'Photo de profil',
+                'mapped' => false,
+                'required' => false,
+                'attr' => [
+                    'class' => 'form-control',
+                    'accept' => 'image/*',
+                ],
+                'constraints' => [
+                    new Assert\File([
+                        'maxSize' => '2m',
+                        'mimeTypes' => ['image/jpeg', 'image/png', 'image/gif'],
+                        'mimeTypesMessage' => 'Veuillez uploader une image valide (JPEG, PNG, GIF)',
+                        'maxSizeMessage' => 'L\'image ne doit pas dépasser 2 Mo',
+>>>>>>> origin/gestionUserReclamation
                     ]),
                 ],
             ]);

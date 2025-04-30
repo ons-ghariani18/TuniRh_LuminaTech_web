@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 # This file is the entry point to configure your own services.
 # Files in the packages/ subdirectory configure your dependencies.
 
@@ -19,13 +20,23 @@ parameters:
     cv_directory: '%kernel.project_dir%/public/uploads/cv'
     huggingface.api_key: '%env(HUGGINGFACE_API_KEY)%'
     huggingface.model: '%env(HUGGINGFACE_MODEL)%'
+=======
+parameters:
+    cv_directory: '%kernel.project_dir%/public/uploads/cv'
+    app.bad_words: ['mot1', 'mot2', 'insulte3'] 
+    avatars_directory: '%kernel.project_dir%/public/uploads/avatars'
+
+>>>>>>> origin/gestionUserReclamation
 
 services:
     _defaults:
         autowire: true
         autoconfigure: true
 
+<<<<<<< HEAD
 >>>>>>> origin/gestionOffre
+=======
+>>>>>>> origin/gestionUserReclamation
     App\:
         resource: '../src/'
         exclude:
@@ -33,6 +44,7 @@ services:
             - '../src/Entity/'
             - '../src/Kernel.php'
 
+<<<<<<< HEAD
 <<<<<<< HEAD
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
@@ -52,3 +64,19 @@ services:
 
     Smalot\PdfParser\Parser: ~
 >>>>>>> origin/gestionOffre
+=======
+
+
+    App\Service\SmsService:
+        arguments:
+            $twilioSid: '%env(string:TWILIO_SID)%'
+            $twilioAuthToken: '%env(string:TWILIO_AUTH_TOKEN)%'
+            $twilioPhoneNumber: '%env(string:TWILIO_PHONE_NUMBER)%'
+
+    App\Service\BadWordFilter:
+        arguments:
+            $badWords: '%app.bad_words%'  
+
+    
+          
+>>>>>>> origin/gestionUserReclamation

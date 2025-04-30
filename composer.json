@@ -12,6 +12,7 @@
         "doctrine/doctrine-migrations-bundle": "^3.3",
         "doctrine/orm": "^3.3",
 <<<<<<< HEAD
+<<<<<<< HEAD
         "phpdocumentor/reflection-docblock": "^5.4",
         "phpstan/phpdoc-parser": "^1.33",
 =======
@@ -23,6 +24,14 @@
         "smalot/pdfparser": "^2.8",
         "spatie/pdf-to-text": "*",
 >>>>>>> origin/gestionOffre
+=======
+        "giggsey/libphonenumber-for-php": "^9.0",
+        "knplabs/knp-paginator-bundle": "^6.8",
+        "knpuniversity/oauth2-client-bundle": "^2.18",
+        "league/oauth2-facebook": "^2.2",
+        "phpdocumentor/reflection-docblock": "^5.4",
+        "phpstan/phpdoc-parser": "^1.33",
+>>>>>>> origin/gestionUserReclamation
         "symfony/asset": "6.4.*",
         "symfony/asset-mapper": "6.4.*",
         "symfony/console": "6.4.*",
@@ -32,6 +41,7 @@
         "symfony/flex": "^2",
         "symfony/form": "6.4.*",
         "symfony/framework-bundle": "6.4.*",
+<<<<<<< HEAD
         "symfony/http-client": "6.4.*",
         "symfony/intl": "6.4.*",
         "symfony/mailer": "6.4.*",
@@ -39,6 +49,13 @@
 =======
         "symfony/mercure-bundle": "^0.3.9",
 >>>>>>> origin/gestionOffre
+=======
+        "symfony/google-mailer": "6.4.*",
+        "symfony/http-client": "6.4.*",
+        "symfony/intl": "6.4.*",
+        "symfony/mailer": "6.4.*",
+        "symfony/mercure-bundle": "^0.3.9",
+>>>>>>> origin/gestionUserReclamation
         "symfony/mime": "6.4.*",
         "symfony/monolog-bundle": "^3.0",
         "symfony/notifier": "6.4.*",
@@ -48,9 +65,12 @@
         "symfony/runtime": "6.4.*",
         "symfony/security-bundle": "6.4.*",
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
         "symfony/sendgrid-mailer": "6.4.*",
 >>>>>>> origin/gestionOffre
+=======
+>>>>>>> origin/gestionUserReclamation
         "symfony/serializer": "6.4.*",
         "symfony/stimulus-bundle": "^2.21",
         "symfony/string": "6.4.*",
@@ -62,10 +82,16 @@
         "symfony/yaml": "6.4.*",
         "twig/extra-bundle": "^2.12|^3.0",
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
         "twig/string-extra": "^3.20",
 >>>>>>> origin/gestionOffre
         "twig/twig": "^2.12|^3.0"
+=======
+        "twig/string-extra": "^3.20",
+        "twig/twig": "^2.12|^3.0",
+        "twilio/sdk": "^8.5"
+>>>>>>> origin/gestionUserReclamation
     },
     "config": {
         "allow-plugins": {
@@ -122,10 +148,14 @@
         "symfony/css-selector": "6.4.*",
         "symfony/debug-bundle": "6.4.*",
 <<<<<<< HEAD
+<<<<<<< HEAD
         "symfony/maker-bundle": "^1.0",
 =======
         "symfony/maker-bundle": "^1.62",
 >>>>>>> origin/gestionOffre
+=======
+        "symfony/maker-bundle": "^1.62",
+>>>>>>> origin/gestionUserReclamation
         "symfony/phpunit-bridge": "^7.1",
         "symfony/stopwatch": "6.4.*",
         "symfony/web-profiler-bundle": "6.4.*"

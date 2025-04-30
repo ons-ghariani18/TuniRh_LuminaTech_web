@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
@@ -17,6 +18,8 @@ class EvenementController extends AbstractController
         ]);
     }
 =======
+=======
+>>>>>>> origin/gestionUserReclamation
 use App\Entity\Evenement;
 use App\Form\EvenementType;
 use Doctrine\ORM\EntityManagerInterface;
@@ -96,5 +99,8 @@ final class EvenementController extends AbstractController
 
         return $this->redirectToRoute('app_evenement_index', [], Response::HTTP_SEE_OTHER);
     }
+<<<<<<< HEAD
 >>>>>>> origin/gestionOffre
+=======
+>>>>>>> origin/gestionUserReclamation
 }

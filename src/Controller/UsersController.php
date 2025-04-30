@@ -13,6 +13,7 @@ use Symfony\Component\Routing\Attribute\Route;
 #[Route('/users')]
 final class UsersController extends AbstractController
 {
+<<<<<<< HEAD
     #[Route('/', name: 'app_users_index', methods: ['GET'])] // Ajout de '/' pour la route index
     public function index(EntityManagerInterface $entityManager): Response
     {
@@ -20,6 +21,48 @@ final class UsersController extends AbstractController
 
         return $this->render('users/index.html.twig', [
             'users' => $users,
+=======
+    #[Route('/', name: 'app_users_index', methods: ['GET'])]
+    public function index(Request $request, EntityManagerInterface $entityManager): Response
+    {
+        $search = $request->query->get('search', '');
+        $role = $request->query->get('role', '');
+
+        // Base DQL query
+        $dql = 'SELECT u FROM App\Entity\Users u';
+
+        // Add conditions for search and role
+        $conditions = [];
+        $parameters = [];
+
+        if (!empty($search)) {
+            $conditions[] = '(u.nom LIKE :search OR u.prenom LIKE :search OR u.email LIKE :search)';
+            $parameters['search'] = '%' . $search . '%';
+        }
+
+        if (!empty($role) && in_array($role, ['Candidat', 'Employé'])) {
+            $conditions[] = 'u.role = :role';
+            $parameters['role'] = $role;
+        }
+
+        // Append conditions to DQL
+        if (!empty($conditions)) {
+            $dql .= ' WHERE ' . implode(' AND ', $conditions);
+        }
+
+        // Create and execute query
+        $query = $entityManager->createQuery($dql);
+        foreach ($parameters as $key => $value) {
+            $query->setParameter($key, $value);
+        }
+
+        $users = $query->getResult();
+
+        return $this->render('users/index.html.twig', [
+            'users' => $users,
+            'search' => $search,
+            'role' => $role,
+>>>>>>> origin/gestionUserReclamation
         ]);
     }
 
@@ -40,7 +83,11 @@ final class UsersController extends AbstractController
 
         return $this->render('users/new.html.twig', [
             'user' => $user,
+<<<<<<< HEAD
             'form' => $form->createView(), // Utilisation de createView() pour Twig
+=======
+            'form' => $form->createView(),
+>>>>>>> origin/gestionUserReclamation
         ]);
     }
 
@@ -67,7 +114,11 @@ final class UsersController extends AbstractController
 
         return $this->render('users/edit.html.twig', [
             'user' => $user,
+<<<<<<< HEAD
             'form' => $form->createView(), // Utilisation de createView() pour Twig
+=======
+            'form' => $form->createView(),
+>>>>>>> origin/gestionUserReclamation
         ]);
     }
 

@@ -9,6 +9,13 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+<<<<<<< HEAD
+=======
+use Symfony\Bundle\SecurityBundle\Security;
+use App\Service\BadWordFilter;
+
+
+>>>>>>> origin/gestionUserReclamation
 
 #[Route('/reclamation')]
 final class ReclamationController extends AbstractController
@@ -26,6 +33,7 @@ final class ReclamationController extends AbstractController
     }
 
     #[Route('/new', name: 'app_reclamation_new', methods: ['GET', 'POST'])]
+<<<<<<< HEAD
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
         $reclamation = new Reclamation();
@@ -45,6 +53,43 @@ final class ReclamationController extends AbstractController
         ]);
     }
 
+=======
+public function new(Request $request, EntityManagerInterface $entityManager, Security $security, BadWordFilter $badWordFilter): Response
+{
+    $reclamation = new Reclamation();
+    $form = $this->createForm(ReclamationType::class, $reclamation);
+    $form->handleRequest($request);
+
+    if ($form->isSubmitted() && $form->isValid()) {
+
+        // Vérifier les champs textuels (ex: 'description' et 'sujet')
+        $description = $reclamation->getDescription() ?? '';
+        $sujet = $reclamation->getSujet() ?? '';
+
+        // Vérifier la présence de mots interdits
+        if ($badWordFilter->hasBadWords($description) || $badWordFilter->hasBadWords($sujet)) {
+            $this->addFlash('error', 'Votre réclamation contient des termes inappropriés.');
+            return $this->redirectToRoute('app_reclamation_new');
+        }
+
+
+        // Associer l'utilisateur connecté
+        $user = $security->getUser();
+        $reclamation->setIdUser($user); 
+
+        $entityManager->persist($reclamation);
+        $entityManager->flush();
+
+        return $this->redirectToRoute('app_reclamation_index', [], Response::HTTP_SEE_OTHER);
+    }
+
+    return $this->render('reclamation/new.html.twig', [
+        'reclamation' => $reclamation,
+        'form' => $form->createView(),
+    ]);
+}
+
+>>>>>>> origin/gestionUserReclamation
     #[Route('/{idReclamation}', name: 'app_reclamation_show', methods: ['GET'])]
     public function show(Reclamation $reclamation): Response
     {

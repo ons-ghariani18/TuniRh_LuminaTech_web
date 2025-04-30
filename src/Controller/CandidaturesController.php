@@ -5,15 +5,23 @@ namespace App\Controller;
 use App\Entity\Candidatures;
 use App\Entity\Offresemploi;
 use App\Form\CandidaturesType;
+<<<<<<< HEAD
 use App\Service\MailerService;
 use App\Service\SkillsMatchingService;
 use Doctrine\ORM\EntityManagerInterface;
 use Psr\Log\LoggerInterface;
+=======
+use Doctrine\ORM\EntityManagerInterface;
+>>>>>>> origin/gestionUserReclamation
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+<<<<<<< HEAD
 use Knp\Component\Pager\PaginatorInterface;
+=======
+use Psr\Log\LoggerInterface;
+>>>>>>> origin/gestionUserReclamation
 
 #[Route('/candidatures')]
 final class CandidaturesController extends AbstractController
@@ -26,11 +34,16 @@ final class CandidaturesController extends AbstractController
     }
 
     #[Route('/offres', name: 'app_offres_index', methods: ['GET'])]
+<<<<<<< HEAD
     public function indexOffres(
         Request $request,
         EntityManagerInterface $em,
         PaginatorInterface $paginator
     ): Response {
+=======
+    public function indexOffres(Request $request, EntityManagerInterface $em): Response
+    {
+>>>>>>> origin/gestionUserReclamation
         $queryBuilder = $em->getRepository(Offresemploi::class)->createQueryBuilder('o');
 
         if ($search = $request->query->get('search')) {
@@ -53,11 +66,15 @@ final class CandidaturesController extends AbstractController
 
         $queryBuilder->orderBy('o.date_publication', 'DESC');
 
+<<<<<<< HEAD
         $pagination = $paginator->paginate(
             $queryBuilder->getQuery(),
             $request->query->getInt('page', 1),
             6
         );
+=======
+        $offres = $queryBuilder->getQuery()->getResult();
+>>>>>>> origin/gestionUserReclamation
 
         $typesContrat = $em->getRepository(Offresemploi::class)
             ->createQueryBuilder('o')
@@ -71,7 +88,11 @@ final class CandidaturesController extends AbstractController
             ->getResult();
 
         return $this->render('candidatures/index.html.twig', [
+<<<<<<< HEAD
             'pagination' => $pagination,
+=======
+            'offres' => $offres,
+>>>>>>> origin/gestionUserReclamation
             'types_contrat' => array_column($typesContrat, 'type_contrat'),
             'lieux' => array_column($lieux, 'lieu'),
             'search' => $search,
@@ -92,6 +113,7 @@ final class CandidaturesController extends AbstractController
     public function postuler(
         Request $request,
         Offresemploi $offre,
+<<<<<<< HEAD
         EntityManagerInterface $em,
         MailerService $mailerService,
         SkillsMatchingService $skillsMatchingService
@@ -145,11 +167,59 @@ final class CandidaturesController extends AbstractController
             }
             $this->logger->debug('Form validation errors', ['errors' => $errors]);
             $this->addFlash('error', 'Veuillez corriger les erreurs : ' . implode(', ', $errors));
+=======
+        EntityManagerInterface $em
+    ): Response {
+        $candidature = new Candidatures();
+        // Définir offre et date_candidature avant la validation
+        $candidature
+            ->setOffre($offre)
+            ->setDateCandidature(new \DateTime());
+
+        $form = $this->createForm(CandidaturesType::class, $candidature);
+        
+        $form->handleRequest($request);
+        if ($form->isSubmitted()) {
+            if ($form->isValid()) {
+                try {
+                    $cvFile = $form->get('cvFile')->getData();
+                    if ($cvFile) {
+                        $this->logger->debug('CV file received', ['extension' => $cvFile->guessExtension(), 'size' => $cvFile->getSize()]);
+                        $fileName = md5(uniqid()).'.'.$cvFile->guessExtension();
+                        $cvFile->move($this->getParameter('cv_directory'), $fileName);
+                        $candidature->setCv($fileName);
+                    } else {
+                        $this->logger->debug('No CV file uploaded, proceeding without CV');
+                        // Ne pas bloquer si aucun CV (cohérent avec required => false)
+                    }
+
+                    $em->persist($candidature);
+                    $em->flush();
+
+                    $this->addFlash('success', 'Votre candidature a été envoyée avec succès !');
+                    return $this->redirectToRoute('app_offres_index', [], Response::HTTP_SEE_OTHER);
+                } catch (\Exception $e) {
+                    $this->logger->error('Error uploading CV: '.$e->getMessage());
+                    $this->addFlash('error', 'Une erreur est survenue lors du téléchargement du CV.');
+                }
+            } else {
+                $errors = [];
+                foreach ($form->getErrors(true) as $error) {
+                    $errors[] = $error->getMessage();
+                }
+                $this->logger->debug('Form validation errors', ['errors' => $errors]);
+                $this->addFlash('error', 'Veuillez corriger les erreurs dans le formulaire.');
+            }
+>>>>>>> origin/gestionUserReclamation
         }
 
         return $this->render('candidatures/postuler.html.twig', [
             'form' => $form->createView(),
+<<<<<<< HEAD
             'offre' => $offre,
+=======
+            'offre' => $offre
+>>>>>>> origin/gestionUserReclamation
         ]);
     }
 
@@ -157,7 +227,11 @@ final class CandidaturesController extends AbstractController
     public function listByOffre(Offresemploi $offre, EntityManagerInterface $em): Response
     {
         $candidatures = $em->getRepository(Candidatures::class)
+<<<<<<< HEAD
             ->findBy(['offre' => $offre], ['dateCandidature' => 'DESC']);
+=======
+                         ->findBy(['offre' => $offre], ['date_candidature' => 'DESC']);
+>>>>>>> origin/gestionUserReclamation
 
         return $this->render('candidatures/list_by_offre.html.twig', [
             'offre' => $offre,

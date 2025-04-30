@@ -1,6 +1,7 @@
 {% extends 'base.html.twig' %}
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 {% block title %}Hello EvenementController!{% endblock %}
 
 {% block body %}
@@ -20,6 +21,8 @@
 </div>
 {% endblock %}
 =======
+=======
+>>>>>>> origin/gestionUserReclamation
 {% block title %}Gestion des Événements{% endblock %}
 
 {% block stylesheets %}
@@ -409,11 +412,20 @@
             <a href="{{ path('app_back_office') }}" class="menu-item">
                 <i class="mdi mdi-view-dashboard"></i> Tableau de bord
             </a>
+<<<<<<< HEAD
 
             <p class="menu-label">GESTION RH</p>
             <a href="#" class="menu-item">
                 <i class="mdi mdi-account-group"></i> Profils Utilisateurs
             </a>
+=======
+            
+            <p class="menu-label">GESTION RH</p>
+            <a href="{{ path('app_users_index') }}" class="menu-item is-active">
+                <i class="mdi mdi-account-group"></i> Profils Utilisateurs
+            </a>
+
+>>>>>>> origin/gestionUserReclamation
             <a href="{{ path('app_offresemploi_index') }}" class="menu-item is-active">
                 <i class="mdi mdi-briefcase"></i> Offres d'emploi
             </a>
@@ -610,5 +622,9 @@
             });
         });
     </script>
+<<<<<<< HEAD
 {% endblock %}
 >>>>>>> origin/gestionOffre
+=======
+{% endblock %}
+>>>>>>> origin/gestionUserReclamation
