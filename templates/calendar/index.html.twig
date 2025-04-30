@@ -1,68 +1,455 @@
 {# templates/calendar/index.html.twig #}
 {% extends 'base.html.twig' %}
 
-{% block title %}Calendrier{% endblock %}
+{% block title %}Calendrier des Événements{% endblock %}
 
 {% block stylesheets %}
     {{ parent() }}
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.0/main.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdn.materialdesignicons.com/5.4.55/css/materialdesignicons.min.css" rel="stylesheet">
     <style>
-        #calendar-holder {
-            margin-top: 20px;
-            margin-bottom: 20px;
+        :root {
+            --primary-color: #e67e22;
+            --primary-dark: #d35400;
+            --secondary-color: #091E3E;
+            --sidebar-bg: #091E3E;
+            --sidebar-text: #a3adcc;
+            --body-bg: #f5f7fa;
+            --card-bg: #fff;
+            --text-color: #333;
+            --muted-text: #6b7280;
+            --border-color: #e0e0e0;
+            --light-color: #f8f9fa;
+            --dark-color: #212529;
+            --success-color: #4cc9f0;
+            --warning-color: #f72585;
         }
+
+        body {
+            font-family: 'Nunito', sans-serif;
+            background-color: var(--body-bg);
+        }
+
+        #calendar-holder {
+            width: 95%;
+            margin: 30px auto;
+            max-width: 1400px;
+            background: var(--card-bg);
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            padding: 25px;
+            overflow: hidden;
+        }
+
+        .fc-header-toolbar {
+            margin-bottom: 1.5em !important;
+            padding: 15px;
+            background: var(--card-bg);
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        .fc-toolbar-title {
+            font-size: 1.6em;
+            font-weight: 600;
+            color: var(--dark-color);
+        }
+
+        .fc-button {
+            background-color: var(--primary-color) !important;
+            border: none !important;
+            border-radius: 6px !important;
+            padding: 8px 15px !important;
+            font-weight: 500 !important;
+            text-transform: capitalize !important;
+            box-shadow: none !important;
+            transition: all 0.3s ease !important;
+        }
+
+        .fc-button:hover {
+            background-color: var(--primary-dark) !important;
+            transform: translateY(-1px);
+        }
+
+        .fc-button:active {
+            transform: translateY(0);
+        }
+
+        .fc-button-primary:not(:disabled).fc-button-active {
+            background-color: var(--primary-dark) !important;
+        }
+
+        .fc-daygrid-event {
+            border-radius: 6px !important;
+            border: none !important;
+            padding: 5px 8px !important;
+            font-size: 0.9em !important;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1) !important;
+            transition: all 0.2s ease !important;
+        }
+
+        .fc-daygrid-event:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15) !important;
+        }
+
+        .fc-event-main {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .fc-event-title {
+            font-weight: 500;
+            margin-bottom: 2px;
+        }
+
+        .fc-event-type {
+            font-size: 0.75em;
+            opacity: 0.9;
+        }
+
+        .fc-daygrid-day-frame {
+            padding: 5px;
+        }
+
+        .fc-daygrid-day-top {
+            justify-content: center;
+        }
+
+        .fc-daygrid-day-number {
+            font-weight: 500;
+            font-size: 1.1em;
+            padding: 5px !important;
+        }
+
+        .fc-day-today {
+            background-color: rgba(230, 126, 34, 0.1) !important;
+        }
+
+        .fc-daygrid-day.fc-day-today .fc-daygrid-day-number {
+            color: var(--primary-color);
+            font-weight: 600;
+        }
+
+        .fc-col-header-cell {
+            padding: 10px 0;
+            background: var(--light-color);
+        }
+
+        .fc-col-header-cell-cushion {
+            font-weight: 500;
+            color: var(--dark-color);
+            text-transform: capitalize;
+        }
+
         .error-message {
-            color: red;
+            color: var(--warning-color);
             margin-top: 10px;
+            padding: 10px;
+            background: rgba(247, 37, 133, 0.1);
+            border-radius: 6px;
             display: none;
+            text-align: center;
+            font-weight: 500;
+        }
+
+        .calendar-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .calendar-header h1 {
+            font-weight: 600;
+            color: var(--dark-color);
+            position: relative;
+            display: inline-block;
+        }
+
+        .calendar-header h1::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: var(--primary-color);
+            border-radius: 2px;
+        }
+        
+        /* Navbar styles */
+        .navbar {
+            background: var(--card-bg);
+            box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .navbar-brand {
+            font-weight: 700;
+            font-size: 1.25rem;
+            color: var(--secondary-color);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .navbar-menu {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .notification-badge {
+            position: relative;
+            display: inline-block;
+            margin-right: 1rem;
+        }
+
+        .notification-icon {
+            font-size: 1.25rem;
+            color: var(--text-color);
+        }
+
+        .badge-count {
+            position: absolute;
+            top: -0.5rem;
+            right: -0.5rem;
+            background-color: var(--warning-color);
+            color: white;
+            font-size: 0.75rem;
+            border-radius: 9999px;
+            height: 1.25rem;
+            width: 1.25rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .btn-back {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-weight: 600;
+            transition: background-color 0.3s;
+        }
+
+        .btn-back:hover {
+            background-color: var(--primary-dark);
+            text-decoration: none;
+            color: white;
+        }
+
+        /* Updated event colors */
+        .event-conference { background-color: var(--primary-color) !important; }
+        .event-atelier { background-color: var(--primary-dark) !important; }
+        .event-formation { background-color: var(--success-color) !important; }
+        .event-competition { background-color: var(--warning-color) !important; }
+        .event-exposition { background-color: var(--secondary-color) !important; }
+        .event-default { background-color: var(--secondary-color) !important; }
+
+        /* Responsive styles */
+        @media (max-width: 768px) {
+            #calendar-holder {
+                padding: 15px 10px;
+            }
+            
+            .fc-header-toolbar {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .fc-toolbar-chunk {
+                margin-bottom: 10px;
+            }
+            
+            .fc-toolbar-title {
+                font-size: 1.3em;
+            }
+            
+            .navbar {
+                padding: 1rem;
+            }
         }
     </style>
 {% endblock %}
 
 {% block javascripts %}
     {{ parent() }}
-    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.0/main.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.0/locales/fr.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/locales/fr.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
 {% endblock %}
 
 {% block body %}
-    <div class="container mt-4">
-        <h1>Calendrier</h1>
+    <header class="navbar">
+        <div class="navbar-brand">
+            <i class="mdi mdi-calendar-month"></i> Calendrier des Événements
+        </div>
+        <div class="navbar-menu">
+            <a href="{{ path('app_evenement_index') }}" class="btn-back">
+                <i class="mdi mdi-arrow-left"></i> Retour à la gestion
+            </a>
+        </div>
+    </header>
+
+    <div class="container mt-5">
+        <div class="calendar-header">
+            <h1>Calendrier des Événements</h1>
+        </div>
         <div id="calendar-holder"></div>
         <div id="error-message" class="error-message"></div>
     </div>
-    
+
     <script>
     document.addEventListener('DOMContentLoaded', function() {
-        var calendarEl = document.getElementById('calendar-holder');
-        var errorMessageEl = document.getElementById('error-message');
+        const calendarEl = document.getElementById('calendar-holder');
+        const errorMessageEl = document.getElementById('error-message');
         
-        var calendar = new FullCalendar.Calendar(calendarEl, {
+        // Configuration des couleurs par type d'événement
+        const eventColors = {
+            'Conférence': 'event-conference',
+            'Atelier': 'event-atelier',
+            'Formation': 'event-formation',
+            'Compétition': 'event-competition',
+            'Exposition': 'event-exposition',
+            'default': 'event-default'
+        };
+
+        const calendar = new FullCalendar.Calendar(calendarEl, {
             initialView: 'dayGridMonth',
             locale: 'fr',
+            themeSystem: 'standard',
+            firstDay: 1, // Lundi comme premier jour de la semaine
+            navLinks: true, // Permet de cliquer sur les jours/semaines
+            editable: false,
+            selectable: false,
             headerToolbar: {
                 left: 'prev,next today',
                 center: 'title',
-                right: 'dayGridMonth,timeGridWeek,timeGridDay'
+                right: 'dayGridMonth,timeGridWeek,timeGridDay,listMonth'
             },
-            events: {
-                url: "{{ path('fc_load_events') }}",
-                method: 'GET',
-                extraParams: {
-                    filters: JSON.stringify({})  // Ajoutez ici des filtres si nécessaire
-                },
-                success: function(response) {
-                    console.log('Success:', response);  // Affiche la réponse des événements
-                },
-                failure: function(error) {
-                    console.error('Error:', error);
-                    errorMessageEl.textContent = 'Erreur lors du chargement des événements';
-                    errorMessageEl.style.display = 'block';
+            buttonText: {
+                today: 'Aujourd\'hui',
+                month: 'Mois',
+                week: 'Semaine',
+                day: 'Jour',
+                list: 'Liste'
+            },
+            events: {{ events|raw }},
+            eventContent: function(info) {
+                const eventType = info.event.extendedProps.type || 'default';
+                return {
+                    html: `
+                        <div class="fc-event-main" style="color: white;">
+                            <div class="fc-event-title">${info.event.title}</div>
+                            <div class="fc-event-type">${eventType}</div>
+                        </div>
+                    `
+                };
+            },
+            eventDidMount: function(info) {
+                // Définition de la classe en fonction du type
+                const eventType = info.event.extendedProps.type || 'default';
+                info.el.classList.add(eventColors[eventType] || eventColors['default']);
+
+                // Tooltip avec plus d'informations
+                if (info.event.extendedProps.description) {
+                    const tooltipContent = `
+                        <strong>${info.event.title}</strong><br>
+                        <em>${info.event.extendedProps.type}</em><br><br>
+                        <strong>Lieu:</strong> ${info.event.extendedProps.lieu}<br>
+                        <strong>Dates:</strong> ${info.event.start.toLocaleDateString('fr-FR')} 
+                        ${info.event.end ? ' - ' + info.event.end.toLocaleDateString('fr-FR') : ''}<br><br>
+                        ${info.event.extendedProps.description}
+                    `;
+                    
+                    info.el.setAttribute('data-bs-toggle', 'tooltip');
+                    info.el.setAttribute('data-bs-html', 'true');
+                    info.el.setAttribute('data-bs-placement', 'top');
+                    info.el.setAttribute('title', tooltipContent);
                 }
-            }
+            },
+            eventClick: function(info) {
+                // Création d'une modal personnalisée
+                const eventType = info.event.extendedProps.type || 'default';
+                const className = eventColors[eventType] || eventColors['default'];
+                const modalBgColor = getComputedStyle(document.documentElement).getPropertyValue(`--primary-color`);
+                
+                const modalHtml = `
+                    <div class="modal fade" id="eventModal" tabindex="-1" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered">
+                            <div class="modal-content">
+                                <div class="modal-header" style="background-color: var(--primary-color); color: white;">
+                                    <h5 class="modal-title">${info.event.title}</h5>
+                                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <p><strong>Type:</strong> ${info.event.extendedProps.type}</p>
+                                    <p><strong>Lieu:</strong> ${info.event.extendedProps.lieu}</p>
+                                    <p><strong>Dates:</strong> ${info.event.start.toLocaleDateString('fr-FR')} 
+                                    ${info.event.end ? ' - ' + info.event.end.toLocaleDateString('fr-FR') : ''}</p>
+                                    <p><strong>Description:</strong></p>
+                                    <p>${info.event.extendedProps.description}</p>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+                                    <a href="${info.event.extendedProps.detailUrl || '#'}" class="btn" style="background-color: var(--primary-color); color: white;">Détails</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                
+                // Ajout de la modal au DOM
+                const modalContainer = document.createElement('div');
+                modalContainer.innerHTML = modalHtml;
+                document.body.appendChild(modalContainer);
+                
+                // Affichage de la modal
+                const modal = new bootstrap.Modal(document.getElementById('eventModal'));
+                modal.show();
+                
+                // Nettoyage après fermeture
+                document.getElementById('eventModal').addEventListener('hidden.bs.modal', function() {
+                    document.body.removeChild(modalContainer);
+                });
+                
+                info.jsEvent.preventDefault();
+            },
+            eventDisplay: 'block',
+            height: 'auto',
+            eventTimeFormat: {
+                hour: '2-digit',
+                minute: '2-digit',
+                hour12: false
+            },
+            dayMaxEvents: 3, // Affiche un "+X more" s'il y a trop d'événements
+            eventBorderColor: 'transparent',
+            eventTextColor: '#ffffff'
         });
-        
+
         calendar.render();
+        
+        // Initialisation des tooltips Bootstrap
+        if (typeof bootstrap !== 'undefined') {
+            const tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+            tooltipTriggerList.map(function(tooltipTriggerEl) {
+                return new bootstrap.Tooltip(tooltipTriggerEl, {
+                    html: true,
+                    boundary: 'window'
+                });
+            });
+        }
     });
     </script>
 {% endblock %}

@@ -1,129 +1,309 @@
 <?php
-
+// src/Service/GoogleCalendarService.php
 namespace App\Service;
 
-use Google_Client;
-use Google_Service_Calendar;
-use Google_Service_Calendar_Event;
-use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
+use Google\Client;
+use Google\Service\Calendar;
+use Psr\Log\LoggerInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
 class GoogleCalendarService
 {
-    private $client;
-    private $redirectUri;
-    private $requestStack;
+    private Client $client;
+    private string $tokenPath;
+    private ?LoggerInterface $logger;
+    private ?SessionInterface $session;
 
     public function __construct(
-        ParameterBagInterface $params, 
-        RequestStack $requestStack
+        string $clientId,
+        string $clientSecret,
+        string $redirectUri,
+        LoggerInterface $logger = null,
+        RequestStack $requestStack = null
     ) {
-        $this->requestStack = $requestStack;
+        $this->client = new Client();
+        $this->client->setClientId($clientId);
+        $this->client->setClientSecret($clientSecret);
+        $this->client->setRedirectUri($redirectUri);
+        $this->client->addScope(Calendar::CALENDAR);
+        $this->client->addScope(Calendar::CALENDAR_EVENTS);
         
-        // Initialisation du client Google
-        $this->client = new Google_Client();
-        $this->client->setAuthConfig($params->get('credentials.json'));
-        $this->client->addScope(Google_Service_Calendar::CALENDAR);
+        // Configuration crucial pour recevoir un refresh token
         $this->client->setAccessType('offline');
-        $this->client->setPrompt('consent'); // Force à demander un refresh token
+        $this->client->setApprovalPrompt('force');  // Force l'affichage du consentement pour obtenir un refresh token
+        $this->client->setIncludeGrantedScopes(true);
         
-        // Set the redirect URI
-        $this->redirectUri = $requestStack->getCurrentRequest() 
-            ? $requestStack->getCurrentRequest()->getSchemeAndHttpHost() . '/google/callback'
-            : 'http://localhost/google/callback'; // Fallback
+        $this->tokenPath = __DIR__.'/../../var/google_token.json';
+        $this->logger = $logger;
+        $this->session = $requestStack?->getSession();
         
-        $this->client->setRedirectUri($this->redirectUri);
+        // Charge le token existant s'il existe
+        $this->loadExistingToken();
+    }
+
+    /**
+     * Charge un token existant depuis le fichier de stockage ou la session
+     */
+    private function loadExistingToken(): void
+    {
+        // Essayer de charger depuis le fichier
+        if (file_exists($this->tokenPath)) {
+            $accessToken = json_decode(file_get_contents($this->tokenPath), true);
+            if ($accessToken) {
+                $this->client->setAccessToken($accessToken);
+                return;
+            }
+        }
         
-        // Charger le token s'il existe
-        $session = $this->getSession();
-        if ($session && $session->has('google_token')) {
-            $this->client->setAccessToken($session->get('google_token'));
-            
-            // Refresh token if it's expired
-            if ($this->client->isAccessTokenExpired()) {
-                if ($this->client->getRefreshToken()) {
-                    $this->client->fetchAccessTokenWithRefreshToken($this->client->getRefreshToken());
-                    $session->set('google_token', $this->client->getAccessToken());
-                } else {
-                    // Clear the invalid token
-                    $session->remove('google_token');
-                }
+        // Sinon, essayer de charger depuis la session
+        if ($this->session && $this->session->has('google_token')) {
+            $accessToken = $this->session->get('google_token');
+            if ($accessToken) {
+                $this->client->setAccessToken($accessToken);
             }
         }
     }
 
-    private function getSession()
+    /**
+     * Enregistre le token à la fois dans le fichier et dans la session
+     */
+    private function saveToken(array $accessToken): void
     {
-        $request = $this->requestStack->getCurrentRequest();
-        return $request ? $request->getSession() : null;
+        // Sauvegarder dans le fichier
+        try {
+            $tokenDir = dirname($this->tokenPath);
+            if (!is_dir($tokenDir)) {
+                mkdir($tokenDir, 0777, true);
+            }
+            file_put_contents($this->tokenPath, json_encode($accessToken));
+        } catch (\Exception $e) {
+            if ($this->logger) {
+                $this->logger->error('Failed to save token to file: ' . $e->getMessage());
+            }
+        }
+        
+        // Sauvegarder dans la session
+        if ($this->session) {
+            $this->session->set('google_token', $accessToken);
+        }
     }
 
-    public function getClient()
-    {
-        return $this->client;
-    }
-    
-    public function getAuthUrl()
+    /**
+     * Génère l'URL d'authentification
+     */
+    public function getAuthUrl(): string
     {
         return $this->client->createAuthUrl();
     }
-    
-    public function handleCallback($code)
+
+    /**
+     * Échange le code d'autorisation contre un token d'accès
+     */
+    public function setAccessToken(string $code): void
     {
         try {
-            $token = $this->client->fetchAccessTokenWithAuthCode($code);
+            $accessToken = $this->client->fetchAccessTokenWithAuthCode($code);
             
-            // Vérifier s'il y a des erreurs
-            if (isset($token['error'])) {
-                throw new \Exception('Error getting token: ' . $token['error_description']);
+            if (isset($accessToken['error'])) {
+                throw new \RuntimeException('Error fetching access token: ' . $accessToken['error_description'] ?? $accessToken['error']);
             }
             
-            $this->client->setAccessToken($token);
+            $this->client->setAccessToken($accessToken);
+            $this->saveToken($accessToken);
             
-            // Stocker le token dans la session
-            $session = $this->getSession();
-            if ($session) {
-                $session->set('google_token', $token);
+            // Vérifier qu'un refresh token a bien été obtenu
+            if (!isset($accessToken['refresh_token'])) {
+                if ($this->logger) {
+                    $this->logger->warning('No refresh token was obtained. User may need to revoke access and reconnect.');
+                }
             }
-            
-            return $token;
         } catch (\Exception $e) {
-            throw new \Exception('Failed to get access token: ' . $e->getMessage());
-        }
-    }
-    
-    public function isAuthenticated(): bool
-    {
-        return $this->client->getAccessToken() !== null && !$this->client->isAccessTokenExpired();
-    }
-    
-    public function logout()
-    {
-        $session = $this->getSession();
-        if ($session) {
-            $session->remove('google_token');
+            if ($this->logger) {
+                $this->logger->error('Error setting access token: ' . $e->getMessage());
+            }
+            throw new \RuntimeException('Failed to authenticate with Google: ' . $e->getMessage());
         }
     }
 
-    public function createEvent($calendarId, $eventData)
+    /**
+     * Vérifie si le token d'accès est expiré
+     */
+    public function isAccessTokenExpired(): bool
     {
-        if (!$this->isAuthenticated()) {
-            throw new \Exception('Not authenticated with Google Calendar');
-        }
-        
-        $service = new Google_Service_Calendar($this->client);
-        $event = new Google_Service_Calendar_Event($eventData);
-        return $service->events->insert($calendarId, $event);
+        return $this->client->isAccessTokenExpired();
     }
 
-    public function listEvents($calendarId)
+    /**
+     * Raffraîchit le token si nécessaire
+     * @throws \RuntimeException si aucun refresh token n'est disponible
+     */
+    public function refreshToken(): void
     {
-        if (!$this->isAuthenticated()) {
-            throw new \Exception('Not authenticated with Google Calendar');
+        $refreshToken = $this->client->getRefreshToken();
+        
+        if (!$refreshToken) {
+            // Essayer de récupérer le refresh token depuis le stockage
+            if (file_exists($this->tokenPath)) {
+                $storedToken = json_decode(file_get_contents($this->tokenPath), true);
+                if (isset($storedToken['refresh_token'])) {
+                    $refreshToken = $storedToken['refresh_token'];
+                    $this->client->setRefreshToken($refreshToken);
+                }
+            }
         }
         
-        $service = new Google_Service_Calendar($this->client);
-        $events = $service->events->listEvents($calendarId);
-        return $events->getItems();
+        if (!$refreshToken) {
+            throw new \RuntimeException('No refresh token available. Please reconnect to Google Calendar.');
+        }
+        
+        try {
+            $accessToken = $this->client->fetchAccessTokenWithRefreshToken($refreshToken);
+            
+            if (isset($accessToken['error'])) {
+                throw new \RuntimeException('Error refreshing token: ' . $accessToken['error_description'] ?? $accessToken['error']);
+            }
+            
+            // Conserver le refresh token car Google ne le renvoie pas à chaque fois
+            if (!isset($accessToken['refresh_token']) && $refreshToken) {
+                $accessToken['refresh_token'] = $refreshToken;
+            }
+            
+            $this->client->setAccessToken($accessToken);
+            $this->saveToken($accessToken);
+        } catch (\Exception $e) {
+            if ($this->logger) {
+                $this->logger->error('Error refreshing token: ' . $e->getMessage());
+            }
+            throw new \RuntimeException('Failed to refresh Google authentication: ' . $e->getMessage());
+        }
+    }
+
+    /**
+     * S'assure que le token est valide avant d'appeler l'API
+     * @throws \RuntimeException si l'authentification est requise
+     */
+    public function ensureValidToken(): void
+    {
+        if ($this->isAccessTokenExpired()) {
+            try {
+                $this->refreshToken();
+            } catch (\RuntimeException $e) {
+                // Journaliser l'erreur
+                if ($this->logger) {
+                    $this->logger->error('Token validation failed: ' . $e->getMessage());
+                }
+                throw new \RuntimeException('Authentication required: ' . $e->getMessage());
+            }
+        }
+    }
+
+    /**
+     * Retourne une instance du service Calendar
+     */
+    public function getCalendarService(): Calendar
+    {
+        $this->ensureValidToken();
+        return new Calendar($this->client);
+    }
+
+    /**
+     * Récupère les événements d'un calendrier
+     */
+    public function getEvents(string $calendarId = 'primary', array $params = []): array
+    {
+        try {
+            $service = $this->getCalendarService();
+            return $service->events->listEvents($calendarId, $params)->getItems();
+        } catch (\Exception $e) {
+            if ($this->logger) {
+                $this->logger->error('Error fetching calendar events: ' . $e->getMessage());
+            }
+            throw $e;
+        }
+    }
+
+    /**
+     * Crée un nouvel événement dans le calendrier
+     */
+    public function createEvent(array $eventData, string $calendarId = 'primary'): object
+    {
+        try {
+            $service = $this->getCalendarService();
+            $event = new \Google\Service\Calendar\Event($eventData);
+            return $service->events->insert($calendarId, $event);
+        } catch (\Exception $e) {
+            if ($this->logger) {
+                $this->logger->error('Error creating calendar event: ' . $e->getMessage());
+            }
+            throw $e;
+        }
+    }
+
+    /**
+     * Met à jour un événement existant
+     */
+    public function updateEvent(string $eventId, array $eventData, string $calendarId = 'primary'): object
+    {
+        try {
+            $service = $this->getCalendarService();
+            $event = $service->events->get($calendarId, $eventId);
+            
+            foreach ($eventData as $key => $value) {
+                $setter = 'set' . ucfirst($key);
+                if (method_exists($event, $setter)) {
+                    $event->$setter($value);
+                }
+            }
+            
+            return $service->events->update($calendarId, $eventId, $event);
+        } catch (\Exception $e) {
+            if ($this->logger) {
+                $this->logger->error('Error updating calendar event: ' . $e->getMessage());
+            }
+            throw $e;
+        }
+    }
+
+    /**
+     * Supprime un événement
+     */
+    public function deleteEvent(string $eventId, string $calendarId = 'primary'): void
+    {
+        try {
+            $service = $this->getCalendarService();
+            $service->events->delete($calendarId, $eventId);
+        } catch (\Exception $e) {
+            if ($this->logger) {
+                $this->logger->error('Error deleting calendar event: ' . $e->getMessage());
+            }
+            throw $e;
+        }
+    }
+    
+    /**
+     * Révoque l'accès et supprime les tokens
+     */
+    public function revokeAccess(): void
+    {
+        try {
+            if ($this->client->getAccessToken()) {
+                $this->client->revokeToken();
+            }
+            
+            // Supprimer le fichier de token
+            if (file_exists($this->tokenPath)) {
+                unlink($this->tokenPath);
+            }
+            
+            // Supprimer le token de la session
+            if ($this->session && $this->session->has('google_token')) {
+                $this->session->remove('google_token');
+            }
+        } catch (\Exception $e) {
+            if ($this->logger) {
+                $this->logger->error('Error revoking access: ' . $e->getMessage());
+            }
+        }
     }
 }

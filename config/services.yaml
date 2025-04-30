@@ -2,9 +2,9 @@ parameters:
     evenements_images_directory: '%kernel.project_dir%/public/uploads/evenements'
     weather_api_key: '49cbb2f803b8ac2d87727c5ab2039b71'
     google_credentials_file: '%kernel.project_dir%/config/google/credentials.json'
-    # Ajouter cette ligne pour résoudre le problème
     credentials.json: '%kernel.project_dir%/config/google/credentials.json'
     sponsor_logo_directory: '%kernel.project_dir%/public/uploads/sponsors'
+
 
 services:
     _defaults:
@@ -16,15 +16,13 @@ services:
             $googleClientId: '%env(GOOGLE_CLIENT_ID)%'
             $googleClientSecret: '%env(GOOGLE_CLIENT_SECRET)%'
             $googleRedirectUri: '%env(GOOGLE_REDIRECT_URI)%'
-            # Ajouter cette ligne pour injecter le fichier de credentials
             $credentialsFile: '%google_credentials_file%'
+            # Add these bindings for GoogleCalendarService
+            $clientId: '%env(GOOGLE_CALENDAR_CLIENT_ID)%'
+            $clientSecret: '%env(GOOGLE_CALENDAR_CLIENT_SECRET)%'
+            $redirectUri: '%env(GOOGLE_CALENDAR_REDIRECT_URI)%'
 
-    App\Service\GoogleCalendarService:
-        arguments:
-            $parameterBag: '@parameter_bag'
-
-
-             # Déclaration du service de notification
+    # Déclaration du service de notification
     App\Service\EventNotificationService:
         arguments:
             $notifier: '@notifier'
@@ -46,7 +44,6 @@ services:
     App\Service\WeatherService:
         arguments:
             $client: '@http_client'
-
             
     # Configuration du service QR Code pour les sponsors
     App\Service\SponsorQrCodeService:

@@ -1,28 +1,27 @@
 {% extends 'base.html.twig' %}
 
-{% block body %}
-    <h1>Mes événements Google Calendar</h1>
+{% block title %}Google Calendar{% endblock %}
 
-    {% if events is empty %}
-        <p>Aucun événement à afficher.</p>
-    {% else %}
-        <table>
-            <thead>
-                <tr>
-                    <th>Résumé</th>
-                    <th>Date de début</th>
-                    <th>Date de fin</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for event in events %}
-                    <tr>
-                        <td>{{ event.summary }}</td>
-                        <td>{{ event.start.dateTime ? event.start.dateTime : event.start.date }}</td>
-                        <td>{{ event.end.dateTime ? event.end.dateTime : event.end.date }}</td>
-                    </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-    {% endif %}
+{% block body %}
+<div class="container mt-4">
+    <h1>Google Calendar</h1>
+    
+    <div class="alert alert-success">
+        You've successfully connected to your Google Calendar!
+    </div>
+    
+    <div class="card">
+        <div class="card-header">
+            Your Calendar Events
+        </div>
+        <div class="card-body">
+            {# Here you would display events fetched from Google Calendar #}
+            <p>Your events will be displayed here.</p>
+        </div>
+    </div>
+    
+    <a href="{{ path('google_connect') }}" class="btn btn-primary mt-3">
+        Reconnect to Google Calendar
+    </a>
+</div>
 {% endblock %}
