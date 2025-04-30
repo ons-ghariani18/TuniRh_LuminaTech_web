@@ -21,7 +21,11 @@
                             {% if error %}
                                 <div class="alert alert-danger alert-dismissible fade show" role="alert">
 <<<<<<< HEAD
+<<<<<<< HEAD
                                     {{ error.messageKey|trans(error.messageData, 'security')|raw }}
+=======
+                                    {{ error.messageKey|trans(error.messageData, 'security') }}
+>>>>>>> origin/gestionOffre
 =======
                                     {{ error.messageKey|trans(error.messageData, 'security') }}
 >>>>>>> origin/gestionOffre
@@ -30,6 +34,7 @@
                             {% endif %}
 
 <<<<<<< HEAD
+<<<<<<< HEAD
                             {% for message in app.flashes('error') %}
                                 <div class="alert alert-danger alert-dismissible fade show" role="alert">
                                     {{ message|raw }}
@@ -37,6 +42,8 @@
                                 </div>
                             {% endfor %}
 
+=======
+>>>>>>> origin/gestionOffre
 =======
 >>>>>>> origin/gestionOffre
                             <form method="post" action="{{ path('app_login') }}" class="form-login">
@@ -74,12 +81,15 @@
                                 {{ form_end(form) }}
 
 <<<<<<< HEAD
+<<<<<<< HEAD
                                 <div class="d-grid mb-4">
                                     <a href="{{ path('connect_google') }}" class="btn btn-google btn-lg wow zoomIn" data-wow-delay="0.5s">
                                         <i class="mdi mdi-google me-2"></i>Connexion avec Google
                                     </a>
                                 </div>
 
+=======
+>>>>>>> origin/gestionOffre
 =======
 >>>>>>> origin/gestionOffre
                                 <p class="text-center mt-3">
@@ -109,8 +119,11 @@
             --border-color: #E5E7EB;
             --danger-color: #dc3545;
 <<<<<<< HEAD
+<<<<<<< HEAD
             --google-blue: #4285F4;
             --google-blue-hover: #357ABD;
+=======
+>>>>>>> origin/gestionOffre
 =======
 >>>>>>> origin/gestionOffre
         }
@@ -215,6 +228,7 @@
         }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
         .btn-google {
             background: var(--google-blue);
             color: var(--text-light);
@@ -235,6 +249,8 @@
             box-shadow: 0 6px 15px rgba(66, 133, 244, 0.5);
         }
 
+=======
+>>>>>>> origin/gestionOffre
 =======
 >>>>>>> origin/gestionOffre
         .text-orange {
@@ -267,6 +283,7 @@
 
         document.addEventListener('DOMContentLoaded', () => {
 <<<<<<< HEAD
+<<<<<<< HEAD
             // Animation de clic pour les boutons
             const buttons = document.querySelectorAll('.btn-primary, .btn-google');
             buttons.forEach(button => {
@@ -281,6 +298,8 @@
 
             // Validation du formulaire
 =======
+=======
+>>>>>>> origin/gestionOffre
             // Animation de clic sur le bouton de connexion
             const loginButton = document.querySelector('.btn-primary');
             loginButton.addEventListener('click', function(e) {
@@ -292,6 +311,9 @@
             });
 
             // Form validation
+<<<<<<< HEAD
+>>>>>>> origin/gestionOffre
+=======
 >>>>>>> origin/gestionOffre
             const form = document.querySelector('form');
             if (form) {
@@ -303,7 +325,11 @@
                             isValid = false;
                             input.classList.add('is-invalid');
 <<<<<<< HEAD
+<<<<<<< HEAD
                             const feedback = input.nextElementSibling.nextElementSibling;
+=======
+                            const feedback = input.nextElementSibling;
+>>>>>>> origin/gestionOffre
 =======
                             const feedback = input.nextElementSibling;
 >>>>>>> origin/gestionOffre
@@ -322,7 +348,11 @@
                 });
 
 <<<<<<< HEAD
+<<<<<<< HEAD
                 // Validation en temps réel
+=======
+                // Real-time validation
+>>>>>>> origin/gestionOffre
 =======
                 // Real-time validation
 >>>>>>> origin/gestionOffre

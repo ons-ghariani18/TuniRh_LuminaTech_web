@@ -4,9 +4,12 @@ namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 <<<<<<< HEAD
+<<<<<<< HEAD
 use App\Entity\Sponsor;
 =======
 <<<<<<< HEAD
+=======
+>>>>>>> origin/gestionOffre
 
 use App\Entity\Sponsor;
 use Doctrine\Common\Collections\Collection;
@@ -14,14 +17,20 @@ use App\Entity\Participation;
 =======
 use App\Entity\Sponsor;
 >>>>>>> origin/gestionOffre
+<<<<<<< HEAD
+>>>>>>> origin/gestionOffre
+=======
 >>>>>>> origin/gestionOffre
 
 #[ORM\Entity]
 class Evenement
 {
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 <<<<<<< HEAD
+=======
+>>>>>>> origin/gestionOffre
 
     #[ORM\Id]
     #[ORM\Column(type: "integer")]
@@ -30,6 +39,9 @@ class Evenement
         #[ORM\ManyToOne(targetEntity: Sponsor::class, inversedBy: "evenements")]
     #[ORM\JoinColumn(name: 'id_sp', referencedColumnName: 'id_sp', onDelete: 'CASCADE')]
     private Sponsor $id_sp;
+=======
+<<<<<<< HEAD
+>>>>>>> origin/gestionOffre
 =======
 >>>>>>> origin/gestionOffre
     #[ORM\Id]
@@ -41,6 +53,9 @@ class Evenement
     #[ORM\JoinColumn(name: "id_sp", referencedColumnName: "id_sp", onDelete: "CASCADE")]
     private ?Sponsor $sponsor = null;
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> origin/gestionOffre
 =======
 >>>>>>> origin/gestionOffre
 >>>>>>> origin/gestionOffre
@@ -70,8 +85,11 @@ class Evenement
     private string $google_calendar_event_id;
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 <<<<<<< HEAD
+=======
+>>>>>>> origin/gestionOffre
     public function getId_ev()
     {
         return $this->id_ev;
@@ -93,6 +111,9 @@ class Evenement
     }
 
     public function getNom()
+=======
+<<<<<<< HEAD
+>>>>>>> origin/gestionOffre
 =======
 >>>>>>> origin/gestionOffre
     public function getIdEv(): ?int
@@ -119,6 +140,9 @@ class Evenement
 
     public function getNom(): string
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> origin/gestionOffre
 =======
 >>>>>>> origin/gestionOffre
 >>>>>>> origin/gestionOffre
@@ -127,14 +151,20 @@ class Evenement
     }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 <<<<<<< HEAD
+=======
+>>>>>>> origin/gestionOffre
     public function setNom($value)
     {
         $this->nom = $value;
     }
 
     public function getType()
+=======
+<<<<<<< HEAD
+>>>>>>> origin/gestionOffre
 =======
 >>>>>>> origin/gestionOffre
     public function setNom(string $nom): self
@@ -145,6 +175,9 @@ class Evenement
 
     public function getType(): string
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> origin/gestionOffre
 =======
 >>>>>>> origin/gestionOffre
 >>>>>>> origin/gestionOffre
@@ -153,14 +186,20 @@ class Evenement
     }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 <<<<<<< HEAD
+=======
+>>>>>>> origin/gestionOffre
     public function setType($value)
     {
         $this->type = $value;
     }
 
     public function getDate_debut()
+=======
+<<<<<<< HEAD
+>>>>>>> origin/gestionOffre
 =======
 >>>>>>> origin/gestionOffre
     public function setType(string $type): self
@@ -171,6 +210,9 @@ class Evenement
 
     public function getDateDebut(): \DateTimeInterface
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> origin/gestionOffre
 =======
 >>>>>>> origin/gestionOffre
 >>>>>>> origin/gestionOffre
@@ -179,14 +221,20 @@ class Evenement
     }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 <<<<<<< HEAD
+=======
+>>>>>>> origin/gestionOffre
     public function setDate_debut($value)
     {
         $this->date_debut = $value;
     }
 
     public function getDate_fin()
+=======
+<<<<<<< HEAD
+>>>>>>> origin/gestionOffre
 =======
 >>>>>>> origin/gestionOffre
     public function setDateDebut(\DateTimeInterface $dateDebut): self
@@ -197,6 +245,9 @@ class Evenement
 
     public function getDateFin(): \DateTimeInterface
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> origin/gestionOffre
 =======
 >>>>>>> origin/gestionOffre
 >>>>>>> origin/gestionOffre
@@ -205,14 +256,20 @@ class Evenement
     }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 <<<<<<< HEAD
+=======
+>>>>>>> origin/gestionOffre
     public function setDate_fin($value)
     {
         $this->date_fin = $value;
     }
 
     public function getLieu()
+=======
+<<<<<<< HEAD
+>>>>>>> origin/gestionOffre
 =======
 >>>>>>> origin/gestionOffre
     public function setDateFin(\DateTimeInterface $dateFin): self
@@ -223,6 +280,9 @@ class Evenement
 
     public function getLieu(): string
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> origin/gestionOffre
 =======
 >>>>>>> origin/gestionOffre
 >>>>>>> origin/gestionOffre
@@ -231,14 +291,20 @@ class Evenement
     }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 <<<<<<< HEAD
+=======
+>>>>>>> origin/gestionOffre
     public function setLieu($value)
     {
         $this->lieu = $value;
     }
 
     public function getBudget()
+=======
+<<<<<<< HEAD
+>>>>>>> origin/gestionOffre
 =======
 >>>>>>> origin/gestionOffre
     public function setLieu(string $lieu): self
@@ -249,6 +315,9 @@ class Evenement
 
     public function getBudget(): float
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> origin/gestionOffre
 =======
 >>>>>>> origin/gestionOffre
 >>>>>>> origin/gestionOffre
@@ -257,14 +326,20 @@ class Evenement
     }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 <<<<<<< HEAD
+=======
+>>>>>>> origin/gestionOffre
     public function setBudget($value)
     {
         $this->budget = $value;
     }
 
     public function getDescription()
+=======
+<<<<<<< HEAD
+>>>>>>> origin/gestionOffre
 =======
 >>>>>>> origin/gestionOffre
     public function setBudget(float $budget): self
@@ -275,6 +350,9 @@ class Evenement
 
     public function getDescription(): string
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> origin/gestionOffre
 =======
 >>>>>>> origin/gestionOffre
 >>>>>>> origin/gestionOffre
@@ -283,14 +361,20 @@ class Evenement
     }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 <<<<<<< HEAD
+=======
+>>>>>>> origin/gestionOffre
     public function setDescription($value)
     {
         $this->description = $value;
     }
 
     public function getGoogle_calendar_event_id()
+=======
+<<<<<<< HEAD
+>>>>>>> origin/gestionOffre
 =======
 >>>>>>> origin/gestionOffre
     public function setDescription(string $description): self
@@ -301,6 +385,9 @@ class Evenement
 
     public function getGoogleCalendarEventId(): string
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> origin/gestionOffre
 =======
 >>>>>>> origin/gestionOffre
 >>>>>>> origin/gestionOffre
@@ -309,8 +396,11 @@ class Evenement
     }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 <<<<<<< HEAD
+=======
+>>>>>>> origin/gestionOffre
     public function setGoogle_calendar_event_id($value)
     {
         $this->google_calendar_event_id = $value;
@@ -346,6 +436,9 @@ class Evenement
             return $this;
         }
 =======
+<<<<<<< HEAD
+>>>>>>> origin/gestionOffre
+=======
 >>>>>>> origin/gestionOffre
     public function setGoogleCalendarEventId(string $googleCalendarEventId): self
     {
@@ -353,6 +446,9 @@ class Evenement
         return $this;
     }
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> origin/gestionOffre
 =======
 >>>>>>> origin/gestionOffre
 >>>>>>> origin/gestionOffre

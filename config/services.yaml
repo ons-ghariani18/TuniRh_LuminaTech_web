@@ -1,6 +1,9 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 <<<<<<< HEAD
+=======
+>>>>>>> origin/gestionOffre
 # This file is the entry point to configure your own services.
 # Files in the packages/ subdirectory configure your dependencies.
 
@@ -17,6 +20,9 @@ services:
     # makes classes in src/ available to be used as services
     # this creates a service per class whose id is the fully-qualified class name
 =======
+<<<<<<< HEAD
+>>>>>>> origin/gestionOffre
+=======
 >>>>>>> origin/gestionOffre
 parameters:
     cv_directory: '%kernel.project_dir%/public/uploads/cv'
@@ -29,6 +35,9 @@ services:
         autoconfigure: true
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> origin/gestionOffre
 =======
 >>>>>>> origin/gestionOffre
 >>>>>>> origin/gestionOffre
@@ -40,8 +49,14 @@ services:
             - '../src/Kernel.php'
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 <<<<<<< HEAD
+    # add more service definitions when explicit configuration is needed
+    # please note that last definitions always *replace* previous ones
+=======
+>>>>>>> origin/gestionOffre
+=======
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
 =======
@@ -60,7 +75,12 @@ services:
             $logger: '@Psr\Log\LoggerInterface'
 
 <<<<<<< HEAD
+<<<<<<< HEAD
     Smalot\PdfParser\Parser: ~
+=======
+    Smalot\PdfParser\Parser: ~
+>>>>>>> origin/gestionOffre
+>>>>>>> origin/gestionOffre
 =======
     Smalot\PdfParser\Parser: ~
 >>>>>>> origin/gestionOffre

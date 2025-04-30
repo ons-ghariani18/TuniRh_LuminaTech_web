@@ -4,7 +4,10 @@ namespace App\Controller;
 
 use App\Service\HuggingFaceService;
 <<<<<<< HEAD
+<<<<<<< HEAD
 use Psr\Log\LoggerInterface;
+=======
+>>>>>>> origin/gestionOffre
 =======
 >>>>>>> origin/gestionOffre
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -12,6 +15,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+<<<<<<< HEAD
 <<<<<<< HEAD
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
@@ -31,6 +35,11 @@ class ChatbotController extends AbstractController
 class ChatbotController extends AbstractController
 {
 >>>>>>> origin/gestionOffre
+=======
+
+class ChatbotController extends AbstractController
+{
+>>>>>>> origin/gestionOffre
     #[Route('/chatbot', name: 'chatbot')]
     public function index(): Response
     {
@@ -42,6 +51,7 @@ class ChatbotController extends AbstractController
     {
         $message = $request->request->get('message');
         if (!$message) {
+<<<<<<< HEAD
 <<<<<<< HEAD
             $this->logger->error('Chatbot: Message is required');
             return new JsonResponse(['error' => 'Message is required'], 400);
@@ -56,6 +66,8 @@ class ChatbotController extends AbstractController
         $predefinedResponses = [
             'comment postuler|postuler a une offre' => "Bonjour,  
 =======
+=======
+>>>>>>> origin/gestionOffre
             return new JsonResponse(['error' => 'Message is required'], 400);
         }
 
@@ -65,12 +77,16 @@ class ChatbotController extends AbstractController
         // Réponses prédéfinies pour les questions fréquentes
         if (str_contains($normalizedMessage, 'comment postuler') || str_contains($normalizedMessage, 'postuler a une offre')) {
             $response = "Bonjour,  
+<<<<<<< HEAD
+>>>>>>> origin/gestionOffre
+=======
 >>>>>>> origin/gestionOffre
 Voici les étapes pour postuler sur TuniRh :  
 - Créez un compte et confirmez votre email.  
 - Connectez-vous, puis recherchez une offre.  
 - Cliquez sur \"Postuler\", téléchargez CV et lettre de motivation.  
 - Remplissez le formulaire et envoyez votre candidature.  
+<<<<<<< HEAD
 <<<<<<< HEAD
 Bonne chance !",
 
@@ -85,21 +101,32 @@ Utilisez les filtres pour trouver celles qui vous correspondent !",
 
             'types de contrats|quels contrats' => "Bonjour,  
 =======
+=======
+>>>>>>> origin/gestionOffre
 Bonne chance !";
         } elseif (str_contains($normalizedMessage, 'qualifications') || str_contains($normalizedMessage, 'suis qualifie') || str_contains($normalizedMessage, 'suis-je qualifie')) {
             $response = "Bonjour,  
 Pour vérifier si vous êtes qualifié, comparez vos compétences aux exigences de l’offre. Par exemple, un poste de commercial nécessite une expérience en vente et des compétences relationnelles. Si vous correspondez, postulez directement sur notre site. Besoin d’aide pour une offre spécifique ?";
         } elseif (str_contains($normalizedMessage, 'types de contrats') || str_contains($normalizedMessage, 'quels contrats')) {
             $response = "Bonjour,  
+<<<<<<< HEAD
+>>>>>>> origin/gestionOffre
+=======
 >>>>>>> origin/gestionOffre
 Sur TuniRh, vous pouvez trouver différents types de contrats :  
 - CDI (Contrat à Durée Indéterminée)  
 - CDD (Contrat à Durée Déterminée)  
 - Stages et alternances  
 <<<<<<< HEAD
+<<<<<<< HEAD
 Utilisez les filtres de recherche pour explorer les offres adaptées !",
 
             'mettre a jour|modifier mon cv|modifier mon profil' => "Bonjour,  
+=======
+Utilisez les filtres de recherche pour explorer les offres adaptées !";
+        } elseif (str_contains($normalizedMessage, 'mettre a jour') || str_contains($normalizedMessage, 'modifier mon cv') || str_contains($normalizedMessage, 'modifier mon profil')) {
+            $response = "Bonjour,  
+>>>>>>> origin/gestionOffre
 =======
 Utilisez les filtres de recherche pour explorer les offres adaptées !";
         } elseif (str_contains($normalizedMessage, 'mettre a jour') || str_contains($normalizedMessage, 'modifier mon cv') || str_contains($normalizedMessage, 'modifier mon profil')) {
@@ -111,9 +138,15 @@ Pour mettre à jour votre CV ou profil :
 - Modifiez vos informations ou téléchargez un nouveau CV.  
 - Enregistrez les changements.  
 <<<<<<< HEAD
+<<<<<<< HEAD
 Cela augmentera vos chances d’être repéré !",
 
             'suivre ma candidature|etat de ma candidature' => "Bonjour,  
+=======
+Cela augmentera vos chances d’être repéré !";
+        } elseif (str_contains($normalizedMessage, 'suivre ma candidature') || str_contains($normalizedMessage, 'etat de ma candidature')) {
+            $response = "Bonjour,  
+>>>>>>> origin/gestionOffre
 =======
 Cela augmentera vos chances d’être repéré !";
         } elseif (str_contains($normalizedMessage, 'suivre ma candidature') || str_contains($normalizedMessage, 'etat de ma candidature')) {
@@ -124,9 +157,15 @@ Pour suivre l’état de votre candidature :
 - Allez dans \"Mes Candidatures\".  
 - Consultez le statut de chaque candidature (en attente, en cours, etc.).  
 <<<<<<< HEAD
+<<<<<<< HEAD
 Si besoin, contactez le recruteur via la messagerie.",
 
             'secteurs|domaines' => "Bonjour,  
+=======
+Si besoin, contactez le recruteur via la messagerie.";
+        } elseif (str_contains($normalizedMessage, 'secteurs') || str_contains($normalizedMessage, 'domaines')) {
+            $response = "Bonjour,  
+>>>>>>> origin/gestionOffre
 =======
 Si besoin, contactez le recruteur via la messagerie.";
         } elseif (str_contains($normalizedMessage, 'secteurs') || str_contains($normalizedMessage, 'domaines')) {
@@ -138,9 +177,15 @@ TuniRh couvre plusieurs secteurs :
 - Santé et éducation  
 - Hôtellerie et restauration  
 <<<<<<< HEAD
+<<<<<<< HEAD
 Explorez les offres avec les filtres pour trouver votre domaine !",
 
             'contacter un recruteur|parler a un recruteur' => "Bonjour,  
+=======
+Explorez les offres avec les filtres pour trouver votre domaine !";
+        } elseif (str_contains($normalizedMessage, 'contacter un recruteur') || str_contains($normalizedMessage, 'parler a un recruteur')) {
+            $response = "Bonjour,  
+>>>>>>> origin/gestionOffre
 =======
 Explorez les offres avec les filtres pour trouver votre domaine !";
         } elseif (str_contains($normalizedMessage, 'contacter un recruteur') || str_contains($normalizedMessage, 'parler a un recruteur')) {
@@ -151,6 +196,7 @@ Pour contacter un recruteur :
 - Cliquez sur une candidature.  
 - Utilisez la messagerie pour envoyer un message au recruteur.  
 <<<<<<< HEAD
+<<<<<<< HEAD
 Soyez clair et professionnel dans votre message !",
 
             'frais|cout|payant' => "Bonjour,  
@@ -158,12 +204,17 @@ Non, l’utilisation de TuniRh est gratuite pour les candidats ! Vous pouvez cr�
 
             'alertes|notifications|nouvelle offre' => "Bonjour,  
 =======
+=======
+>>>>>>> origin/gestionOffre
 Soyez clair et professionnel dans votre message !";
         } elseif (str_contains($normalizedMessage, 'frais') || str_contains($normalizedMessage, 'cout') || str_contains($normalizedMessage, 'payant')) {
             $response = "Bonjour,  
 Non, l’utilisation de TuniRh est gratuite pour les candidats ! Vous pouvez créer un compte, postuler et gérer vos candidatures sans frais. Profitez-en pour trouver l’emploi de vos rêves !";
         } elseif (str_contains($normalizedMessage, 'alertes') || str_contains($normalizedMessage, 'notifications') || str_contains($normalizedMessage, 'nouvelle offre')) {
             $response = "Bonjour,  
+<<<<<<< HEAD
+>>>>>>> origin/gestionOffre
+=======
 >>>>>>> origin/gestionOffre
 Pour recevoir des alertes :  
 - Connectez-vous à votre compte.  
@@ -171,9 +222,15 @@ Pour recevoir des alertes :
 - Configurez vos préférences (secteur, type de contrat, etc.).  
 - Activez les notifications par email.  
 <<<<<<< HEAD
+<<<<<<< HEAD
 Vous serez informé des nouvelles offres !",
 
             'mot de passe|oublie mon mot de passe' => "Bonjour,  
+=======
+Vous serez informé des nouvelles offres !";
+        } elseif (str_contains($normalizedMessage, 'mot de passe') || str_contains($normalizedMessage, 'oublie mon mot de passe')) {
+            $response = "Bonjour,  
+>>>>>>> origin/gestionOffre
 =======
 Vous serez informé des nouvelles offres !";
         } elseif (str_contains($normalizedMessage, 'mot de passe') || str_contains($normalizedMessage, 'oublie mon mot de passe')) {
@@ -184,9 +241,15 @@ Si vous avez oublié votre mot de passe :
 - Entrez votre email et suivez les instructions.  
 - Vous recevrez un lien pour réinitialiser votre mot de passe.  
 <<<<<<< HEAD
+<<<<<<< HEAD
 Si besoin, contactez le support !",
 
             'annuler une candidature|retirer ma candidature' => "Bonjour,  
+=======
+Si besoin, contactez le support !";
+        } elseif (str_contains($normalizedMessage, 'annuler une candidature') || str_contains($normalizedMessage, 'retirer ma candidature')) {
+            $response = "Bonjour,  
+>>>>>>> origin/gestionOffre
 =======
 Si besoin, contactez le support !";
         } elseif (str_contains($normalizedMessage, 'annuler une candidature') || str_contains($normalizedMessage, 'retirer ma candidature')) {
@@ -197,9 +260,15 @@ Pour annuler une candidature :
 - Sélectionnez la candidature concernée.  
 - Cliquez sur \"Annuler\" ou \"Retirer\".  
 <<<<<<< HEAD
+<<<<<<< HEAD
 Notez que cette action est définitive. Soyez sûr de votre choix !",
 
             'competences demandees|quelles competences' => "Bonjour,  
+=======
+Notez que cette action est définitive. Soyez sûr de votre choix !";
+        } elseif (str_contains($normalizedMessage, 'competences demandees') || str_contains($normalizedMessage, 'quelles competences')) {
+            $response = "Bonjour,  
+>>>>>>> origin/gestionOffre
 =======
 Notez que cette action est définitive. Soyez sûr de votre choix !";
         } elseif (str_contains($normalizedMessage, 'competences demandees') || str_contains($normalizedMessage, 'quelles competences')) {
@@ -210,9 +279,15 @@ Les compétences les plus demandées sur TuniRh incluent :
 - Maîtrise des outils numériques (informatique, réseaux sociaux)  
 - Gestion de projet et organisation  
 <<<<<<< HEAD
+<<<<<<< HEAD
 Consultez les offres pour voir les exigences spécifiques !",
 
             'postuler a plusieurs offres|plusieurs candidatures' => "Bonjour,  
+=======
+Consultez les offres pour voir les exigences spécifiques !";
+        } elseif (str_contains($normalizedMessage, 'postuler a plusieurs offres') || str_contains($normalizedMessage, 'plusieurs candidatures')) {
+            $response = "Bonjour,  
+>>>>>>> origin/gestionOffre
 =======
 Consultez les offres pour voir les exigences spécifiques !";
         } elseif (str_contains($normalizedMessage, 'postuler a plusieurs offres') || str_contains($normalizedMessage, 'plusieurs candidatures')) {
@@ -222,6 +297,7 @@ Oui, vous pouvez postuler à plusieurs offres !
 - Assurez-vous que chaque candidature est adaptée à l’offre.  
 - Vérifiez que votre CV et lettre de motivation sont pertinents.  
 - Suivez vos candidatures dans \"Mes Candidatures\".  
+<<<<<<< HEAD
 <<<<<<< HEAD
 Bonne chance !",
 
@@ -233,6 +309,8 @@ Si cela prend trop de temps, envoyez un message au recruteur via la messagerie."
 
             'ameliorer mes chances|plus de chances|comment etre selectionne' => "Bonjour,  
 =======
+=======
+>>>>>>> origin/gestionOffre
 Bonne chance !";
         } elseif (str_contains($normalizedMessage, 'combien de temps') || str_contains($normalizedMessage, 'delai reponse') || str_contains($normalizedMessage, 'quand reponse')) {
             $response = "Bonjour,  
@@ -242,12 +320,16 @@ Le délai de réponse varie selon l’employeur. En général :
 Si cela prend trop de temps, envoyez un message au recruteur via la messagerie.";
         } elseif (str_contains($normalizedMessage, 'ameliorer mes chances') || str_contains($normalizedMessage, 'plus de chances') || str_contains($normalizedMessage, 'comment etre selectionne')) {
             $response = "Bonjour,  
+<<<<<<< HEAD
+>>>>>>> origin/gestionOffre
+=======
 >>>>>>> origin/gestionOffre
 Pour améliorer vos chances :  
 - Adaptez votre CV et lettre de motivation à chaque offre.  
 - Mettez en avant vos compétences clés.  
 - Complétez votre profil TuniRh avec des détails pertinents.  
 - Soyez proactif : contactez les recruteurs après avoir postulé.  
+<<<<<<< HEAD
 <<<<<<< HEAD
 Bonne chance !",
 
@@ -287,12 +369,17 @@ Assurez-vous que vos documents sont bien lisibles !",
         $this->logger->info('Chatbot: Generated response', ['response' => $response]);
 
 =======
+=======
+>>>>>>> origin/gestionOffre
 Bonne chance !";
         } else {
             // Si la question n'est pas fréquente, utiliser Hugging Face
             $response = $huggingFaceService->getResponse($message);
         }
 
+<<<<<<< HEAD
+>>>>>>> origin/gestionOffre
+=======
 >>>>>>> origin/gestionOffre
         return new JsonResponse(['response' => $response]);
     }

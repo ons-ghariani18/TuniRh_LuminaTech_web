@@ -3,9 +3,15 @@ framework:
         chatter_transports:
         texter_transports:
 <<<<<<< HEAD
+<<<<<<< HEAD
             sendgrid: '%env(MAILER_DSN)%'
 =======
 <<<<<<< HEAD
+=======
+            sendgrid: '%env(MAILER_DSN)%'
+>>>>>>> origin/gestionOffre
+>>>>>>> origin/gestionOffre
+=======
 =======
             sendgrid: '%env(MAILER_DSN)%'
 >>>>>>> origin/gestionOffre

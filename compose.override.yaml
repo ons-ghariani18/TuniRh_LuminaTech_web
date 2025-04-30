@@ -19,6 +19,9 @@ services:
 <<<<<<< HEAD
 =======
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> origin/gestionOffre
 =======
 >>>>>>> origin/gestionOffre
 
@@ -28,6 +31,9 @@ services:
       - "80"
 ###< symfony/mercure-bundle ###
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> origin/gestionOffre
 =======
 >>>>>>> origin/gestionOffre
 >>>>>>> origin/gestionOffre

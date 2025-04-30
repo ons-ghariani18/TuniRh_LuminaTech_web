@@ -4,24 +4,33 @@ namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 <<<<<<< HEAD
+<<<<<<< HEAD
 use App\Entity\Offresemploi;
 use Symfony\Component\Validator\Constraints as Assert;
 =======
 <<<<<<< HEAD
+=======
+>>>>>>> origin/gestionOffre
 
 use App\Entity\Offresemploi;
 =======
 use App\Entity\Offresemploi;
 use Symfony\Component\Validator\Constraints as Assert;
 >>>>>>> origin/gestionOffre
+<<<<<<< HEAD
+>>>>>>> origin/gestionOffre
+=======
 >>>>>>> origin/gestionOffre
 
 #[ORM\Entity]
 class Candidatures
 {
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 <<<<<<< HEAD
+=======
+>>>>>>> origin/gestionOffre
 
     #[ORM\Id]
     #[ORM\Column(type: "integer")]
@@ -50,6 +59,9 @@ class Candidatures
     private string $statu;
 
     public function getId_candidature()
+=======
+<<<<<<< HEAD
+>>>>>>> origin/gestionOffre
 =======
 >>>>>>> origin/gestionOffre
     #[ORM\GeneratedValue(strategy: "IDENTITY")]
@@ -106,6 +118,9 @@ class Candidatures
     // Getters/Setters
     public function getIdCandidature(): ?int
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> origin/gestionOffre
 =======
 >>>>>>> origin/gestionOffre
 >>>>>>> origin/gestionOffre
@@ -114,8 +129,11 @@ class Candidatures
     }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 <<<<<<< HEAD
+=======
+>>>>>>> origin/gestionOffre
     public function setId_candidature($value)
     {
         $this->id_candidature = $value;
@@ -132,6 +150,9 @@ class Candidatures
     }
 
     public function getNom_candidat()
+=======
+<<<<<<< HEAD
+>>>>>>> origin/gestionOffre
 =======
 >>>>>>> origin/gestionOffre
     public function setIdCandidature(?int $value): self
@@ -153,6 +174,9 @@ class Candidatures
 
     public function getNomCandidat(): ?string
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> origin/gestionOffre
 =======
 >>>>>>> origin/gestionOffre
 >>>>>>> origin/gestionOffre
@@ -161,14 +185,20 @@ class Candidatures
     }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 <<<<<<< HEAD
+=======
+>>>>>>> origin/gestionOffre
     public function setNom_candidat($value)
     {
         $this->nom_candidat = $value;
     }
 
     public function getEmail()
+=======
+<<<<<<< HEAD
+>>>>>>> origin/gestionOffre
 =======
 >>>>>>> origin/gestionOffre
     public function setNomCandidat(?string $value): self
@@ -179,6 +209,9 @@ class Candidatures
 
     public function getEmail(): ?string
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> origin/gestionOffre
 =======
 >>>>>>> origin/gestionOffre
 >>>>>>> origin/gestionOffre
@@ -187,14 +220,20 @@ class Candidatures
     }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 <<<<<<< HEAD
+=======
+>>>>>>> origin/gestionOffre
     public function setEmail($value)
     {
         $this->email = $value;
     }
 
     public function getCv()
+=======
+<<<<<<< HEAD
+>>>>>>> origin/gestionOffre
 =======
 >>>>>>> origin/gestionOffre
     public function setEmail(?string $value): self
@@ -205,6 +244,9 @@ class Candidatures
 
     public function getCv(): ?string
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> origin/gestionOffre
 =======
 >>>>>>> origin/gestionOffre
 >>>>>>> origin/gestionOffre
@@ -213,14 +255,20 @@ class Candidatures
     }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 <<<<<<< HEAD
+=======
+>>>>>>> origin/gestionOffre
     public function setCv($value)
     {
         $this->cv = $value;
     }
 
     public function getLettre_motivation()
+=======
+<<<<<<< HEAD
+>>>>>>> origin/gestionOffre
 =======
 >>>>>>> origin/gestionOffre
     public function setCv(?string $value): self
@@ -231,6 +279,9 @@ class Candidatures
 
     public function getLettreMotivation(): ?string
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> origin/gestionOffre
 =======
 >>>>>>> origin/gestionOffre
 >>>>>>> origin/gestionOffre
@@ -239,8 +290,11 @@ class Candidatures
     }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 <<<<<<< HEAD
+=======
+>>>>>>> origin/gestionOffre
     public function setLettre_motivation($value)
     {
         $this->lettre_motivation = $value;
@@ -266,6 +320,9 @@ class Candidatures
         $this->statu = $value;
     }
 }
+=======
+<<<<<<< HEAD
+>>>>>>> origin/gestionOffre
 =======
 >>>>>>> origin/gestionOffre
     public function setLettreMotivation(?string $value): self
@@ -307,7 +364,12 @@ class Candidatures
         return $this;
     }
 <<<<<<< HEAD
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> origin/gestionOffre
+>>>>>>> origin/gestionOffre
 =======
 }
 >>>>>>> origin/gestionOffre

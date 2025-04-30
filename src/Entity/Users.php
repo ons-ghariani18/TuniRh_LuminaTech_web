@@ -3,9 +3,12 @@
 namespace App\Entity;
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 use App\Repository\UsersRepository;
 use Doctrine\ORM\Mapping as ORM;
 =======
+=======
+>>>>>>> origin/gestionOffre
 use Doctrine\ORM\Mapping as ORM;
 <<<<<<< HEAD
 
@@ -43,6 +46,9 @@ class Users
 
     public function getId_user()
 =======
+<<<<<<< HEAD
+>>>>>>> origin/gestionOffre
+=======
 >>>>>>> origin/gestionOffre
 use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -52,8 +58,12 @@ use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 #[ORM\Entity(repositoryClass: UsersRepository::class)]
 #[ORM\Table(name: 'users')]
+=======
+#[ORM\Entity]
+>>>>>>> origin/gestionOffre
 =======
 #[ORM\Entity]
 >>>>>>> origin/gestionOffre
@@ -91,12 +101,18 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\Column(type: "string", length: 255)]
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
+=======
+>>>>>>> origin/gestionOffre
     #[Assert\NotBlank(message: "Le mot de passe est obligatoire")]
     #[Assert\Length(
         min: 6,
         minMessage: "Le mot de passe doit contenir au moins {{ limit }} caractères"
     )]
+<<<<<<< HEAD
+>>>>>>> origin/gestionOffre
+=======
 >>>>>>> origin/gestionOffre
     private string $password;
 
@@ -127,10 +143,13 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
     private string $role;
 
 <<<<<<< HEAD
+<<<<<<< HEAD
     #[ORM\Column(name: "googleId", type: "string", length: 255, nullable: true)]
     private ?string $googleId = null;
 
 
+=======
+>>>>>>> origin/gestionOffre
 =======
 >>>>>>> origin/gestionOffre
     #[ORM\OneToMany(mappedBy: "idUser", targetEntity: Reclamation::class)]
@@ -143,6 +162,9 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
 
     public function getIdUser(): ?int
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> origin/gestionOffre
 =======
 >>>>>>> origin/gestionOffre
 >>>>>>> origin/gestionOffre
@@ -151,9 +173,12 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
     }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
     public function getNom(): ?string
 =======
 <<<<<<< HEAD
+=======
+>>>>>>> origin/gestionOffre
     public function setId_user($value)
     {
         $this->id_user = $value;
@@ -163,20 +188,29 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
 =======
     public function getNom(): ?string
 >>>>>>> origin/gestionOffre
+<<<<<<< HEAD
+>>>>>>> origin/gestionOffre
+=======
 >>>>>>> origin/gestionOffre
     {
         return $this->nom;
     }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 <<<<<<< HEAD
+=======
+>>>>>>> origin/gestionOffre
     public function setNom($value)
     {
         $this->nom = $value;
     }
 
     public function getPrenom()
+=======
+<<<<<<< HEAD
+>>>>>>> origin/gestionOffre
 =======
 >>>>>>> origin/gestionOffre
     public function setNom(string $nom): self
@@ -187,6 +221,9 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
 
     public function getPrenom(): ?string
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> origin/gestionOffre
 =======
 >>>>>>> origin/gestionOffre
 >>>>>>> origin/gestionOffre
@@ -195,14 +232,20 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
     }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 <<<<<<< HEAD
+=======
+>>>>>>> origin/gestionOffre
     public function setPrenom($value)
     {
         $this->prenom = $value;
     }
 
     public function getEmail()
+=======
+<<<<<<< HEAD
+>>>>>>> origin/gestionOffre
 =======
 >>>>>>> origin/gestionOffre
     public function setPrenom(string $prenom): self
@@ -213,6 +256,9 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
 
     public function getEmail(): ?string
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> origin/gestionOffre
 =======
 >>>>>>> origin/gestionOffre
 >>>>>>> origin/gestionOffre
@@ -221,8 +267,11 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
     }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 <<<<<<< HEAD
+=======
+>>>>>>> origin/gestionOffre
     public function setEmail($value)
     {
         $this->email = $value;
@@ -250,6 +299,9 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
 
     public function getPassword()
 =======
+<<<<<<< HEAD
+>>>>>>> origin/gestionOffre
+=======
 >>>>>>> origin/gestionOffre
     public function setEmail(string $email): self
     {
@@ -259,6 +311,9 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
 
     public function getPassword(): ?string
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> origin/gestionOffre
 =======
 >>>>>>> origin/gestionOffre
 >>>>>>> origin/gestionOffre
@@ -267,14 +322,20 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
     }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 <<<<<<< HEAD
+=======
+>>>>>>> origin/gestionOffre
     public function setPassword($value)
     {
         $this->password = $value;
     }
 
     public function getRole()
+=======
+<<<<<<< HEAD
+>>>>>>> origin/gestionOffre
 =======
 >>>>>>> origin/gestionOffre
     public function setPassword(string $password): self
@@ -307,6 +368,9 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
 
     public function getRole(): ?string
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> origin/gestionOffre
 =======
 >>>>>>> origin/gestionOffre
 >>>>>>> origin/gestionOffre
@@ -315,8 +379,11 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
     }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 <<<<<<< HEAD
+=======
+>>>>>>> origin/gestionOffre
     public function setRole($value)
     {
         $this->role = $value;
@@ -383,6 +450,9 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
         }
 }
 =======
+<<<<<<< HEAD
+>>>>>>> origin/gestionOffre
+=======
 >>>>>>> origin/gestionOffre
     public function setRole(string $role): self
     {
@@ -393,6 +463,7 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
+<<<<<<< HEAD
 <<<<<<< HEAD
     public function getGoogleId(): ?string
     {
@@ -405,6 +476,8 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
+=======
+>>>>>>> origin/gestionOffre
 =======
 >>>>>>> origin/gestionOffre
     public function getReclamations(): Collection
@@ -452,7 +525,12 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
         return $this->email;
     }
 <<<<<<< HEAD
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> origin/gestionOffre
+>>>>>>> origin/gestionOffre
 =======
 }
 >>>>>>> origin/gestionOffre

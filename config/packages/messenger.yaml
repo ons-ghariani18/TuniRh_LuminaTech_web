@@ -22,15 +22,21 @@ framework:
 
         routing:
 <<<<<<< HEAD
+<<<<<<< HEAD
             # Commentez ou supprimez cette ligne pour désactiver l'envoi asynchrone des emails
             # Symfony\Component\Mailer\Messenger\SendEmailMessage: async
 =======
 <<<<<<< HEAD
+=======
+>>>>>>> origin/gestionOffre
             Symfony\Component\Mailer\Messenger\SendEmailMessage: async
 =======
             # Commentez ou supprimez cette ligne pour désactiver l'envoi asynchrone des emails
             # Symfony\Component\Mailer\Messenger\SendEmailMessage: async
 >>>>>>> origin/gestionOffre
+<<<<<<< HEAD
+>>>>>>> origin/gestionOffre
+=======
 >>>>>>> origin/gestionOffre
             Symfony\Component\Notifier\Message\ChatMessage: async
             Symfony\Component\Notifier\Message\SmsMessage: async
@@ -40,7 +46,12 @@ framework:
             # 'App\Message\YourMessage': async
 =======
 <<<<<<< HEAD
+<<<<<<< HEAD
             # 'App\Message\YourMessage': async
+=======
+            # 'App\Message\YourMessage': async
+>>>>>>> origin/gestionOffre
+>>>>>>> origin/gestionOffre
 =======
             # 'App\Message\YourMessage': async
 >>>>>>> origin/gestionOffre

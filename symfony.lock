@@ -27,6 +27,7 @@
         ]
     },
 <<<<<<< HEAD
+<<<<<<< HEAD
     "knplabs/knp-paginator-bundle": {
         "version": "v6.8.0"
     },
@@ -42,10 +43,15 @@
 =======
 <<<<<<< HEAD
 =======
+>>>>>>> origin/gestionOffre
+=======
     "knplabs/knp-paginator-bundle": {
         "version": "v6.8.0"
     },
 >>>>>>> origin/gestionOffre
+<<<<<<< HEAD
+>>>>>>> origin/gestionOffre
+=======
 >>>>>>> origin/gestionOffre
     "phpunit/phpunit": {
         "version": "9.6",
@@ -155,6 +161,9 @@
 <<<<<<< HEAD
 =======
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> origin/gestionOffre
 =======
 >>>>>>> origin/gestionOffre
     "symfony/mercure-bundle": {
@@ -170,6 +179,9 @@
         ]
     },
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> origin/gestionOffre
 =======
 >>>>>>> origin/gestionOffre
 >>>>>>> origin/gestionOffre
@@ -253,6 +265,9 @@
 <<<<<<< HEAD
 =======
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> origin/gestionOffre
 =======
 >>>>>>> origin/gestionOffre
     "symfony/sendgrid-mailer": {
@@ -265,6 +280,9 @@
         }
     },
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> origin/gestionOffre
 =======
 >>>>>>> origin/gestionOffre
 >>>>>>> origin/gestionOffre

@@ -12,6 +12,7 @@
         "doctrine/doctrine-migrations-bundle": "^3.3",
         "doctrine/orm": "^3.3",
 <<<<<<< HEAD
+<<<<<<< HEAD
         "google/cloud-dialogflow": "^2.1",
         "guzzlehttp/guzzle": "^7.9",
         "knplabs/knp-paginator-bundle": "^6.8",
@@ -19,18 +20,26 @@
         "league/oauth2-google": "^4.0",
 =======
 <<<<<<< HEAD
+=======
+>>>>>>> origin/gestionOffre
         "phpdocumentor/reflection-docblock": "^5.4",
         "phpstan/phpdoc-parser": "^1.33",
 =======
         "google/cloud-dialogflow": "^2.1",
         "guzzlehttp/guzzle": "^7.9",
         "knplabs/knp-paginator-bundle": "^6.8",
+<<<<<<< HEAD
+>>>>>>> origin/gestionOffre
+=======
 >>>>>>> origin/gestionOffre
         "phpdocumentor/reflection-docblock": "^5.4",
         "phpstan/phpdoc-parser": "^1.33",
         "smalot/pdfparser": "^2.8",
         "spatie/pdf-to-text": "*",
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> origin/gestionOffre
 =======
 >>>>>>> origin/gestionOffre
 >>>>>>> origin/gestionOffre
@@ -47,9 +56,15 @@
         "symfony/intl": "6.4.*",
         "symfony/mailer": "6.4.*",
 <<<<<<< HEAD
+<<<<<<< HEAD
         "symfony/mercure-bundle": "^0.3.9",
 =======
 <<<<<<< HEAD
+=======
+        "symfony/mercure-bundle": "^0.3.9",
+>>>>>>> origin/gestionOffre
+>>>>>>> origin/gestionOffre
+=======
 =======
         "symfony/mercure-bundle": "^0.3.9",
 >>>>>>> origin/gestionOffre
@@ -63,9 +78,15 @@
         "symfony/runtime": "6.4.*",
         "symfony/security-bundle": "6.4.*",
 <<<<<<< HEAD
+<<<<<<< HEAD
         "symfony/sendgrid-mailer": "6.4.*",
 =======
 <<<<<<< HEAD
+=======
+        "symfony/sendgrid-mailer": "6.4.*",
+>>>>>>> origin/gestionOffre
+>>>>>>> origin/gestionOffre
+=======
 =======
         "symfony/sendgrid-mailer": "6.4.*",
 >>>>>>> origin/gestionOffre
@@ -81,9 +102,15 @@
         "symfony/yaml": "6.4.*",
         "twig/extra-bundle": "^2.12|^3.0",
 <<<<<<< HEAD
+<<<<<<< HEAD
         "twig/string-extra": "^3.20",
 =======
 <<<<<<< HEAD
+=======
+        "twig/string-extra": "^3.20",
+>>>>>>> origin/gestionOffre
+>>>>>>> origin/gestionOffre
+=======
 =======
         "twig/string-extra": "^3.20",
 >>>>>>> origin/gestionOffre
@@ -145,13 +172,19 @@
         "symfony/css-selector": "6.4.*",
         "symfony/debug-bundle": "6.4.*",
 <<<<<<< HEAD
+<<<<<<< HEAD
         "symfony/maker-bundle": "^1.62",
 =======
 <<<<<<< HEAD
+=======
+>>>>>>> origin/gestionOffre
         "symfony/maker-bundle": "^1.0",
 =======
         "symfony/maker-bundle": "^1.62",
 >>>>>>> origin/gestionOffre
+<<<<<<< HEAD
+>>>>>>> origin/gestionOffre
+=======
 >>>>>>> origin/gestionOffre
         "symfony/phpunit-bridge": "^7.1",
         "symfony/stopwatch": "6.4.*",

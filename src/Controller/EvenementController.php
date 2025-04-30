@@ -3,8 +3,11 @@
 namespace App\Controller;
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 <<<<<<< HEAD
+=======
+>>>>>>> origin/gestionOffre
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
@@ -18,6 +21,9 @@ class EvenementController extends AbstractController
             'controller_name' => 'EvenementController',
         ]);
     }
+=======
+<<<<<<< HEAD
+>>>>>>> origin/gestionOffre
 =======
 >>>>>>> origin/gestionOffre
 use App\Entity\Evenement;
@@ -100,6 +106,9 @@ final class EvenementController extends AbstractController
         return $this->redirectToRoute('app_evenement_index', [], Response::HTTP_SEE_OTHER);
     }
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> origin/gestionOffre
 =======
 >>>>>>> origin/gestionOffre
 >>>>>>> origin/gestionOffre

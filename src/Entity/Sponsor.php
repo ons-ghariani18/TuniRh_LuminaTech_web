@@ -11,12 +11,18 @@ use App\Entity\Evenement;
 class Sponsor
 {
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 <<<<<<< HEAD
+=======
+>>>>>>> origin/gestionOffre
 
     #[ORM\Id]
     #[ORM\Column(type: "integer")]
     private int $id_sp;
+=======
+<<<<<<< HEAD
+>>>>>>> origin/gestionOffre
 =======
 >>>>>>> origin/gestionOffre
     #[ORM\Id]
@@ -25,6 +31,9 @@ class Sponsor
     private ?int $id_sp = null;
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> origin/gestionOffre
 =======
 >>>>>>> origin/gestionOffre
 >>>>>>> origin/gestionOffre
@@ -42,8 +51,11 @@ class Sponsor
     private string $email;
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 <<<<<<< HEAD
+=======
+>>>>>>> origin/gestionOffre
     public function getId_sp()
     {
         return $this->id_sp;
@@ -54,6 +66,9 @@ class Sponsor
         $this->id_sp = $value;
     }
 
+=======
+<<<<<<< HEAD
+>>>>>>> origin/gestionOffre
 =======
 >>>>>>> origin/gestionOffre
     public function getIdSp(): int
@@ -67,6 +82,9 @@ public function setIdSp(int $idSp): self
     return $this;
 }
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> origin/gestionOffre
 =======
 >>>>>>> origin/gestionOffre
 >>>>>>> origin/gestionOffre
@@ -143,7 +161,12 @@ public function setIdSp(int $idSp): self
 }
 =======
 <<<<<<< HEAD
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> origin/gestionOffre
+>>>>>>> origin/gestionOffre
 =======
 }
 >>>>>>> origin/gestionOffre
