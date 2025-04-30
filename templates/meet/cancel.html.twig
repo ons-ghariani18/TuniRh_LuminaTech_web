@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Annuler la réunion{% endblock %}
+
+{% block body %}
+<div class="container py-4">
+    <h1>Annuler la réunion</h1>
+    
+    <div class="my-4">
+        {% for label, messages in app.flashes %}
+            {% for message in messages %}
+                <div class="alert alert-{{ label }}">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endfor %}
+    </div>
+    
+    <div class="card border-danger">
+        <div class="card-header bg-danger text-white">
+            <h3 class="mb-0">Confirmer l'annulation</h3>
+        </div>
+        <div class="card-body">
+            <p class="card-text">
+                Êtes-vous sûr de vouloir annuler cette réunion ? Cette action supprimera l'événement de Google Calendar et 
+                enverra des notifications d'annulation à tous les participants.
+            </p>
+            
+            <form method="post" action="{{ path('app_meet_cancel', {'eventId': eventId}) }}">
+                <div class="d-flex justify-content-between mt-4">
+                    <a href="{{ path('app_meet_index') }}" class="btn btn-secondary">
+                        <i class="fas fa-arrow-left"></i> Annuler
+                    </a>
+                    
+                    <button type="submit" class="btn btn-danger">
+                        <i class="fas fa-trash"></i> Confirmer l'annulation
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -339,4 +339,83 @@ class GoogleCalendarService
             ],
         ];
     }
+
+    public function createMeetingWithUrl(
+        string $title,
+        string $description,
+        \DateTime $startDateTime,
+        \DateTime $endDateTime,
+        array $attendees = []
+    ): array {
+        try {
+            $this->ensureValidToken();
+            $service = $this->getCalendarService();
+            
+            // Préparation des données de l'événement
+            $eventData = [
+                'summary' => $title,
+                'description' => $description,
+                'start' => [
+                    'dateTime' => $startDateTime->format('c'),
+                    'timeZone' => 'Europe/Paris',
+                ],
+                'end' => [
+                    'dateTime' => $endDateTime->format('c'),
+                    'timeZone' => 'Europe/Paris',
+                ],
+            ];
+            
+            // Ajouter les participants
+            if (!empty($attendees)) {
+                $eventAttendees = [];
+                foreach ($attendees as $email) {
+                    $eventAttendees[] = ['email' => $email];
+                }
+                $eventData['attendees'] = $eventAttendees;
+            }
+            
+            // Configuration pour Google Meet
+            $conferenceData = new \Google\Service\Calendar\ConferenceData();
+            $conferenceRequest = new \Google\Service\Calendar\CreateConferenceRequest();
+            $conferenceRequest->setRequestId(md5($title . time()));
+            $conferenceData->setCreateRequest($conferenceRequest);
+            
+            // Création de l'événement avec configuration Google Meet
+            $event = new \Google\Service\Calendar\Event($eventData);
+            $event->setConferenceData($conferenceData);
+            
+            $createdEvent = $service->events->insert('primary', $event, [
+                'conferenceDataVersion' => 1,
+                'sendUpdates' => 'all'  // Envoyer des invitations par email
+            ]);
+            
+            // Récupérer l'URL Meet
+            $meetUrl = null;
+            if ($createdEvent->getConferenceData() && $createdEvent->getConferenceData()->getEntryPoints()) {
+                foreach ($createdEvent->getConferenceData()->getEntryPoints() as $entryPoint) {
+                    if ($entryPoint->getEntryPointType() === 'video') {
+                        $meetUrl = $entryPoint->getUri();
+                        break;
+                    }
+                }
+            }
+            
+            return [
+                'success' => true,
+                'eventId' => $createdEvent->getId(),
+                'meetUrl' => $meetUrl ?? $createdEvent->getHangoutLink(), // Fallback sur hangoutLink si disponible
+                'event' => $createdEvent
+            ];
+        } catch (\Exception $e) {
+            if ($this->logger) {
+                $this->logger->error('Error creating meeting with Meet URL: ' . $e->getMessage());
+            }
+            
+            return [
+                'success' => false,
+                'error' => $e->getMessage()
+            ];
+        }
+    }
+    
 }

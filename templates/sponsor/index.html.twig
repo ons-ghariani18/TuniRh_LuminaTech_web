@@ -500,6 +500,11 @@
             </div>
             <div class="navbar-menu">
                 <i class="mdi mdi-bell-outline text-xl"></i>
+                   <!-- Icône Statistiques -->
+        <a href="{{ path('app_statistiques_sponsor') }}" title="Statistiques Sponsors" class="text-xl hover:text-primary-color transition-colors">
+            <i class="mdi mdi-chart-bar"></i>
+        </a>
+        
                 <div class="flex items-center gap-2">
                     <img src="https://ui-avatars.com/api/?name=RH+Admin&background=091E3E&color=fff" class="rounded-full" width="36" alt="Admin Avatar">
                     <span>Admin RH</span>
@@ -600,6 +605,9 @@
                                     <a href="{{ path('app_sponsor_edit', {'id_sp': sponsor.idSp}) }}" class="action-link">
                                         <i class="mdi mdi-pencil"></i> Modifier
                                     </a>
+                                    <a href="{{ path('app_meet_index') }}" class="action-link" title="Organiser une réunion Google Meet">
+        <i class="mdi mdi-video"></i> Meet
+    </a>
                                     <a href="#" class="action-link delete-sponsor" data-sponsor-name="{{ sponsor.nom }}" data-delete-url="{{ path('app_sponsor_delete', {'id_sp': sponsor.idSp}) }}">
                                         <i class="mdi mdi-delete"></i> Supprimer
                                     </a>

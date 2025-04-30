@@ -1,0 +1,768 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Créer une réunion Google Meet{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link href="https://cdn.materialdesignicons.com/5.4.55/css/materialdesignicons.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #e67e22;
+            --primary-dark: #d35400;
+            --secondary-color: #091E3E;
+            --sidebar-bg: #091E3E;
+            --sidebar-text: #a3adcc;
+            --body-bg: #f5f7fa;
+            --card-bg: #fff;
+            --text-color: #333;
+            --muted-text: #6b7280;
+            --border-color: #e0e0e0;
+            --transition-speed: 0.3s;
+        }
+
+        body {
+            font-family: 'Nunito', sans-serif;
+            background: var(--body-bg);
+            color: var(--text-color);
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        .flex {
+            display: flex;
+        }
+
+        .flex-1 {
+            flex: 1;
+        }
+
+        .h-screen {
+            height: 100vh;
+        }
+
+        .items-center {
+            align-items: center;
+        }
+
+        .justify-between {
+            justify-content: space-between;
+        }
+
+        .gap-2 {
+            gap: 0.5rem;
+        }
+
+        .gap-4 {
+            gap: 1rem;
+        }
+
+        .text-xl {
+            font-size: 1.25rem;
+        }
+
+        .text-2xl {
+            font-size: 1.5rem;
+        }
+
+        .font-bold {
+            font-weight: 700;
+        }
+
+        .rounded-full {
+            border-radius: 9999px;
+        }
+
+        .mb-6 {
+            margin-bottom: 1.5rem;
+        }
+
+        .mr-2 {
+            margin-right: 0.5rem;
+        }
+
+        /* Sidebar & Main Content */
+        .app-container {
+            position: relative;
+            display: flex;
+            min-height: 100vh;
+        }
+
+        .aside {
+            width: 240px;
+            background-color: var(--sidebar-bg);
+            color: var(--sidebar-text);
+            position: fixed;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            overflow-y: auto;
+            padding-top: 60px;
+            z-index: 100;
+            transition: transform var(--transition-speed) ease, box-shadow var(--transition-speed) ease;
+        }
+
+        .aside.is-collapsed {
+            transform: translateX(-240px);
+            box-shadow: none;
+        }
+
+        body.sidebar-expanded .aside {
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .aside .aside-brand {
+            position: fixed;
+            top: 0;
+            height: 60px;
+            background-color: var(--sidebar-bg);
+            width: 240px;
+            display: flex;
+            align-items: center;
+            padding: 0 1.5rem;
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: white;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            z-index: 101;
+            transition: transform var(--transition-speed) ease;
+        }
+
+        .aside.is-collapsed .aside-brand {
+            transform: translateX(-240px);
+        }
+
+        .menu-label {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            margin: 1rem 1.5rem 0.25rem;
+            color: rgba(255, 255, 255, 0.4);
+        }
+
+        .menu-item {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.75rem 1.5rem;
+            color: var(--sidebar-text);
+            text-decoration: none;
+            transition: background 0.3s, color 0.3s;
+        }
+
+        .menu-item:hover, .menu-item.is-active {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        .main-content {
+            margin-left: 240px;
+            flex: 1;
+            padding: 0;
+            transition: margin-left var(--transition-speed) ease;
+        }
+
+        .main-content.sidebar-collapsed {
+            margin-left: 0;
+        }
+
+        .content-inner {
+            padding: 2rem;
+        }
+
+        /* Navbar */
+        .navbar {
+            position: sticky;
+            top: 0;
+            background: white;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+            z-index: 99;
+        }
+
+        .navbar-menu {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .search-input {
+            padding: 0.5rem 1rem;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            width: 250px;
+            font-family: 'Nunito', sans-serif;
+        }
+
+        .menu-toggle {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 36px;
+            height: 36px;
+            border-radius: 6px;
+            background-color: transparent;
+            color: var(--text-color);
+            border: 1px solid var(--border-color);
+            cursor: pointer;
+            transition: background 0.2s;
+            margin-right: 1rem;
+        }
+
+        .menu-toggle:hover {
+            background-color: var(--body-bg);
+        }
+
+        .menu-toggle i {
+            transition: transform 0.3s;
+        }
+
+        .menu-toggle.active i {
+            transform: rotate(180deg);
+        }
+
+        /* Button & Table */
+        .btn-primary {
+            background: var(--primary-color);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: background 0.3s;
+            text-decoration: none;
+            border: none;
+            cursor: pointer;
+            font-family: 'Nunito', sans-serif;
+        }
+
+        .btn-primary:hover {
+            background: var(--primary-dark);
+        }
+        
+        .btn-success {
+            background: #28a745;
+            color: white;
+            padding: 0.75rem 1rem;
+            border-radius: 6px;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: background 0.3s;
+            text-decoration: none;
+            border: none;
+            cursor: pointer;
+            font-family: 'Nunito', sans-serif;
+        }
+        
+        .btn-success:hover {
+            background: #218838;
+        }
+        
+        .btn-outline-secondary {
+            background: transparent;
+            color: var(--muted-text);
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: all 0.3s;
+            text-decoration: none;
+            border: 1px solid var(--border-color);
+            cursor: pointer;
+            font-family: 'Nunito', sans-serif;
+        }
+        
+        .btn-outline-secondary:hover {
+            background: var(--body-bg);
+        }
+        
+        .btn-outline-danger {
+            background: transparent;
+            color: #dc3545;
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: all 0.3s;
+            text-decoration: none;
+            border: 1px solid #dc3545;
+            cursor: pointer;
+            font-family: 'Nunito', sans-serif;
+        }
+        
+        .btn-outline-danger:hover {
+            background: #dc3545;
+            color: white;
+        }
+
+        .card {
+            background: var(--card-bg);
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            margin-bottom: 2rem;
+            overflow: hidden;
+        }
+
+        .card-body {
+            padding: 1.5rem;
+        }
+
+        .card-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--secondary-color);
+        }
+
+        .card-text {
+            color: var(--muted-text);
+            margin-bottom: 1.5rem;
+        }
+        
+        .card-header {
+            padding: 1rem 1.5rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        .border-success {
+            border: 1px solid #28a745;
+        }
+        
+        .bg-success {
+            background-color: #28a745;
+        }
+        
+        .text-white {
+            color: white;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 0.5rem 0.75rem;
+            font-size: 1rem;
+            line-height: 1.5;
+            color: var(--text-color);
+            background-color: #fff;
+            background-clip: padding-box;
+            border: 1px solid var(--border-color);
+            border-radius: 0.25rem;
+            transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+            font-family: 'Nunito', sans-serif;
+        }
+        
+        .form-control:focus {
+            border-color: var(--primary-color);
+            outline: 0;
+            box-shadow: 0 0 0 0.2rem rgba(230, 126, 34, 0.25);
+        }
+        
+        .form-label {
+            margin-bottom: 0.5rem;
+            display: block;
+            font-weight: 600;
+        }
+        
+        .form-text {
+            color: var(--muted-text);
+            font-size: 0.875rem;
+            margin-top: 0.25rem;
+        }
+        
+        .input-group {
+            position: relative;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: stretch;
+            width: 100%;
+        }
+        
+        .input-group > .form-control {
+            position: relative;
+            flex: 1 1 auto;
+            width: 1%;
+            margin-bottom: 0;
+            border-top-right-radius: 0;
+            border-bottom-right-radius: 0;
+        }
+        
+        .input-group > .btn {
+            position: relative;
+            border-top-left-radius: 0;
+            border-bottom-left-radius: 0;
+        }
+
+        .alert {
+            padding: 1rem;
+            border-radius: 6px;
+            margin-bottom: 1rem;
+        }
+
+        .alert-success {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+
+        .alert-danger {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .aside {
+                transform: translateX(-240px);
+            }
+
+            .aside.is-expanded {
+                transform: translateX(0);
+            }
+
+            .main-content {
+                margin-left: 0;
+            }
+
+            .navbar {
+                padding: 1rem;
+            }
+
+            .search-input {
+                width: 100%;
+                max-width: 200px;
+            }
+            
+            .row {
+                flex-direction: column;
+            }
+            
+            .col-md-6, .col-md-12 {
+                width: 100%;
+            }
+        }
+        
+        /* Grid System */
+        .row {
+            display: flex;
+            flex-wrap: wrap;
+            margin-right: -15px;
+            margin-left: -15px;
+        }
+        
+        .col-md-6 {
+            flex: 0 0 50%;
+            max-width: 50%;
+            padding-right: 15px;
+            padding-left: 15px;
+        }
+        
+        .col-md-12 {
+            flex: 0 0 100%;
+            max-width: 100%;
+            padding-right: 15px;
+            padding-left: 15px;
+        }
+        
+        .mb-3 {
+            margin-bottom: 1rem;
+        }
+        
+        .mb-4 {
+            margin-bottom: 1.5rem;
+        }
+        
+        .mt-3 {
+            margin-top: 1rem;
+        }
+        
+        .mt-4 {
+            margin-top: 1.5rem;
+        }
+        
+        .d-flex {
+            display: flex;
+        }
+        
+        .justify-content-between {
+            justify-content: space-between;
+        }
+        
+        .d-grid {
+            display: grid;
+        }
+        
+        .gap-2 {
+            gap: 0.5rem;
+        }
+        
+        .btn-lg {
+            padding: 0.75rem 1.5rem;
+            font-size: 1.125rem;
+        }
+    </style>
+{% endblock %}
+
+{% block body %}
+<div class="app-container">
+    <aside class="aside" id="sidebar">
+        <div class="aside-brand">
+            <i class="mdi mdi-account-tie mr-2"></i> RH Dashboard
+        </div>
+
+        <div class="aside-menu">
+            <p class="menu-label">GÉNÉRAL</p>
+            <a href="{{ path('app_back_office') }}" class="menu-item">
+                <i class="mdi mdi-view-dashboard"></i> Tableau de bord
+            </a>
+
+            <p class="menu-label">GESTION RH</p>
+            <a href="#" class="menu-item">
+                <i class="mdi mdi-account-group"></i> Profils Utilisateurs
+            </a>
+            <a href="#" class="menu-item">
+                <i class="mdi mdi-briefcase"></i> Offres d'emploi
+            </a>
+            <a href="#" class="menu-item">
+                <i class="mdi mdi-file-document"></i> Candidatures
+            </a>
+            <a href="#" class="menu-item">
+                <i class="mdi mdi-message-alert"></i> Réclamations
+            </a>
+
+            <p class="menu-label">ÉVÉNEMENTS</p>
+            <a href="{{ path('app_evenement_index') }}" class="menu-item">
+                <i class="mdi mdi-calendar"></i> Événements
+            </a>
+            <a href="{{ path('app_sponsor_index') }}" class="menu-item">
+                <i class="mdi mdi-handshake"></i> Sponsors
+            </a>
+            <a href="{{ path('app_meet_index') }}" class="menu-item is-active">
+                <i class="mdi mdi-video"></i> Réunions Meet
+            </a>
+
+            <p class="menu-label">FORMATION</p>
+            <a href="#" class="menu-item">
+                <i class="mdi mdi-school"></i> Formations
+            </a>
+            <a href="#" class="menu-item">
+                <i class="mdi mdi-account-voice"></i> Entretiens
+            </a>
+        </div>
+    </aside>
+
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+    <div class="main-content" id="mainContent">
+        <header class="navbar">
+            <div class="flex items-center">
+                <button id="menuToggle" class="menu-toggle" aria-label="Toggle Menu">
+                    <i class="mdi mdi-menu"></i>
+                </button>
+                <input type="text" placeholder="Rechercher..." class="search-input">
+            </div>
+            <div class="navbar-menu">
+                <div class="flex items-center gap-4">
+                    <a href="{{ path('app_statistiques_sponsor') }}" title="Statistiques" class="text-xl hover:text-primary-color transition-colors">
+                        <i class="mdi mdi-chart-bar"></i>
+                    </a>
+                    <a href="#" title="Notifications" class="text-xl hover:text-primary-color transition-colors">
+                        <i class="mdi mdi-bell-outline"></i>
+                    </a>
+                    <div class="flex items-center gap-2">
+                        <img src="https://ui-avatars.com/api/?name=RH+Admin&background=091E3E&color=fff" class="rounded-full" width="36" alt="Admin Avatar">
+                        <span>Admin RH</span>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <div class="content-inner">
+            <div class="flex justify-between items-center mb-6">
+                <h1 class="text-2xl font-bold">Créer une réunion Google Meet</h1>
+                <a href="{{ path('app_meet_index') }}" class="btn-outline-secondary">
+                    <i class="mdi mdi-arrow-left"></i> Retour à la liste
+                </a>
+            </div>
+
+            <div class="my-4">
+                {% for label, messages in app.flashes %}
+                    {% for message in messages %}
+                        <div class="alert alert-{{ label }}">
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+                {% endfor %}
+            </div>
+            
+            {% if meetUrl %}
+                <div class="card mb-4 border-success">
+                    <div class="card-header bg-success text-white">
+                        <h3 class="mb-0">Réunion créée avec succès!</h3>
+                    </div>
+                    <div class="card-body">
+                        <h4>Lien de la réunion:</h4>
+                        <div class="input-group mb-3">
+                            <input type="text" class="form-control" id="meetUrl" value="{{ meetUrl }}" readonly>
+                            <button class="btn-outline-secondary" type="button" onclick="copyToClipboard()">
+                                <i class="mdi mdi-content-copy"></i> Copier
+                            </button>
+                        </div>
+                        
+                        <div class="d-flex justify-content-between mt-4">
+                            <a href="{{ meetUrl }}" target="_blank" class="btn-primary">
+                                <i class="mdi mdi-video"></i> Lancer la réunion maintenant
+                            </a>
+                            
+                           
+                        </div>
+                    </div>
+                </div>
+            {% endif %}
+
+            <div class="card">
+                <div class="card-body">
+                    <h2 class="card-title">Planifier une nouvelle réunion</h2>
+                    
+                    <form method="post" action="{{ path('app_meet_create') }}">
+                        <div class="row mb-3">
+                            <div class="col-md-12">
+                                <label for="title" class="form-label">Titre de la réunion</label>
+                                <input type="text" class="form-control" id="title" name="title" required 
+                                       placeholder="Ex: Réunion avec Sponsor XYZ" value="{{ app.request.request.get('title') }}">
+                            </div>
+                        </div>
+                        
+                        <div class="row mb-3">
+                            <div class="col-md-12">
+                                <label for="description" class="form-label">Description</label>
+                                <textarea class="form-control" id="description" name="description" rows="3" 
+                                          placeholder="Points à discuter lors de la réunion...">{{ app.request.request.get('description') }}</textarea>
+                            </div>
+                        </div>
+                        
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label for="start_date" class="form-label">Date et heure de début</label>
+                                <input type="datetime-local" class="form-control" id="start_date" name="start_date" required 
+                                       value="{{ app.request.request.get('start_date') ?? 'now'|date('Y-m-d\\TH:i') }}">
+                            </div>
+                            <div class="col-md-6">
+                                <label for="end_date" class="form-label">Date et heure de fin</label>
+                                <input type="datetime-local" class="form-control" id="end_date" name="end_date" required 
+                                       value="{{ app.request.request.get('end_date') ?? 'now'|date_modify('+1 hour')|date('Y-m-d\\TH:i') }}">
+                            </div>
+                        </div>
+                        
+                        <div class="row mb-4">
+                            <div class="col-md-12">
+                                <label for="attendees" class="form-label">Participants (séparés par des virgules)</label>
+                                <input type="text" class="form-control" id="attendees" name="attendees" 
+                                       placeholder="exemple@gmail.com, sponsor@entreprise.com" value="{{ app.request.request.get('attendees') }}">
+                                <div class="form-text">Les invitations seront envoyées automatiquement par email.</div>
+                            </div>
+                        </div>
+                        
+                        <div class="d-grid">
+                            <button type="submit" class="btn-success btn-lg">
+                                <i class="mdi mdi-calendar-plus"></i> Créer la réunion
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% block javascripts %}
+{{ parent() }}
+<script>
+function copyToClipboard() {
+    var copyText = document.getElementById("meetUrl");
+    copyText.select();
+    copyText.setSelectionRange(0, 99999);
+    document.execCommand("copy");
+    
+    // Feedback visuel
+    alert("Lien copié: " + copyText.value);
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    // Sidebar toggle with animation
+    const sidebar = document.getElementById('sidebar');
+    const mainContent = document.getElementById('mainContent');
+    const menuToggle = document.getElementById('menuToggle');
+    const sidebarOverlay = document.getElementById('sidebarOverlay');
+    
+    function toggleSidebar() {
+        const isExpanded = !sidebar.classList.contains('is-collapsed');
+        
+        if (isExpanded) {
+            // Collapse sidebar
+            sidebar.classList.add('is-collapsed');
+            mainContent.classList.add('sidebar-collapsed');
+            menuToggle.classList.add('active');
+            document.body.classList.remove('sidebar-expanded');
+        } else {
+            // Expand sidebar
+            sidebar.classList.remove('is-collapsed');
+            mainContent.classList.remove('sidebar-collapsed');
+            menuToggle.classList.remove('active');
+            document.body.classList.add('sidebar-expanded');
+        }
+        
+        // Show overlay on mobile when sidebar is expanded
+        if (window.innerWidth <= 768) {
+            if (!isExpanded) {
+                sidebarOverlay.classList.add('active');
+            } else {
+                sidebarOverlay.classList.remove('active');
+            }
+        }
+    }
+    
+    // Initialize sidebar state
+    function initSidebar() {
+        if (window.innerWidth <= 768) {
+            sidebar.classList.add('is-collapsed');
+            mainContent.classList.add('sidebar-collapsed');
+        } else {
+            sidebar.classList.remove('is-collapsed');
+            mainContent.classList.remove('sidebar-collapsed');
+        }
+    }
+    
+    // Event listeners
+    menuToggle.addEventListener('click', toggleSidebar);
+    sidebarOverlay.addEventListener('click', () => {
+        if (window.innerWidth <= 768) {
+            toggleSidebar();
+        }
+    });
+    
+    // Initialize on page load
+    initSidebar();
+    
+    // Handle resize
+    window.addEventListener('resize', () => {
+        initSidebar();
+        if (window.innerWidth > 768) {
+            sidebarOverlay.classList.remove('active');
+        }
+    });
+});
+</script>
+{% endblock %}
+{% endblock %}
