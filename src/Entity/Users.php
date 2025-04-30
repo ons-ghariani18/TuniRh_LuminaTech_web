@@ -11,6 +11,8 @@ use Doctrine\ORM\Mapping as ORM;
 >>>>>>> origin/gestionOffre
 use Doctrine\ORM\Mapping as ORM;
 <<<<<<< HEAD
+<<<<<<< HEAD
+<<<<<<< HEAD
 
 use Doctrine\Common\Collections\Collection;
 use App\Entity\Reservations;
@@ -47,9 +49,14 @@ class Users
     public function getId_user()
 =======
 <<<<<<< HEAD
+=======
+>>>>>>> origin/gestionUserReclamation
+=======
+<<<<<<< HEAD
 >>>>>>> origin/gestionOffre
 =======
 >>>>>>> origin/gestionOffre
+>>>>>>> 76179cffc7b72c06d034d39a661eec43d0ee6421
 use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
 use App\Entity\Reclamation;
@@ -144,6 +151,13 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+=======
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
+    private $avatar;
+
+>>>>>>> origin/gestionUserReclamation
+=======
+<<<<<<< HEAD
     #[ORM\Column(name: "googleId", type: "string", length: 255, nullable: true)]
     private ?string $googleId = null;
 
@@ -152,6 +166,7 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
 >>>>>>> origin/gestionOffre
 =======
 >>>>>>> origin/gestionOffre
+>>>>>>> 76179cffc7b72c06d034d39a661eec43d0ee6421
     #[ORM\OneToMany(mappedBy: "idUser", targetEntity: Reclamation::class)]
     private Collection $reclamations;
 
@@ -164,21 +179,29 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
 <<<<<<< HEAD
 <<<<<<< HEAD
 =======
+<<<<<<< HEAD
+=======
 >>>>>>> origin/gestionOffre
 =======
 >>>>>>> origin/gestionOffre
+>>>>>>> 76179cffc7b72c06d034d39a661eec43d0ee6421
 >>>>>>> origin/gestionOffre
+=======
+>>>>>>> origin/gestionUserReclamation
     {
         return $this->id_user;
     }
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
     public function getNom(): ?string
 =======
 <<<<<<< HEAD
 =======
 >>>>>>> origin/gestionOffre
+>>>>>>> 76179cffc7b72c06d034d39a661eec43d0ee6421
     public function setId_user($value)
     {
         $this->id_user = $value;
@@ -189,19 +212,28 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
     public function getNom(): ?string
 >>>>>>> origin/gestionOffre
 <<<<<<< HEAD
+=======
+    public function getNom(): ?string
+>>>>>>> origin/gestionUserReclamation
+=======
+<<<<<<< HEAD
 >>>>>>> origin/gestionOffre
 =======
 >>>>>>> origin/gestionOffre
+>>>>>>> 76179cffc7b72c06d034d39a661eec43d0ee6421
     {
         return $this->nom;
     }
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
 =======
 <<<<<<< HEAD
 =======
 >>>>>>> origin/gestionOffre
+>>>>>>> 76179cffc7b72c06d034d39a661eec43d0ee6421
     public function setNom($value)
     {
         $this->nom = $value;
@@ -210,9 +242,14 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
     public function getPrenom()
 =======
 <<<<<<< HEAD
+=======
+>>>>>>> origin/gestionUserReclamation
+=======
+<<<<<<< HEAD
 >>>>>>> origin/gestionOffre
 =======
 >>>>>>> origin/gestionOffre
+>>>>>>> 76179cffc7b72c06d034d39a661eec43d0ee6421
     public function setNom(string $nom): self
     {
         $this->nom = $nom;
@@ -223,20 +260,28 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
 <<<<<<< HEAD
 <<<<<<< HEAD
 =======
+<<<<<<< HEAD
+=======
 >>>>>>> origin/gestionOffre
 =======
 >>>>>>> origin/gestionOffre
+>>>>>>> 76179cffc7b72c06d034d39a661eec43d0ee6421
 >>>>>>> origin/gestionOffre
+=======
+>>>>>>> origin/gestionUserReclamation
     {
         return $this->prenom;
     }
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
 =======
 <<<<<<< HEAD
 =======
 >>>>>>> origin/gestionOffre
+>>>>>>> 76179cffc7b72c06d034d39a661eec43d0ee6421
     public function setPrenom($value)
     {
         $this->prenom = $value;
@@ -245,9 +290,14 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
     public function getEmail()
 =======
 <<<<<<< HEAD
+=======
+>>>>>>> origin/gestionUserReclamation
+=======
+<<<<<<< HEAD
 >>>>>>> origin/gestionOffre
 =======
 >>>>>>> origin/gestionOffre
+>>>>>>> 76179cffc7b72c06d034d39a661eec43d0ee6421
     public function setPrenom(string $prenom): self
     {
         $this->prenom = $prenom;
@@ -258,20 +308,74 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
 <<<<<<< HEAD
 <<<<<<< HEAD
 =======
+<<<<<<< HEAD
+=======
 >>>>>>> origin/gestionOffre
 =======
 >>>>>>> origin/gestionOffre
+>>>>>>> 76179cffc7b72c06d034d39a661eec43d0ee6421
 >>>>>>> origin/gestionOffre
+=======
+>>>>>>> origin/gestionUserReclamation
+=======
+use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
+use App\Entity\Reservations;
+
+#[ORM\Entity(repositoryClass: 'App\Repository\UsersRepository')]
+class Users implements UserInterface, PasswordAuthenticatedUserInterface
+{
+    #[ORM\Id]
+    #[ORM\GeneratedValue(strategy: 'AUTO')]
+    #[ORM\Column(type: 'integer')]
+    private int $id;
+
+    #[ORM\Column(type: 'string', length: 180, unique: true)]
+    private string $email;
+
+    #[ORM\Column(type: 'string')]
+    private string $password;
+
+    private ?string $plainPassword = null;
+
+    #[ORM\Column(type: 'json')]
+    private array $roles = [];
+
+    #[ORM\Column(type: 'string', length: 50, nullable: true)]
+    private ?string $accountType = null;
+
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: Reservations::class, orphanRemoval: true)]
+    private Collection $reservations;
+
+    public function __construct()
+    {
+        $this->reservations = new ArrayCollection();
+        $this->roles = ['ROLE_USER']; // Rôle par défaut
+    }
+
+    public function getId(): ?int
+    {
+        return $this->id;
+    }
+
+    public function getEmail(): string
+>>>>>>> origin/gestions-formations
     {
         return $this->email;
     }
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+<<<<<<< HEAD
+=======
 =======
 <<<<<<< HEAD
 =======
 >>>>>>> origin/gestionOffre
+>>>>>>> 76179cffc7b72c06d034d39a661eec43d0ee6421
     public function setEmail($value)
     {
         $this->email = $value;
@@ -300,33 +404,64 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
     public function getPassword()
 =======
 <<<<<<< HEAD
+=======
+>>>>>>> origin/gestionUserReclamation
+=======
+>>>>>>> origin/gestions-formations
+=======
+<<<<<<< HEAD
 >>>>>>> origin/gestionOffre
 =======
 >>>>>>> origin/gestionOffre
+>>>>>>> 76179cffc7b72c06d034d39a661eec43d0ee6421
     public function setEmail(string $email): self
     {
         $this->email = $email;
         return $this;
     }
 
+<<<<<<< HEAD
     public function getPassword(): ?string
 <<<<<<< HEAD
 <<<<<<< HEAD
 =======
+<<<<<<< HEAD
+=======
 >>>>>>> origin/gestionOffre
 =======
 >>>>>>> origin/gestionOffre
+>>>>>>> 76179cffc7b72c06d034d39a661eec43d0ee6421
 >>>>>>> origin/gestionOffre
+=======
+>>>>>>> origin/gestionUserReclamation
+=======
+    public function getPlainPassword(): ?string
+    {
+        return $this->plainPassword;
+    }
+
+    public function setPlainPassword(?string $plainPassword): self
+    {
+        $this->plainPassword = $plainPassword;
+        return $this;
+    }
+
+    public function getPassword(): string
+>>>>>>> origin/gestions-formations
     {
         return $this->password;
     }
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+<<<<<<< HEAD
+=======
 =======
 <<<<<<< HEAD
 =======
 >>>>>>> origin/gestionOffre
+>>>>>>> 76179cffc7b72c06d034d39a661eec43d0ee6421
     public function setPassword($value)
     {
         $this->password = $value;
@@ -335,15 +470,23 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
     public function getRole()
 =======
 <<<<<<< HEAD
+=======
+>>>>>>> origin/gestionUserReclamation
+=======
+>>>>>>> origin/gestions-formations
+=======
+<<<<<<< HEAD
 >>>>>>> origin/gestionOffre
 =======
 >>>>>>> origin/gestionOffre
+>>>>>>> 76179cffc7b72c06d034d39a661eec43d0ee6421
     public function setPassword(string $password): self
     {
         $this->password = $password;
         return $this;
     }
 
+<<<<<<< HEAD
     public function getTel(): ?string
     {
         return $this->tel;
@@ -370,20 +513,28 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
 <<<<<<< HEAD
 <<<<<<< HEAD
 =======
+<<<<<<< HEAD
+=======
 >>>>>>> origin/gestionOffre
 =======
 >>>>>>> origin/gestionOffre
+>>>>>>> 76179cffc7b72c06d034d39a661eec43d0ee6421
 >>>>>>> origin/gestionOffre
+=======
+>>>>>>> origin/gestionUserReclamation
     {
         return $this->role;
     }
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
 =======
 <<<<<<< HEAD
 =======
 >>>>>>> origin/gestionOffre
+>>>>>>> 76179cffc7b72c06d034d39a661eec43d0ee6421
     public function setRole($value)
     {
         $this->role = $value;
@@ -451,9 +602,14 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
 }
 =======
 <<<<<<< HEAD
+=======
+>>>>>>> origin/gestionUserReclamation
+=======
+<<<<<<< HEAD
 >>>>>>> origin/gestionOffre
 =======
 >>>>>>> origin/gestionOffre
+>>>>>>> 76179cffc7b72c06d034d39a661eec43d0ee6421
     public function setRole(string $role): self
     {
         if (!in_array($role, ['Responsable RH', 'Employé', 'candidat'])) {
@@ -513,11 +669,37 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
             'candidat' => 'ROLE_CANDIDAT',
         ];
         return [$roleMap[$this->role] ?? 'ROLE_USER'];
+=======
+    public function getRoles(): array
+    {
+        $roles = $this->roles;
+        // Garantit que chaque utilisateur a ROLE_USER
+        if (!in_array('ROLE_USER', $roles)) {
+            $roles[] = 'ROLE_USER';
+        }
+        
+        return array_unique($roles);
+    }
+
+    public function setRoles(array $roles): self
+    {
+        $this->roles = $roles;
+        return $this;
+    }
+
+    public function getSalt(): ?string
+    {
+        return null; // Pas nécessaire quand on utilise bcrypt/argon
+>>>>>>> origin/gestions-formations
     }
 
     public function eraseCredentials(): void
     {
+<<<<<<< HEAD
         // Pas de données temporaires à effacer
+=======
+        $this->plainPassword = null;
+>>>>>>> origin/gestions-formations
     }
 
     public function getUserIdentifier(): string
@@ -526,6 +708,82 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
     }
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+}
+>>>>>>> origin/gestionOffre
+=======
+
+    public function getAvatar(): ?string
+    {
+        return $this->avatar;
+    }
+
+    public function setAvatar(?string $avatar): self
+    {
+        $this->avatar = $avatar;
+        return $this;
+    }
+}
+>>>>>>> origin/gestionUserReclamation
+=======
+
+    // Méthode pour compatibilité avec anciennes versions Symfony
+    public function getUsername(): string
+    {
+        return $this->getUserIdentifier();
+    }
+
+    public function getAccountType(): ?string
+    {
+        return $this->accountType;
+    }
+
+    public function setAccountType(?string $accountType): self
+    {
+        $this->accountType = $accountType;
+        return $this;
+    }
+
+    public function getReservations(): Collection
+    {
+        return $this->reservations;
+    }
+
+    public function addReservation(Reservations $reservation): self
+    {
+        if (!$this->reservations->contains($reservation)) {
+            $this->reservations[] = $reservation;
+            $reservation->setUser($this);
+        }
+        return $this;
+    }
+
+    public function removeReservation(Reservations $reservation): self
+    {
+        if ($this->reservations->removeElement($reservation)) {
+            // set the owning side to null (unless already changed)
+            if ($reservation->getUser() === $this) {
+                $reservation->setUser(null);
+            }
+        }
+        return $this;
+    }
+
+    public function hasRole(string $role): bool
+    {
+        return in_array($role, $this->getRoles(), true);
+    }
+
+    /**
+     * Get the full name of the user or return email if no name is available
+     */
+    public function getFullName(): string
+    {
+        return $this->email; // Using email as fallback since there is no first/last name fields
+    }
+}
+>>>>>>> origin/gestions-formations
+=======
 }
 =======
 }
@@ -535,3 +793,4 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
 }
 >>>>>>> origin/gestionOffre
 >>>>>>> origin/gestionOffre
+>>>>>>> 76179cffc7b72c06d034d39a661eec43d0ee6421

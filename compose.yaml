@@ -15,6 +15,14 @@ services:
 ###< doctrine/doctrine-bundle ###
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+=======
+>>>>>>> origin/gestionUserReclamation
+=======
+>>>>>>> origin/gestions-formations
 =======
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -22,6 +30,7 @@ services:
 >>>>>>> origin/gestionOffre
 =======
 >>>>>>> origin/gestionOffre
+>>>>>>> 76179cffc7b72c06d034d39a661eec43d0ee6421
 ###> symfony/mercure-bundle ###
   mercure:
     image: dunglas/mercure
@@ -48,16 +57,31 @@ services:
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
 =======
 >>>>>>> origin/gestionOffre
 =======
 >>>>>>> origin/gestionOffre
+>>>>>>> 76179cffc7b72c06d034d39a661eec43d0ee6421
 >>>>>>> origin/gestionOffre
+=======
+>>>>>>> origin/gestionUserReclamation
+=======
+>>>>>>> origin/gestions-formations
 volumes:
 ###> doctrine/doctrine-bundle ###
   database_data:
 ###< doctrine/doctrine-bundle ###
 <<<<<<< HEAD
+<<<<<<< HEAD
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+=======
+>>>>>>> origin/gestionUserReclamation
+=======
+>>>>>>> origin/gestions-formations
 =======
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -65,6 +89,7 @@ volumes:
 >>>>>>> origin/gestionOffre
 =======
 >>>>>>> origin/gestionOffre
+>>>>>>> 76179cffc7b72c06d034d39a661eec43d0ee6421
 
 ###> symfony/mercure-bundle ###
   mercure_data:
@@ -72,8 +97,15 @@ volumes:
 ###< symfony/mercure-bundle ###
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
 =======
 >>>>>>> origin/gestionOffre
 =======
 >>>>>>> origin/gestionOffre
+>>>>>>> 76179cffc7b72c06d034d39a661eec43d0ee6421
 >>>>>>> origin/gestionOffre
+=======
+>>>>>>> origin/gestionUserReclamation
+=======
+>>>>>>> origin/gestions-formations

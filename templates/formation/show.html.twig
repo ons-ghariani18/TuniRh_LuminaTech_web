@@ -1,0 +1,497 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Formation{% endblock %}
+{% block stylesheets %}
+    {{ parent() }}
+    <link href="https://cdn.materialdesignicons.com/5.4.55/css/materialdesignicons.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #e67e22;
+            --primary-dark: #d35400;
+            --secondary-color: #091E3E;
+            --sidebar-bg: #091E3E;
+            --sidebar-text: #a3adcc;
+            --body-bg: #f5f7fa;
+            --card-bg: #fff;
+            --text-color: #333;
+            --muted-text: #6b7280;
+            --border-color: #e0e0e0;
+            --danger-color: #ef4444;
+            --success-color: #10b981;
+            --transition-speed: 0.3s;
+        }
+
+        body {
+            font-family: 'Nunito', sans-serif;
+            background: var(--body-bg);
+            color: var(--text-color);
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+        }
+
+        /* Layout Structure */
+        .app-container {
+            display: flex;
+            min-height: 100vh;
+            position: relative;
+        }
+
+        /* Sidebar Styles */
+        .aside {
+            width: 240px;
+            background-color: var(--sidebar-bg);
+            color: var(--sidebar-text);
+            position: fixed;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            overflow-y: auto;
+            z-index: 100;
+            transition: transform var(--transition-speed) ease;
+            transform: translateX(0);
+        }
+
+        .aside-collapsed {
+            transform: translateX(-240px);
+        }
+
+        .aside-brand {
+            height: 60px;
+            background-color: var(--sidebar-bg);
+            display: flex;
+            align-items: center;
+            padding: 0 1.5rem;
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: white;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 101;
+        }
+
+        .aside-menu {
+            padding: 1rem 0;
+        }
+
+        .menu-label {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            margin: 1rem 1.5rem 0.25rem;
+            color: rgba(255, 255, 255, 0.4);
+        }
+
+        .menu-item {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.75rem 1.5rem;
+            color: var(--sidebar-text);
+            text-decoration: none;
+            transition: background 0.3s, color 0.3s;
+        }
+
+        .menu-item:hover, .menu-item.is-active {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        /* Main Content */
+        .main-content {
+            margin-left: 240px;
+            flex: 1;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            transition: margin-left var(--transition-speed) ease;
+        }
+
+        .main-content-full {
+            margin-left: 0;
+        }
+
+        /* Navbar */
+        .navbar {
+            position: sticky;
+            top: 0;
+            background: white;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+            z-index: 99;
+        }
+
+        .menu-toggle {
+            display: none;
+            align-items: center;
+            justify-content: center;
+            width: 36px;
+            height: 36px;
+            border-radius: 6px;
+            background-color: transparent;
+            color: var(--text-color);
+            border: 1px solid var(--border-color);
+            cursor: pointer;
+            transition: background 0.2s;
+            margin-right: 1rem;
+        }
+
+        .menu-toggle:hover {
+            background-color: var(--body-bg);
+        }
+
+        /* Content wrapper */
+        .content-wrapper {
+            padding: 2rem;
+            flex: 1;
+        }
+
+        /* Utilities */
+        .flex {
+            display: flex;
+        }
+
+        .items-center {
+            align-items: center;
+        }
+
+        .justify-between {
+            justify-content: space-between;
+        }
+
+        .gap-2 {
+            gap: 0.5rem;
+        }
+
+        .rounded-full {
+            border-radius: 9999px;
+        }
+
+        /* Détails de l'événement */
+        .detail-card {
+            background: var(--card-bg);
+            border-radius: 8px;
+            padding: 2rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            margin-bottom: 2rem;
+        }
+
+        .detail-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .detail-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--secondary-color);
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .detail-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .detail-table tr:not(:last-child) {
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .detail-table th {
+            width: 30%;
+            padding: 1rem;
+            text-align: left;
+            vertical-align: top;
+            color: var(--muted-text);
+            font-weight: 600;
+        }
+
+        .detail-table td {
+            padding: 1rem;
+            vertical-align: top;
+        }
+
+        .action-buttons {
+            display: flex;
+            justify-content: flex-end;
+            gap: 1rem;
+            margin-top: 2rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .btn {
+            padding: 0.75rem 1.5rem;
+            border-radius: 6px;
+            font-weight: 600;
+            font-family: 'Nunito', sans-serif;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            text-decoration: none;
+            border: none;
+        }
+
+        .btn-primary {
+            background: var(--primary-color);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: var(--primary-dark);
+        }
+
+        .btn-secondary {
+            background: var(--border-color);
+            color: var(--text-color);
+        }
+
+        .btn-secondary:hover {
+            background: #e0e0e0;
+        }
+
+        .btn-danger {
+            background: var(--danger-color);
+            color: white;
+        }
+
+        .btn-danger:hover {
+            background: #dc2626;
+        }
+
+        .status-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.35rem 0.85rem;
+            border-radius: 20px;
+            font-size: 0.875rem;
+            font-weight: 600;
+        }
+
+        .status-upcoming {
+            background-color: #e3f2fd;
+            color: #1976d2;
+        }
+
+        .status-ongoing {
+            background-color: #e8f5e9;
+            color: #388e3c;
+        }
+
+        .status-completed {
+            background-color: #f3e5f5;
+            color: #8e24aa;
+        }
+
+        .description-block {
+            white-space: pre-line;
+            line-height: 1.6;
+            padding: 1rem;
+            background: #f9f9f9;
+            border-radius: 6px;
+            border-left: 4px solid var(--primary-color);
+        }
+
+        /* Overlay for mobile */
+        .sidebar-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 90;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity var(--transition-speed), visibility var(--transition-speed);
+        }
+
+        .sidebar-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .aside {
+                transform: translateX(-240px);
+            }
+
+            .aside.expanded {
+                transform: translateX(0);
+            }
+
+            .main-content {
+                margin-left: 0;
+            }
+
+            .menu-toggle {
+                display: flex;
+            }
+
+            .navbar {
+                padding: 1rem;
+            }
+
+            .content-wrapper {
+                padding: 1rem;
+            }
+
+            .detail-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 1rem;
+            }
+
+            .detail-table th {
+                width: 40%;
+            }
+
+            .action-buttons {
+                flex-direction: column;
+            }
+
+            .btn {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+    </style>
+{% endblock %}
+
+{% block body %}
+<div class="app-container">
+    {# Sidebar #}
+    <aside class="aside" id="sidebar">
+        <div class="aside-brand">
+            <i class="mdi mdi-account-tie mr-2"></i> RH Dashboard
+        </div>
+        <div class="aside-menu">
+            <p class="menu-label">GÉNÉRAL</p>
+            <a href="{{ path('app_dashboard') }}" class="menu-item">
+                <i class="mdi mdi-view-dashboard"></i> Tableau de bord
+            </a>
+
+            <p class="menu-label">GESTION RH</p>
+            <a href="#" class="menu-item">
+                <i class="mdi mdi-account-group"></i> Profils Utilisateurs
+            </a>
+            <a href="#" class="menu-item">
+                <i class="mdi mdi-briefcase"></i> Offres d'emploi
+            </a>
+            <a href="#" class="menu-item">
+                <i class="mdi mdi-file-document"></i> Candidatures
+            </a>
+            <a href="#" class="menu-item">
+                <i class="mdi mdi-message-alert"></i> Réclamations
+            </a>
+
+            <p class="menu-label">ÉVÉNEMENTS</p>
+            <a href="{{ path('app_evenement_index') }}" class="menu-item is-active">
+                <i class="mdi mdi-calendar"></i> Événements
+            </a>
+            <a href="{{ path('app_sponsor_index') }}" class="menu-item">
+                <i class="mdi mdi-handshake"></i> Sponsors
+            </a>
+
+            <p class="menu-label">FORMATION</p>
+            <a href="#" class="menu-item">
+                <i class="mdi mdi-school"></i> Formations
+            </a>
+            <a href="#" class="menu-item">
+                <i class="mdi mdi-account-voice"></i> Entretiens
+            </a>
+        </div>
+    </aside>
+
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+    <div class="main-content" id="mainContent">
+        {# Navbar #}
+        <header class="navbar">
+            <div class="flex items-center">
+                <button id="menuToggle" class="menu-toggle" aria-label="Toggle Menu">
+                    <i class="mdi mdi-menu"></i>
+                </button>
+            </div>
+            <div class="navbar-menu">
+                <div class="flex items-center gap-2">
+                    <img src="https://ui-avatars.com/api/?name=RH+Admin&background=091E3E&color=fff" class="rounded-full" width="36" alt="Admin Avatar">
+                    <span>Admin RH</span>
+                </div>
+            </div>
+        </header>
+
+        {# Content #}
+        <div class="content-wrapper">
+            <div class="detail-card">
+                <div class="detail-header">
+                    <h1 class="detail-title">
+                        <i class="mdi mdi-calendar-text"></i>
+                        Détails de l'Événement
+                    </h1>
+                    <a href="{{ path('app_formation_edit', {'id': formation.id}) }}" class="btn btn-primary">
+
+                        <i class="mdi mdi-pencil"></i> Modifier
+                    </a>
+                </div>
+
+                <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ formation.id }}</td>
+            </tr>
+            <tr>
+                <th>Title</th>
+                <td>{{ formation.title }}</td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>{{ formation.description }}</td>
+            </tr>
+            <tr>
+                <th>StartDate</th>
+                <td>{{ formation.startDate ? formation.startDate|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>EndDate</th>
+                <td>{{ formation.endDate ? formation.endDate|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>MaxParticipants</th>
+                <td>{{ formation.maxParticipants }}</td>
+            </tr>
+        </tbody>
+    </table>
+                <div class="action-buttons">
+                    <a href="{{ path('app_formation_index') }}" class="btn btn-secondary">
+                        <i class="mdi mdi-arrow-left"></i> Retour à la liste
+                    </a>
+                    {{ include('formation/_delete_form.html.twig') }}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <a >back to list</a>
+
+    <a href="{{ path('app_formation_edit', {'id': formation.id}) }}">edit</a>
+
+
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+{% endblock %}

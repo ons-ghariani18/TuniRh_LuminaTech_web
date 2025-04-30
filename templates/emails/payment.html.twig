@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="">
+<body style="margin:0; padding:0; font-family:Arial, sans-serif;">
+
+<table width="600" align="center" cellpadding="0" cellspacing="0"
+       style="border:2px solid #333; border-radius:8px; padding:20px;">
+
+    {# En-tête #}
+    <tr>
+        <td align="left">
+            <img src="cid:logo_cid"  alt="Logo" width="100" style="display:block;">
+        </td>
+
+    </tr>
+
+    {# Titre #}
+    <tr>
+        <td colspan="2"
+            style="padding:20px 0; text-align:center; background-color:#f7f7f7;
+                   font-size:18px; font-weight:bold;">
+            Confirmation de paiement
+        </td>
+    </tr>
+
+    {# Corps imitation chèque #}
+    <tr>
+        <td colspan="2" style="padding:20px; border:1px dashed #888;">
+            <table width="100%" cellpadding="5" cellspacing="0">
+                <tr>
+                    <td style="font-size:14px;"><strong>Payé de la part de  :</strong></td>
+                    <td style="font-size:14px;">{{ clientName }}</td>
+                </tr>
+                <tr>
+                    <td style="font-size:14px;"><strong>Montant :</strong></td>
+                    <td style="font-size:14px; font-weight:bold;">{{ amount }}</td>
+                </tr>
+
+                <tr>
+                    <td colspan="2" style="padding-top:30px;
+                                     font-family:'Courier New', monospace;
+                                     font-size:16px;">
+                        ___________________________<br>
+                        Signature
+                    </td>
+                    <td>
+                        <img src="cid:sig_cid"  alt="sign" width="100" style="display:block;">
+
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+
+    {# Pied de page #}
+    <tr>
+        <td colspan="2"
+            style="padding-top:20px; font-size:12px; color:#777;
+                   text-align:center;">
+            TUNIRH • 123 Rue ariana, 8050 Ville • +216 1 23 45 67 89
+        </td>
+    </tr>
+</table>
+</body>
+</html>

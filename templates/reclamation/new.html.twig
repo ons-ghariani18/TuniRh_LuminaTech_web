@@ -20,8 +20,11 @@
             --shadow-sm: 0 4px 12px rgba(0, 0, 0, 0.15);
             --shadow-lg: 0 12px 30px rgba(0, 0, 0, 0.2);
             --transition: all 0.3s ease;
+<<<<<<< HEAD
             --sidebar-bg: var(--primary-blue);
             --sidebar-text: var(--text-light);
+=======
+>>>>>>> origin/gestionUserReclamation
             --border-color: #E5E7EB;
             --success-green: #28a745;
             --warning-yellow: #ffc107;
@@ -35,6 +38,7 @@
             margin: 0;
             padding: 0;
             min-height: 100vh;
+<<<<<<< HEAD
             overflow-x: hidden;
         }
 
@@ -46,12 +50,21 @@
         .gap-2 { gap: 0.5rem; }
         .gap-4 { gap: 1rem; }
         .text-xl { font-size: 1.25rem; }
+=======
+        }
+
+        .flex { display: flex; }
+        .items-center { align-items: center; }
+        .justify-between { justify-content: space-between; }
+        .gap-2 { gap: 0.5rem; }
+>>>>>>> origin/gestionUserReclamation
         .text-2xl { font-size: 1.5rem; }
         .font-bold { font-weight: 700; }
         .rounded-full { border-radius: 9999px; }
         .mb-6 { margin-bottom: 1.5rem; }
         .mr-2 { margin-right: 0.5rem; }
 
+<<<<<<< HEAD
         .app-container {
             position: relative;
             display: flex;
@@ -142,10 +155,20 @@
 
         .main-content.sidebar-collapsed {
             margin-left: 0;
+=======
+        .main-content {
+            padding: 0;
+            width: 100%;
+>>>>>>> origin/gestionUserReclamation
         }
 
         .content-inner {
             padding: 2rem;
+<<<<<<< HEAD
+=======
+            max-width: 1200px;
+            margin: 0 auto;
+>>>>>>> origin/gestionUserReclamation
         }
 
         .navbar {
@@ -154,7 +177,11 @@
             background: var(--card-bg);
             padding: 1rem 2rem;
             display: flex;
+<<<<<<< HEAD
             justify-content: space-between;
+=======
+            justify-content: flex-end;
+>>>>>>> origin/gestionUserReclamation
             align-items: center;
             box-shadow: var(--shadow-sm);
             z-index: 99;
@@ -166,6 +193,7 @@
             gap: 1rem;
         }
 
+<<<<<<< HEAD
         .search-input {
             padding: 0.5rem 1rem;
             border: 1px solid var(--border-color);
@@ -208,6 +236,8 @@
             transform: rotate(180deg);
         }
 
+=======
+>>>>>>> origin/gestionUserReclamation
         .btn-primary {
             background: var(--primary-orange);
             color: var(--text-light);
@@ -325,11 +355,14 @@
             margin-top: 2rem;
         }
 
+<<<<<<< HEAD
         .form-actions .btn {
             flex: 1;
             text-align: center;
         }
 
+=======
+>>>>>>> origin/gestionUserReclamation
         .flash-message {
             padding: 1rem;
             margin-bottom: 1rem;
@@ -338,6 +371,14 @@
             font-weight: 600;
         }
 
+<<<<<<< HEAD
+=======
+        .flash-message.danger {
+            background: var(--danger-red);
+            color: var(--text-light);
+        }
+
+>>>>>>> origin/gestionUserReclamation
         .flash-message.success {
             background: var(--success-green);
             color: var(--text-light);
@@ -349,6 +390,7 @@
             margin-top: 0.25rem;
         }
 
+<<<<<<< HEAD
         .sidebar-overlay {
             position: fixed;
             top: 0;
@@ -378,15 +420,24 @@
 
             .main-content {
                 margin-left: 0;
+=======
+        @media (max-width: 768px) {
+            .content-inner {
+                padding: 1rem;
+>>>>>>> origin/gestionUserReclamation
             }
 
             .navbar {
                 padding: 1rem;
+<<<<<<< HEAD
             }
 
             .search-input {
                 width: 100%;
                 max-width: 200px;
+=======
+                justify-content: center;
+>>>>>>> origin/gestionUserReclamation
             }
 
             .form-container {
@@ -401,16 +452,20 @@
             .form-actions {
                 flex-direction: column;
             }
+<<<<<<< HEAD
 
             .form-actions .btn {
                 width: 100%;
                 margin: 0.5rem 0;
             }
+=======
+>>>>>>> origin/gestionUserReclamation
         }
     </style>
 {% endblock %}
 
 {% block body %}
+<<<<<<< HEAD
 <div class="app-container">
     <aside class="aside wow slideInLeft" id="sidebar" data-wow-delay="0.2s">
         <div class="aside-brand">
@@ -523,6 +578,75 @@
                         <i class="mdi mdi-arrow-left mr-2"></i> Retour à la liste
                     </a>
                 </div>
+=======
+<div class="main-content">
+    <header class="navbar wow fadeInDown" data-wow-delay="0.2s">
+        <div class="navbar-menu">
+            <div class="flex items-center gap-2">
+                <img src="https://ui-avatars.com/api/?name=RH+Admin&background=091E3E&color=fff" class="rounded-full" width="36" alt="Admin Avatar">
+                <span>Admin RH</span>
+            </div>
+        </div>
+    </header>
+
+    <div class="content-inner">
+        <div class="form-container wow fadeInUp" data-wow-delay="0.3s">
+            <div class="section-header">
+                <h1>Créer une Nouvelle Réclamation</h1>
+                <div class="title-underline"></div>
+            </div>
+
+            {# Messages flash - Ajoutez ce bloc #}
+            {% for message in app.flashes('error') %}
+                <div class="flash-message danger wow fadeIn" data-wow-delay="0.2s">
+                    {{ message }}
+                </div>
+            {% endfor %}
+
+            
+            {% for flash_message in app.flashes('success') %}
+                <div class="flash-message success wow fadeIn" data-wow-delay="0.2s">
+                    {{ flash_message }}
+                </div>
+            {% endfor %}
+
+            {{ form_start(form) }}
+                <div class="form-group">
+                    {{ form_label(form.sujet) }}
+                    {{ form_widget(form.sujet) }}
+                    {{ form_errors(form.sujet) }}
+                </div>
+
+                <div class="form-group">
+                    {{ form_label(form.description) }}
+                    {{ form_widget(form.description) }}
+                    {{ form_errors(form.description) }}
+                </div>
+
+                <div class="form-group">
+                    {{ form_label(form.dateReclamation) }}
+                    {{ form_widget(form.dateReclamation) }}
+                    {{ form_errors(form.dateReclamation) }}
+                </div>
+
+                <div class="form-group">
+                    {{ form_label(form.statut) }}
+                    {{ form_widget(form.statut) }}
+                    {{ form_errors(form.statut) }}
+                </div>
+
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary">
+                        <i class="mdi mdi-message-alert mr-2"></i> {{ button_label|default('Créer la réclamation') }}
+                    </button>
+                </div>
+            {{ form_end(form) }}
+
+            <div class="form-actions wow fadeInUp" data-wow-delay="0.4s">
+                <a href="{{ path('app_reclamation_index') }}" class="btn btn-secondary" title="Retour à la liste">
+                    <i class="mdi mdi-arrow-left mr-2"></i> Retour à la liste
+                </a>
+>>>>>>> origin/gestionUserReclamation
             </div>
         </div>
     </div>
@@ -535,6 +659,7 @@
         new WOW().init();
 
         document.addEventListener('DOMContentLoaded', () => {
+<<<<<<< HEAD
             const sidebar = document.getElementById('sidebar');
             const mainContent = document.getElementById('mainContent');
             const menuToggle = document.getElementById('menuToggle');
@@ -588,6 +713,8 @@
                 }
             });
 
+=======
+>>>>>>> origin/gestionUserReclamation
             document.querySelectorAll('.btn-primary, .btn-secondary').forEach(button => {
                 button.addEventListener('click', function(e) {
                     if (this.tagName === 'A') {

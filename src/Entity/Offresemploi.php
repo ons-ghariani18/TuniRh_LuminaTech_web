@@ -2,22 +2,41 @@
 
 namespace App\Entity;
 
+<<<<<<< HEAD
 use Doctrine\ORM\Mapping as ORM;
+<<<<<<< HEAD
 <<<<<<< HEAD
 
 use Doctrine\Common\Collections\Collection;
 use App\Entity\Candidatures;
 =======
+=======
+>>>>>>> origin/gestionUserReclamation
 use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
 use App\Entity\Candidatures;
 use Symfony\Component\Validator\Constraints as Assert;
+<<<<<<< HEAD
 >>>>>>> origin/gestionOffre
+=======
+>>>>>>> origin/gestionUserReclamation
+=======
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\DBAL\Types\Types;
+use Doctrine\ORM\Mapping as ORM;
+
+use Doctrine\Common\Collections\Collection;
+use App\Entity\Candidatures;
+>>>>>>> origin/gestions-formations
 
 #[ORM\Entity]
 class Offresemploi
 {
 <<<<<<< HEAD
+<<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> origin/gestions-formations
 
     #[ORM\Id]
     #[ORM\Column(type: "integer")]
@@ -123,7 +142,10 @@ class Offresemploi
     {
         $this->statut = $value;
     }
+<<<<<<< HEAD
 =======
+=======
+>>>>>>> origin/gestionUserReclamation
     #[ORM\Id]
     #[ORM\Column(type: "integer")]
     #[ORM\GeneratedValue]
@@ -186,12 +208,26 @@ class Offresemploi
         message: "Le statut doit être Ouverte, Fermée ou En attente"
     )]
     private ?string $statut = 'Ouverte';
+<<<<<<< HEAD
 >>>>>>> origin/gestionOffre
+=======
+>>>>>>> origin/gestionUserReclamation
+=======
+>>>>>>> origin/gestions-formations
 
     #[ORM\OneToMany(mappedBy: "id_offre", targetEntity: Candidatures::class)]
     private Collection $candidaturess;
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+<<<<<<< HEAD
+=======
+    public function __construct()
+    {
+        $this->candidaturess = new ArrayCollection();
+    }
+
+>>>>>>> origin/gestions-formations
         public function getCandidaturess(): Collection
         {
             return $this->candidaturess;
@@ -218,8 +254,11 @@ class Offresemploi
     
             return $this;
         }
+<<<<<<< HEAD
 }
 =======
+=======
+>>>>>>> origin/gestionUserReclamation
     public function __construct()
     {
         $this->candidaturess = new ArrayCollection();
@@ -338,5 +377,75 @@ class Offresemploi
 
         return $this;
     }
+<<<<<<< HEAD
 }
 >>>>>>> origin/gestionOffre
+=======
+}
+>>>>>>> origin/gestionUserReclamation
+=======
+
+        public function getIdOffre(): ?int
+        {
+            return $this->id_offre;
+        }
+
+        public function getCompetencesRequises(): ?string
+        {
+            return $this->competences_requises;
+        }
+
+        public function setCompetencesRequises(string $competences_requises): static
+        {
+            $this->competences_requises = $competences_requises;
+
+            return $this;
+        }
+
+        public function getTypeContrat(): ?string
+        {
+            return $this->type_contrat;
+        }
+
+        public function setTypeContrat(string $type_contrat): static
+        {
+            $this->type_contrat = $type_contrat;
+
+            return $this;
+        }
+
+        public function getDatePublication(): ?\DateTimeInterface
+        {
+            return $this->date_publication;
+        }
+
+        public function setDatePublication(\DateTimeInterface $date_publication): static
+        {
+            $this->date_publication = $date_publication;
+
+            return $this;
+        }
+
+        public function addCandidaturess(Candidatures $candidaturess): static
+        {
+            if (!$this->candidaturess->contains($candidaturess)) {
+                $this->candidaturess->add($candidaturess);
+                $candidaturess->setIdOffre($this);
+            }
+
+            return $this;
+        }
+
+        public function removeCandidaturess(Candidatures $candidaturess): static
+        {
+            if ($this->candidaturess->removeElement($candidaturess)) {
+                // set the owning side to null (unless already changed)
+                if ($candidaturess->getIdOffre() === $this) {
+                    $candidaturess->setIdOffre(null);
+                }
+            }
+
+            return $this;
+        }
+}
+>>>>>>> origin/gestions-formations

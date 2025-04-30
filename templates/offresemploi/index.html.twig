@@ -420,12 +420,24 @@
             </a>
 
             <p class="menu-label">GESTION RH</p>
+<<<<<<< HEAD
             <a href="#" class="menu-item is-active">
                 <i class="mdi mdi-briefcase"></i> Offres d'emploi
             </a>
             <a href="#" class="menu-item">
                 <i class="mdi mdi-account-group"></i> Profils Utilisateurs
             </a>
+=======
+
+            <a href="{{ path('app_users_index') }}" class="menu-item">
+                <i class="mdi mdi-account-group"></i> Profils Utilisateurs 
+            </a> 
+            
+            <a href="#" class="menu-item is-active">
+                <i class="mdi mdi-briefcase"></i> Offres d'emploi
+            </a>
+            
+>>>>>>> origin/gestionUserReclamation
            
             <a href="{{ path('app_reponse_index') }}" class="menu-item">
                 <i class="mdi mdi-message-alert"></i> Réclamations
@@ -476,7 +488,11 @@
                 </a>
             </div>
 
+<<<<<<< HEAD
             {% if offresemplois|length == 0 %}
+=======
+            {% if offresemplois is empty %}
+>>>>>>> origin/gestionUserReclamation
                 <div class="no-records wow fadeInUp" data-wow-delay="0.4s">Aucune offre d'emploi trouvée</div>
             {% else %}
                 <div class="table-container wow fadeInUp" data-wow-delay="0.4s">
@@ -524,10 +540,34 @@
                     </table>
                 </div>
 
+<<<<<<< HEAD
                 {# Utilisation du helper Twig de KnpPaginatorBundle pour afficher la pagination #}
                 <div class="pagination wow fadeInUp" data-wow-delay="0.5s">
                     {{ knp_pagination_render(pagination) }}
                 </div>
+=======
+                {% if pagination.totalPages > 1 %}
+                    <nav aria-label="Pagination des offres" class="pagination wow fadeInUp" data-wow-delay="0.5s">
+                        <ul class="pagination">
+                            <li class="page-item {{ pagination.currentPage == 1 ? 'disabled' : '' }}">
+                                <a class="page-link" href="{{ path('app_offresemploi_index', {'page': pagination.currentPage - 1}) }}">
+                                    <i class="mdi mdi-chevron-left"></i>
+                                </a>
+                            </li>
+                            {% for page in 1..pagination.totalPages %}
+                                <li class="page-item {{ pagination.currentPage == page ? 'active' : '' }}">
+                                    <a class="page-link" href="{{ path('app_offresemploi_index', {'page': page}) }}">{{ page }}</a>
+                                </li>
+                            {% endfor %}
+                            <li class="page-item {{ pagination.currentPage == pagination.totalPages ? 'disabled' : '' }}">
+                                <a class="page-link" href="{{ path('app_offresemploi_index', {'page': pagination.currentPage + 1}) }}">
+                                    <i class="mdi mdi-chevron-right"></i>
+                                </a>
+                            </li>
+                        </ul>
+                    </nav>
+                {% endif %}
+>>>>>>> origin/gestionUserReclamation
             {% endif %}
         </div>
     </div>
@@ -624,7 +664,11 @@
                         }, 100);
                     }
                 });
+<<<<<<< HEAD
             });
+=======
+                });
+>>>>>>> origin/gestionUserReclamation
         });
     </script>
 {% endblock %}

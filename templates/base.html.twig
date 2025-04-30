@@ -4,15 +4,24 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}Welcome!{% endblock %}</title>
+<<<<<<< HEAD
     
     <!-- Favicon -->
     <link rel="icon" href="{{ asset('/public/assets/img/favicon.ico') }}">
 
     
+=======
+
+    <!-- Favicon -->
+    <link rel="icon" href="{{ asset('/public/assets/img/favicon.ico') }}">
+
+
+>>>>>>> origin/gestions-formations
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&family=Rubik:wght@400;500;600;700&display=swap" rel="stylesheet">
+<<<<<<< HEAD
     
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css">
@@ -25,25 +34,291 @@
 
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
     
+=======
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css">
+
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css">
+
+    <!-- CSS Principaux -->
+    <link rel="stylesheet" href="{{ absolute_url(asset('css/bootstrap.min.css')) }}">
+
+    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+
+    <!-- Notification System Styles -->
+    <style>
+        /* Notification System Styles */
+        .notification-container {
+            position: fixed;
+            top: 80px;
+            right: 20px;
+            z-index: 9999;
+            width: 350px;
+        }
+
+        .notification-toast {
+            background-color: #fff;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.15);
+            border-radius: 8px;
+            overflow: hidden;
+            margin-bottom: 15px;
+            animation: slide-in 0.5s ease-out;
+            max-height: 0;
+            opacity: 0;
+            transition: max-height 0.5s ease, opacity 0.5s ease, margin-bottom 0.5s ease;
+        }
+
+        .notification-toast.show {
+            max-height: 250px;
+            opacity: 1;
+            margin-bottom: 15px;
+        }
+
+        .notification-toast.hide {
+            max-height: 0;
+            opacity: 0;
+            margin-bottom: 0;
+        }
+
+        .notification-header {
+            padding: 12px 15px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+        }
+
+        .notification-toast.success .notification-header {
+            background-color: #28a745;
+            color: white;
+        }
+
+        .notification-toast.warning .notification-header {
+            background-color: #ffc107;
+            color: #343a40;
+        }
+
+        .notification-toast.danger .notification-header {
+            background-color: #dc3545;
+            color: white;
+        }
+
+        .notification-toast.info .notification-header {
+            background-color: #3498db;
+            color: white;
+        }
+
+        .notification-title {
+            font-weight: 600;
+            font-size: 16px;
+        }
+
+        .notification-close {
+            cursor: pointer;
+            background: transparent;
+            border: none;
+            font-size: 18px;
+            color: inherit;
+        }
+
+        .notification-body {
+            padding: 15px;
+        }
+
+        .notification-message {
+            margin-bottom: 5px;
+        }
+
+        .notification-time {
+            font-size: 12px;
+            color: #6c757d;
+        }
+
+        /* Notification Button & Counter */
+        .notification-btn {
+            position: relative;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            background: transparent;
+            border: none;
+            font-size: 20px;
+            margin-right: 15px;
+            cursor: pointer;
+        }
+
+        .notification-counter {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background: red;
+            color: white;
+            border-radius: 50%;
+            font-size: 12px;
+            width: 18px;
+            height: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Notification Dropdown */
+        .notification-dropdown {
+            position: absolute;
+            top: 100%;
+            right: 0;
+            width: 350px;
+            background: white;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.15);
+            border-radius: 8px;
+            overflow: hidden;
+            display: none;
+            z-index: 9999;
+        }
+
+        .notification-dropdown.show {
+            display: block;
+            animation: fade-in 0.3s ease;
+        }
+
+        .notification-dropdown-header {
+            padding: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+            background-color: var(--primary);
+            color: white;
+        }
+
+        .notification-dropdown-title {
+            font-weight: 600;
+            font-size: 16px;
+        }
+
+        .notification-dropdown-list {
+            max-height: 350px;
+            overflow-y: auto;
+            padding: 0;
+            margin: 0;
+            list-style: none;
+        }
+
+        .notification-item {
+            padding: 12px 15px;
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .notification-item:hover {
+            background-color: rgba(0,0,0,0.03);
+        }
+
+        .notification-item.unread {
+            background-color: rgba(52, 152, 219, 0.1);
+        }
+
+        .notification-item.unread:hover {
+            background-color: rgba(52, 152, 219, 0.15);
+        }
+
+        .notification-item-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: start;
+            margin-bottom: 5px;
+        }
+
+        .notification-item-title {
+            font-weight: 600;
+            font-size: 14px;
+            color: #343a40;
+        }
+
+        .notification-item-time {
+            font-size: 12px;
+            color: #6c757d;
+        }
+
+        .notification-item-message {
+            font-size: 13px;
+            color: #6c757d;
+            margin-bottom: 0;
+        }
+
+        .notification-dropdown-footer {
+            padding: 10px 15px;
+            text-align: center;
+            border-top: 1px solid rgba(0,0,0,0.05);
+        }
+
+        .notification-dropdown-footer a {
+            color: var(--primary);
+            font-size: 14px;
+            text-decoration: none;
+        }
+
+        .notification-dropdown-footer a:hover {
+            text-decoration: underline;
+        }
+
+        @keyframes slide-in {
+            from {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes fade-in {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+
+>>>>>>> origin/gestions-formations
     <!-- CSS Spécifiques par page -->
     {% block stylesheets %}{% endblock %}
 </head>
 <body>
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+<<<<<<< HEAD
+=======
     
 =======
 <<<<<<< HEAD
 =======
 >>>>>>> origin/gestionOffre
+>>>>>>> 76179cffc7b72c06d034d39a661eec43d0ee6421
     {% include 'includes/navbar.html.twig' %}
 =======
     
 >>>>>>> origin/gestionOffre
 <<<<<<< HEAD
+=======
+    
+>>>>>>> origin/gestionUserReclamation
+=======
+<<<<<<< HEAD
 >>>>>>> origin/gestionOffre
 =======
 >>>>>>> origin/gestionOffre
+>>>>>>> 76179cffc7b72c06d034d39a661eec43d0ee6421
     
     <main class="container-fluid p-0">
         {% block body %}{% endblock %}
@@ -51,19 +326,28 @@
     
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
    
 =======
 <<<<<<< HEAD
 =======
 >>>>>>> origin/gestionOffre
+>>>>>>> 76179cffc7b72c06d034d39a661eec43d0ee6421
     {% include 'includes/footer.html.twig' %}
 =======
    
 >>>>>>> origin/gestionOffre
 <<<<<<< HEAD
+=======
+   
+>>>>>>> origin/gestionUserReclamation
+=======
+<<<<<<< HEAD
 >>>>>>> origin/gestionOffre
 =======
 >>>>>>> origin/gestionOffre
+>>>>>>> 76179cffc7b72c06d034d39a661eec43d0ee6421
     
     <!-- JavaScript Libraries -->
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
@@ -85,16 +369,275 @@
 </body>
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
 </html> 
 =======
 <<<<<<< HEAD
 =======
 >>>>>>> origin/gestionOffre
+>>>>>>> 76179cffc7b72c06d034d39a661eec43d0ee6421
 </html> voici le fichier base.html.twig
 =======
 </html> 
 >>>>>>> origin/gestionOffre
 <<<<<<< HEAD
+=======
+</html> 
+>>>>>>> origin/gestionUserReclamation
+=======
+
+<!-- Notification Container for Toast Notifications -->
+<div class="notification-container" id="notificationContainer"></div>
+
+<main class="container-fluid p-0">
+    {% block body %}{% endblock %}
+</main>
+
+
+
+<!-- JavaScript Libraries -->
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<script src="{{ asset('lib/wow/wow.min.js') }}"></script>
+<script src="{{ asset('lib/easing/easing.min.js') }}"></script>
+<script src="{{ asset('lib/waypoints/waypoints.min.js') }}"></script>
+<script src="{{ asset('lib/owlcarousel/owl.carousel.min.js') }}"></script>
+
+<!-- Bootstrap JS -->
+<script src="{{ asset('public/js/bootstrap.bundle.min.js') }}"></script>
+
+<!-- Template Main JS -->
+<script src="{{ asset('js/main.js') }}"></script>
+
+<!-- Notification System Script -->
+<script>
+    // Notification System
+    class NotificationSystem {
+        constructor() {
+            this.notifications = [];
+            this.container = document.getElementById('notificationContainer');
+            this.counter = document.getElementById('notificationCounter');
+            this.dropdown = document.getElementById('notificationDropdown');
+            this.dropdownList = document.getElementById('notificationDropdownList');
+            this.unreadCount = 0;
+            this.init();
+        }
+
+        init() {
+            // Check localStorage for saved notifications
+            const savedNotifications = localStorage.getItem('notifications');
+            if (savedNotifications) {
+                this.notifications = JSON.parse(savedNotifications);
+                this.updateCounter();
+                this.renderDropdownNotifications();
+            }
+
+            // Initialize Pusher for real-time notifications
+            if (typeof Pusher !== 'undefined') {
+                const pusher = new Pusher('58993209563f20fc12d9', {
+                    cluster: 'eu',
+                    encrypted: true
+                });
+
+                const channel = pusher.subscribe('my-channel');
+                channel.bind('my-event', data => {
+                    this.showNotification(data);
+                });
+            }
+
+            // Event listener for notification button click
+            document.addEventListener('click', (e) => {
+                if (e.target.closest('#notificationBtn')) {
+                    this.toggleDropdown();
+                } else if (!e.target.closest('.notification-dropdown') && this.dropdown) {
+                    this.dropdown.classList.remove('show');
+                }
+            });
+        }
+
+        showNotification(data) {
+            // Create notification object
+            const notification = {
+                id: Date.now(),
+                title: data.title || 'Notification',
+                message: data.message || 'You have a new notification',
+                type: data.type || 'info',
+                time: new Date(),
+                read: false
+            };
+
+            // Add to notifications array
+            this.notifications.unshift(notification);
+            this.updateCounter();
+            this.saveNotifications();
+            this.renderDropdownNotifications();
+
+            // Create toast notification
+            const toast = document.createElement('div');
+            toast.className = `notification-toast ${notification.type}`;
+            toast.id = `toast-${notification.id}`;
+
+            toast.innerHTML = `
+                <div class="notification-header">
+                    <div class="notification-title">${notification.title}</div>
+                    <button class="notification-close">&times;</button>
+                </div>
+                <div class="notification-body">
+                    <div class="notification-message">${notification.message}</div>
+                    <div class="notification-time">Just now</div>
+                </div>
+            `;
+
+            // Add to container
+            this.container.appendChild(toast);
+
+            // Show the toast with animation
+            setTimeout(() => {
+                toast.classList.add('show');
+            }, 10);
+
+            // Add close handler
+            toast.querySelector('.notification-close').addEventListener('click', () => {
+                this.closeToast(toast);
+            });
+
+            // Auto close after 5 seconds
+            setTimeout(() => {
+                this.closeToast(toast);
+            }, 5000);
+        }
+
+        closeToast(toast) {
+            toast.classList.add('hide');
+            setTimeout(() => {
+                if (toast.parentNode) {
+                    toast.parentNode.removeChild(toast);
+                }
+            }, 500);
+        }
+
+        toggleDropdown() {
+            if (this.dropdown) {
+                this.dropdown.classList.toggle('show');
+
+                // Mark notifications as read when dropdown is opened
+                if (this.dropdown.classList.contains('show')) {
+                    this.markAllAsRead();
+                }
+            }
+        }
+
+        updateCounter() {
+            this.unreadCount = this.notifications.filter(n => !n.read).length;
+
+            if (this.counter) {
+                if (this.unreadCount > 0) {
+                    this.counter.textContent = this.unreadCount > 9 ? '9+' : this.unreadCount;
+                    this.counter.style.display = 'flex';
+                } else {
+                    this.counter.style.display = 'none';
+                }
+            }
+        }
+
+        renderDropdownNotifications() {
+            if (this.dropdownList) {
+                this.dropdownList.innerHTML = '';
+
+                if (this.notifications.length === 0) {
+                    this.dropdownList.innerHTML = `
+                        <li class="notification-item">
+                            <div class="notification-item-message text-center">No notifications</div>
+                        </li>
+                    `;
+                    return;
+                }
+
+                this.notifications.slice(0, 10).forEach(notification => {
+                    const li = document.createElement('li');
+                    li.className = `notification-item${notification.read ? '' : ' unread'}`;
+
+                    const timeAgo = this.getTimeAgo(notification.time);
+
+                    li.innerHTML = `
+                        <div class="notification-item-header">
+                            <div class="notification-item-title">${notification.title}</div>
+                            <div class="notification-item-time">${timeAgo}</div>
+                        </div>
+                        <p class="notification-item-message">${notification.message}</p>
+                    `;
+
+                    li.addEventListener('click', () => {
+                        this.markAsRead(notification.id);
+                    });
+
+                    this.dropdownList.appendChild(li);
+                });
+            }
+        }
+
+        markAsRead(id) {
+            const notification = this.notifications.find(n => n.id === id);
+            if (notification) {
+                notification.read = true;
+                this.updateCounter();
+                this.saveNotifications();
+                this.renderDropdownNotifications();
+            }
+        }
+
+        markAllAsRead() {
+            this.notifications.forEach(n => n.read = true);
+            this.updateCounter();
+            this.saveNotifications();
+            this.renderDropdownNotifications();
+        }
+
+        saveNotifications() {
+            // Save to localStorage (limited to last 50)
+            localStorage.setItem('notifications', JSON.stringify(this.notifications.slice(0, 50)));
+        }
+
+        getTimeAgo(time) {
+            const now = new Date();
+            const notificationTime = new Date(time);
+            const diffMs = now - notificationTime;
+
+            const diffSecs = Math.floor(diffMs / 1000);
+            const diffMins = Math.floor(diffSecs / 60);
+            const diffHours = Math.floor(diffMins / 60);
+            const diffDays = Math.floor(diffHours / 24);
+
+            if (diffSecs < 60) {
+                return 'Just now';
+            } else if (diffMins < 60) {
+                return `${diffMins}m ago`;
+            } else if (diffHours < 24) {
+                return `${diffHours}h ago`;
+            } else if (diffDays < 7) {
+                return `${diffDays}d ago`;
+            } else {
+                return notificationTime.toLocaleDateString();
+            }
+        }
+    }
+
+    // Initialize notification system on page load
+    document.addEventListener('DOMContentLoaded', () => {
+        window.notificationSystem = new NotificationSystem();
+    });
+</script>
+
+<!-- JavaScript Spécifiques par page -->
+{% block javascripts %}
+
+{% endblock %}
+</body>
+</html>
+>>>>>>> origin/gestions-formations
+=======
+<<<<<<< HEAD
 >>>>>>> origin/gestionOffre
 =======
 >>>>>>> origin/gestionOffre
+>>>>>>> 76179cffc7b72c06d034d39a661eec43d0ee6421

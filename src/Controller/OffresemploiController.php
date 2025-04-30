@@ -5,7 +5,10 @@ namespace App\Controller;
 use App\Entity\Offresemploi;
 use App\Form\OffresemploiType;
 use Doctrine\ORM\EntityManagerInterface;
+<<<<<<< HEAD
 use Knp\Component\Pager\PaginatorInterface;
+=======
+>>>>>>> origin/gestionUserReclamation
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -15,6 +18,7 @@ use Symfony\Component\Routing\Attribute\Route;
 final class OffresemploiController extends AbstractController
 {
     #[Route(name: 'app_offresemploi_index', methods: ['GET'])]
+<<<<<<< HEAD
     public function index(Request $request, EntityManagerInterface $entityManager, PaginatorInterface $paginator): Response
     {
         $repository = $entityManager->getRepository(Offresemploi::class);
@@ -30,6 +34,30 @@ final class OffresemploiController extends AbstractController
         return $this->render('offresemploi/index.html.twig', [
             'offresemplois' => $pagination,
             'pagination' => $pagination,
+=======
+    public function index(Request $request, EntityManagerInterface $entityManager): Response
+    {
+        $repository = $entityManager->getRepository(Offresemploi::class);
+        $allOffres = $repository->findAll(); // Récupérer toutes les offres
+
+        // Paramètres de pagination
+        $page = $request->query->getInt('page', 1); // Page actuelle, par défaut 1
+        $limit = 5; // Nombre d'éléments par page (ajustable)
+        $totalOffres = count($allOffres); // Nombre total d'offres
+        $totalPages = max(1, ceil($totalOffres / $limit)); // Nombre total de pages
+        $page = max(1, min($page, $totalPages)); // S'assurer que la page est valide
+
+        // Pagination : Découper les résultats
+        $offset = ($page - 1) * $limit;
+        $offresemplois = array_slice($allOffres, $offset, $limit);
+
+        return $this->render('offresemploi/index.html.twig', [
+            'offresemplois' => $offresemplois,
+            'pagination' => [
+                'currentPage' => $page,
+                'totalPages' => $totalPages,
+            ],
+>>>>>>> origin/gestionUserReclamation
         ]);
     }
 

@@ -17,6 +17,14 @@ services:
       MP_SMTP_AUTH_ALLOW_INSECURE: 1
 ###< symfony/mailer ###
 <<<<<<< HEAD
+<<<<<<< HEAD
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+=======
+>>>>>>> origin/gestionUserReclamation
+=======
+>>>>>>> origin/gestions-formations
 =======
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -24,6 +32,7 @@ services:
 >>>>>>> origin/gestionOffre
 =======
 >>>>>>> origin/gestionOffre
+>>>>>>> 76179cffc7b72c06d034d39a661eec43d0ee6421
 
 ###> symfony/mercure-bundle ###
   mercure:
@@ -32,8 +41,15 @@ services:
 ###< symfony/mercure-bundle ###
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
 =======
 >>>>>>> origin/gestionOffre
 =======
 >>>>>>> origin/gestionOffre
+>>>>>>> 76179cffc7b72c06d034d39a661eec43d0ee6421
 >>>>>>> origin/gestionOffre
+=======
+>>>>>>> origin/gestionUserReclamation
+=======
+>>>>>>> origin/gestions-formations

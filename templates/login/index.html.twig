@@ -1,5 +1,6 @@
 {% extends 'base.html.twig' %}
 
+<<<<<<< HEAD
 {% block title %}Hello LoginController!{% endblock %}
 
 {% block body %}
@@ -17,4 +18,76 @@
         <li>Your template at <code>C:/Users/MSI/Examen/templates/login/index.html.twig</code></li>
     </ul>
 </div>
+=======
+{% block title %}Connexion - Startup{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('lib/owlcarousel/assets/owl.carousel.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('lib/animate/animate.min.css') }}">
+    <style>
+        /* Vos variables et classes personnalisées ici... */
+    </style>
+{% endblock %}
+
+{% block body %}
+    <div class="login-section">
+        <div class="container py-5">
+            <div class="login-container">
+                <div class="login-header text-center mb-4">
+                    <h3>Connexion</h3>
+                </div>
+
+                {# Affiche l'erreur d'authentification s'il y en a #}
+                {% if error %}
+                    <div class="alert alert-danger">
+                        {{ error.messageKey|trans(error.messageData, 'security') }}
+                    </div>
+                {% endif %}
+
+                <div class="login-body">
+                    <form action="{{ path('app_login') }}" method="post">
+                        {# Jeton CSRF #}
+                        <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+
+                        <div class="mb-3">
+                            <label for="email" class="form-label">Adresse email</label>
+                            <input
+                                    type="text"
+                                    id="email"
+                                    name="email"
+                                    class="form-control"
+                                    value="{{ last_username }}"
+                                    required autofocus
+                            >
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="password" class="form-label">Mot de passe</label>
+                            <input
+                                    type="password"
+                                    id="password"
+                                    name="password"
+                                    class="form-control"
+                                    required
+                            >
+                        </div>
+
+                        <div class="d-grid gap-2 mt-4">
+                            <button type="submit" class="btn btn-primary">
+                                Se connecter
+                            </button>
+                        </div>
+                    </form>
+
+                    <div class="text-center mt-3">
+                        <a href="{{ path('app_register') }}" class="text-primary">Créer un compte</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {# Footer, si nécessaire, peut être dans base.html.twig #}
+>>>>>>> origin/gestions-formations
 {% endblock %}

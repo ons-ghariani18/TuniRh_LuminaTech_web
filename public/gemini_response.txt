@@ -1,0 +1,36 @@
+Here are 5 questions about the Java language, formatted as requested:
+
+**Question:** What is the primary data type for storing whole numbers in Java?
+a) int
+b) float
+c) String
+d) boolean
+**Correct: a**
+
+**Question:** Which keyword is used to declare a class in Java?
+a) class
+b) method
+c) variable
+d) define
+**Correct: a**
+
+**Question:** What is the output of System.out.println("Hello World"); in Java?
+a) Hello World
+b) "Hello World"
+c) System.out.println("Hello World")
+d) It will result in an error.
+**Correct: a**
+
+**Question:** Which of these is NOT a valid access modifier in Java?
+a) public
+b) private
+c) protected
+d) friendly
+**Correct: d**
+
+**Question:** What is the name of the data structure in Java that guarantees uniqueness of its elements?
+a) List
+b) Array
+c) Set
+d) Map
+**Correct: c** 

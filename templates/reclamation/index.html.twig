@@ -2,10 +2,16 @@
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> origin/gestions-formations
+=======
 =======
 <<<<<<< HEAD
 =======
 >>>>>>> origin/gestionOffre
+>>>>>>> 76179cffc7b72c06d034d39a661eec43d0ee6421
 {% block title %}Hello ReclamationController!{% endblock %}
 
 {% block body %}
@@ -24,11 +30,17 @@
     </ul>
 </div>
 {% endblock %}
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+=======
+>>>>>>> origin/gestionUserReclamation
 =======
 <<<<<<< HEAD
 >>>>>>> origin/gestionOffre
 =======
 >>>>>>> origin/gestionOffre
+>>>>>>> 76179cffc7b72c06d034d39a661eec43d0ee6421
 {% block title %}Gestion des Réclamations{% endblock %}
 
 {% block stylesheets %}
@@ -49,8 +61,11 @@
             --shadow-sm: 0 4px 12px rgba(0, 0, 0, 0.15);
             --shadow-lg: 0 12px 30px rgba(0, 0, 0, 0.2);
             --transition: all 0.3s ease;
+<<<<<<< HEAD
             --sidebar-bg: var(--primary-blue);
             --sidebar-text: var(--text-light);
+=======
+>>>>>>> origin/gestionUserReclamation
             --border-color: #E5E7EB;
             --success-green: #28a745;
             --warning-yellow: #ffc107;
@@ -64,12 +79,18 @@
             margin: 0;
             padding: 0;
             min-height: 100vh;
+<<<<<<< HEAD
             overflow-x: hidden;
+=======
+>>>>>>> origin/gestionUserReclamation
         }
 
         .flex { display: flex; }
         .flex-1 { flex: 1; }
+<<<<<<< HEAD
         .h-screen { height: 100vh; }
+=======
+>>>>>>> origin/gestionUserReclamation
         .items-center { align-items: center; }
         .justify-between { justify-content: space-between; }
         .gap-2 { gap: 0.5rem; }
@@ -81,6 +102,7 @@
         .mb-6 { margin-bottom: 1.5rem; }
         .mr-2 { margin-right: 0.5rem; }
 
+<<<<<<< HEAD
         /* Sidebar & Main Content */
         .app-container {
             position: relative;
@@ -172,10 +194,21 @@
 
         .main-content.sidebar-collapsed {
             margin-left: 0;
+=======
+        /* Main Content */
+        .main-content {
+            padding: 0;
+            width: 100%;
+>>>>>>> origin/gestionUserReclamation
         }
 
         .content-inner {
             padding: 2rem;
+<<<<<<< HEAD
+=======
+            max-width: 1200px;
+            margin: 0 auto;
+>>>>>>> origin/gestionUserReclamation
         }
 
         /* Navbar */
@@ -212,6 +245,7 @@
             outline: none;
         }
 
+<<<<<<< HEAD
         .menu-toggle {
             display: flex;
             align-items: center;
@@ -239,6 +273,8 @@
             transform: rotate(180deg);
         }
 
+=======
+>>>>>>> origin/gestionUserReclamation
         /* Button & Table */
         .btn-primary {
             background: var(--primary-orange);
@@ -319,6 +355,7 @@
             text-decoration: underline;
         }
 
+<<<<<<< HEAD
         .action-link i {
             transition: transform 0.3s ease;
         }
@@ -327,6 +364,8 @@
             transform: scale(1.1);
         }
 
+=======
+>>>>>>> origin/gestionUserReclamation
         .no-records {
             text-align: center;
             color: var(--text-muted);
@@ -357,6 +396,7 @@
             color: var(--text-light);
         }
 
+<<<<<<< HEAD
         /* Overlay for mobile */
         .sidebar-overlay {
             position: fixed;
@@ -388,15 +428,30 @@
 
             .main-content {
                 margin-left: 0;
+=======
+        /* Responsive */
+        @media (max-width: 768px) {
+            .content-inner {
+                padding: 1rem;
+>>>>>>> origin/gestionUserReclamation
             }
 
             .navbar {
                 padding: 1rem;
+<<<<<<< HEAD
+=======
+                flex-wrap: wrap;
+                gap: 1rem;
+>>>>>>> origin/gestionUserReclamation
             }
 
             .search-input {
                 width: 100%;
+<<<<<<< HEAD
                 max-width: 200px;
+=======
+                max-width: 100%;
+>>>>>>> origin/gestionUserReclamation
             }
 
             .data-table th, .data-table td {
@@ -429,6 +484,7 @@
 {% endblock %}
 
 {% block body %}
+<<<<<<< HEAD
 <div class="app-container">
     <aside class="aside wow slideInLeft" id="sidebar" data-wow-delay="0.2s">
         <div class="aside-brand">
@@ -546,6 +602,75 @@
                 </div>
             {% endif %}
         </div>
+=======
+<div class="main-content">
+    <header class="navbar wow fadeInDown" data-wow-delay="0.2s">
+        <div class="navbar-menu">
+            <i class="mdi mdi-bell-outline text-xl"></i>
+            <div class="flex items-center gap-2">
+                <img src="https://ui-avatars.com/api/?name=RH+Admin&background=091E3E&color=fff" class="rounded-full" width="36" alt="Admin Avatar">
+                <span>Admin RH</span>
+            </div>
+        </div>
+    </header>
+
+    <div class="content-inner">
+        <div class="flex justify-between items-center mb-6 wow fadeInUp" data-wow-delay="0.3s">
+            <h1 class="text-2xl font-bold" style="color: var(--primary-orange);">Gestion des Réclamations</h1>
+            <a href="{{ path('app_reclamation_new') }}" class="btn-primary">
+                <i class="mdi mdi-plus-circle"></i> Nouvelle Réclamation
+            </a>
+        </div>
+
+        {% if reclamations is empty %}
+            <div class="no-records wow fadeInUp" data-wow-delay="0.4s">Aucune réclamation trouvée</div>
+        {% else %}
+            <div class="table-container wow fadeInUp" data-wow-delay="0.4s">
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Sujet</th>
+                            <th>Description</th>
+                            <th>Date</th>
+                            <th>Statut</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for reclamation in reclamations %}
+                            <tr class="wow fadeInUp" data-wow-delay="{{ loop.index0 * 50 }}ms">
+                                <td data-label="Sujet">{{ reclamation.sujet }}</td>
+                                <td data-label="Description">{{ reclamation.description|slice(0, 50) }}...</td>
+                                <td data-label="Date">{{ reclamation.dateReclamation|date('d/m/Y') }}</td>
+                                <td data-label="Statut">
+                                    <span class="badge bg-status-{{ reclamation.statut|lower }}">
+                                        {{ reclamation.statut }}
+                                    </span>
+                                </td>
+                                <td class="action-buttons">
+                                    <a href="{{ path('app_reclamation_show', {'idReclamation': reclamation.idReclamation}) }}" 
+                                       class="action-link" title="Détails">
+                                        <i class="mdi mdi-eye"></i> Voir
+                                    </a>
+                                    <a href="{{ path('app_reclamation_edit', {'idReclamation': reclamation.idReclamation}) }}" 
+                                       class="action-link" title="Modifier">
+                                        <i class="mdi mdi-pencil"></i> Modifier
+                                    </a>
+                                    <a href="#" class="action-link delete-reclamation" 
+                                       data-reclamation-name="{{ reclamation.sujet }}" 
+                                       data-delete-url="{{ path('app_reclamation_delete', {'idReclamation': reclamation.idReclamation}) }}"
+                                       data-token="{{ csrf_token('delete' ~ reclamation.idReclamation) }}"
+                                       title="Supprimer">
+                                        <i class="mdi mdi-delete"></i> Supprimer
+                                    </a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        {% endif %}
+>>>>>>> origin/gestionUserReclamation
     </div>
 </div>
 {% endblock %}
@@ -553,7 +678,10 @@
 {% block javascripts %}
     {{ parent() }}
     <script>
+<<<<<<< HEAD
         // Initialiser WOW.js pour les animations
+=======
+>>>>>>> origin/gestionUserReclamation
         new WOW().init();
 
         document.addEventListener('DOMContentLoaded', () => {
@@ -563,7 +691,11 @@
                     e.preventDefault();
                     const name = link.dataset.reclamationName;
                     const deleteUrl = link.dataset.deleteUrl;
+<<<<<<< HEAD
                     const token = link.dataset.token; // Récupérer le jeton CSRF depuis l'attribut data-token
+=======
+                    const token = link.dataset.token;
+>>>>>>> origin/gestionUserReclamation
                     
                     if (confirm(`Supprimer la réclamation "${name}" ? Cette action est irréversible.`)) {
                         const form = document.createElement('form');
@@ -572,13 +704,18 @@
                         const tokenInput = document.createElement('input');
                         tokenInput.type = 'hidden';
                         tokenInput.name = '_token';
+<<<<<<< HEAD
                         tokenInput.value = token; // Utiliser le jeton récupéré
+=======
+                        tokenInput.value = token;
+>>>>>>> origin/gestionUserReclamation
                         form.appendChild(tokenInput);
                         document.body.appendChild(form);
                         form.submit();
                     }
                 });
             });
+<<<<<<< HEAD
             
             // Sidebar toggle with animation
             const sidebar = document.getElementById('sidebar');
@@ -635,6 +772,8 @@
                     sidebarOverlay.classList.remove('active');
                 }
             });
+=======
+>>>>>>> origin/gestionUserReclamation
 
             // Animation de clic sur les liens d'action
             document.querySelectorAll('.action-link, .btn-primary').forEach(link => {
@@ -661,6 +800,15 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 {% endblock %}
+>>>>>>> origin/gestionOffre
+=======
+{% endblock %}
+>>>>>>> origin/gestionUserReclamation
+=======
+>>>>>>> origin/gestions-formations
+=======
+<<<<<<< HEAD
+{% endblock %}
 =======
 {% endblock %}
 >>>>>>> origin/gestionOffre
@@ -669,3 +817,4 @@
 {% endblock %}
 >>>>>>> origin/gestionOffre
 >>>>>>> origin/gestionOffre
+>>>>>>> 76179cffc7b72c06d034d39a661eec43d0ee6421

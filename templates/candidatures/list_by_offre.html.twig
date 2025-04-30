@@ -23,11 +23,17 @@
                             <tr class="text-center">
                                 <th><i class="bi bi-person me-1"></i> Nom</th>
                                 <th><i class="bi bi-envelope me-1"></i> Email</th>
+<<<<<<< HEAD
                                 <th><i class="bi bi-star me-1"></i> Score</th>
                                 <th><i class="bi bi-file-text me-1"></i> Lettre</th>
                                 <th><i class="bi bi-file-pdf me-1"></i> CV</th>
                                 <th><i class="bi bi-calendar me-1"></i> Date</th>
                                 <th><i class="bi bi-check-circle me-1"></i> Statut</th>
+=======
+                                <th><i class="bi bi-file-text me-1"></i> Lettre</th>
+                                <th><i class="bi bi-file-pdf me-1"></i> CV</th>
+                                <th><i class="bi bi-calendar me-1"></i> Date</th>
+>>>>>>> origin/gestionUserReclamation
                             </tr>
                         </thead>
                         <tbody>
@@ -35,6 +41,7 @@
                                 <tr class="wow fadeInUp" data-wow-delay="{{ loop.index0 * 50 }}ms">
                                     <td class="fw-bold">{{ candidature.nomCandidat }}</td>
                                     <td>{{ candidature.email }}</td>
+<<<<<<< HEAD
                                     <td class="text-center">
                                         {% if candidature.score is not null %}
                                             <span class="badge {% if candidature.score >= 70 %}bg-success{% elseif candidature.score >= 40 %}bg-warning{% else %}bg-danger{% endif %}">
@@ -44,6 +51,8 @@
                                             <span class="badge bg-secondary">N/A</span>
                                         {% endif %}
                                     </td>
+=======
+>>>>>>> origin/gestionUserReclamation
                                     <td class="letter-column">{{ candidature.lettreMotivation }}</td>
                                     <td class="text-center">
                                         <a href="{{ asset('uploads/cv/' ~ candidature.cv) }}" target="_blank" class="btn btn-action btn-view">
@@ -51,7 +60,10 @@
                                         </a>
                                     </td>
                                     <td class="text-center">{{ candidature.dateCandidature|date('d/m/Y H:i') }}</td>
+<<<<<<< HEAD
                                     <td class="text-center">{{ candidature.statut }}</td>
+=======
+>>>>>>> origin/gestionUserReclamation
                                 </tr>
                             {% endfor %}
                         </tbody>
@@ -197,6 +209,7 @@
             line-height: 1.5;
         }
 
+<<<<<<< HEAD
         /* Badges pour le score */
         .badge {
             font-size: 0.9rem;
@@ -230,6 +243,8 @@
             color: var(--text-light);
         }
 
+=======
+>>>>>>> origin/gestionUserReclamation
         /* Bouton Action (Télécharger CV) */
         .btn-action {
             padding: 5px 10px;
@@ -314,10 +329,13 @@
             .section-title:hover .title-underline {
                 width: 90px;
             }
+<<<<<<< HEAD
             .badge {
                 font-size: 0.8rem;
                 padding: 4px 8px;
             }
+=======
+>>>>>>> origin/gestionUserReclamation
         }
     </style>
 {% endblock %}

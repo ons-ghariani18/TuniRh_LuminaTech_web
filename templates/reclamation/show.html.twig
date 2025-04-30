@@ -2,9 +2,16 @@
 
 {% block title %}Détails de la Réclamation{% endblock %}
 
+<<<<<<< HEAD
 {% block css %}
     {{ parent() }}
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+=======
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+>>>>>>> origin/gestionUserReclamation
     <style>
         :root {
             --primary-orange: #F57C00;
@@ -13,14 +20,18 @@
             --text-dark: #333333;
             --text-muted: #6c757d;
             --white-color: #ffffff;
+<<<<<<< HEAD
             --shadow-sm: 0 4px 15px rgba(0, 0, 0, 0.1);
             --shadow-lg: 0 10px 30px rgba(0, 0, 0, 0.15);
+=======
+>>>>>>> origin/gestionUserReclamation
             --danger-red: #dc3545;
             --success-green: #28a745;
             --warning-yellow: #ffc107;
         }
 
         .show-reclamation-section {
+<<<<<<< HEAD
             background: linear-gradient(160deg, var(--primary-blue) 0%, #1e293b 100%);
             padding: 80px 0;
             min-height: 100vh;
@@ -60,10 +71,39 @@
             padding: 40px;
             max-width: 700px;
             margin: 0 auto;
+=======
+            background: linear-gradient(135deg, var(--primary-blue) 0%, #1B263B 100%);
+            min-height: 100vh;
+            padding: 4rem 1rem;
+            color: var(--white-color);
+            font-family: 'Nunito', sans-serif;
+        }
+
+        .details-container {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 1.5rem;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(10px);
+            max-width: 800px;
+            margin: 2rem auto;
+            padding: 2.5rem;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 2.5rem;
+        }
+
+        .section-header h1 {
+            font-size: 2.5rem;
+            color: var(--primary-orange);
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+>>>>>>> origin/gestionUserReclamation
         }
 
         .details-table {
             width: 100%;
+<<<<<<< HEAD
             border-collapse: collapse;
         }
         .details-table th,
@@ -150,6 +190,91 @@
             .details-table th, .details-table td { display: block; width: 100%; }
             .details-table th { padding-bottom: 5px; }
             .btn { font-size: 0.9rem; width: 100%; }
+=======
+            margin: 1.5rem 0;
+        }
+
+        .details-table th {
+            color: var(--primary-blue);
+            font-weight: 700;
+            padding: 1rem;
+            width: 30%;
+            vertical-align: top;
+        }
+
+        .details-table td {
+            color: var(--text-dark);
+            padding: 1rem;
+            position: relative;
+        }
+
+        .audio-control {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: var(--primary-orange);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 2rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .audio-control:hover {
+            background: #E06B00;
+            transform: translateY(-2px);
+        }
+
+        .audio-control i {
+            font-size: 1.2rem;
+        }
+
+        .status-badge {
+            padding: 0.4rem 1rem;
+            border-radius: 1rem;
+            font-weight: 600;
+            display: inline-block;
+        }
+
+        .action-buttons {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: var(--primary-orange);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 2rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            
+        }
+
+        .action-buttons:hover {
+            background: #E06B00;
+            transform: translateY(-2px);
+        }
+
+        .action-buttons i {
+            font-size: 1.2rem;
+        }
+
+        
+        @media (max-width: 768px) {
+            .details-container {
+                padding: 1.5rem;
+            }
+            
+            .section-header h1 {
+                font-size: 2rem;
+            }
+            
+            .details-table th, 
+            .details-table td {
+                display: block;
+                width: 100%;
+                padding: 0.5rem;
+            }
+>>>>>>> origin/gestionUserReclamation
         }
     </style>
 {% endblock %}
@@ -165,17 +290,25 @@
             <div class="details-container" data-aos="fade-up" data-aos-delay="100">
                 <table class="details-table">
                     <tbody>
+<<<<<<< HEAD
                         <tr>
                             <th>ID Réclamation</th>
                             <td>#{{ reclamation.idReclamation }}</td>
                         </tr>
+=======
+                    
+>>>>>>> origin/gestionUserReclamation
                         <tr>
                             <th>Sujet</th>
                             <td>{{ reclamation.sujet }}</td>
                         </tr>
                         <tr>
                             <th>Description</th>
+<<<<<<< HEAD
                             <td>{{ reclamation.description }}</td>
+=======
+                            <td>{{ reclamation.Description }}</td>
+>>>>>>> origin/gestionUserReclamation
                         </tr>
                         <tr>
                             <th>Date de Réclamation</th>
@@ -211,5 +344,12 @@
             duration: 800,
             once: true
         });
+<<<<<<< HEAD
     </script>
 {% endblock %}
+=======
+
+        
+    </script>
+{% endblock %}
+>>>>>>> origin/gestionUserReclamation
