@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Repository\UsersRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -10,7 +11,8 @@ use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 
-#[ORM\Entity]
+#[ORM\Entity(repositoryClass: UsersRepository::class)]
+#[ORM\Table(name: 'users')]
 class Users implements UserInterface, PasswordAuthenticatedUserInterface
 {
     #[ORM\Id]
@@ -44,11 +46,6 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
     private string $email;
 
     #[ORM\Column(type: "string", length: 255)]
-    #[Assert\NotBlank(message: "Le mot de passe est obligatoire")]
-    #[Assert\Length(
-        min: 6,
-        minMessage: "Le mot de passe doit contenir au moins {{ limit }} caractères"
-    )]
     private string $password;
 
     #[ORM\Column(type: "string", length: 20)]
@@ -76,6 +73,13 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
         message: "Le rôle doit être Responsable RH, Employé ou candidat"
     )]
     private string $role;
+
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
+    private $avatar;
+
+    #[ORM\Column(name: "googleId", type: "string", length: 255, nullable: true)]
+    private ?string $googleId = null;
+
 
     #[ORM\OneToMany(mappedBy: "idUser", targetEntity: Reclamation::class)]
     private Collection $reclamations;
@@ -170,6 +174,17 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
+    public function getGoogleId(): ?string
+    {
+        return $this->googleId;
+    }
+
+    public function setGoogleId(?string $googleId): self
+    {
+        $this->googleId = $googleId;
+        return $this;
+    }
+
     public function getReclamations(): Collection
     {
         return $this->reclamations;
@@ -214,4 +229,15 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
     {
         return $this->email;
     }
-}
+
+    public function getAvatar(): ?string
+    {
+        return $this->avatar;
+    }
+
+    public function setAvatar(?string $avatar): self
+    {
+        $this->avatar = $avatar;
+        return $this;
+    }
+} 

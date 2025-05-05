@@ -1,5 +1,20 @@
+# Configuration principale des contrôleurs
 controllers:
     resource:
         path: ../src/Controller/
         namespace: App\Controller
     type: attribute
+    prefix: /
+
+# Routes spécifiques pour Google Calendar
+google_auth:
+    path: /google/auth
+    controller: App\Controller\GoogleCalendarController::googleAuth
+
+google_callback:
+    path: /google/callback
+    controller: App\Controller\GoogleCalendarController::callback
+
+google_test:
+    path: /google/test
+    controller: App\Controller\GoogleCalendarController::testCalendar

@@ -285,12 +285,31 @@
             text-decoration: underline;
         }
 
-        .action-link i {
+        .action-link i, .action-link-button i {
             transition: transform 0.3s ease;
         }
 
-        .action-link:hover i {
+        .action-link:hover i, .action-link-button:hover i {
             transform: scale(1.1);
+        }
+
+        .action-link-button {
+            color: var(--primary-orange);
+            margin-right: 0.5rem;
+            font-weight: 500;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.25rem;
+            transition: color 0.3s ease;
+            background: none;
+            border: none;
+            padding: 0;
+            cursor: pointer;
+        }
+
+        .action-link-button:hover {
+            color: var(--orange-light);
+            text-decoration: underline;
         }
 
         .no-records {
@@ -426,7 +445,6 @@
             <a href="#" class="menu-item">
                 <i class="mdi mdi-account-group"></i> Profils Utilisateurs
             </a>
-           
             <a href="{{ path('app_reponse_index') }}" class="menu-item">
                 <i class="mdi mdi-message-alert"></i> Réclamations
             </a>
@@ -514,9 +532,12 @@
                                         <a href="{{ path('app_offresemploi_edit', {'id_offre': offresemploi.idOffre}) }}" class="action-link">
                                             <i class="mdi mdi-pencil"></i> Modifier
                                         </a>
-                                        <a href="#" class="action-link delete-offre" data-offre-name="{{ offresemploi.titre }}" data-delete-url="{{ path('app_offresemploi_delete', {'id_offre': offresemploi.idOffre}) }}">
-                                            <i class="mdi mdi-delete"></i> Supprimer
-                                        </a>
+                                        <form method="post" action="{{ path('app_offresemploi_delete', {'id_offre': offresemploi.idOffre}) }}" style="display: inline-block;" onsubmit="return confirm('Supprimer l\'offre \"{{ offresemploi.titre }}\" ? Cette action est irréversible.');">
+                                            <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ offresemploi.idOffre) }}">
+                                            <button type="submit" class="action-link-button">
+                                                <i class="mdi mdi-delete"></i> Supprimer
+                                            </button>
+                                        </form>
                                     </td>
                                 </tr>
                             {% endfor %}
@@ -541,19 +562,6 @@
         new WOW().init();
 
         document.addEventListener('DOMContentLoaded', () => {
-            // Handle delete confirmation
-            document.querySelectorAll('.delete-offre').forEach(link => {
-                link.addEventListener('click', e => {
-                    e.preventDefault();
-                    const name = link.dataset.offreName;
-                    const deleteUrl = link.dataset.deleteUrl;
-                    
-                    if (confirm(`Supprimer l'offre "${name}" ? Cette action est irréversible.`)) {
-                        window.location.href = deleteUrl;
-                    }
-                });
-            });
-            
             // Sidebar toggle with animation
             const sidebar = document.getElementById('sidebar');
             const mainContent = document.getElementById('mainContent');
@@ -611,9 +619,9 @@
             });
 
             // Animation de clic sur les liens d'action
-            document.querySelectorAll('.action-link, .btn-primary, .page-link').forEach(link => {
+            document.querySelectorAll('.action-link, .action-link-button, .btn-primary, .page-link').forEach(link => {
                 link.addEventListener('click', function(e) {
-                    if (!this.classList.contains('disabled')) {
+                    if (!this.classList.contains('disabled') && !this.closest('form')) {
                         e.preventDefault();
                         const href = this.getAttribute('href');
                         this.style.transition = 'transform 0.2s ease';

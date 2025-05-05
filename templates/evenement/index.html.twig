@@ -83,6 +83,33 @@
             margin-right: 0.5rem;
         }
 
+        /* Notification badge */
+        .notification-badge {
+            position: relative;
+            display: inline-block;
+            margin-right: 1rem;
+        }
+
+        .notification-icon {
+            font-size: 1.25rem;
+            color: var(--text-color);
+        }
+
+        .badge-count {
+            position: absolute;
+            top: -0.5rem;
+            right: -0.5rem;
+            background-color: #ef4444;
+            color: white;
+            font-size: 0.75rem;
+            border-radius: 9999px;
+            height: 1.25rem;
+            width: 1.25rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
         /* Sidebar & Main Content */
         .app-container {
             position: relative;
@@ -340,7 +367,7 @@
                 max-width: 200px;
             }
         }
-        
+
         /* Badges for event status */
         .badge {
             display: inline-block;
@@ -349,30 +376,126 @@
             font-size: 0.75rem;
             font-weight: 600;
         }
-        
+
         .badge-upcoming {
             background-color: #e3f2fd;
             color: #1976d2;
         }
-        
+
         .badge-ongoing {
             background-color: #e8f5e9;
             color: #388e3c;
         }
-        
+
         .badge-completed {
             background-color: #f3e5f5;
             color: #8e24aa;
         }
-        
+
         .badge-cancelled {
             background-color: #ffebee;
             color: #d32f2f;
         }
-        
+
         /* Date formatting */
         .date-cell {
             white-space: nowrap;
+        }
+
+        /* Style pour le conteneur du formulaire */
+        .filter-container {
+            background: var(--card-bg);
+            padding: 1.5rem;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            margin-bottom: 2rem;
+        }
+
+        .filter-container h2 {
+            font-size: 1.25rem;
+            margin-top: 0;
+            margin-bottom: 1rem;
+        }
+
+        .filter-form {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 1rem;
+            align-items: end;
+        }
+
+        .filter-form .form-group {
+            margin-bottom: 0;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+
+        .filter-form label {
+            display: block;
+            margin-bottom: 0.25rem;
+            font-weight: 600;
+            font-size: 0.875rem;
+        }
+
+        .filter-form input, .filter-form select {
+            width: 100%;
+            padding: 0.5rem;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            font-family: 'Nunito', sans-serif;
+        }
+
+        /* Style pour le bouton de recherche */
+        .search-button {
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 6px;
+            padding: 0.5rem 1rem;
+            cursor: pointer;
+            transition: background 0.3s;
+            height: 38px;
+            align-self: flex-end;
+            margin-top: 1.5rem;
+            font-family: 'Nunito', sans-serif;
+            font-weight: 600;
+        }
+
+        .search-button:hover {
+            background: var(--primary-dark);
+        }
+
+        /* Style pour les en-têtes de tri */
+        .data-table th a {
+            color: var(--text-color);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .data-table th a:hover {
+            color: var(--primary-color);
+        }
+
+        .data-table th a i {
+            margin-left: 0.25rem;
+            font-size: 0.875rem;
+        }
+
+        /* Style pour les en-têtes de tri actifs */
+        .sort-active {
+            color: var(--primary-color) !important;
+        }
+
+        .sort-icon {
+            margin-left: 0.5rem;
+            transition: transform 0.2s;
+        }
+
+        .sort-desc .sort-icon {
+            transform: rotate(180deg);
         }
     </style>
 {% endblock %}
@@ -394,10 +517,12 @@
             <a href="#" class="menu-item">
                 <i class="mdi mdi-account-group"></i> Profils Utilisateurs
             </a>
-            <a href="{{ path('app_offresemploi_index') }}" class="menu-item is-active">
+            <a href="#" class="menu-item">
                 <i class="mdi mdi-briefcase"></i> Offres d'emploi
             </a>
-
+            <a href="#" class="menu-item">
+                <i class="mdi mdi-file-document"></i> Candidatures
+            </a>
             <a href="#" class="menu-item">
                 <i class="mdi mdi-message-alert"></i> Réclamations
             </a>
@@ -408,6 +533,9 @@
             </a>
             <a href="{{ path('app_sponsor_index') }}" class="menu-item">
                 <i class="mdi mdi-handshake"></i> Sponsors
+            </a>
+            <a href="{{ path('app_notification') }}" class="menu-item">
+                <i class="mdi mdi-bell"></i> Notifications
             </a>
 
             <p class="menu-label">FORMATION</p>
@@ -428,16 +556,26 @@
                 <button id="menuToggle" class="menu-toggle" aria-label="Toggle Menu">
                     <i class="mdi mdi-menu"></i>
                 </button>
-                <input type="text" placeholder="Rechercher..." class="search-input">
             </div>
             <div class="navbar-menu">
-                <i class="mdi mdi-bell-outline text-xl"></i>
+              <a href="{{ path('app_weather') }}" class="text-blue-600 hover:text-blue-800" title="Météo">
+        <i class="mdi mdi-weather-cloudy text-xl"></i>
+    </a>
+                <a href="{{ path('app_notification') }}" class="notification-badge">
+                    <i class="mdi mdi-bell-outline notification-icon"></i>
+                    {% if upcoming_events|length > 0 %}
+                        <span class="badge-count">{{ upcoming_events|length }}</span>
+                    {% endif %}
+                    
+                  
+                </a>
+                   <a href="{{ path('app_calendar') }}" class="text-blue-600 hover:text-blue-800 mr-2" title="Calendrier">
+            <i class="mdi mdi-calendar text-xl"></i>
+        </a>
                 <div class="flex items-center gap-2">
                     <img src="https://ui-avatars.com/api/?name=RH+Admin&background=091E3E&color=fff" class="rounded-full" width="36" alt="Admin Avatar">
                     <span>Admin RH</span>
                 </div>
-
-                
             </div>
         </header>
 
@@ -449,25 +587,102 @@
                 </a>
             </div>
 
+            <div class="filter-container">
+                <h2><i class="mdi mdi-filter-variant"></i> Filtrer les événements</h2>
+                {{ form_start(searchForm, {'attr': {'class': 'filter-form'}}) }}
+                    <div class="form-group">
+                        {{ form_label(searchForm.nom) }}
+                        {{ form_widget(searchForm.nom) }}
+                    </div>
+                    <div class="form-group">
+                        {{ form_label(searchForm.type) }}
+                        {{ form_widget(searchForm.type) }}
+                    </div>
+                    <div class="form-group">
+                        {{ form_label(searchForm.lieu) }}
+                        {{ form_widget(searchForm.lieu) }}
+                    </div>
+                    <div class="form-group">
+                        {{ form_label(searchForm.date_debut) }}
+                        {{ form_widget(searchForm.date_debut) }}
+                    </div>
+                    <div class="form-group">
+                        {{ form_label(searchForm.date_fin) }}
+                        {{ form_widget(searchForm.date_fin) }}
+                    </div>
+                    {% if searchForm.sponsor is defined %}
+                    <div class="form-group">
+                        {{ form_label(searchForm.sponsor) }}
+                        {{ form_widget(searchForm.sponsor) }}
+                    </div>
+                    {% endif %}
+                    <div class="form-group">
+                        <button type="submit" class="search-button">Rechercher</button>
+                    </div>
+                {{ form_end(searchForm) }}
+            </div>
+
             <div class="table-container">
                 <table class="data-table">
                     <thead>
                         <tr>
-                            <th>ID</th>
-                            <th>Nom</th>
-                            <th>Type</th>
-                            <th>Date Début</th>
-                            <th>Date Fin</th>
+                            <th>
+                                <a href="{{ path('app_evenement_index', app.request.query.all|merge({'sort': 'idEv', 'direction': (sortField == 'idEv' and sortDirection == 'asc') ? 'desc' : 'asc'})) }}"
+                                   class="{{ sortField == 'idEv' ? 'sort-active' : '' }}">
+                                    ID
+                                    <i class="mdi mdi-arrow-{{ (sortField == 'idEv' and sortDirection == 'desc') ? 'down' : 'up' }} sort-icon {{ sortField == 'idEv' ? (sortDirection == 'desc' ? 'sort-desc' : 'sort-asc') : '' }}"></i>
+                                </a>
+                            </th>
+                            <th>
+                                <a href="{{ path('app_evenement_index', app.request.query.all|merge({'sort': 'nom', 'direction': (sortField == 'nom' and sortDirection == 'asc') ? 'desc' : 'asc'})) }}"
+                                   class="{{ sortField == 'nom' ? 'sort-active' : '' }}">
+                                    Nom
+                                    <i class="mdi mdi-arrow-{{ (sortField == 'nom' and sortDirection == 'desc') ? 'down' : 'up' }} sort-icon {{ sortField == 'nom' ? (sortDirection == 'desc' ? 'sort-desc' : 'sort-asc') : '' }}"></i>
+                                </a>
+                            </th>
+                            <th>
+                                <a href="{{ path('app_evenement_index', app.request.query.all|merge({'sort': 'type', 'direction': (sortField == 'type' and sortDirection == 'asc') ? 'desc' : 'asc'})) }}"
+                                   class="{{ sortField == 'type' ? 'sort-active' : '' }}">
+                                    Type
+                                    <i class="mdi mdi-arrow-{{ (sortField == 'type' and sortDirection == 'desc') ? 'down' : 'up' }} sort-icon {{ sortField == 'type' ? (sortDirection == 'desc' ? 'sort-desc' : 'sort-asc') : '' }}"></i>
+                                </a>
+                            </th>
+                            <th>
+                                <a href="{{ path('app_evenement_index', app.request.query.all|merge({'sort': 'dateDebut', 'direction': (sortField == 'dateDebut' and sortDirection == 'asc') ? 'desc' : 'asc'})) }}"
+                                   class="{{ sortField == 'dateDebut' ? 'sort-active' : '' }}">
+                                    Date Début
+                                    <i class="mdi mdi-arrow-{{ (sortField == 'dateDebut' and sortDirection == 'desc') ? 'down' : 'up' }} sort-icon {{ sortField == 'dateDebut' ? (sortDirection == 'desc' ? 'sort-desc' : 'sort-asc') : '' }}"></i>
+                                </a>
+                            </th>
+                            <th>
+                                <a href="{{ path('app_evenement_index', app.request.query.all|merge({'sort': 'dateFin', 'direction': (sortField == 'dateFin' and sortDirection == 'asc') ? 'desc' : 'asc'})) }}"
+                                   class="{{ sortField == 'dateFin' ? 'sort-active' : '' }}">
+                                    Date Fin
+                                    <i class="mdi mdi-arrow-{{ (sortField == 'dateFin' and sortDirection == 'desc') ? 'down' : 'up' }} sort-icon {{ sortField == 'dateFin' ? (sortDirection == 'desc' ? 'sort-desc' : 'sort-asc') : '' }}"></i>
+                                </a>
+                            </th>
                             <th>Statut</th>
-                            <th>Lieu</th>
-                            <th>Budget</th>
+                            <th>
+                                <a href="{{ path('app_evenement_index', app.request.query.all|merge({'sort': 'lieu', 'direction': (sortField == 'lieu' and sortDirection == 'asc') ? 'desc' : 'asc'})) }}"
+                                   class="{{ sortField == 'lieu' ? 'sort-active' : '' }}">
+                                    Lieu
+                                    <i class="mdi mdi-arrow-{{ (sortField == 'lieu' and sortDirection == 'desc') ? 'down' : 'up' }} sort-icon {{ sortField == 'lieu' ? (sortDirection == 'desc' ? 'sort-desc' : 'sort-asc') : '' }}"></i>
+                                </a>
+                            </th>
+                            <th>
+                                <a href="{{ path('app_evenement_index', app.request.query.all|merge({'sort': 'budget', 'direction': (sortField == 'budget' and sortDirection == 'asc') ? 'desc' : 'asc'})) }}"
+                                   class="{{ sortField == 'budget' ? 'sort-active' : '' }}">
+                                    Budget
+                                    <i class="mdi mdi-arrow-{{ (sortField == 'budget' and sortDirection == 'desc') ? 'down' : 'up' }} sort-icon {{ sortField == 'budget' ? (sortDirection == 'desc' ? 'sort-desc' : 'sort-asc') : '' }}"></i>
+                                </a>
+                            </th>
                             <th>Actions</th>
                         </tr>
                     </thead>
                     <tbody>
                     {% for evenement in evenements %}
                         <tr>
-                          <td>{{ evenement.idEv }}</td>
+                            <td>{{ evenement.idEv }}</td>
                             <td>{{ evenement.nom }}</td>
                             <td>{{ evenement.type }}</td>
                             <td class="date-cell">{{ evenement.dateDebut ? evenement.dateDebut|date('d/m/Y') : '' }}</td>
@@ -494,7 +709,7 @@
                                 <a href="#" class="action-link delete-event" data-event-name="{{ evenement.nom }}" data-delete-url="{{ path('app_evenement_delete', {'id_ev': evenement.idEv}) }}">
                                     <i class="mdi mdi-delete"></i> Supprimer
                                 </a>
-                            </td>
+          </td>
                         </tr>
                     {% else %}
                         <tr>
@@ -519,22 +734,22 @@
                     e.preventDefault();
                     const name = link.dataset.eventName;
                     const deleteUrl = link.dataset.deleteUrl;
-                    
+
                     if (confirm(`Supprimer l'événement "${name}" ? Cette action est irréversible.`)) {
                         window.location.href = deleteUrl;
                     }
                 });
             });
-            
+
             // Sidebar toggle with animation
             const sidebar = document.getElementById('sidebar');
             const mainContent = document.getElementById('mainContent');
             const menuToggle = document.getElementById('menuToggle');
             const sidebarOverlay = document.getElementById('sidebarOverlay');
-            
+
             function toggleSidebar() {
                 const isExpanded = !sidebar.classList.contains('is-collapsed');
-                
+
                 if (isExpanded) {
                     // Collapse sidebar
                     sidebar.classList.add('is-collapsed');
@@ -548,7 +763,7 @@
                     menuToggle.classList.remove('active');
                     document.body.classList.add('sidebar-expanded');
                 }
-                
+
                 // Show overlay on mobile when sidebar is expanded
                 if (window.innerWidth <= 768) {
                     if (!isExpanded) {
@@ -558,7 +773,7 @@
                     }
                 }
             }
-            
+
             // Initialize sidebar state
             function initSidebar() {
                 if (window.innerWidth <= 768) {
@@ -569,7 +784,7 @@
                     mainContent.classList.remove('sidebar-collapsed');
                 }
             }
-            
+
             // Event listeners
             menuToggle.addEventListener('click', toggleSidebar);
             sidebarOverlay.addEventListener('click', () => {
@@ -577,10 +792,36 @@
                     toggleSidebar();
                 }
             });
-            
+
+            // Notification bell animation
+            const notificationBell = document.querySelector('.notification-badge');
+            if (notificationBell) {
+                notificationBell.addEventListener('click', function() {
+                    const icon = this.querySelector('i');
+                    icon.classList.toggle('mdi-bell-outline');
+                    icon.classList.toggle('mdi-bell');
+                    
+                    // Option to mark notifications as read
+                    fetch('{{ path('app_notification') }}', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-Requested-With': 'XMLHttpRequest'
+                        }
+                    }).then(response => {
+                        if (response.ok) {
+                            const badge = this.querySelector('.badge-count');
+                            if (badge) {
+                                badge.remove();
+                            }
+                        }
+                    });
+                });
+            }
+
             // Initialize on page load
             initSidebar();
-            
+
             // Handle resize
             window.addEventListener('resize', () => {
                 initSidebar();

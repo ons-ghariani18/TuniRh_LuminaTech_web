@@ -6,12 +6,15 @@ use App\Entity\Evenement;
 use App\Entity\Sponsor;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Form\Extension\Core\Type\MoneyType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Symfony\Component\Form\Extension\Core\Type\DateType;
-use Symfony\Component\Form\Extension\Core\Type\TextareaType;
-use Symfony\Component\Form\Extension\Core\Type\MoneyType;
+use Symfony\Component\Validator\Constraints\File;
+use MeteoConcept\HCaptchaBundle\Form\HCaptchaType;
 
 class EvenementType extends AbstractType
 {
@@ -19,36 +22,62 @@ class EvenementType extends AbstractType
     {
         $builder
             ->add('nom', TextType::class, [
-                'attr' => ['class' => 'form-control'],
+                'label' => 'Nom de l\'événement',
+                'required' => true,
+                'empty_data' => '', 
+                'attr' => ['placeholder' => 'Entrez le nom de l\'événement']
             ])
             ->add('type', TextType::class, [
-                'attr' => ['class' => 'form-control'],
+                'label' => 'Type d\'événement',
+                'attr' => ['placeholder' => 'Par exemple: Recrutement, Formation, Conférence']
             ])
             ->add('date_debut', DateType::class, [
+                'label' => 'Date de début',
                 'widget' => 'single_text',
-                'attr' => ['class' => 'form-control'],
             ])
             ->add('date_fin', DateType::class, [
+                'label' => 'Date de fin',
                 'widget' => 'single_text',
-                'attr' => ['class' => 'form-control'],
             ])
             ->add('lieu', TextType::class, [
-                'attr' => ['class' => 'form-control'],
+                'label' => 'Lieu',
+                'attr' => ['placeholder' => 'Adresse ou lieu virtuel']
             ])
             ->add('budget', MoneyType::class, [
-                'attr' => ['class' => 'form-control'],
+                'label' => 'Budget',
+                'currency' => 'EUR',
             ])
             ->add('description', TextareaType::class, [
-                'attr' => ['class' => 'form-control'],
+                'label' => 'Description',
+                'attr' => ['rows' => 5, 'placeholder' => 'Description détaillée de l\'événement']
             ])
-            ->add('google_calendar_event_id', TextType::class, [
-                'attr' => ['class' => 'form-control'],
+           
+            ->add('imageFile', FileType::class, [
+                'label' => 'Image (JPEG, PNG)',
+                'mapped' => false,
+                'required' => false,
+                'constraints' => [
+                    new File([
+                        'maxSize' => '2M',
+                        'mimeTypes' => [
+                            'image/jpeg',
+                            'image/png',
+                        ],
+                        'mimeTypesMessage' => 'Veuillez télécharger une image valide (JPEG, PNG)',
+                    ])
+                ],
             ])
             ->add('sponsor', EntityType::class, [
                 'class' => Sponsor::class,
-                'choice_label' => 'nom', // Assurez-vous que 'nom' est une propriété valide de l'entité Sponsor
-                'attr' => ['class' => 'form-control'],
-            ]);
+                'choice_label' => 'nom', // Supposons que votre entité Sponsor a un champ 'nom'
+                'label' => 'Sponsor',
+                'required' => false,
+                'placeholder' => 'Sélectionnez un sponsor (obligatoire)',
+            ])
+
+              
+            
+        ;
     }
 
     public function configureOptions(OptionsResolver $resolver): void

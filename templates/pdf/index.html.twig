@@ -1,0 +1,53 @@
+{# templates/pdf/index.html.twig #}
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Contrat de Sponsor</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 40px;
+            line-height: 1.6;
+        }
+        h1 {
+            text-align: center;
+            text-transform: uppercase;
+            color: #2c3e50;
+        }
+        .contract-info {
+            margin: 30px 0;
+            padding: 10px;
+            background-color: #f4f4f4;
+            border-left: 5px solid #3498db;
+        }
+        .contract-info p {
+            margin: 0;
+            padding: 5px 0;
+        }
+        .content {
+            margin-top: 30px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Contrat de Sponsorship</h1>
+
+    <div class="contract-info">
+        <p><strong>Nom du Sponsor :</strong> {{ sponsor.nom }}</p>
+        <p><strong>Type de Sponsor :</strong> {{ sponsor.type }}</p>
+    </div>
+
+    <div class="content">
+        <p>Par le présent contrat, nous, <strong>{{ sponsor.nom }}</strong>, nous engageons à soutenir l'organisation en tant que sponsor <strong>{{ sponsor.type }}</strong>.</p>
+        <p>Le présent contrat prend effet à la date de signature et est valable pour une durée de 12 mois.</p>
+        <p>Les modalités de contribution, de visibilité et d’engagements mutuels sont détaillées dans les annexes jointes.</p>
+        <br>
+        <p>Fait à [Lieu], le [Date].</p>
+        <br><br>
+        <p>Signature du Sponsor : ____________________________</p>
+        <p>Signature de l'Organisation : ______________________</p>
+    </div>
+</body>
+</html>

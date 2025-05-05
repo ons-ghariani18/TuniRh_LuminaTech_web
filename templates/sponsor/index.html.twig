@@ -293,10 +293,75 @@
             text-decoration: underline;
         }
 
+        .pdf-link {
+            color: #e74c3c;
+            margin-right: 0.5rem;
+        }
+
+        .pdf-link:hover {
+            color: #c0392b;
+        }
+
         .no-records {
             text-align: center;
             color: var(--muted-text);
             padding: 1rem;
+        }
+
+        /* Search form styles */
+        .search-form {
+            background: var(--card-bg);
+            padding: 1.5rem;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            margin-bottom: 2rem;
+        }
+
+        .form-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .form-group {
+            flex: 1;
+            min-width: 200px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: var(--text-color);
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 0.5rem 1rem;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            font-family: 'Nunito', sans-serif;
+        }
+
+        .form-actions {
+            display: flex;
+            justify-content: flex-end;
+            gap: 1rem;
+        }
+
+        .btn-reset {
+            background: #f0f0f0;
+            color: var(--text-color);
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            border: 1px solid var(--border-color);
+            cursor: pointer;
+            font-family: 'Nunito', sans-serif;
+        }
+
+        .btn-reset:hover {
+            background: #e0e0e0;
         }
 
         /* Overlay for mobile */
@@ -316,6 +381,16 @@
         .sidebar-overlay.active {
             opacity: 1;
             visibility: visible;
+        }
+
+        /* PDF Icon Styles */
+        .mdi-file-pdf-box {
+            font-size: 1.5rem;
+            transition: transform 0.2s;
+        }
+
+        .mdi-file-pdf-box:hover {
+            transform: scale(1.1);
         }
 
         @media (max-width: 768px) {
@@ -339,6 +414,31 @@
                 width: 100%;
                 max-width: 200px;
             }
+
+            .data-table th a {
+                color: var(--text-color);
+                text-decoration: none;
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+            }
+
+            .data-table th a:hover {
+                color: var(--primary-color);
+            }
+
+            .sort-active {
+                color: var(--primary-color) !important;
+            }
+
+            .sort-icon {
+                margin-left: 0.5rem;
+                transition: transform 0.2s;
+            }
+
+            .sort-desc .sort-icon {
+                transform: rotate(180deg);
+            }
         }
     </style>
 {% endblock %}
@@ -360,10 +460,12 @@
             <a href="#" class="menu-item">
                 <i class="mdi mdi-account-group"></i> Profils Utilisateurs
             </a>
-            <a href="{{ path('app_offresemploi_index') }}" class="menu-item">
+            <a href="#" class="menu-item">
                 <i class="mdi mdi-briefcase"></i> Offres d'emploi
             </a>
-            
+            <a href="#" class="menu-item">
+                <i class="mdi mdi-file-document"></i> Candidatures
+            </a>
             <a href="#" class="menu-item">
                 <i class="mdi mdi-message-alert"></i> Réclamations
             </a>
@@ -398,6 +500,11 @@
             </div>
             <div class="navbar-menu">
                 <i class="mdi mdi-bell-outline text-xl"></i>
+                   <!-- Icône Statistiques -->
+        <a href="{{ path('app_statistiques_sponsor') }}" title="Statistiques Sponsors" class="text-xl hover:text-primary-color transition-colors">
+            <i class="mdi mdi-chart-bar"></i>
+        </a>
+        
                 <div class="flex items-center gap-2">
                     <img src="https://ui-avatars.com/api/?name=RH+Admin&background=091E3E&color=fff" class="rounded-full" width="36" alt="Admin Avatar">
                     <span>Admin RH</span>
@@ -413,43 +520,104 @@
                 </a>
             </div>
 
+            {# Formulaire de recherche #}
+            <div class="search-form">
+                {{ form_start(searchForm, {'attr': {'class': 'search-form'}}) }}
+                    <div class="form-row">
+                        <div class="form-group">
+                            {{ form_label(searchForm.nom) }}
+                            {{ form_widget(searchForm.nom, {'attr': {'class': 'form-control'}}) }}
+                        </div>
+                        <div class="form-group">
+                            {{ form_label(searchForm.type) }}
+                            {{ form_widget(searchForm.type, {'attr': {'class': 'form-control'}}) }}
+                        </div>
+                    </div>
+                    <div class="form-actions">
+                        <button type="submit" class="btn-primary">
+                            <i class="mdi mdi-magnify"></i> Rechercher
+                        </button>
+                    </div>
+                {{ form_end(searchForm) }}
+            </div>
+
             <div class="table-container">
                 <table class="data-table">
                     <thead>
                         <tr>
-                            <th>ID</th>
-                            <th>Nom</th>
-                            <th>Type</th>
+                            <th>
+                                <a href="{{ path('app_sponsor_index', app.request.query.all|merge({'sort': 'id_sp', 'direction': (sortField == 'id_sp' and sortDirection == 'asc') ? 'desc' : 'asc'})) }}"
+                                   class="{{ sortField == 'id_sp' ? 'sort-active' : '' }}">
+                                    ID
+                                    <i class="mdi mdi-arrow-{{ (sortField == 'id_sp' and sortDirection == 'desc') ? 'down' : 'up' }} sort-icon {{ sortField == 'id_sp' ? (sortDirection == 'desc' ? 'sort-desc' : 'sort-asc') : '' }}"></i>
+                                </a>
+                            </th>
+                            <th>
+                                <a href="{{ path('app_sponsor_index', app.request.query.all|merge({'sort': 'nom', 'direction': (sortField == 'nom' and sortDirection == 'asc') ? 'desc' : 'asc'})) }}"
+                                   class="{{ sortField == 'nom' ? 'sort-active' : '' }}">
+                                    Nom
+                                    <i class="mdi mdi-arrow-{{ (sortField == 'nom' and sortDirection == 'desc') ? 'down' : 'up' }} sort-icon {{ sortField == 'nom' ? (sortDirection == 'desc' ? 'sort-desc' : 'sort-asc') : '' }}"></i>
+                                </a>
+                            </th>
+                            <th>
+                                <a href="{{ path('app_sponsor_index', app.request.query.all|merge({'sort': 'type', 'direction': (sortField == 'type' and sortDirection == 'asc') ? 'desc' : 'asc'})) }}"
+                                   class="{{ sortField == 'type' ? 'sort-active' : '' }}">
+                                    Type
+                                    <i class="mdi mdi-arrow-{{ (sortField == 'type' and sortDirection == 'desc') ? 'down' : 'up' }} sort-icon {{ sortField == 'type' ? (sortDirection == 'desc' ? 'sort-desc' : 'sort-asc') : '' }}"></i>
+                                </a>
+                            </th>
+                            <th>
+                                <a href="{{ path('app_sponsor_index', app.request.query.all|merge({'sort': 'email', 'direction': (sortField == 'email' and sortDirection == 'asc') ? 'desc' : 'asc'})) }}"
+                                   class="{{ sortField == 'email' ? 'sort-active' : '' }}">
+                                    Email
+                                    <i class="mdi mdi-arrow-{{ (sortField == 'email' and sortDirection == 'desc') ? 'down' : 'up' }} sort-icon {{ sortField == 'email' ? (sortDirection == 'desc' ? 'sort-desc' : 'sort-asc') : '' }}"></i>
+                                </a>
+                            </th>
                             <th>Téléphone</th>
-                            <th>Email</th>
+                            <th>Contrat</th>
                             <th>Actions</th>
                         </tr>
                     </thead>
+
                     <tbody>
-                    {% for sponsor in sponsors %}
-                        <tr>
-                            <td>{{ sponsor.idSp }}</td>
-                            <td>{{ sponsor.nom }}</td>
-                            <td>{{ sponsor.type }}</td>
-                            <td>{{ sponsor.telephone }}</td>
-                            <td>{{ sponsor.email }}</td>
-                            <td>
-                                <a href="{{ path('app_sponsor_show', {'id_sp': sponsor.idSp}) }}" class="action-link">
-                                    <i class="mdi mdi-eye"></i> Voir
-                                </a>
-                                <a href="{{ path('app_sponsor_edit', {'id_sp': sponsor.idSp}) }}" class="action-link">
-                                    <i class="mdi mdi-pencil"></i> Modifier
-                                </a>
-                                <a href="#" class="action-link delete-sponsor" data-sponsor-name="{{ sponsor.nom }}" data-delete-url="{{ path('app_sponsor_delete', {'id_sp': sponsor.idSp}) }}">
-                                    <i class="mdi mdi-delete"></i> Supprimer
-                                </a>
-                            </td>
-                        </tr>
-                    {% else %}
-                        <tr>
-                            <td colspan="6" class="no-records">Aucun sponsor trouvé</td>
-                        </tr>
-                    {% endfor %}
+                        {% for sponsor in sponsors %}
+                            <tr>
+                                <td>{{ sponsor.idSp }}</td>
+                                <td>{{ sponsor.nom }}</td>
+                                <td>{{ sponsor.type }}</td>
+                                <td>{{ sponsor.email }}</td>
+                                <td>{{ sponsor.telephone }}</td>
+                                <td>
+                                    <a href="{{ path('generate_pdf', {'id': sponsor.idSp}) }}" 
+                                       class="pdf-link" 
+                                       title="Générer le contrat PDF">
+                                        <i class="mdi mdi-file-pdf-box"></i>
+                                    </a>
+
+                                    <a href="{{ path('app_sponsor_excel_export') }}" class="inline-block transition-transform duration-200 hover:scale-110" title="Exporter en Excel">
+    <i class="mdi mdi-file-excel text-2xl text-green-600"></i>
+</a>   
+                                </td>
+                                <td>
+                                    <a href="{{ path('app_sponsor_show', {'id_sp': sponsor.idSp}) }}" class="action-link">
+                                        <i class="mdi mdi-eye"></i> Voir
+                                    </a>
+                                    <a href="{{ path('app_sponsor_edit', {'id_sp': sponsor.idSp}) }}" class="action-link">
+                                        <i class="mdi mdi-pencil"></i> Modifier
+                                    </a>
+                                    <a href="{{ path('app_meet_index') }}" class="action-link" title="Organiser une réunion Google Meet">
+        <i class="mdi mdi-video"></i> Meet
+    </a>
+                                    <a href="#" class="action-link delete-sponsor" data-sponsor-name="{{ sponsor.nom }}" data-delete-url="{{ path('app_sponsor_delete', {'id_sp': sponsor.idSp}) }}">
+                                        <i class="mdi mdi-delete"></i> Supprimer
+                                    </a>
+                                </td>
+                            </tr>
+                        {% else %}
+                            <tr>
+                                <td colspan="7" class="no-records">Aucun sponsor trouvé</td>
+                            </tr>
+                        {% endfor %}
                     </tbody>
                 </table>
             </div>
