@@ -1,69 +1,40 @@
 parameters:
-    # Paramètres de vos collègues
+    cv_directory: '%kernel.project_dir%/public/uploads/cv'
+    huggingface.api_key: '%env(HUGGINGFACE_API_KEY)%'
+    huggingface.model: '%env(HUGGINGFACE_MODEL)%'
+    app.bad_words: ['fuck', 'idiot', 'shit'] 
+    avatars_directory: '%kernel.project_dir%/public/uploads/avatars'
     evenements_images_directory: '%kernel.project_dir%/public/uploads/evenements'
     weather_api_key: '49cbb2f803b8ac2d87727c5ab2039b71'
     google_credentials_file: '%kernel.project_dir%/config/google/credentials.json'
     credentials.json: '%kernel.project_dir%/config/google/credentials.json'
     sponsor_logo_directory: '%kernel.project_dir%/public/uploads/sponsors'
-    
-    # Vos paramètres
-    cv_directory: '%kernel.project_dir%/public/uploads/cv'
-    huggingface.api_key: '%env(HUGGINGFACE_API_KEY)%'
-    huggingface.model: '%env(HUGGINGFACE_MODEL)%'
-    app.bad_words: ['fuck', 'idiot', 'shit']
-    avatars_directory: '%kernel.project_dir%/public/uploads/avatars'
 
 services:
     _defaults:
         autowire: true
         autoconfigure: true
+
         bind:
-            # Bindings de vos collègues
             $evenementsImagesDirectory: '%evenements_images_directory%'
             $apiKey: '%weather_api_key%'
             $googleClientId: '%env(GOOGLE_CLIENT_ID)%'
             $googleClientSecret: '%env(GOOGLE_CLIENT_SECRET)%'
             $googleRedirectUri: '%env(GOOGLE_REDIRECT_URI)%'
             $credentialsFile: '%google_credentials_file%'
+            # Add these bindings for GoogleCalendarService
             $clientId: '%env(GOOGLE_CALENDAR_CLIENT_ID)%'
             $clientSecret: '%env(GOOGLE_CALENDAR_CLIENT_SECRET)%'
             $redirectUri: '%env(GOOGLE_CALENDAR_REDIRECT_URI)%'
-            
-            # Vos bindings
-            $cvDirectory: '%cv_directory%'
-            $avatarsDirectory: '%avatars_directory%'
-            $badWords: '%app.bad_words%'
 
-    # Services de vos collègues
-    App\Service\EventNotificationService:
-        arguments:
-            $notifier: '@notifier'
-            $evenementRepository: '@App\Repository\EvenementRepository'
-            $adminEmail: '%env(string:EMAIL_ADMIN)%'
-            $senderEmail: '%env(string:EMAIL_SENDER)%'
+    App\:
+        resource: '../src/'
+        exclude:
+            - '../src/DependencyInjection/'
+            - '../src/Entity/'
+            - '../src/Kernel.php'
 
-    Symfony\Component\HttpFoundation\Session\SessionInterface: '@session.storage.factory.native'
 
-    App\Service\GoogleAuthService:
-        arguments:
-            $requestStack: '@request_stack'
-            $googleClientId: '%env(GOOGLE_CLIENT_ID)%'
-            $googleClientSecret: '%env(GOOGLE_CLIENT_SECRET)%'
-            $googleRedirectUri: '%env(GOOGLE_REDIRECT_URI)%'
-
-    App\Service\WeatherService:
-        arguments:
-            $client: '@http_client'
-            
-    App\Service\SponsorQrCodeService:
-        arguments:
-            $websiteBaseUrl: '%env(APP_URL)%'
-
-    App\Security\LoginSuccessHandler:
-        arguments:
-            $urlGenerator: '@router'
-
-    # Vos services
     App\Service\HuggingFaceService:
         arguments:
             $httpClient: '@Symfony\Contracts\HttpClient\HttpClientInterface'
@@ -87,12 +58,33 @@ services:
         arguments:
             $badWords: '%app.bad_words%'
 
-    Smalot\PdfParser\Parser: ~
 
-    # Configuration globale
-    App\:
-        resource: '../src/'
-        exclude:
-            - '../src/DependencyInjection/'
-            - '../src/Entity/'
-            - '../src/Kernel.php'
+        
+
+    # Correctly configure the session interface
+    Symfony\Component\HttpFoundation\Session\SessionInterface: '@session.storage.factory.native'
+
+    # Configuration spécifique pour GoogleAuthService
+    App\Service\GoogleAuthService:
+        arguments:
+            $requestStack: '@request_stack'
+            $googleClientId: '%env(GOOGLE_CLIENT_ID)%'
+            $googleClientSecret: '%env(GOOGLE_CLIENT_SECRET)%'
+            $googleRedirectUri: '%env(GOOGLE_REDIRECT_URI)%'
+
+    App\Service\WeatherService:
+        arguments:
+            $client: '@http_client'
+
+    App\Security\LoginSuccessHandler:
+        arguments:
+            $urlGenerator: '@router'
+
+
+
+
+            
+   
+
+
+    Smalot\PdfParser\Parser: ~
