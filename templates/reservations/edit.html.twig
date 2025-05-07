@@ -1,0 +1,19 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit Reservations{% endblock %}
+{% block stylesheets %}
+    {{ parent() }}
+{% endblock %}
+
+{% block body %}
+    <h1>Edit Reservations</h1>
+
+    {{ include('reservations/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('app_reservations_index') }}">back to list</a>
+
+    {{ include('reservations/_delete_form.html.twig') }}
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+{% endblock %}

@@ -1,0 +1,160 @@
+ <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Certificate of Completion - {{ formation.title }}</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            padding: 40px;
+            background-color: #f8f9fa;
+            color: #333;
+        }
+        .certificate {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: #fff;
+            border: 20px solid #4e73df;
+            padding: 50px;
+            text-align: center;
+            position: relative;
+            box-shadow: 0 0 25px rgba(0,0,0,0.1);
+        }
+        .header {
+            margin-bottom: 50px;
+        }
+        .title {
+            font-size: 36px;
+            font-weight: bold;
+            color: #4e73df;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+        }
+        .subtitle {
+            font-size: 24px;
+            color: #6c757d;
+            margin-bottom: 5px;
+        }
+        .name {
+            font-size: 32px;
+            font-weight: bold;
+            color: #343a40;
+            margin: 30px 0;
+            border-bottom: 2px solid #4e73df;
+            padding-bottom: 5px;
+            display: inline-block;
+        }
+        .description {
+            font-size: 18px;
+            line-height: 1.6;
+            margin-bottom: 40px;
+        }
+        .date {
+            font-size: 16px;
+            margin-top: 50px;
+            font-style: italic;
+        }
+        .seal {
+            position: absolute;
+            bottom: 40px;
+            right: 60px;
+            width: 120px;
+            height: 120px;
+            border: 3px solid #4e73df;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: #4e73df;
+            transform: rotate(-15deg);
+            font-size: 14px;
+        }
+        .signature {
+            margin-top: 30px;
+            border-top: 1px solid #dee2e6;
+            padding-top: 20px;
+            width: 200px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .signature-text {
+            font-style: italic;
+            margin-top: 5px;
+        }
+        @media print {
+            body {
+                background-color: #fff;
+                padding: 0;
+            }
+            .certificate {
+                box-shadow: none;
+                border-width: 15px;
+            }
+            .actions {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="certificate">
+        <div class="header">
+            <img
+                    src="{{ absolute_url(asset('img/OIP.jpg')) }}"
+
+                    style="max-height:150px;">
+            <div class="title">Certificate of Completion</div>
+            <div class="subtitle">This certificate is proudly presented to</div>
+        </div>
+        
+        <div class="name">{{ userName }}</div>
+        
+        <div class="description">
+            For successfully completing the training course<br>
+            <strong>{{ formation.title }}</strong><br>
+            And demonstrating proficiency in the subject matter through assessment.
+        </div>
+        
+        <div class="signature">
+            <div class="signature-text">Authorized Signature</div>
+
+
+
+
+
+
+
+        </div>
+
+        </div>
+        
+        <div class="date">
+            Issued on {{ date|date('F d, Y') }}
+        </div>
+        
+        <div class="seal">
+            <img
+                    src="{{ absolute_url(asset('img/signature.png')) }}"
+                    alt="Signature"
+                    style="max-height:150px;">
+            OFFICIAL<br>CERTIFICATION
+
+
+
+
+
+        </div>
+    </div>
+    
+{#    <div class="actions" style="text-align: center; margin-top: 20px;">#}
+{#        <button onclick="window.print()" style="padding: 10px 20px; background-color: #4e73df; color: white; border: none; border-radius: 5px; cursor: pointer;">#}
+{#            Print Certificate#}
+{#        </button>#}
+{#        <a href="{{ path('app_formation_index') }}" style="display: inline-block; margin-left: 10px; padding: 10px 20px; background-color: #6c757d; color: white; text-decoration: none; border-radius: 5px;">#}
+{#            Back to Formations#}
+{#        </a>#}
+{#    </div>#}
+</body>
+</html> 
